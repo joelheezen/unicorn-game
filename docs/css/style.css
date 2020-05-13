@@ -2,3 +2,15 @@ game *{
     display : block;
 }
 
+furniture {
+    background-image: url(../assets/chair.png);
+    width: 150px; height: 150px;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
+background {
+    background-image: url(../assets/clock.png);
+    background-size: 100% 100%;
+    width: 100vw; height: 100vh;
+}
