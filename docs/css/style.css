@@ -4,7 +4,8 @@ game *{
 
 furniture {
     background-image: url(../assets/chair.png);
-    width: 150px; height: 150px;
+    width: 100px;
+    height: 100px;
     background-repeat: no-repeat;
     background-size: 100% 100%;
 }

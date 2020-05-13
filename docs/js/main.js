@@ -5,7 +5,6 @@ var Furniture = (function () {
         var furniture = document.createElement("furniture");
         var game = document.getElementsByTagName("game")[0];
         game.appendChild(furniture);
-        furniture.style.transform = "translate(50vw, 50vh)";
     }
     return Furniture;
 }());
