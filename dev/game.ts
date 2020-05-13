@@ -1,6 +1,6 @@
 class Game {
     constructor() {
-        console.log("testing games")
+        console.log("Class Game Loaded")
     }
 }
 
