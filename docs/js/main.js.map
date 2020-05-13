@@ -1,1 +1,1 @@
-{"version":3,"file":"main.js","sourceRoot":"","sources":["../../dev/game.ts","../../dev/renamethis.ts"],"names":[],"mappings":";AAAA;IACI;QACI,OAAO,CAAC,GAAG,CAAC,eAAe,CAAC,CAAA;IAChC,CAAC;IACL,WAAC;AAAD,CAAC,AAJD,IAIC;AAED,MAAM,CAAC,gBAAgB,CAAC,MAAM,EAAE,cAAM,OAAA,IAAI,IAAI,EAAE,EAAV,CAAU,CAAC,CAAA"}
+{"version":3,"file":"main.js","sourceRoot":"","sources":["../../dev/game.ts"],"names":[],"mappings":";AAAA;IACI;QACI,OAAO,CAAC,GAAG,CAAC,eAAe,CAAC,CAAA;IAChC,CAAC;IACL,WAAC;AAAD,CAAC,AAJD,IAIC;AAED,MAAM,CAAC,gBAAgB,CAAC,MAAM,EAAE,cAAM,OAAA,IAAI,IAAI,EAAE,EAAV,CAAU,CAAC,CAAA"}
