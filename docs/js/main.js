@@ -12,6 +12,9 @@ window.addEventListener("load", function () { return new Furniture(); });
 var Game = (function () {
     function Game() {
         console.log("Class Game Loaded");
+        var background = document.createElement("background");
+        var game = document.getElementsByTagName("game")[0];
+        game.appendChild(background);
     }
     return Game;
 }());
