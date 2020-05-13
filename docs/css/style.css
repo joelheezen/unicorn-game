@@ -2,3 +2,10 @@ game *{
     display : block;
 }
 
+furniture {
+    background-image: url(../assets/chair.png);
+    width: 100px;
+    height: 100px;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
