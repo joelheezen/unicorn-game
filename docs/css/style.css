@@ -3,11 +3,20 @@ game *{
 }
 
 furniture {
-    background-image: url(../assets/chair.png);
     width: 100px;
     height: 100px;
     background-repeat: no-repeat;
     background-size: 100% 100%;
+}
+
+pickup {
+    width: 50px;
+    height: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+
 }
 
 background {
