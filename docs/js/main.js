@@ -33,7 +33,6 @@ var unicornPlayer = (function () {
         var posX = 0;
         var posY = 0;
         var maxX = game.getElementsByTagName("background")[0].clientWidth;
-        var maxY = game.getElementsByTagName("background")[0].clientHeight;
         window.addEventListener('keydown', function (e) {
             switch (e.key) {
                 case 'ArrowLeft':

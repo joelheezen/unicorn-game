@@ -8,7 +8,7 @@ class unicornPlayer{
         let posY = 0
         //krijg een adaptive client width.
         let maxX = game.getElementsByTagName("background")[0].clientWidth
-        let maxY = game.getElementsByTagName("background")[0].clientHeight
+        //let maxY = game.getElementsByTagName("background")[0].clientHeight
         window.addEventListener('keydown', (e)=>{
             switch(e.key){
                 case 'ArrowLeft':
