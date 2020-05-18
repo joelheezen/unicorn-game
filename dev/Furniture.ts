@@ -1,8 +1,8 @@
 class Furniture{
 
     furniture : HTMLElement
-    background = "url(../docs/assets/chair.png)";
-    contains = "url(../docs/assets/unicorn_jetpack.png)";
+    background = "url(assets/chair.png)";
+    contains = "url(assets/unicorn_jetpack.png)";
 
     constructor() {
         var contains = this.contains

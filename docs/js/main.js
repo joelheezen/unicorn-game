@@ -1,8 +1,8 @@
 "use strict";
 var Furniture = (function () {
     function Furniture() {
-        this.background = "url(../docs/assets/chair.png)";
-        this.contains = "url(../docs/assets/unicorn_jetpack.png)";
+        this.background = "url(assets/chair.png)";
+        this.contains = "url(assets/unicorn_jetpack.png)";
         var contains = this.contains;
         console.log("Class Furniture Loaded");
         this.furniture = document.createElement("furniture");
