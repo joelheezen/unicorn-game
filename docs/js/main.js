@@ -4,6 +4,10 @@ var Furniture = (function () {
         console.log("Class Furniture Loaded");
         var furniture = document.createElement("furniture");
         var game = document.getElementsByTagName("game")[0];
+        furniture.classList.add('shake');
+        furniture.addEventListener('click', function () {
+            furniture.classList.remove('shake');
+        });
         game.appendChild(furniture);
     }
     return Furniture;
