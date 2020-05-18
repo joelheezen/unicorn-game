@@ -5,3 +5,7 @@ window.addEventListener("load", () => {
     let furniture = document.createElement("furniture")
     //furniture.style.filter = ""
 })
+
+function itemActive(){
+    this.style.transform
+}
