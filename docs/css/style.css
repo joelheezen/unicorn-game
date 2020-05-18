@@ -16,3 +16,20 @@ background {
     position: absolute; top: 0; left: 0;
     z-index: -1;
 }
+
+character {
+    background-image: url(../assets/unicorn_akimbo.png);
+    width: 100px; height: 100px;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    position: absolute;
+    z-index: 1;
+}
+
+moveSpace{
+    background-image: url(../assets/clock.png);
+    width: 100px; height: 100px;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    position: absolute;
+}

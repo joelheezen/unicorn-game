@@ -1,5 +1,58 @@
-hihihihihihihihihih
-ahsfiuasfiuasf
+Tactical unicorns - Rulebook
 
-Ik ben een klein konijntje gang gang
-dsaifhgiuhsdfg
+Story mode - hier leggen we het verhaal uit. Er is geen grote uitdaging:
+    1.	De game is in het Engels.
+    2.	Als je op sommige objecten klikt op het scherm valt er een item uit. Dit kunnen ook nieuwe eenhoorns zijn
+    3.	Andere items zijn wapens om de class van een unicorn te veranderen of medkits om ze te healen.
+    4.	Oneindig klikken.
+    5.	Als je op een tekst klikt dan opent de tekst full screen.
+    6.	De raadsels zijn niet verplicht voor vooruitgang, maar helpen jouw in het volgende gevecht.
+    7.	Je kan door op een pijltje te klikken naar het volgende scherm, Als het meubel die in de weg staat verslagen is.
+
+Battle mode - Hier vecht je tegen meubels:
+    1.	Het is turn based, jij kan lopen en schieten op jouw turn. 
+    2.	De meubels schieten van een vaste locatie.
+    3.	Meubels kunnen eventueel heen en weer bewegen en hun locatie daarmee aanpassen, denk aan een fiets of een step.
+    4.	Als je meer eenhoorns vind dan worden die automatisch op het veld gezet.
+    5.	Eenhoorns healen voor 50% aan het begin van elke battle.
+    6.	Als een eenhoorn dood gaat krijg je een item dat “dead unicorn” heet. Als je een medkit vind kan je de eenhoorn tot leven wekken ( want zo werkt dat )
+    .	4 verschillende eenhoorns die allemaal iets anders doen. (AR,Sniper,Grandier en Doctor).
+    8.	AR - standaard
+    9.	Sniper - double range
+    10.	 Grenadier - AOE damage / normal range
+    11.	 Doctor - heals / normal range
+
+
+
+must haves{
+    1.	De game is in het Engels.
+    2.	Als je op sommige objecten klikt op het scherm valt er een item uit.
+    4.	Oneindig klikken.
+    6.	De raadsels zijn niet verplicht voor vooruitgang, maar helpen jouw in het volgende gevecht.
+    1.	Het is turn based
+    2.	De meubels schieten van een vaste locatie.
+    8.	AR - standaard
+}
+
+should haves{
+    1.	Het is turn based, jij kan lopen en schieten op jouw turn. 
+    7.	4 verschillende eenhoorns die allemaal iets anders doen. (AR,Sniper,Grandier en Doctor).
+    9.	Sniper - double range
+    10.	 Grenadier - AOE damage / normal range
+    11.	 Doctor - heals / normal range
+    3.	Meubels kunnen eventueel heen en weer bewegen en hun locatie daarmee aanpassen, denk aan een fiets of een step.
+}
+
+could haves{
+    2.	Als je op sommige objecten klikt op het scherm valt er een item uit. Dit kunnen ook nieuwe eenhoorns zijn
+    5.	Eenhoorns healen voor 50% aan het begin van elke battle.
+    6.	Als een eenhoorn dood gaat krijg je een item dat “dead unicorn” heet. Als je een medkit vind kan je de eenhoorn tot leven wekken ( want zo werkt dat )
+    4.	Als je meer eenhoorns vind dan worden die automatisch op het veld gezet.
+    7.	Je kan door op een pijltje te klikken naar het volgende scherm, Als het meubel die in de weg staat verslagen is.
+    5.	Als je op een tekst klikt dan opent de tekst full screen.
+    3.	Andere items zijn wapens om de class van een unicorn te veranderen of medkits om ze te healen.
+}
+
+wont haves{
+    AAA graphics
+}
