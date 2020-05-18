@@ -22,4 +22,7 @@ var Game = (function () {
 window.addEventListener("load", function () { return new Game(); });
 window.addEventListener("load", function () {
 });
+function itemActive() {
+    this.style.transform;
+}
 //# sourceMappingURL=main.js.map
