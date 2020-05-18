@@ -3,11 +3,20 @@ game *{
 }
 
 furniture {
-    background-image: url(../assets/chair.png);
     width: 100px;
     height: 100px;
     background-repeat: no-repeat;
     background-size: 100% 100%;
+}
+
+pickup {
+    width: 50px;
+    height: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+
 }
 
 background {
@@ -15,6 +24,23 @@ background {
     width: 100vw; height: 100vh;
     position: absolute; top: 0; left: 0;
     z-index: -1;
+}
+
+character {
+    background-image: url(../assets/unicorn_akimbo.png);
+    width: 100px; height: 100px;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    position: absolute;
+    z-index: 1;
+}
+
+moveSpace{
+    background-image: url(../assets/clock.png);
+    width: 100px; height: 100px;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    position: absolute;
 }
 unicornPlayer {
     background-image: url(../assets/unicorn_jetpack.png);

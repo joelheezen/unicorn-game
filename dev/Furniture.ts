@@ -1,15 +1,28 @@
 class Furniture{
+
+    furniture : HTMLElement
+    background = "url(../docs/assets/chair.png)";
+    contains = "url(../docs/assets/unicorn_jetpack.png)";
+
     constructor() {
+        var contains = this.contains
+
         console.log("Class Furniture Loaded")
-        let furniture = document.createElement("furniture")
+        this.furniture = document.createElement("furniture")
         let game = document.getElementsByTagName("game")[0]
 
-        furniture.classList.add('shake')
+        this.furniture.style.backgroundImage = this.background
+        this.furniture.classList.add('shake')
 
-        furniture.addEventListener('click',function(){
-            furniture.classList.remove('shake')
+        this.furniture.addEventListener('click',function(){
+            this.classList.remove('shake')
+            let pickup = document.createElement("pickup")
+            pickup.style.backgroundImage = contains;
+            this.appendChild(pickup)
+            
+            this.outerHTML = this.outerHTML;
         })
-        game.appendChild(furniture)
+        game.appendChild(this.furniture)
     }
 }
 

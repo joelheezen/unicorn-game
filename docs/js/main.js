@@ -1,14 +1,22 @@
 "use strict";
 var Furniture = (function () {
     function Furniture() {
+        this.background = "url(../docs/assets/chair.png)";
+        this.contains = "url(../docs/assets/unicorn_jetpack.png)";
+        var contains = this.contains;
         console.log("Class Furniture Loaded");
-        var furniture = document.createElement("furniture");
+        this.furniture = document.createElement("furniture");
         var game = document.getElementsByTagName("game")[0];
-        furniture.classList.add('shake');
-        furniture.addEventListener('click', function () {
-            furniture.classList.remove('shake');
+        this.furniture.style.backgroundImage = this.background;
+        this.furniture.classList.add('shake');
+        this.furniture.addEventListener('click', function () {
+            this.classList.remove('shake');
+            var pickup = document.createElement("pickup");
+            pickup.style.backgroundImage = contains;
+            this.appendChild(pickup);
+            this.outerHTML = this.outerHTML;
         });
-        game.appendChild(furniture);
+        game.appendChild(this.furniture);
     }
     return Furniture;
 }());
@@ -18,8 +26,23 @@ var Game = (function () {
         console.log("Class Game Loaded");
         var background = document.createElement("background");
         var game = document.getElementsByTagName("game")[0];
-        background.style.backgroundImage = "url(../docs/assets/2.png)";
+        background.style.backgroundImage = "url(assets/3.png)";
         game.appendChild(background);
+        var xPosChar = 50;
+        var yPosChar = 50;
+        var character = document.createElement("character");
+        game.appendChild(character);
+        character.style.transform = "translate(" + xPosChar + "px, " + yPosChar + "px)";
+        var xPosClock = 500;
+        var yPosClock = 500;
+        var moveSpace = document.createElement("moveSpace");
+        game.appendChild(moveSpace);
+        moveSpace.style.transform = "translate(" + xPosClock + "px, " + yPosClock + "px)";
+        moveSpace.addEventListener("click", function () {
+            xPosChar = xPosClock;
+            yPosChar = yPosClock;
+            character.style.transform = "translate(" + xPosChar + "px, " + yPosChar + "px)";
+        });
     }
     return Game;
 }());
