@@ -26,6 +26,33 @@ background {
     z-index: -1;
 }
 
+character {
+    background-image: url(../assets/unicorn_akimbo.png);
+    width: 100px; height: 100px;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    position: absolute;
+    z-index: 1;
+}
+
+moveSpace{
+    background-image: url(../assets/clock.png);
+    width: 100px; height: 100px;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    position: absolute;
+}
+unicornPlayer {
+    background-image: url(../assets/unicorn_jetpack.png);
+    width: 250px;
+    height: 250px;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    bottom: 0;
+    position:absolute
+}
+
+
 .shake:hover {  
     animation: shake 0.5s;
     animation-iteration-count: infinite;
