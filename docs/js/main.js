@@ -24,9 +24,29 @@ var Game = (function () {
     return Game;
 }());
 window.addEventListener("load", function () { return new Game(); });
-window.addEventListener("load", function () {
-});
-function itemActive() {
-    this.style.transform;
-}
+var unicornPlayer = (function () {
+    function unicornPlayer() {
+        console.log("Class unicornPlayer Loaded");
+        var unicornPlayer = document.createElement("unicornPlayer");
+        var game = document.getElementsByTagName("game")[0];
+        game.appendChild(unicornPlayer);
+        var posX = 0;
+        window.addEventListener('keydown', function (e) {
+            switch (e.key) {
+                case 'ArrowLeft':
+                    posX = posX - 20;
+                    unicornPlayer.style.transform = "translateX(" + String(posX) + "px)";
+                    console.log(posX);
+                    break;
+                case 'ArrowRight':
+                    posX = posX + 20;
+                    unicornPlayer.style.transform = "translateX(" + String(posX) + "px)";
+                    console.log(posX);
+                    break;
+            }
+        });
+    }
+    return unicornPlayer;
+}());
+window.addEventListener("load", function () { return new unicornPlayer(); });
 //# sourceMappingURL=main.js.map

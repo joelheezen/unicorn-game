@@ -16,6 +16,16 @@ background {
     position: absolute; top: 0; left: 0;
     z-index: -1;
 }
+unicornPlayer {
+    background-image: url(../assets/unicorn_jetpack.png);
+    width: 250px;
+    height: 250px;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    bottom: 0;
+    position:absolute
+}
+
 
 .shake:hover {  
     animation: shake 0.5s;
