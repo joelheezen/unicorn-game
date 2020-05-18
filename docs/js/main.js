@@ -18,7 +18,7 @@ var Game = (function () {
         console.log("Class Game Loaded");
         var background = document.createElement("background");
         var game = document.getElementsByTagName("game")[0];
-        background.style.backgroundImage = "url(../docs/assets/3.png)";
+        background.style.backgroundImage = "url(assets/3.png)";
         game.appendChild(background);
         var xPosChar = 50;
         var yPosChar = 50;
