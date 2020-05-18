@@ -22,7 +22,7 @@ unicornPlayer {
     height: 250px;
     background-repeat: no-repeat;
     background-size: 100% 100%;
-    bottom: 0;
+    bottom :0;
     position:absolute
 }
 
