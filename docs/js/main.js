@@ -14,13 +14,12 @@ var Game = (function () {
         console.log("Class Game Loaded");
         var background = document.createElement("background");
         var game = document.getElementsByTagName("game")[0];
+        background.style.backgroundImage = "url(../docs/assets/2.png)";
         game.appendChild(background);
     }
     return Game;
 }());
 window.addEventListener("load", function () { return new Game(); });
 window.addEventListener("load", function () {
-    var game = document.getElementsByTagName("game")[0];
-    var furniture = document.createElement("furniture");
 });
 //# sourceMappingURL=main.js.map
