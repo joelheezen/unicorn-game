@@ -44,6 +44,17 @@ grayout{
     position: absolute;
 }
 
+itemMessage{
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    text-align: center;
+    top:70vh;
+    color:gold;
+    font-size:30px;
+    z-index:101;
+}
+
 background {
     background-size: 100% 100%;
     width: 100vw; height: 100vh;
@@ -102,6 +113,6 @@ unicornPlayer {
   @keyframes pickuppopup {
     0%{}
     25%{ top:70px; }
-    50%{ transform: translate(50vw,40vh)}
-    100%{ transform: translate(50vw,40vh) scale(4)}
+    50%{ transform: translate(calc(50vw - 25px),40vh)}
+    100%{ transform: translate(calc(50vw - 25px),40vh) scale(4)}
   }

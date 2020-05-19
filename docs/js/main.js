@@ -1,9 +1,9 @@
 "use strict";
 var Furniture = (function () {
-    function Furniture(furnx, furny, contains, background) {
-        this.makeFurniture(furnx, furny, contains, background);
+    function Furniture(furnx, furny, contains, containsId, background) {
+        this.makeFurniture(furnx, furny, contains, containsId, background);
     }
-    Furniture.prototype.makeFurniture = function (furnx, furny, contains, background) {
+    Furniture.prototype.makeFurniture = function (furnx, furny, contains, containsId, background) {
         var _this = this;
         this.furniture = document.createElement("furniture");
         this.shakeBox = document.createElement("shakeBox");
@@ -11,22 +11,26 @@ var Furniture = (function () {
         this.furniture.style.backgroundImage = background;
         this.shakeBox.style.transform = "translate(" + furnx + "px," + furny + "px)";
         this.furniture.classList.add('shake');
-        this.furniture.addEventListener('click', function () { return _this.additem(contains, furnx, furny); });
+        this.furniture.addEventListener('click', function () { return _this.additem(contains, containsId, furnx, furny); });
         this.shakeBox.appendChild(this.furniture);
         game.appendChild(this.shakeBox);
     };
-    Furniture.prototype.additem = function (contains, furnx, furny) {
+    Furniture.prototype.additem = function (contains, containsId, furnx, furny) {
         var _this = this;
-        this.furniture.removeEventListener('click', function () { return _this.additem(contains, furnx, furny); });
+        this.furniture.removeEventListener('click', function () { return _this.additem(contains, containsId, furnx, furny); });
         this.furniture.classList.remove('shake');
         var pickup = document.createElement("pickup");
         var grayout = document.createElement('grayout');
+        var itemMessage = document.createElement('itemMessage');
+        itemMessage.innerHTML = "Item '" + containsId + "' added to inventory";
         var game = document.getElementsByTagName("game")[0];
+        game.append(itemMessage);
         game.appendChild(grayout);
         game.appendChild(pickup);
         pickup.addEventListener("click", function () {
             pickup.style.marginLeft = "100vw";
             grayout.remove();
+            itemMessage.remove();
             setTimeout(function () {
                 pickup.remove();
             }, 1000);
@@ -38,7 +42,7 @@ var Furniture = (function () {
     };
     return Furniture;
 }());
-window.addEventListener("load", function () { return new Furniture(200, 200, "url(assets/present.png)", "url(assets/lamp.png)"); });
+window.addEventListener("load", function () { return new Furniture(200, 200, "url(assets/present.png)", "a thing", "url(assets/lamp.png)"); });
 var Game = (function () {
     function Game() {
         console.log("Class Game Loaded");
