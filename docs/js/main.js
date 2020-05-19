@@ -1,24 +1,27 @@
 "use strict";
 var Furniture = (function () {
     function Furniture(furnx, furny, contains, background) {
-        console.log("Class Furniture Loaded");
+        this.makeFurniture(furnx, furny, contains, background);
+    }
+    Furniture.prototype.makeFurniture = function (furnx, furny, contains, background) {
+        var _this = this;
         this.furniture = document.createElement("furniture");
         this.shakeBox = document.createElement("shakeBox");
         var game = document.getElementsByTagName("game")[0];
-        console.log(furnx);
         this.furniture.style.backgroundImage = background;
         this.shakeBox.style.transform = "translate(" + furnx + "px," + furny + "px)";
         this.furniture.classList.add('shake');
-        this.furniture.addEventListener('click', function () {
-            this.classList.remove('shake');
-            var pickup = document.createElement("pickup");
-            pickup.style.backgroundImage = contains;
-            this.appendChild(pickup);
-            this.outerHTML = this.outerHTML;
-        });
+        this.furniture.addEventListener('click', function () { return _this.additem(contains); });
         this.shakeBox.appendChild(this.furniture);
         game.appendChild(this.shakeBox);
-    }
+    };
+    Furniture.prototype.additem = function (contains) {
+        this.furniture.classList.remove('shake');
+        var pickup = document.createElement("pickup");
+        pickup.style.backgroundImage = contains;
+        this.furniture.appendChild(pickup);
+        this.furniture.outerHTML = this.furniture.outerHTML;
+    };
     return Furniture;
 }());
 window.addEventListener("load", function () { return new Furniture(200, 200, "url(assets/unicorn_jetpack.png)", "url(assets/lamp.png)"); });
