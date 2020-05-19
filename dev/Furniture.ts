@@ -29,8 +29,6 @@ class Furniture{
 
     additem(contains: string,containsId: string,furnx: number,furny: number){
 
-            //removes eventlistener to make furniture only give one item
-            this.furniture.removeEventListener('click',() => this.additem(contains, containsId,furnx,furny))
             //removes shake animation to indocate no more item
             this.furniture.classList.remove('shake')
             let pickup = document.createElement("pickup")
@@ -62,6 +60,9 @@ class Furniture{
 
             pickup.style.backgroundImage = contains;
             pickup.style.transform = `translate(${furnx}px,${furny}px)`
+
+            //removes eventlistener to make furniture only give one item
+            this.furniture.outerHTML = this.furniture.outerHTML;
 
     }
 

@@ -16,8 +16,6 @@ var Furniture = (function () {
         game.appendChild(this.shakeBox);
     };
     Furniture.prototype.additem = function (contains, containsId, furnx, furny) {
-        var _this = this;
-        this.furniture.removeEventListener('click', function () { return _this.additem(contains, containsId, furnx, furny); });
         this.furniture.classList.remove('shake');
         var pickup = document.createElement("pickup");
         var grayout = document.createElement('grayout');
@@ -39,6 +37,7 @@ var Furniture = (function () {
         furny += 25;
         pickup.style.backgroundImage = contains;
         pickup.style.transform = "translate(" + furnx + "px," + furny + "px)";
+        this.furniture.outerHTML = this.furniture.outerHTML;
     };
     return Furniture;
 }());
