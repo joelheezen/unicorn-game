@@ -1,18 +1,21 @@
 class Furniture{
 
     furniture : HTMLElement
-    background : string = "url(assets/chair.png)";
-    contains : string = "url(assets/unicorn_jetpack.png)";
+    shakeBox : HTMLElement
+    background : string
+    contains : string
 
-    constructor(furnx: number,furny: number) {
-        var contains = this.contains
-
+    constructor(furnx: number,furny: number, contains: string, background: string) {
+        
         console.log("Class Furniture Loaded")
         this.furniture = document.createElement("furniture")
+        this.shakeBox = document.createElement("shakeBox")
         let game = document.getElementsByTagName("game")[0]
 
-        this.furniture.style.backgroundImage = this.background
-        this.furniture.style.transform = `translate(${furnx}px,${furny}px)`
+        console.log(furnx)
+
+        this.furniture.style.backgroundImage = background
+        this.shakeBox.style.transform = `translate(${furnx}px,${furny}px)`
         this.furniture.classList.add('shake')
 
         this.furniture.addEventListener('click',function(){
@@ -23,8 +26,9 @@ class Furniture{
             
             this.outerHTML = this.outerHTML;
         })
-        game.appendChild(this.furniture)
+        this.shakeBox.appendChild(this.furniture)
+        game.appendChild(this.shakeBox)
     }
 }
 
-window.addEventListener("load", () => new Furniture())
+window.addEventListener("load", () => new Furniture(200,200,"url(assets/unicorn_jetpack.png)","url(assets/lamp.png)"))

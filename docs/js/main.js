@@ -1,13 +1,13 @@
 "use strict";
 var Furniture = (function () {
-    function Furniture() {
-        this.background = "url(assets/chair.png)";
-        this.contains = "url(assets/unicorn_jetpack.png)";
-        var contains = this.contains;
+    function Furniture(furnx, furny, contains, background) {
         console.log("Class Furniture Loaded");
         this.furniture = document.createElement("furniture");
+        this.shakeBox = document.createElement("shakeBox");
         var game = document.getElementsByTagName("game")[0];
-        this.furniture.style.backgroundImage = this.background;
+        console.log(furnx);
+        this.furniture.style.backgroundImage = background;
+        this.shakeBox.style.transform = "translate(" + furnx + "px," + furny + "px)";
         this.furniture.classList.add('shake');
         this.furniture.addEventListener('click', function () {
             this.classList.remove('shake');
@@ -16,11 +16,12 @@ var Furniture = (function () {
             this.appendChild(pickup);
             this.outerHTML = this.outerHTML;
         });
-        game.appendChild(this.furniture);
+        this.shakeBox.appendChild(this.furniture);
+        game.appendChild(this.shakeBox);
     }
     return Furniture;
 }());
-window.addEventListener("load", function () { return new Furniture(); });
+window.addEventListener("load", function () { return new Furniture(200, 200, "url(assets/unicorn_jetpack.png)", "url(assets/lamp.png)"); });
 var Game = (function () {
     function Game() {
         console.log("Class Game Loaded");
