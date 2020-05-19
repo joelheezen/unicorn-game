@@ -54,12 +54,10 @@ class Furniture{
 
             })
 
-            //for positioning the item drop over the furniture
-            furnx += 30;
-            furny += 25;
+            
 
             pickup.style.backgroundImage = contains;
-            pickup.style.transform = `translate(${furnx}px,${furny}px)`
+            pickup.style.transform = `translate(calc(${furnx}vw + 30px),calc(${furny}vh + 25px))`
 
             //removes eventlistener to make furniture only give one item
             this.furniture.outerHTML = this.furniture.outerHTML;
