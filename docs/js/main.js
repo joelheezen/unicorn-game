@@ -9,7 +9,7 @@ var Furniture = (function () {
         this.shakeBox = document.createElement("shakeBox");
         var game = document.getElementsByTagName("game")[0];
         this.furniture.style.backgroundImage = background;
-        this.shakeBox.style.transform = "translate(" + furnx + "px," + furny + "px)";
+        this.shakeBox.style.transform = "translate(" + furnx + "vw," + furny + "vh)";
         this.furniture.classList.add('shake');
         this.furniture.addEventListener('click', function () { return _this.additem(contains, containsId, furnx, furny); });
         this.shakeBox.appendChild(this.furniture);
@@ -41,7 +41,7 @@ var Furniture = (function () {
     };
     return Furniture;
 }());
-window.addEventListener("load", function () { return new Furniture(200, 200, "url(assets/present.png)", "a thing", "url(assets/lamp.png)"); });
+window.addEventListener("load", function () { return new Furniture(31, 27.5, "url(assets/present.png)", "a thing", "url(assets/lamp.png)"); });
 var Game = (function () {
     function Game() {
         console.log("Class Game Loaded");
