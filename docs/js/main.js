@@ -39,7 +39,11 @@ var Furniture = (function () {
     };
     return Furniture;
 }());
-window.addEventListener("load", function () { return new Furniture(31, 27.5, "url(assets/present.png)", "a thing", "url(assets/lamp.png)"); });
+window.addEventListener("load", function () { return testFurniture(); });
+function testFurniture() {
+    new Furniture(31, 27.5, "url(assets/present.png)", "a thing", "url(assets/lamp.png)");
+    new Furniture(40, 5, "url(assets/present.png)", "a different thing", "url(assets/clock.png)");
+}
 var Game = (function () {
     function Game() {
         console.log("Class Game Loaded");
