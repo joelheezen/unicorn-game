@@ -13,11 +13,11 @@ var Furniture = (function () {
         this.furniture.style.width = furnDim + "px";
         this.shakeBox.style.transform = "translate(" + furnX + "vw," + furnY + "vh)";
         this.furniture.classList.add('shake');
-        this.furniture.addEventListener('click', function () { return _this.additem(contains, containsId, furnX, furnY); });
+        this.furniture.addEventListener('click', function () { return _this.additem(contains, containsId, furnX, furnY, furnDim); });
         this.shakeBox.appendChild(this.furniture);
         game.appendChild(this.shakeBox);
     };
-    Furniture.prototype.additem = function (contains, containsId, furnX, furnY) {
+    Furniture.prototype.additem = function (contains, containsId, furnX, furnY, furnDim) {
         this.furniture.classList.remove('shake');
         var pickup = document.createElement("pickup");
         var grayout = document.createElement('grayout');
@@ -35,8 +35,9 @@ var Furniture = (function () {
                 pickup.remove();
             }, 1000);
         });
+        furnDim = furnDim / 2 - 30;
         pickup.style.backgroundImage = contains;
-        pickup.style.transform = "translate(calc(" + furnX + "vw + 30px),calc(" + furnY + "vh + 25px))";
+        pickup.style.transform = "translate(calc(" + furnX + "vw + " + furnDim + "px),calc(" + furnY + "vh + " + furnDim + "px))";
         this.furniture.outerHTML = this.furniture.outerHTML;
     };
     return Furniture;

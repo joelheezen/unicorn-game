@@ -21,12 +21,12 @@ class Furniture{
         this.furniture.classList.add('shake')
 
         //when clicked an item is dropped to add to your inventory
-        this.furniture.addEventListener('click',() => this.additem(contains,containsId,furnX,furnY,))
+        this.furniture.addEventListener('click',() => this.additem(contains,containsId,furnX,furnY,furnDim))
         this.shakeBox.appendChild(this.furniture)
         game.appendChild(this.shakeBox)
     }
 
-    additem(contains: string,containsId: string,furnX: number,furnY: number){
+    additem(contains: string,containsId: string,furnX: number,furnY: number,furnDim: number){
 
             //removes shake animation to indocate no more item
             this.furniture.classList.remove('shake')
@@ -53,8 +53,10 @@ class Furniture{
 
             })
 
+            furnDim = furnDim / 2 - 30;
+
             pickup.style.backgroundImage = contains;
-            pickup.style.transform = `translate(calc(${furnX}vw + 30px),calc(${furnY}vh + 25px))`
+            pickup.style.transform = `translate(calc(${furnX}vw + ${furnDim}px),calc(${furnY}vh + ${furnDim}px))`
 
             //removes eventlistener to make furniture only give one item
             this.furniture.outerHTML = this.furniture.outerHTML;
