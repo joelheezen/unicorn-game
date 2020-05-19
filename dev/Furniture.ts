@@ -1,10 +1,10 @@
 class Furniture{
 
     furniture : HTMLElement
-    background = "url(assets/chair.png)";
-    contains = "url(assets/unicorn_jetpack.png)";
+    background : string = "url(assets/chair.png)";
+    contains : string = "url(assets/unicorn_jetpack.png)";
 
-    constructor() {
+    constructor(furnx: number,furny: number) {
         var contains = this.contains
 
         console.log("Class Furniture Loaded")
@@ -12,6 +12,7 @@ class Furniture{
         let game = document.getElementsByTagName("game")[0]
 
         this.furniture.style.backgroundImage = this.background
+        this.furniture.style.transform = `translate(${furnx}px,${furny}px)`
         this.furniture.classList.add('shake')
 
         this.furniture.addEventListener('click',function(){
