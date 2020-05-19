@@ -1,21 +1,23 @@
 "use strict";
 var Furniture = (function () {
-    function Furniture(furnx, furny, contains, containsId, background) {
-        this.makeFurniture(furnx, furny, contains, containsId, background);
+    function Furniture(furnX, furnY, furnDim, contains, containsId, background) {
+        this.makeFurniture(furnX, furnY, furnDim, contains, containsId, background);
     }
-    Furniture.prototype.makeFurniture = function (furnx, furny, contains, containsId, background) {
+    Furniture.prototype.makeFurniture = function (furnX, furnY, furnDim, contains, containsId, background) {
         var _this = this;
         this.furniture = document.createElement("furniture");
         this.shakeBox = document.createElement("shakeBox");
         var game = document.getElementsByTagName("game")[0];
         this.furniture.style.backgroundImage = background;
-        this.shakeBox.style.transform = "translate(" + furnx + "vw," + furny + "vh)";
+        this.furniture.style.height = furnDim + "px";
+        this.furniture.style.width = furnDim + "px";
+        this.shakeBox.style.transform = "translate(" + furnX + "vw," + furnY + "vh)";
         this.furniture.classList.add('shake');
-        this.furniture.addEventListener('click', function () { return _this.additem(contains, containsId, furnx, furny); });
+        this.furniture.addEventListener('click', function () { return _this.additem(contains, containsId, furnX, furnY); });
         this.shakeBox.appendChild(this.furniture);
         game.appendChild(this.shakeBox);
     };
-    Furniture.prototype.additem = function (contains, containsId, furnx, furny) {
+    Furniture.prototype.additem = function (contains, containsId, furnX, furnY) {
         this.furniture.classList.remove('shake');
         var pickup = document.createElement("pickup");
         var grayout = document.createElement('grayout');
@@ -34,15 +36,16 @@ var Furniture = (function () {
             }, 1000);
         });
         pickup.style.backgroundImage = contains;
-        pickup.style.transform = "translate(calc(" + furnx + "vw + 30px),calc(" + furny + "vh + 25px))";
+        pickup.style.transform = "translate(calc(" + furnX + "vw + 30px),calc(" + furnY + "vh + 25px))";
         this.furniture.outerHTML = this.furniture.outerHTML;
     };
     return Furniture;
 }());
 window.addEventListener("load", function () { return testFurniture(); });
 function testFurniture() {
-    new Furniture(31, 27.5, "url(assets/present.png)", "a thing", "url(assets/lamp.png)");
-    new Furniture(40, 5, "url(assets/present.png)", "a different thing", "url(assets/clock.png)");
+    new Furniture(31, 27.5, 100, "url(assets/present.png)", "a thing", "url(assets/lamp.png)");
+    new Furniture(50, 7, 70, "url(assets/present.png)", "a different thing", "url(assets/clock.png)");
+    new Furniture(44, 28, 220, "url(assets/present.png)", "a different thing", "url(assets/chair.png)");
 }
 var Game = (function () {
     function Game() {

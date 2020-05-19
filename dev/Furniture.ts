@@ -2,32 +2,31 @@ class Furniture{
 
     furniture : HTMLElement
     shakeBox : HTMLElement
-    background : string
-    contains : string
-    containsId : string
 
-    constructor(furnx: number,furny: number,contains: string,containsId: string, background: string) {
-        this.makeFurniture(furnx,furny,contains, containsId,background)
+    constructor(furnX: number,furnY: number,furnDim: number,contains: string,containsId: string, background: string) {
+        this.makeFurniture(furnX,furnY,furnDim,contains, containsId,background)
     }
 
     //makes the furniture object
-    makeFurniture(furnx: number,furny: number,contains: string, containsId: string, background: string){
+    makeFurniture(furnX: number,furnY: number,furnDim: number,contains: string, containsId: string, background: string){
         this.furniture = document.createElement("furniture")
         //box is neccesary for shake animation
         this.shakeBox = document.createElement("shakeBox")
         let game = document.getElementsByTagName("game")[0]
 
         this.furniture.style.backgroundImage = background
-        this.shakeBox.style.transform = `translate(${furnx}vw,${furny}vh)`
+        this.furniture.style.height = `${furnDim}px`
+        this.furniture.style.width = `${furnDim}px`
+        this.shakeBox.style.transform = `translate(${furnX}vw,${furnY}vh)`
         this.furniture.classList.add('shake')
 
         //when clicked an item is dropped to add to your inventory
-        this.furniture.addEventListener('click',() => this.additem(contains,containsId,furnx,furny))
+        this.furniture.addEventListener('click',() => this.additem(contains,containsId,furnX,furnY,))
         this.shakeBox.appendChild(this.furniture)
         game.appendChild(this.shakeBox)
     }
 
-    additem(contains: string,containsId: string,furnx: number,furny: number){
+    additem(contains: string,containsId: string,furnX: number,furnY: number){
 
             //removes shake animation to indocate no more item
             this.furniture.classList.remove('shake')
@@ -54,10 +53,8 @@ class Furniture{
 
             })
 
-            
-
             pickup.style.backgroundImage = contains;
-            pickup.style.transform = `translate(calc(${furnx}vw + 30px),calc(${furny}vh + 25px))`
+            pickup.style.transform = `translate(calc(${furnX}vw + 30px),calc(${furnY}vh + 25px))`
 
             //removes eventlistener to make furniture only give one item
             this.furniture.outerHTML = this.furniture.outerHTML;
@@ -70,7 +67,8 @@ class Furniture{
 window.addEventListener("load", () => testFurniture())
 
 function testFurniture() {
-    new Furniture(31,27.5,"url(assets/present.png)","a thing","url(assets/lamp.png)")
-    new Furniture(40,5,"url(assets/present.png)","a different thing","url(assets/clock.png)")
+    new Furniture(31,27.5,100,"url(assets/present.png)","a thing","url(assets/lamp.png)")
+    new Furniture(50,7,70,"url(assets/present.png)","a different thing","url(assets/clock.png)")
+    new Furniture(44,28,220,"url(assets/present.png)","a different thing","url(assets/chair.png)")
 
 }
