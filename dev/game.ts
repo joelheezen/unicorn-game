@@ -27,6 +27,7 @@ class Game {
                 yPosChar = yPosClock
                 character.style.transform = `translate(${xPosChar}px, ${yPosChar}px)`
         })
+
     }
 }
 

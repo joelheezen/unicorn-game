@@ -11,20 +11,34 @@ var Furniture = (function () {
         this.furniture.style.backgroundImage = background;
         this.shakeBox.style.transform = "translate(" + furnx + "px," + furny + "px)";
         this.furniture.classList.add('shake');
-        this.furniture.addEventListener('click', function () { return _this.additem(contains); });
+        this.furniture.addEventListener('click', function () { return _this.additem(contains, furnx, furny); });
         this.shakeBox.appendChild(this.furniture);
         game.appendChild(this.shakeBox);
     };
-    Furniture.prototype.additem = function (contains) {
+    Furniture.prototype.additem = function (contains, furnx, furny) {
+        var _this = this;
+        this.furniture.removeEventListener('click', function () { return _this.additem(contains, furnx, furny); });
         this.furniture.classList.remove('shake');
         var pickup = document.createElement("pickup");
+        var grayout = document.createElement('grayout');
+        var game = document.getElementsByTagName("game")[0];
+        game.appendChild(grayout);
+        game.appendChild(pickup);
+        pickup.addEventListener("click", function () {
+            pickup.style.marginLeft = "100vw";
+            grayout.remove();
+            setTimeout(function () {
+                pickup.remove();
+            }, 1000);
+        });
+        furnx += 30;
+        furny += 25;
         pickup.style.backgroundImage = contains;
-        this.furniture.appendChild(pickup);
-        this.furniture.outerHTML = this.furniture.outerHTML;
+        pickup.style.transform = "translate(" + furnx + "px," + furny + "px)";
     };
     return Furniture;
 }());
-window.addEventListener("load", function () { return new Furniture(200, 200, "url(assets/unicorn_jetpack.png)", "url(assets/lamp.png)"); });
+window.addEventListener("load", function () { return new Furniture(200, 200, "url(assets/present.png)", "url(assets/lamp.png)"); });
 var Game = (function () {
     function Game() {
         console.log("Class Game Loaded");
