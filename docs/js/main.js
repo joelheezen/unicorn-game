@@ -20,9 +20,20 @@ var Furniture = (function () {
     Furniture.prototype.additem = function (contains, furnX, furnY, furnDim) {
         this.furniture.classList.remove('shake');
         var game = document.getElementsByTagName("game")[0];
+        furnDim = furnDim / 2;
         if (contains == "none") {
-            var dustcloud = document.createElement("dustcloud");
-            game.appendChild(dustcloud);
+            var dustcloud_1 = document.createElement("dustcloud");
+            game.appendChild(dustcloud_1);
+            dustcloud_1.style.transform = "translate(calc(" + furnX + "vw + " + furnDim + "vh - 50px),calc(" + furnY + "vh + " + furnDim + "vh - 50px))";
+            dustcloud_1.style.transition = "3s";
+            setTimeout(function () {
+                furnY = 50;
+                dustcloud_1.style.transform = "translate(calc(" + furnX + "vw + " + furnDim + "vh - 50px),calc(" + furnY + "vh + " + furnDim + "vh - 50px))";
+                dustcloud_1.style.transform += "rotate(720deg)";
+            }, 1);
+            setTimeout(function () {
+                dustcloud_1.remove();
+            }, 3000);
         }
         else {
             var pickup_1 = document.createElement("pickup");
@@ -32,6 +43,8 @@ var Furniture = (function () {
             game.append(itemMessage_1);
             game.appendChild(grayout_1);
             game.appendChild(pickup_1);
+            pickup_1.style.backgroundImage = "url(assets/" + contains + ".png)";
+            pickup_1.style.transform = "translate(calc(" + furnX + "vw + " + furnDim + "vh - 25px),calc(" + furnY + "vh + " + furnDim + "vh - 25px))";
             pickup_1.addEventListener("click", function () {
                 pickup_1.style.marginLeft = "100vw";
                 grayout_1.remove();
@@ -44,9 +57,6 @@ var Furniture = (function () {
                 inventoryItem.style.backgroundImage = "url(assets/" + contains + ".png)";
                 inventory.appendChild(inventoryItem);
             });
-            furnDim = furnDim / 2 - 30;
-            pickup_1.style.backgroundImage = "url(assets/" + contains + ".png)";
-            pickup_1.style.transform = "translate(calc(" + furnX + "vw + " + furnDim + "px),calc(" + furnY + "vh + " + furnDim + "px))";
         }
         this.furniture.outerHTML = this.furniture.outerHTML;
     };
@@ -71,35 +81,67 @@ var Inventory = (function () {
     return Inventory;
 }());
 window.addEventListener("load", function () { return new Inventory(); });
-var battlePhase = (function () {
-    function battlePhase() {
-        var xPosChar = 50;
-        var yPosChar = 50;
-        var unicornNumber = 2;
-        var squares = 10;
-        var xPosClock = 500;
-        var yPosClock = 500;
-        var hoveredOverSpace;
+var BattleCheck = (function () {
+    function BattleCheck() {
+        console.log("button created");
         var game = document.getElementsByTagName("game")[0];
+        var testButton = document.createElement("button");
+        testButton.style.width = "50px";
+        testButton.style.height = "50px";
+        testButton.style.transform = "translate(90vw, 1vh)";
+        testButton.id = "check";
+        game.appendChild(testButton);
+        if (testButton) {
+            testButton.addEventListener("click", function () { return new BattlePhase(); });
+        }
+    }
+    return BattleCheck;
+}());
+var BattlePhase = (function () {
+    function BattlePhase() {
+        console.log("button pressed, loading in battlephase");
+        var game = document.getElementsByTagName("game")[0];
+        var pointer = document.getElementsByTagName("newpointer")[0];
+        while (game.firstElementChild != pointer) {
+            if (game.firstChild) {
+                game.removeChild(game.firstChild);
+            }
+        }
+        while (game.lastElementChild != pointer) {
+            if (game.lastChild) {
+                game.removeChild(game.lastChild);
+            }
+        }
+        var background = document.createElement("background");
+        background.style.backgroundImage = "url(assets/2.png)";
+        game.appendChild(background);
+        var xPosChar = 0;
+        var yPosChar = 0;
+        var unicornNumber = 4;
+        var squares = 150;
+        var xPosSquare = 0;
+        var yPosSquare = 0;
+        var hoveredOverSpace;
         var _loop_1 = function (i) {
             var moveSpace = document.createElement("moveSpace");
             game.appendChild(moveSpace);
             moveSpace.id = "square" + i;
-            var xPosSquare = xPosClock += 100;
-            var yPosSquare = yPosClock;
-            moveSpace.style.transform = "translate(" + xPosSquare + "px, " + yPosSquare + "px)";
+            moveSpace.style.transform = "translate(" + xPosSquare + "vw, " + yPosSquare + "vh)";
+            xPosSquare += 6.67;
+            if (xPosSquare > 97) {
+                xPosSquare = 0;
+                yPosSquare += 10;
+            }
             moveSpace.addEventListener("dragover", function (event) {
                 event.preventDefault();
                 hoveredOverSpace = moveSpace.style.transform;
             });
             moveSpace.addEventListener("dragenter", function () {
                 console.log("the unicorn is hovering over " + moveSpace.id);
-                console.log(hoveredOverSpace);
             });
             moveSpace.addEventListener("dragleave", function () {
                 console.log("the unicorn left " + moveSpace.id);
                 hoveredOverSpace = "";
-                console.log(hoveredOverSpace);
             });
         };
         for (var i = 0; i < squares; i++) {
@@ -110,15 +152,16 @@ var battlePhase = (function () {
             character.draggable = true;
             character.id = "player" + i;
             game.appendChild(character);
-            character.style.transform = "translate(" + xPosChar + "px, " + yPosChar * i + "px)";
+            character.style.transform = "translate(" + xPosChar + "vw, " + yPosChar + "vh)";
             character.addEventListener("dragstart", function () {
                 console.log("dragging");
                 console.log(character.id);
+                hoveredOverSpace = character.style.transform;
             });
             character.addEventListener("dragend", function (event) {
                 event.preventDefault();
                 var draggedChar = document.getElementById(character.id);
-                if (draggedChar != null) {
+                if (draggedChar) {
                     draggedChar.style.transform = hoveredOverSpace;
                 }
                 else {
@@ -130,9 +173,11 @@ var battlePhase = (function () {
             _loop_2(i);
         }
     }
-    return battlePhase;
+    BattlePhase.prototype.createBoard = function () {
+    };
+    return BattlePhase;
 }());
-window.addEventListener("load", function () { return new battlePhase(); });
+window.addEventListener("load", function () { return new BattleCheck(); });
 var Game = (function () {
     function Game() {
         console.log("Class Game Loaded");

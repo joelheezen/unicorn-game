@@ -32,10 +32,27 @@ class Furniture{
             this.furniture.classList.remove('shake')
             let game = document.getElementsByTagName("game")[0]
 
+            furnDim = furnDim / 2;
+
             if(contains == "none"){
                 let dustcloud = document.createElement("dustcloud")
-
                 game.appendChild(dustcloud)
+
+                dustcloud.style.transform = `translate(calc(${furnX}vw + ${furnDim}vh - 50px),calc(${furnY}vh + ${furnDim}vh - 50px))`
+                dustcloud.style.transition = "3s"
+
+
+                setTimeout(()=>{
+                    furnY = 50;
+                    dustcloud.style.transform = `translate(calc(${furnX}vw + ${furnDim}vh - 50px),calc(${furnY}vh + ${furnDim}vh - 50px))`
+                
+                dustcloud.style.transform += "rotate(720deg)"
+                },1)
+                
+
+                setTimeout(()=>{
+                    dustcloud.remove()
+                },3000)
             }else{
 
                 let pickup = document.createElement("pickup")
@@ -46,6 +63,9 @@ class Furniture{
                 game.append(itemMessage)
                 game.appendChild(grayout)
                 game.appendChild(pickup)
+
+                pickup.style.backgroundImage = `url(assets/${contains}.png)`
+                pickup.style.transform = `translate(calc(${furnX}vw + ${furnDim}vh - 25px),calc(${furnY}vh + ${furnDim}vh - 25px))`
 
                 //when the popup is clicked, remove it and add the item to your inventory
                 pickup.addEventListener("click",() =>{
@@ -62,11 +82,6 @@ class Furniture{
 
                     inventory.appendChild(inventoryItem)
                 })
-
-                furnDim = furnDim / 2 - 30;
-
-                pickup.style.backgroundImage = `url(assets/${contains}.png)`
-                pickup.style.transform = `translate(calc(${furnX}vw + ${furnDim}px),calc(${furnY}vh + ${furnDim}px))`
 
             }
             //removes eventlistener to make furniture only give one item
