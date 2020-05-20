@@ -6,8 +6,6 @@ class Game {
         background.style.backgroundImage = "url(assets/3.png)"
         game.appendChild(background)
 
-
-
         // code to create character and a move to space, move this code to battlephase
         let xPosChar = 50
         let yPosChar = 50
@@ -27,6 +25,7 @@ class Game {
                 yPosChar = yPosClock
                 character.style.transform = `translate(${xPosChar}px, ${yPosChar}px)`
         })
+
     }
 }
 
