@@ -121,6 +121,7 @@ var BattlePhase = (function () {
         var xPosChar = 0;
         var yPosChar = 0;
         var unicornNumber = 4;
+        var inventoryItems = document.getElementsByTagName('inventory')[0].children;
         var squares = 140;
         var xPosSquare = 0;
         var yPosSquare = 0;
@@ -150,6 +151,7 @@ var BattlePhase = (function () {
             _loop_1(i);
         }
         var _loop_2 = function (i) {
+            console.log(typeof inventoryItems[i]);
             var character = document.createElement("character");
             character.draggable = true;
             character.id = "player" + i;
@@ -170,7 +172,7 @@ var BattlePhase = (function () {
                 }
             });
         };
-        for (var i = 1; i <= unicornNumber; i++) {
+        for (var i = 0; i < unicornNumber; i++) {
             _loop_2(i);
         }
     }
@@ -202,8 +204,8 @@ var unicornPlayer = (function () {
         game.appendChild(newPointer);
         document.addEventListener('mousemove', function (pos) {
             newPointer.style.display = "initial";
-            newPointer.style.transform = 'translateY(' + (pos.clientY - 35) + 'px)';
-            newPointer.style.transform += 'translateX(' + (pos.clientX - 20) + 'px)';
+            newPointer.style.transform = 'translateY(' + (pos.clientY) + 'px)';
+            newPointer.style.transform += 'translateX(' + (pos.clientX) + 'px)';
         }, false);
     };
     unicornPlayer.prototype.spawnGlitter = function () {
