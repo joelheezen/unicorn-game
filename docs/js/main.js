@@ -34,6 +34,10 @@ var Furniture = (function () {
             setTimeout(function () {
                 pickup.remove();
             }, 1000);
+            var inventory = document.getElementsByTagName("inventory")[0];
+            var inventoryItem = document.createElement('inventoryItem');
+            inventoryItem.style.backgroundImage = contains;
+            inventory.appendChild(inventoryItem);
         });
         furnDim = furnDim / 2 - 30;
         pickup.style.backgroundImage = contains;
@@ -48,6 +52,19 @@ function testFurniture() {
     new Furniture(50, 7, 70, "url(assets/present.png)", "a different thing", "url(assets/clock.png)");
     new Furniture(44, 28, 220, "url(assets/present.png)", "a different thing", "url(assets/chair.png)");
 }
+var Inventory = (function () {
+    function Inventory() {
+        this.setInventory();
+    }
+    Inventory.prototype.setInventory = function () {
+        console.log("Created inventory");
+        this.inventory = document.createElement("inventory");
+        var game = document.getElementsByTagName("game")[0];
+        game.appendChild(this.inventory);
+    };
+    return Inventory;
+}());
+window.addEventListener("load", function () { return new Inventory(); });
 var Game = (function () {
     function Game() {
         console.log("Class Game Loaded");

@@ -104,6 +104,25 @@ glitter {
     
 }
 
+inventory{
+    position:absolute;
+    height: calc(96vh - 10px);
+    width: 75px;
+    top: 2vh;
+    left: calc(99vw - 75px);
+    background-color: rgb(67, 218, 232);
+    border-left: solid 5px yellow;
+    border-top: solid 5px yellow;
+    border-right: solid 5px yellow;
+    border-bottom: solid 5px yellow;
+    border-style: inset;
+}
+
+inventoryitem{
+    position:relative;
+    width:75px;
+    height:75px;
+}
 
 .shake:hover {  
     animation: shake 0.5s;
