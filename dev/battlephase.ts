@@ -43,6 +43,7 @@ class BattlePhase{
         let xPosChar = 0
         let yPosChar = 0
         let unicornNumber = 4
+        let inventoryItems = document.getElementsByTagName('inventory')[0].children as HTMLCollectionOf<HTMLElement>
         let squares = 140
         let xPosSquare = 0
         let yPosSquare = 0
@@ -71,8 +72,10 @@ class BattlePhase{
             })
             }
 
-        for (let i = 1; i <= unicornNumber; i++){
+        for (let i = 0; i < unicornNumber; i++){
+            console.log(typeof inventoryItems[i])
             let character = document.createElement("character")
+        
             character.draggable = true
             character.id = "player" + i
             game.appendChild(character)
