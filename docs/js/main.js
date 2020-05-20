@@ -23,6 +23,7 @@ var Furniture = (function () {
         if (contains == "none") {
             var dustcloud = document.createElement("dustcloud");
             game.appendChild(dustcloud);
+            dustcloud.style.transform = "translate(calc(" + furnX + "vw + " + furnDim + "px),calc(" + furnY + "vh + " + furnDim + "px))";
         }
         else {
             var pickup_1 = document.createElement("pickup");
@@ -32,6 +33,9 @@ var Furniture = (function () {
             game.append(itemMessage_1);
             game.appendChild(grayout_1);
             game.appendChild(pickup_1);
+            furnDim = furnDim / 2 - 30;
+            pickup_1.style.backgroundImage = "url(assets/" + contains + ".png)";
+            pickup_1.style.transform = "translate(calc(" + furnX + "vw + " + furnDim + "px),calc(" + furnY + "vh + " + furnDim + "px))";
             pickup_1.addEventListener("click", function () {
                 pickup_1.style.marginLeft = "100vw";
                 grayout_1.remove();
@@ -44,9 +48,6 @@ var Furniture = (function () {
                 inventoryItem.style.backgroundImage = "url(assets/" + contains + ".png)";
                 inventory.appendChild(inventoryItem);
             });
-            furnDim = furnDim / 2 - 30;
-            pickup_1.style.backgroundImage = "url(assets/" + contains + ".png)";
-            pickup_1.style.transform = "translate(calc(" + furnX + "vw + " + furnDim + "px),calc(" + furnY + "vh + " + furnDim + "px))";
         }
         this.furniture.outerHTML = this.furniture.outerHTML;
     };

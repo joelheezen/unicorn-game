@@ -34,8 +34,9 @@ class Furniture{
 
             if(contains == "none"){
                 let dustcloud = document.createElement("dustcloud")
-
                 game.appendChild(dustcloud)
+                dustcloud.style.transform = `translate(calc(${furnX}vw + ${furnDim}px),calc(${furnY}vh + ${furnDim}px))`
+                
             }else{
 
                 let pickup = document.createElement("pickup")
@@ -46,6 +47,11 @@ class Furniture{
                 game.append(itemMessage)
                 game.appendChild(grayout)
                 game.appendChild(pickup)
+
+                furnDim = furnDim / 2 - 30;
+
+                pickup.style.backgroundImage = `url(assets/${contains}.png)`
+                pickup.style.transform = `translate(calc(${furnX}vw + ${furnDim}px),calc(${furnY}vh + ${furnDim}px))`
 
                 //when the popup is clicked, remove it and add the item to your inventory
                 pickup.addEventListener("click",() =>{
@@ -62,11 +68,6 @@ class Furniture{
 
                     inventory.appendChild(inventoryItem)
                 })
-
-                furnDim = furnDim / 2 - 30;
-
-                pickup.style.backgroundImage = `url(assets/${contains}.png)`
-                pickup.style.transform = `translate(calc(${furnX}vw + ${furnDim}px),calc(${furnY}vh + ${furnDim}px))`
 
             }
             //removes eventlistener to make furniture only give one item
