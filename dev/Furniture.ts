@@ -50,7 +50,11 @@ class Furniture{
                 pickup.remove()
                 },1000)
                 //Add item to inventory code here
+                let inventory = document.getElementsByTagName("inventory")[0]
+                let inventoryItem = document.createElement('inventoryItem')
+                inventoryItem.style.backgroundImage = contains
 
+                inventory.appendChild(inventoryItem)
             })
 
             furnDim = furnDim / 2 - 30;
@@ -62,7 +66,6 @@ class Furniture{
             this.furniture.outerHTML = this.furniture.outerHTML;
 
     }
-
 
 }
 
