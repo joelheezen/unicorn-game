@@ -115,7 +115,7 @@ var unicornPlayer = (function () {
             var game = document.getElementsByTagName("game")[0];
             game.appendChild(newPointer);
             document.addEventListener('mousemove', function (pos) {
-                newPointer.style.transform = 'translateY(' + (pos.clientY - 115) + 'px)';
+                newPointer.style.transform = 'translateY(' + (pos.clientY - 15) + 'px)';
                 newPointer.style.transform += 'translateX(' + (pos.clientX - 20) + 'px)';
             }, false);
         }
