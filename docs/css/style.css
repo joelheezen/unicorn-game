@@ -5,7 +5,7 @@ body{
 game *{
     display : block;
 }
-* {
+game * {
     cursor: none;
 }
 
@@ -101,6 +101,12 @@ newPointer {
     position:absolute
 }
 glitter {
+    background-image: url(../assets/cursorSpark.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    width: 80px; height: 80px;
+    z-index: 150;
+    position:absolute
     
 }
 
