@@ -109,7 +109,9 @@ glitter {
     display: none;
     width: 30px; height: 30px;
     z-index: 150;
-    position:absolute
+    position:absolute;
+    animation: glitter 2s forwards;
+    animation-iteration-count: 1;
     
 }
 
@@ -164,3 +166,10 @@ inventoryitem{
     50%{ transform: translate(calc(50vw - 25px),40vh)}
     100%{ transform: translate(calc(50vw - 25px),40vh) scale(5)}
   }
+
+  @keyframes glitter {
+      0%{}
+      50%{ opacity: 1;}
+      100%{ opacity: 0;}
+  }
+  

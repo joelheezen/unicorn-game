@@ -171,7 +171,7 @@ var unicornPlayer = (function () {
                 glitter_1.style.filter = "hue-rotate(" + String(Math.floor(Math.random() * 350)) + "deg)";
                 glitter_1.style.transform = 'translateY(' + (pos.clientY + Math.random() * 40) + 'px)';
                 glitter_1.style.transform += 'translateX(' + (pos.clientX + Math.random() * 60) + 'px)';
-                window.setTimeout(function () { game.removeChild(glitter_1); }, 1000);
+                window.setTimeout(function () { game.removeChild(glitter_1); }, 2000);
             }
         }, true);
     };
