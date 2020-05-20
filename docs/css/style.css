@@ -9,6 +9,11 @@ game * {
     cursor: none;
 }
 
+button{
+    position: absolute;
+    background-color: red;
+}
+
 furniture {
     width: 100px;
     height: 100px;
