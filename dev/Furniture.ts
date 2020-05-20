@@ -40,13 +40,14 @@ class Furniture{
 
                 dustcloud.style.transform = `translate(calc(${furnX}vw + ${furnDim}vh - 50px),calc(${furnY}vh + ${furnDim}vh - 50px))`
                 dustcloud.style.transition = "3s"
+                dustcloud.style.opacity = "0"
 
 
                 setTimeout(()=>{
                     furnY = 50;
                     dustcloud.style.transform = `translate(calc(${furnX}vw + ${furnDim}vh - 50px),calc(${furnY}vh + ${furnDim}vh - 50px))`
-                
-                dustcloud.style.transform += "rotate(720deg)"
+                    dustcloud.style.opacity = "1"
+                    dustcloud.style.transform += "rotate(720deg)"
                 },1)
                 
 

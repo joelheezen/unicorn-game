@@ -72,7 +72,7 @@ background {
 
 character {
     background-image: url(../assets/unicorn_akimbo.png);
-    width: 100px; height: 100px;
+    width: 10vh; height: 10vh;
     background-repeat: no-repeat;
     background-size: 100% 100%;
     position: absolute;
@@ -81,7 +81,7 @@ character {
 
 moveSpace{
     background-image: url(../assets/clock.png);
-    width: 100px; height: 100px;
+    width: 10vh; height: 10vh;
     background-repeat: no-repeat;
     background-size: 100% 100%;
     position: absolute;
@@ -102,7 +102,7 @@ newPointer {
     background-repeat: no-repeat;
     background-size: 100% 100%;
     display: none;
-    width: 80px; height: 80px;
+    width: 10vh; height: 10vh;
     pointer-events: none;
     position:absolute;
     z-index:150;

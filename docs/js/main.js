@@ -26,9 +26,11 @@ var Furniture = (function () {
             game.appendChild(dustcloud_1);
             dustcloud_1.style.transform = "translate(calc(" + furnX + "vw + " + furnDim + "vh - 50px),calc(" + furnY + "vh + " + furnDim + "vh - 50px))";
             dustcloud_1.style.transition = "3s";
+            dustcloud_1.style.opacity = "0";
             setTimeout(function () {
                 furnY = 50;
                 dustcloud_1.style.transform = "translate(calc(" + furnX + "vw + " + furnDim + "vh - 50px),calc(" + furnY + "vh + " + furnDim + "vh - 50px))";
+                dustcloud_1.style.opacity = "1";
                 dustcloud_1.style.transform += "rotate(720deg)";
             }, 1);
             setTimeout(function () {
