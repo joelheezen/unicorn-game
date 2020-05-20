@@ -101,9 +101,12 @@ var unicornPlayer = (function () {
         var game = document.getElementsByTagName("game")[0];
         game.appendChild(newPointer);
         document.addEventListener('mousemove', function (pos) {
+            newPointer.style.display = "initial";
             newPointer.style.transform = 'translateY(' + (pos.clientY - 15) + 'px)';
             newPointer.style.transform += 'translateX(' + (pos.clientX - 20) + 'px)';
         }, false);
+    };
+    unicornPlayer.prototype.spawnGlitter = function () {
     };
     unicornPlayer.prototype.createUnicorn = function () {
         console.log("Class unicornPlayer Loaded");

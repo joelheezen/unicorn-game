@@ -4,25 +4,32 @@ class unicornPlayer{
         this.createUnicorn()
     }
         
-        //change cursor image
-    changeCursorImage(){
-        let newPointer = document.createElement("newPointer")
-        let game = document.getElementsByTagName("game")[0]
-        game.appendChild(newPointer)
-        document.addEventListener('mousemove', function(pos){
-            newPointer.style.transform = 'translateY('+(pos.clientY-15)+'px)';
-            newPointer.style.transform += 'translateX('+(pos.clientX-20)+'px)';            
-        },false);
+    //change cursor image
+changeCursorImage(){
+    let newPointer = document.createElement("newPointer")
+    let game = document.getElementsByTagName("game")[0]
+    game.appendChild(newPointer)
+    //make sure the cursor image is stuck on the hidden cursor
+    document.addEventListener('mousemove', function(pos){
+        newPointer.style.display = "initial"
+        newPointer.style.transform = 'translateY('+(pos.clientY-15)+'px)';
+        newPointer.style.transform += 'translateX('+(pos.clientX-20)+'px)';            
+    },false);
+}
+
+spawnGlitter(){
+
 }
 
 createUnicorn(){
+    //We decided to scrap the arrowkey controlled player character and use a custom cursor to interact with the surroundings.
     console.log("Class unicornPlayer Loaded")
     let unicornPlayer = document.createElement("unicornPlayer")
     let game = document.getElementsByTagName("game")[0]
     game.appendChild(unicornPlayer)
     let posX = 0
     let posY = 0
-    //krijg een adaptive client width.
+    //get an adaptive client width.
     let maxX = game.getElementsByTagName("background")[0].clientWidth
     //let maxY = game.getElementsByTagName("background")[0].clientHeight
     window.addEventListener('keydown', (e)=>{
@@ -64,6 +71,7 @@ createUnicorn(){
 
 
 }
+
 }
 
         
