@@ -48,6 +48,68 @@ function testFurniture() {
     new Furniture(50, 7, 70, "url(assets/present.png)", "a different thing", "url(assets/clock.png)");
     new Furniture(44, 28, 220, "url(assets/present.png)", "a different thing", "url(assets/chair.png)");
 }
+var battlePhase = (function () {
+    function battlePhase() {
+        var xPosChar = 50;
+        var yPosChar = 50;
+        var unicornNumber = 2;
+        var squares = 10;
+        var xPosClock = 500;
+        var yPosClock = 500;
+        var hoveredOverSpace;
+        var game = document.getElementsByTagName("game")[0];
+        var _loop_1 = function (i) {
+            var moveSpace = document.createElement("moveSpace");
+            game.appendChild(moveSpace);
+            moveSpace.id = "square" + i;
+            var xPosSquare = xPosClock += 100;
+            var yPosSquare = yPosClock;
+            moveSpace.style.transform = "translate(" + xPosSquare + "px, " + yPosSquare + "px)";
+            moveSpace.addEventListener("dragover", function (event) {
+                event.preventDefault();
+                hoveredOverSpace = moveSpace.style.transform;
+            });
+            moveSpace.addEventListener("dragenter", function () {
+                console.log("the unicorn is hovering over " + moveSpace.id);
+                console.log(hoveredOverSpace);
+            });
+            moveSpace.addEventListener("dragleave", function () {
+                console.log("the unicorn left " + moveSpace.id);
+                hoveredOverSpace = "";
+                console.log(hoveredOverSpace);
+            });
+        };
+        for (var i = 0; i < squares; i++) {
+            _loop_1(i);
+        }
+        var _loop_2 = function (i) {
+            var character = document.createElement("character");
+            character.draggable = true;
+            character.id = "player" + i;
+            game.appendChild(character);
+            character.style.transform = "translate(" + xPosChar + "px, " + yPosChar * i + "px)";
+            character.addEventListener("dragstart", function () {
+                console.log("dragging");
+                console.log(character.id);
+            });
+            character.addEventListener("dragend", function (event) {
+                event.preventDefault();
+                var draggedChar = document.getElementById(character.id);
+                if (draggedChar != null) {
+                    draggedChar.style.transform = hoveredOverSpace;
+                }
+                else {
+                    console.log("draggedChar is not set");
+                }
+            });
+        };
+        for (var i = 1; i <= unicornNumber; i++) {
+            _loop_2(i);
+        }
+    }
+    return battlePhase;
+}());
+window.addEventListener("load", function () { return new battlePhase(); });
 var Game = (function () {
     function Game() {
         console.log("Class Game Loaded");
@@ -55,21 +117,6 @@ var Game = (function () {
         var game = document.getElementsByTagName("game")[0];
         background.style.backgroundImage = "url(assets/3.png)";
         game.appendChild(background);
-        var xPosChar = 50;
-        var yPosChar = 50;
-        var character = document.createElement("character");
-        game.appendChild(character);
-        character.style.transform = "translate(" + xPosChar + "px, " + yPosChar + "px)";
-        var xPosClock = 500;
-        var yPosClock = 500;
-        var moveSpace = document.createElement("moveSpace");
-        game.appendChild(moveSpace);
-        moveSpace.style.transform = "translate(" + xPosClock + "px, " + yPosClock + "px)";
-        moveSpace.addEventListener("click", function () {
-            xPosChar = xPosClock;
-            yPosChar = yPosClock;
-            character.style.transform = "translate(" + xPosChar + "px, " + yPosChar + "px)";
-        });
     }
     return Game;
 }());
