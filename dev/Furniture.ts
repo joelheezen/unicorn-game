@@ -15,8 +15,8 @@ class Furniture{
         let game = document.getElementsByTagName("game")[0]
 
         this.furniture.style.backgroundImage = background
-        this.furniture.style.height = `${furnDim}px`
-        this.furniture.style.width = `${furnDim}px`
+        this.furniture.style.height = `${furnDim}vh`
+        this.furniture.style.width = `${furnDim}vh`
         this.shakeBox.style.transform = `translate(${furnX}vw,${furnY}vh)`
         this.furniture.classList.add('shake')
 
@@ -72,8 +72,8 @@ class Furniture{
 window.addEventListener("load", () => testFurniture())
 
 function testFurniture() {
-    new Furniture(31,27.5,100,"url(assets/present.png)","a thing","url(assets/lamp.png)")
-    new Furniture(50,7,70,"url(assets/present.png)","a different thing","url(assets/clock.png)")
-    new Furniture(44,28,220,"url(assets/present.png)","a different thing","url(assets/chair.png)")
+    new Furniture(31,27.5,17,"url(assets/present.png)","a thing","url(assets/lamp.png)")
+    new Furniture(50,7,15,"url(assets/present.png)","a different thing","url(assets/clock.png)")
+    new Furniture(44,28,40,"url(assets/present.png)","a different thing","url(assets/chair.png)")
 
 }
