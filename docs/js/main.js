@@ -102,23 +102,24 @@ var BattlePhase = (function () {
         console.log("button pressed, loading in battlephase");
         var game = document.getElementsByTagName("game")[0];
         var pointer = document.getElementsByTagName("newpointer")[0];
-        while (game.firstElementChild != pointer) {
-            if (game.firstChild) {
-                game.removeChild(game.firstChild);
-            }
+        var inv = document.getElementsByTagName("inventory")[0];
+        var gameChildren = new Array;
+        var children = game.children;
+        for (var i = 0; i < children.length; i++) {
+            gameChildren.push(children[i]);
         }
-        while (game.lastElementChild != pointer) {
-            if (game.lastChild) {
-                game.removeChild(game.lastChild);
+        gameChildren.forEach(function (gameChild) {
+            if (gameChild != pointer && gameChild != inv) {
+                game.removeChild(gameChild);
             }
-        }
+        });
         var background = document.createElement("background");
         background.style.backgroundImage = "url(assets/2.png)";
         game.appendChild(background);
         var xPosChar = 0;
         var yPosChar = 0;
         var unicornNumber = 4;
-        var squares = 150;
+        var squares = 140;
         var xPosSquare = 0;
         var yPosSquare = 0;
         var hoveredOverSpace;
@@ -128,7 +129,7 @@ var BattlePhase = (function () {
             moveSpace.id = "square" + i;
             moveSpace.style.transform = "translate(" + xPosSquare + "vw, " + yPosSquare + "vh)";
             xPosSquare += 6.67;
-            if (xPosSquare > 97) {
+            if (xPosSquare > 93) {
                 xPosSquare = 0;
                 yPosSquare += 10;
             }
@@ -140,7 +141,6 @@ var BattlePhase = (function () {
                 console.log("the unicorn is hovering over " + moveSpace.id);
             });
             moveSpace.addEventListener("dragleave", function () {
-                console.log("the unicorn left " + moveSpace.id);
                 hoveredOverSpace = "";
             });
         };
@@ -154,7 +154,6 @@ var BattlePhase = (function () {
             game.appendChild(character);
             character.style.transform = "translate(" + xPosChar + "vw, " + yPosChar + "vh)";
             character.addEventListener("dragstart", function () {
-                console.log("dragging");
                 console.log(character.id);
                 hoveredOverSpace = character.style.transform;
             });

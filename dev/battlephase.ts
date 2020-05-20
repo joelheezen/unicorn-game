@@ -21,17 +21,19 @@ class BattlePhase{
         console.log("button pressed, loading in battlephase")
         let game = document.getElementsByTagName("game")[0]
         let pointer = document.getElementsByTagName("newpointer")[0]
-        //loops through all children and eliminates every child that is not a pointer
-        while (game.firstElementChild != pointer ){
-            if (game.firstChild){
-                game.removeChild(game.firstChild)
-            }
+        let inv = document.getElementsByTagName("inventory")[0]
+        let gameChildren = new Array
+        //loops through all children and eliminates every child that is not a pointer or inventory
+        let children = game.children
+        for (let i = 0; i < children.length; i++) {
+            gameChildren.push(children[i])
         }
-        while (game.lastElementChild != pointer){
-            if (game.lastChild) {
-                game.removeChild(game.lastChild)
+        gameChildren.forEach(gameChild => {
+            if (gameChild != pointer && gameChild != inv){
+                game.removeChild(gameChild)
             }
-        }
+        });
+
         //sets a new background
         let background = document.createElement("background")
         background.style.backgroundImage = "url(assets/2.png)"
@@ -41,7 +43,7 @@ class BattlePhase{
         let xPosChar = 0
         let yPosChar = 0
         let unicornNumber = 4
-        let squares = 150
+        let squares = 140
         let xPosSquare = 0
         let yPosSquare = 0
         let hoveredOverSpace :string;
@@ -52,7 +54,7 @@ class BattlePhase{
             moveSpace.id = "square" + i
             moveSpace.style.transform = `translate(${xPosSquare}vw, ${yPosSquare}vh)`
             xPosSquare += 6.67
-            if (xPosSquare > 97){
+            if (xPosSquare > 93){
                 xPosSquare = 0
                 yPosSquare += 10
             }
@@ -65,7 +67,6 @@ class BattlePhase{
                 console.log("the unicorn is hovering over " + moveSpace.id)
             })
             moveSpace.addEventListener("dragleave", function (){
-                console.log("the unicorn left " + moveSpace.id)
                 hoveredOverSpace = ""
             })
             }
@@ -77,7 +78,6 @@ class BattlePhase{
             game.appendChild(character)
             character.style.transform = `translate(${xPosChar}vw, ${yPosChar}vh)`
             character.addEventListener("dragstart", function (){
-                console.log("dragging")
                 console.log(character.id)
                 hoveredOverSpace = character.style.transform
             })
