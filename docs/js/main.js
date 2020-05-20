@@ -93,6 +93,7 @@ var Game = (function () {
 window.addEventListener("load", function () { return new Game(); });
 var unicornPlayer = (function () {
     function unicornPlayer() {
+        changeCursorImage();
         console.log("Class unicornPlayer Loaded");
         var unicornPlayer = document.createElement("unicornPlayer");
         var game = document.getElementsByTagName("game")[0];
@@ -107,26 +108,34 @@ var unicornPlayer = (function () {
                         posX = 20;
                     }
                     posX = posX - 20;
-                    unicornPlayer.style.transform = "translateX(" + String(posX) + "px)";
+                    unicornPlayer.style.transform = "translate(" + String(posX) + "px," + String(posY) + "px)";
                     break;
                 case 'ArrowRight':
                     if (posX > maxX - 300) {
                         posX = maxX - 300;
                     }
                     posX = posX + 20;
-                    unicornPlayer.style.transform = "translateX(" + String(posX) + "px)";
+                    unicornPlayer.style.transform = "translate(" + String(posX) + "px," + String(posY) + "px)";
                     break;
                 case 'ArrowUp':
                     posY = posY - 20;
-                    console.log(posY);
-                    unicornPlayer.style.transform = "translateY(" + String(posY) + "px)";
+                    unicornPlayer.style.transform = "translate(" + String(posX) + "px," + String(posY) + "px)";
                     break;
                 case 'ArrowDown':
                     posY = posY + 20;
-                    unicornPlayer.style.transform = "translateY(" + String(posY) + "px)";
+                    unicornPlayer.style.transform = "translate(" + String(posX) + "px," + String(posY) + "px)";
                     break;
             }
         });
+        function changeCursorImage() {
+            var newPointer = document.createElement("newPointer");
+            var game = document.getElementsByTagName("game")[0];
+            game.appendChild(newPointer);
+            document.addEventListener('mousemove', function (pos) {
+                newPointer.style.transform = 'translateY(' + (pos.clientY - 115) + 'px)';
+                newPointer.style.transform += 'translateX(' + (pos.clientX - 20) + 'px)';
+            }, false);
+        }
     }
     return unicornPlayer;
 }());
