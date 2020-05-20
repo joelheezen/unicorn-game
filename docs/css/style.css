@@ -1,6 +1,9 @@
 game *{
     display : block;
 }
+* {
+    cursor: none;
+}
 
 furniture {
     width: 100px;
@@ -50,6 +53,16 @@ unicornPlayer {
     background-size: 100% 100%;
     bottom :0;
     position:absolute
+}
+newPointer {
+    background-image: url(../assets/horn.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    width: 80px; height: 80px;
+    position:absolute
+}
+glitter {
+    
 }
 
 
