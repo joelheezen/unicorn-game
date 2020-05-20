@@ -1,9 +1,9 @@
 "use strict";
 var Furniture = (function () {
-    function Furniture(furnX, furnY, furnDim, contains, containsId, background) {
-        this.makeFurniture(furnX, furnY, furnDim, contains, containsId, background);
+    function Furniture(furnX, furnY, furnDim, contains, background) {
+        this.makeFurniture(furnX, furnY, furnDim, contains, background);
     }
-    Furniture.prototype.makeFurniture = function (furnX, furnY, furnDim, contains, containsId, background) {
+    Furniture.prototype.makeFurniture = function (furnX, furnY, furnDim, contains, background) {
         var _this = this;
         this.furniture = document.createElement("furniture");
         this.shakeBox = document.createElement("shakeBox");
@@ -13,16 +13,16 @@ var Furniture = (function () {
         this.furniture.style.width = furnDim + "vh";
         this.shakeBox.style.transform = "translate(" + furnX + "vw," + furnY + "vh)";
         this.furniture.classList.add('shake');
-        this.furniture.addEventListener('click', function () { return _this.additem(contains, containsId, furnX, furnY, furnDim); });
+        this.furniture.addEventListener('click', function () { return _this.additem(contains, furnX, furnY, furnDim); });
         this.shakeBox.appendChild(this.furniture);
         game.appendChild(this.shakeBox);
     };
-    Furniture.prototype.additem = function (contains, containsId, furnX, furnY, furnDim) {
+    Furniture.prototype.additem = function (contains, furnX, furnY, furnDim) {
         this.furniture.classList.remove('shake');
         var pickup = document.createElement("pickup");
         var grayout = document.createElement('grayout');
         var itemMessage = document.createElement('itemMessage');
-        itemMessage.innerHTML = "Item '" + containsId + "' added to inventory";
+        itemMessage.innerHTML = "Item '" + contains.replace("_", " ") + "' added to inventory";
         var game = document.getElementsByTagName("game")[0];
         game.append(itemMessage);
         game.appendChild(grayout);
@@ -36,11 +36,11 @@ var Furniture = (function () {
             }, 1000);
             var inventory = document.getElementsByTagName("inventory")[0];
             var inventoryItem = document.createElement('inventoryItem');
-            inventoryItem.style.backgroundImage = contains;
+            inventoryItem.style.backgroundImage = "url(assets/" + contains + ".png)";
             inventory.appendChild(inventoryItem);
         });
         furnDim = furnDim / 2 - 30;
-        pickup.style.backgroundImage = contains;
+        pickup.style.backgroundImage = "url(assets/" + contains + ".png)";
         pickup.style.transform = "translate(calc(" + furnX + "vw + " + furnDim + "px),calc(" + furnY + "vh + " + furnDim + "px))";
         this.furniture.outerHTML = this.furniture.outerHTML;
     };
@@ -48,9 +48,9 @@ var Furniture = (function () {
 }());
 window.addEventListener("load", function () { return testFurniture(); });
 function testFurniture() {
-    new Furniture(31, 27.5, 17, "url(assets/unicorn_akimbo.png)", "unicorn akimbo", "url(assets/lamp.png)");
-    new Furniture(50, 7, 15, "url(assets/unicorn_chair.png)", "god has left us", "url(assets/clock.png)");
-    new Furniture(44, 28, 40, "url(assets/unicorn_jetpack.png)", "unicorn jetpack", "url(assets/chair.png)");
+    new Furniture(31, 27.5, 17, "unicorn_akimbo", "url(assets/lamp.png)");
+    new Furniture(50, 7, 15, "unicorn_chair", "url(assets/clock.png)");
+    new Furniture(44, 28, 40, "unicorn_jetpack", "url(assets/chair.png)");
 }
 var Inventory = (function () {
     function Inventory() {
