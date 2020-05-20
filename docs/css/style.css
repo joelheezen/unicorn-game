@@ -80,7 +80,7 @@ character {
 }
 
 inventoryitem{
-    position:absolute;
+    position:relative;
     width: 10vh; height: 10vh;
     background-repeat: no-repeat;
     background-size: 100% 100%;

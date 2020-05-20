@@ -204,8 +204,8 @@ var unicornPlayer = (function () {
         game.appendChild(newPointer);
         document.addEventListener('mousemove', function (pos) {
             newPointer.style.display = "initial";
-            newPointer.style.transform = 'translateY(' + (pos.clientY) + 'px)';
-            newPointer.style.transform += 'translateX(' + (pos.clientX) + 'px)';
+            newPointer.style.transform = "translateY(calc(" + pos.clientY + "px - 1vh))";
+            newPointer.style.transform += "translateX( calc(" + pos.clientX + "px - 0.5vw))";
         }, false);
     };
     unicornPlayer.prototype.spawnGlitter = function () {
