@@ -97,7 +97,8 @@ newPointer {
     background-repeat: no-repeat;
     background-size: 100% 100%;
     width: 80px; height: 80px;
-    position:absolute
+    position:absolute;
+    z-index:150;
 }
 glitter {
     
@@ -109,11 +110,11 @@ inventory{
     width: 75px;
     top: 2vh;
     left: calc(99vw - 75px);
-    background-color: rgb(67, 218, 232);
-    border-left: solid 5px yellow;
-    border-top: solid 5px yellow;
-    border-right: solid 5px yellow;
-    border-bottom: solid 5px yellow;
+    background-color: white;
+    border-left: solid 5px pink;
+    border-top: solid 5px pink;
+    border-right: solid 5px pink;
+    border-bottom: solid 5px pink;
     border-style: inset;
 }
 
