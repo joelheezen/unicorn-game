@@ -1,9 +1,9 @@
 "use strict";
 var Furniture = (function () {
-    function Furniture(furnX, furnY, furnDim, contains, containsId, background) {
-        this.makeFurniture(furnX, furnY, furnDim, contains, containsId, background);
+    function Furniture(furnX, furnY, furnDim, contains, background) {
+        this.makeFurniture(furnX, furnY, furnDim, contains, background);
     }
-    Furniture.prototype.makeFurniture = function (furnX, furnY, furnDim, contains, containsId, background) {
+    Furniture.prototype.makeFurniture = function (furnX, furnY, furnDim, contains, background) {
         var _this = this;
         this.furniture = document.createElement("furniture");
         this.shakeBox = document.createElement("shakeBox");
@@ -13,44 +13,60 @@ var Furniture = (function () {
         this.furniture.style.width = furnDim + "vh";
         this.shakeBox.style.transform = "translate(" + furnX + "vw," + furnY + "vh)";
         this.furniture.classList.add('shake');
-        this.furniture.addEventListener('click', function () { return _this.additem(contains, containsId, furnX, furnY, furnDim); });
+        this.furniture.addEventListener('click', function () { return _this.additem(contains, furnX, furnY, furnDim); });
         this.shakeBox.appendChild(this.furniture);
         game.appendChild(this.shakeBox);
     };
-    Furniture.prototype.additem = function (contains, containsId, furnX, furnY, furnDim) {
+    Furniture.prototype.additem = function (contains, furnX, furnY, furnDim) {
         this.furniture.classList.remove('shake');
-        var pickup = document.createElement("pickup");
-        var grayout = document.createElement('grayout');
-        var itemMessage = document.createElement('itemMessage');
-        itemMessage.innerHTML = "Item '" + containsId + "' added to inventory";
         var game = document.getElementsByTagName("game")[0];
-        game.append(itemMessage);
-        game.appendChild(grayout);
-        game.appendChild(pickup);
-        pickup.addEventListener("click", function () {
-            pickup.style.marginLeft = "100vw";
-            grayout.remove();
-            itemMessage.remove();
+        furnDim = furnDim / 2;
+        if (contains == "none") {
+            var dustcloud_1 = document.createElement("dustcloud");
+            game.appendChild(dustcloud_1);
+            dustcloud_1.style.transform = "translate(calc(" + furnX + "vw + " + furnDim + "vh - 50px),calc(" + furnY + "vh + " + furnDim + "vh - 50px))";
+            dustcloud_1.style.transition = "3s";
             setTimeout(function () {
-                pickup.remove();
-            }, 1000);
-            var inventory = document.getElementsByTagName("inventory")[0];
-            var inventoryItem = document.createElement('inventoryItem');
-            inventoryItem.style.backgroundImage = contains;
-            inventory.appendChild(inventoryItem);
-        });
-        furnDim = furnDim / 2 - 30;
-        pickup.style.backgroundImage = contains;
-        pickup.style.transform = "translate(calc(" + furnX + "vw + " + furnDim + "px),calc(" + furnY + "vh + " + furnDim + "px))";
+                furnY = 50;
+                dustcloud_1.style.transform = "translate(calc(" + furnX + "vw + " + furnDim + "vh - 50px),calc(" + furnY + "vh + " + furnDim + "vh - 50px))";
+                dustcloud_1.style.transform += "rotate(720deg)";
+            }, 1);
+            setTimeout(function () {
+                dustcloud_1.remove();
+            }, 3000);
+        }
+        else {
+            var pickup_1 = document.createElement("pickup");
+            var grayout_1 = document.createElement('grayout');
+            var itemMessage_1 = document.createElement('itemMessage');
+            itemMessage_1.innerHTML = "Item '" + contains.replace("_", " ") + "' added to inventory";
+            game.append(itemMessage_1);
+            game.appendChild(grayout_1);
+            game.appendChild(pickup_1);
+            pickup_1.style.backgroundImage = "url(assets/" + contains + ".png)";
+            pickup_1.style.transform = "translate(calc(" + furnX + "vw + " + furnDim + "vh - 25px),calc(" + furnY + "vh + " + furnDim + "vh - 25px))";
+            pickup_1.addEventListener("click", function () {
+                pickup_1.style.marginLeft = "100vw";
+                grayout_1.remove();
+                itemMessage_1.remove();
+                setTimeout(function () {
+                    pickup_1.remove();
+                }, 1000);
+                var inventory = document.getElementsByTagName("inventory")[0];
+                var inventoryItem = document.createElement('inventoryItem');
+                inventoryItem.style.backgroundImage = "url(assets/" + contains + ".png)";
+                inventory.appendChild(inventoryItem);
+            });
+        }
         this.furniture.outerHTML = this.furniture.outerHTML;
     };
     return Furniture;
 }());
 window.addEventListener("load", function () { return testFurniture(); });
 function testFurniture() {
-    new Furniture(31, 27.5, 17, "url(assets/unicorn_akimbo.png)", "unicorn akimbo", "url(assets/lamp.png)");
-    new Furniture(50, 7, 15, "url(assets/unicorn_chair.png)", "god has left us", "url(assets/clock.png)");
-    new Furniture(44, 28, 40, "url(assets/unicorn_jetpack.png)", "unicorn jetpack", "url(assets/chair.png)");
+    new Furniture(31, 27.5, 17, "unicorn_akimbo", "url(assets/lamp.png)");
+    new Furniture(50, 7, 15, "unicorn_chair", "url(assets/clock.png)");
+    new Furniture(44, 28, 40, "none", "url(assets/chair.png)");
 }
 var Inventory = (function () {
     function Inventory() {
@@ -177,15 +193,32 @@ var unicornPlayer = (function () {
     function unicornPlayer() {
         this.changeCursorImage();
         this.createUnicorn();
+        this.spawnGlitter();
     }
     unicornPlayer.prototype.changeCursorImage = function () {
         var newPointer = document.createElement("newPointer");
         var game = document.getElementsByTagName("game")[0];
         game.appendChild(newPointer);
         document.addEventListener('mousemove', function (pos) {
-            newPointer.style.transform = 'translateY(' + (pos.clientY - 15) + 'px)';
+            newPointer.style.display = "initial";
+            newPointer.style.transform = 'translateY(' + (pos.clientY - 35) + 'px)';
             newPointer.style.transform += 'translateX(' + (pos.clientX - 20) + 'px)';
         }, false);
+    };
+    unicornPlayer.prototype.spawnGlitter = function () {
+        var game = document.getElementsByTagName("game")[0];
+        document.addEventListener('mousemove', function (pos) {
+            var d = Math.random();
+            if (d > 0.5) {
+                var glitter_1 = document.createElement("glitter");
+                game.appendChild(glitter_1);
+                glitter_1.style.display = "initial";
+                glitter_1.style.filter = "hue-rotate(" + String(Math.floor(Math.random() * 350)) + "deg)";
+                glitter_1.style.transform = 'translateY(' + (pos.clientY + Math.random() * 40) + 'px)';
+                glitter_1.style.transform += 'translateX(' + (pos.clientX + Math.random() * 60) + 'px)';
+                window.setTimeout(function () { game.removeChild(glitter_1); }, 1000);
+            }
+        }, true);
     };
     unicornPlayer.prototype.createUnicorn = function () {
         console.log("Class unicornPlayer Loaded");

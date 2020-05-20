@@ -101,6 +101,7 @@ newPointer {
     background-image: url(../assets/horn.png);
     background-repeat: no-repeat;
     background-size: 100% 100%;
+    display: none;
     width: 80px; height: 80px;
     pointer-events: none;
     position:absolute;
@@ -110,7 +111,8 @@ glitter {
     background-image: url(../assets/cursorSpark.png);
     background-repeat: no-repeat;
     background-size: 100% 100%;
-    width: 80px; height: 80px;
+    display: none;
+    width: 30px; height: 30px;
     z-index: 150;
     position:absolute
     
@@ -130,6 +132,14 @@ inventory{
     border-right: solid 5px pink;
     border-bottom: solid 5px pink;
     border-style: inset;
+}
+
+dustcloud{
+    width:100px;
+    height:100px;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-image: url(../assets/dustcloud.png);
 }
 
 inventoryitem{
@@ -165,5 +175,6 @@ inventoryitem{
     0%{}
     25%{ top:70px; }
     50%{ transform: translate(calc(50vw - 25px),40vh)}
-    100%{ transform: translate(calc(50vw - 25px),40vh) scale(4)}
+    100%{ transform: translate(calc(50vw - 25px),40vh) scale(5)}
   }
+
