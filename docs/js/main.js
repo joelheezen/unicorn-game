@@ -142,6 +142,7 @@ var unicornPlayer = (function () {
     function unicornPlayer() {
         this.changeCursorImage();
         this.createUnicorn();
+        this.spawnGlitter();
     }
     unicornPlayer.prototype.changeCursorImage = function () {
         var newPointer = document.createElement("newPointer");
@@ -149,11 +150,24 @@ var unicornPlayer = (function () {
         game.appendChild(newPointer);
         document.addEventListener('mousemove', function (pos) {
             newPointer.style.display = "initial";
-            newPointer.style.transform = 'translateY(' + (pos.clientY - 15) + 'px)';
+            newPointer.style.transform = 'translateY(' + (pos.clientY - 35) + 'px)';
             newPointer.style.transform += 'translateX(' + (pos.clientX - 20) + 'px)';
         }, false);
     };
     unicornPlayer.prototype.spawnGlitter = function () {
+        var game = document.getElementsByTagName("game")[0];
+        document.addEventListener('mousemove', function (pos) {
+            var d = Math.random();
+            if (d > 0.5) {
+                var glitter_1 = document.createElement("glitter");
+                game.appendChild(glitter_1);
+                glitter_1.style.display = "initial";
+                glitter_1.style.filter = "hue-rotate(" + String(Math.floor(Math.random() * 350)) + "deg)";
+                glitter_1.style.transform = 'translateY(' + (pos.clientY + Math.random() * 40) + 'px)';
+                glitter_1.style.transform += 'translateX(' + (pos.clientX + Math.random() * 60) + 'px)';
+                window.setTimeout(function () { game.removeChild(glitter_1); }, 1000);
+            }
+        }, true);
     };
     unicornPlayer.prototype.createUnicorn = function () {
         console.log("Class unicornPlayer Loaded");
