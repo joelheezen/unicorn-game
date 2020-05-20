@@ -130,8 +130,8 @@ inventory{
 }
 
 dustcloud{
-    width:50px;
-    height:50px;
+    width:100px;
+    height:100px;
     background-repeat: no-repeat;
     background-size: 100% 100%;
     background-image: url(../assets/dustcloud.png);
@@ -172,3 +172,4 @@ inventoryitem{
     50%{ transform: translate(calc(50vw - 25px),40vh)}
     100%{ transform: translate(calc(50vw - 25px),40vh) scale(5)}
   }
+

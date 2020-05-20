@@ -20,10 +20,20 @@ var Furniture = (function () {
     Furniture.prototype.additem = function (contains, furnX, furnY, furnDim) {
         this.furniture.classList.remove('shake');
         var game = document.getElementsByTagName("game")[0];
+        furnDim = furnDim / 2;
         if (contains == "none") {
-            var dustcloud = document.createElement("dustcloud");
-            game.appendChild(dustcloud);
-            dustcloud.style.transform = "translate(calc(" + furnX + "vw + " + furnDim + "px),calc(" + furnY + "vh + " + furnDim + "px))";
+            var dustcloud_1 = document.createElement("dustcloud");
+            game.appendChild(dustcloud_1);
+            dustcloud_1.style.transform = "translate(calc(" + furnX + "vw + " + furnDim + "vh - 50px),calc(" + furnY + "vh + " + furnDim + "vh - 50px))";
+            dustcloud_1.style.transition = "3s";
+            setTimeout(function () {
+                furnY = 50;
+                dustcloud_1.style.transform = "translate(calc(" + furnX + "vw + " + furnDim + "vh - 50px),calc(" + furnY + "vh + " + furnDim + "vh - 50px))";
+                dustcloud_1.style.transform += "rotate(720deg)";
+            }, 1);
+            setTimeout(function () {
+                dustcloud_1.remove();
+            }, 3000);
         }
         else {
             var pickup_1 = document.createElement("pickup");
@@ -33,9 +43,8 @@ var Furniture = (function () {
             game.append(itemMessage_1);
             game.appendChild(grayout_1);
             game.appendChild(pickup_1);
-            furnDim = furnDim / 2 - 30;
             pickup_1.style.backgroundImage = "url(assets/" + contains + ".png)";
-            pickup_1.style.transform = "translate(calc(" + furnX + "vw + " + furnDim + "px),calc(" + furnY + "vh + " + furnDim + "px))";
+            pickup_1.style.transform = "translate(calc(" + furnX + "vw + " + furnDim + "vh - 25px),calc(" + furnY + "vh + " + furnDim + "vh - 25px))";
             pickup_1.addEventListener("click", function () {
                 pickup_1.style.marginLeft = "100vw";
                 grayout_1.remove();
