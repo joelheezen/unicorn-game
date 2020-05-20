@@ -48,9 +48,9 @@ var Furniture = (function () {
 }());
 window.addEventListener("load", function () { return testFurniture(); });
 function testFurniture() {
-    new Furniture(31, 27.5, 17, "url(assets/present.png)", "a thing", "url(assets/lamp.png)");
-    new Furniture(50, 7, 15, "url(assets/present.png)", "a different thing", "url(assets/clock.png)");
-    new Furniture(44, 28, 40, "url(assets/present.png)", "a different thing", "url(assets/chair.png)");
+    new Furniture(31, 27.5, 17, "url(assets/unicorn_akimbo.png)", "unicorn akimbo", "url(assets/lamp.png)");
+    new Furniture(50, 7, 15, "url(assets/unicorn_chair.png)", "god has left us", "url(assets/clock.png)");
+    new Furniture(44, 28, 40, "url(assets/unicorn_jetpack.png)", "unicorn jetpack", "url(assets/chair.png)");
 }
 var Inventory = (function () {
     function Inventory() {

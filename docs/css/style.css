@@ -114,7 +114,9 @@ glitter {
 inventory{
     position:absolute;
     height: calc(96vh - 10px);
-    width: 75px;
+    width: 50px;
+    padding-left:10px;
+    padding-right:10px;
     top: 2vh;
     left: calc(99vw - 75px);
     background-color: white;
@@ -127,8 +129,12 @@ inventory{
 
 inventoryitem{
     position:relative;
-    width:75px;
-    height:75px;
+    width:50px;
+    height:50px;
+    z-index:5;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    margin-top:10px;
 }
 
 .shake:hover {  
