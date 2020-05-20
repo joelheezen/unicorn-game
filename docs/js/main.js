@@ -19,14 +19,16 @@ var Furniture = (function () {
     };
     Furniture.prototype.additem = function (contains, furnX, furnY, furnDim) {
         this.furniture.classList.remove('shake');
+        var game = document.getElementsByTagName("game")[0];
         if (contains == "none") {
+            var dustcloud = document.createElement("dustcloud");
+            game.appendChild(dustcloud);
         }
         else {
             var pickup_1 = document.createElement("pickup");
             var grayout_1 = document.createElement('grayout');
             var itemMessage_1 = document.createElement('itemMessage');
             itemMessage_1.innerHTML = "Item '" + contains.replace("_", " ") + "' added to inventory";
-            var game = document.getElementsByTagName("game")[0];
             game.append(itemMessage_1);
             game.appendChild(grayout_1);
             game.appendChild(pickup_1);

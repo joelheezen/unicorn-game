@@ -30,16 +30,18 @@ class Furniture{
 
             //removes shake animation to indocate no more item
             this.furniture.classList.remove('shake')
+            let game = document.getElementsByTagName("game")[0]
 
             if(contains == "none"){
-                
+                let dustcloud = document.createElement("dustcloud")
+
+                game.appendChild(dustcloud)
             }else{
 
                 let pickup = document.createElement("pickup")
                 let grayout = document.createElement('grayout')
                 let itemMessage = document.createElement('itemMessage')
                 itemMessage.innerHTML = "Item '"+ contains.replace("_"," ") +"' added to inventory"
-                let game = document.getElementsByTagName("game")[0]
 
                 game.append(itemMessage)
                 game.appendChild(grayout)
