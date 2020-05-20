@@ -93,7 +93,19 @@ var Game = (function () {
 window.addEventListener("load", function () { return new Game(); });
 var unicornPlayer = (function () {
     function unicornPlayer() {
-        changeCursorImage();
+        this.changeCursorImage();
+        this.createUnicorn();
+    }
+    unicornPlayer.prototype.changeCursorImage = function () {
+        var newPointer = document.createElement("newPointer");
+        var game = document.getElementsByTagName("game")[0];
+        game.appendChild(newPointer);
+        document.addEventListener('mousemove', function (pos) {
+            newPointer.style.transform = 'translateY(' + (pos.clientY - 15) + 'px)';
+            newPointer.style.transform += 'translateX(' + (pos.clientX - 20) + 'px)';
+        }, false);
+    };
+    unicornPlayer.prototype.createUnicorn = function () {
         console.log("Class unicornPlayer Loaded");
         var unicornPlayer = document.createElement("unicornPlayer");
         var game = document.getElementsByTagName("game")[0];
@@ -127,16 +139,7 @@ var unicornPlayer = (function () {
                     break;
             }
         });
-        function changeCursorImage() {
-            var newPointer = document.createElement("newPointer");
-            var game = document.getElementsByTagName("game")[0];
-            game.appendChild(newPointer);
-            document.addEventListener('mousemove', function (pos) {
-                newPointer.style.transform = 'translateY(' + (pos.clientY - 15) + 'px)';
-                newPointer.style.transform += 'translateX(' + (pos.clientX - 20) + 'px)';
-            }, false);
-        }
-    }
+    };
     return unicornPlayer;
 }());
 window.addEventListener("load", function () { return new unicornPlayer(); });
