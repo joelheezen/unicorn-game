@@ -5,6 +5,9 @@ body{
 game *{
     display : block;
 }
+game * {
+    cursor: none;
+}
 
 furniture {
     width: 100px;
@@ -89,7 +92,50 @@ unicornPlayer {
     bottom :0;
     position:absolute
 }
+newPointer {
+    background-image: url(../assets/horn.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    width: 80px; height: 80px;
+    pointer-events: none;
+    position:absolute;
+    z-index:150;
+}
+glitter {
+    background-image: url(../assets/cursorSpark.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    width: 80px; height: 80px;
+    z-index: 150;
+    position:absolute
+    
+}
 
+inventory{
+    position:absolute;
+    height: calc(96vh - 10px);
+    width: 50px;
+    padding-left:10px;
+    padding-right:10px;
+    top: 2vh;
+    left: calc(99vw - 75px);
+    background-color: white;
+    border-left: solid 5px pink;
+    border-top: solid 5px pink;
+    border-right: solid 5px pink;
+    border-bottom: solid 5px pink;
+    border-style: inset;
+}
+
+inventoryitem{
+    position:relative;
+    width:50px;
+    height:50px;
+    z-index:5;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    margin-top:10px;
+}
 
 .shake:hover {  
     animation: shake 0.5s;

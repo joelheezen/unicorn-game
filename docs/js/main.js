@@ -9,8 +9,8 @@ var Furniture = (function () {
         this.shakeBox = document.createElement("shakeBox");
         var game = document.getElementsByTagName("game")[0];
         this.furniture.style.backgroundImage = background;
-        this.furniture.style.height = furnDim + "px";
-        this.furniture.style.width = furnDim + "px";
+        this.furniture.style.height = furnDim + "vh";
+        this.furniture.style.width = furnDim + "vh";
         this.shakeBox.style.transform = "translate(" + furnX + "vw," + furnY + "vh)";
         this.furniture.classList.add('shake');
         this.furniture.addEventListener('click', function () { return _this.additem(contains, containsId, furnX, furnY, furnDim); });
@@ -34,6 +34,10 @@ var Furniture = (function () {
             setTimeout(function () {
                 pickup.remove();
             }, 1000);
+            var inventory = document.getElementsByTagName("inventory")[0];
+            var inventoryItem = document.createElement('inventoryItem');
+            inventoryItem.style.backgroundImage = contains;
+            inventory.appendChild(inventoryItem);
         });
         furnDim = furnDim / 2 - 30;
         pickup.style.backgroundImage = contains;
@@ -44,10 +48,23 @@ var Furniture = (function () {
 }());
 window.addEventListener("load", function () { return testFurniture(); });
 function testFurniture() {
-    new Furniture(31, 27.5, 100, "url(assets/present.png)", "a thing", "url(assets/lamp.png)");
-    new Furniture(50, 7, 70, "url(assets/present.png)", "a different thing", "url(assets/clock.png)");
-    new Furniture(44, 28, 220, "url(assets/present.png)", "a different thing", "url(assets/chair.png)");
+    new Furniture(31, 27.5, 17, "url(assets/unicorn_akimbo.png)", "unicorn akimbo", "url(assets/lamp.png)");
+    new Furniture(50, 7, 15, "url(assets/unicorn_chair.png)", "god has left us", "url(assets/clock.png)");
+    new Furniture(44, 28, 40, "url(assets/unicorn_jetpack.png)", "unicorn jetpack", "url(assets/chair.png)");
 }
+var Inventory = (function () {
+    function Inventory() {
+        this.setInventory();
+    }
+    Inventory.prototype.setInventory = function () {
+        console.log("Created inventory");
+        this.inventory = document.createElement("inventory");
+        var game = document.getElementsByTagName("game")[0];
+        game.appendChild(this.inventory);
+    };
+    return Inventory;
+}());
+window.addEventListener("load", function () { return new Inventory(); });
 var battlePhase = (function () {
     function battlePhase() {
         var xPosChar = 50;
@@ -123,6 +140,19 @@ var Game = (function () {
 window.addEventListener("load", function () { return new Game(); });
 var unicornPlayer = (function () {
     function unicornPlayer() {
+        this.changeCursorImage();
+        this.createUnicorn();
+    }
+    unicornPlayer.prototype.changeCursorImage = function () {
+        var newPointer = document.createElement("newPointer");
+        var game = document.getElementsByTagName("game")[0];
+        game.appendChild(newPointer);
+        document.addEventListener('mousemove', function (pos) {
+            newPointer.style.transform = 'translateY(' + (pos.clientY - 15) + 'px)';
+            newPointer.style.transform += 'translateX(' + (pos.clientX - 20) + 'px)';
+        }, false);
+    };
+    unicornPlayer.prototype.createUnicorn = function () {
         console.log("Class unicornPlayer Loaded");
         var unicornPlayer = document.createElement("unicornPlayer");
         var game = document.getElementsByTagName("game")[0];
@@ -137,27 +167,26 @@ var unicornPlayer = (function () {
                         posX = 20;
                     }
                     posX = posX - 20;
-                    unicornPlayer.style.transform = "translateX(" + String(posX) + "px)";
+                    unicornPlayer.style.transform = "translate(" + String(posX) + "px," + String(posY) + "px)";
                     break;
                 case 'ArrowRight':
                     if (posX > maxX - 300) {
                         posX = maxX - 300;
                     }
                     posX = posX + 20;
-                    unicornPlayer.style.transform = "translateX(" + String(posX) + "px)";
+                    unicornPlayer.style.transform = "translate(" + String(posX) + "px," + String(posY) + "px)";
                     break;
                 case 'ArrowUp':
                     posY = posY - 20;
-                    console.log(posY);
-                    unicornPlayer.style.transform = "translateY(" + String(posY) + "px)";
+                    unicornPlayer.style.transform = "translate(" + String(posX) + "px," + String(posY) + "px)";
                     break;
                 case 'ArrowDown':
                     posY = posY + 20;
-                    unicornPlayer.style.transform = "translateY(" + String(posY) + "px)";
+                    unicornPlayer.style.transform = "translate(" + String(posX) + "px," + String(posY) + "px)";
                     break;
             }
         });
-    }
+    };
     return unicornPlayer;
 }());
 window.addEventListener("load", function () { return new unicornPlayer(); });
