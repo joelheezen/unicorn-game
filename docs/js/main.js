@@ -19,29 +19,33 @@ var Furniture = (function () {
     };
     Furniture.prototype.additem = function (contains, furnX, furnY, furnDim) {
         this.furniture.classList.remove('shake');
-        var pickup = document.createElement("pickup");
-        var grayout = document.createElement('grayout');
-        var itemMessage = document.createElement('itemMessage');
-        itemMessage.innerHTML = "Item '" + contains.replace("_", " ") + "' added to inventory";
-        var game = document.getElementsByTagName("game")[0];
-        game.append(itemMessage);
-        game.appendChild(grayout);
-        game.appendChild(pickup);
-        pickup.addEventListener("click", function () {
-            pickup.style.marginLeft = "100vw";
-            grayout.remove();
-            itemMessage.remove();
-            setTimeout(function () {
-                pickup.remove();
-            }, 1000);
-            var inventory = document.getElementsByTagName("inventory")[0];
-            var inventoryItem = document.createElement('inventoryItem');
-            inventoryItem.style.backgroundImage = "url(assets/" + contains + ".png)";
-            inventory.appendChild(inventoryItem);
-        });
-        furnDim = furnDim / 2 - 30;
-        pickup.style.backgroundImage = "url(assets/" + contains + ".png)";
-        pickup.style.transform = "translate(calc(" + furnX + "vw + " + furnDim + "px),calc(" + furnY + "vh + " + furnDim + "px))";
+        if (contains == "none") {
+        }
+        else {
+            var pickup_1 = document.createElement("pickup");
+            var grayout_1 = document.createElement('grayout');
+            var itemMessage_1 = document.createElement('itemMessage');
+            itemMessage_1.innerHTML = "Item '" + contains.replace("_", " ") + "' added to inventory";
+            var game = document.getElementsByTagName("game")[0];
+            game.append(itemMessage_1);
+            game.appendChild(grayout_1);
+            game.appendChild(pickup_1);
+            pickup_1.addEventListener("click", function () {
+                pickup_1.style.marginLeft = "100vw";
+                grayout_1.remove();
+                itemMessage_1.remove();
+                setTimeout(function () {
+                    pickup_1.remove();
+                }, 1000);
+                var inventory = document.getElementsByTagName("inventory")[0];
+                var inventoryItem = document.createElement('inventoryItem');
+                inventoryItem.style.backgroundImage = "url(assets/" + contains + ".png)";
+                inventory.appendChild(inventoryItem);
+            });
+            furnDim = furnDim / 2 - 30;
+            pickup_1.style.backgroundImage = "url(assets/" + contains + ".png)";
+            pickup_1.style.transform = "translate(calc(" + furnX + "vw + " + furnDim + "px),calc(" + furnY + "vh + " + furnDim + "px))";
+        }
         this.furniture.outerHTML = this.furniture.outerHTML;
     };
     return Furniture;
@@ -50,7 +54,7 @@ window.addEventListener("load", function () { return testFurniture(); });
 function testFurniture() {
     new Furniture(31, 27.5, 17, "unicorn_akimbo", "url(assets/lamp.png)");
     new Furniture(50, 7, 15, "unicorn_chair", "url(assets/clock.png)");
-    new Furniture(44, 28, 40, "unicorn_jetpack", "url(assets/chair.png)");
+    new Furniture(44, 28, 40, "none", "url(assets/chair.png)");
 }
 var Inventory = (function () {
     function Inventory() {

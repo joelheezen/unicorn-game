@@ -160,5 +160,5 @@ inventoryitem{
     0%{}
     25%{ top:70px; }
     50%{ transform: translate(calc(50vw - 25px),40vh)}
-    100%{ transform: translate(calc(50vw - 25px),40vh) scale(4)}
+    100%{ transform: translate(calc(50vw - 25px),40vh) scale(5)}
   }

@@ -30,38 +30,43 @@ class Furniture{
 
             //removes shake animation to indocate no more item
             this.furniture.classList.remove('shake')
-            let pickup = document.createElement("pickup")
-            let grayout = document.createElement('grayout')
-            let itemMessage = document.createElement('itemMessage')
-            itemMessage.innerHTML = "Item '"+ contains.replace("_"," ") +"' added to inventory"
-            let game = document.getElementsByTagName("game")[0]
 
-            game.append(itemMessage)
-            game.appendChild(grayout)
-            game.appendChild(pickup)
+            if(contains == "none"){
+                
+            }else{
 
+                let pickup = document.createElement("pickup")
+                let grayout = document.createElement('grayout')
+                let itemMessage = document.createElement('itemMessage')
+                itemMessage.innerHTML = "Item '"+ contains.replace("_"," ") +"' added to inventory"
+                let game = document.getElementsByTagName("game")[0]
 
-            //when the popup is clicked, remove it and add the item to your inventory
-            pickup.addEventListener("click",() =>{
-                pickup.style.marginLeft = "100vw";
-                grayout.remove()
-                itemMessage.remove();
-                setTimeout(()=>{
-                pickup.remove()
-                },1000)
-                //Add item to inventory code here
-                let inventory = document.getElementsByTagName("inventory")[0]
-                let inventoryItem = document.createElement('inventoryItem')
-                inventoryItem.style.backgroundImage = `url(assets/${contains}.png)`
+                game.append(itemMessage)
+                game.appendChild(grayout)
+                game.appendChild(pickup)
 
-                inventory.appendChild(inventoryItem)
-            })
+                //when the popup is clicked, remove it and add the item to your inventory
+                pickup.addEventListener("click",() =>{
+                    pickup.style.marginLeft = "100vw";
+                    grayout.remove()
+                    itemMessage.remove();
+                    setTimeout(()=>{
+                        pickup.remove()
+                    },1000)
+                    //Add item to inventory code here
+                    let inventory = document.getElementsByTagName("inventory")[0]
+                    let inventoryItem = document.createElement('inventoryItem')
+                    inventoryItem.style.backgroundImage = `url(assets/${contains}.png)`
 
-            furnDim = furnDim / 2 - 30;
+                    inventory.appendChild(inventoryItem)
+                })
 
-            pickup.style.backgroundImage = `url(assets/${contains}.png)`
-            pickup.style.transform = `translate(calc(${furnX}vw + ${furnDim}px),calc(${furnY}vh + ${furnDim}px))`
+                furnDim = furnDim / 2 - 30;
 
+                pickup.style.backgroundImage = `url(assets/${contains}.png)`
+                pickup.style.transform = `translate(calc(${furnX}vw + ${furnDim}px),calc(${furnY}vh + ${furnDim}px))`
+
+            }
             //removes eventlistener to make furniture only give one item
             this.furniture.outerHTML = this.furniture.outerHTML;
 
@@ -74,5 +79,5 @@ window.addEventListener("load", () => testFurniture())
 function testFurniture() {
     new Furniture(31,27.5,17,"unicorn_akimbo","url(assets/lamp.png)")
     new Furniture(50,7,15,"unicorn_chair","url(assets/clock.png)")
-    new Furniture(44,28,40,"unicorn_jetpack","url(assets/chair.png)")
+    new Furniture(44,28,40,"none","url(assets/chair.png)")
 }
