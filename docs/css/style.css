@@ -36,9 +36,10 @@ pickup {
     position: absolute;
     background-repeat: no-repeat;
     background-size: 100% 100%;
-    transition:1s;
-    animation: pickuppopup 2s forwards;
-    animation-iteration-count: 1;
+    transition:1.5s;
+    animation: pickuppopup 2s forwards, 3s idlepickup 2s forwards;
+    animation-iteration-count: 1,infinite;
+
 }
 
 grayout{
@@ -175,4 +176,12 @@ dustcloud{
     50%{ transform: translate(calc(50vw - 25px),40vh)}
     100%{ transform: translate(calc(50vw - 25px),40vh) scale(5)}
   }
+
+  @keyframes idlepickup {
+    0%{ transform: translate(calc(50vw - 25px),40vh) scale(5) rotate(0deg)}
+    33%{ transform: translate(calc(50vw - 25px),40vh) scale(5) rotate(-20deg)}
+    66%{ transform: translate(calc(50vw - 25px),40vh) scale(5) rotate(20deg)}
+    100%{ transform: translate(calc(50vw - 25px),40vh) scale(5) rotate(0deg)}
+  }
+
 
