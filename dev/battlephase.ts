@@ -40,8 +40,7 @@ class BattlePhase{
         background.style.backgroundImage = "url(assets/2.png)"
         game.appendChild(background)
         
-        // code to create character and a move to space
-
+        // code to take the inventory characters and move them to a space
         let inventoryItems = document.getElementsByTagName('inventory')[0].children as HTMLCollectionOf<HTMLElement>
         let squares = 140
         let xPosSquare = 0
@@ -59,7 +58,7 @@ class BattlePhase{
           
         function drop(ev: any) {
             
-
+            //stops an item from being dropped inside another item
             if(ev.target.id.substring(0,4) == "item"){
                 console.log("space already has an item in it")
             }else{
