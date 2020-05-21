@@ -42,7 +42,6 @@ class BattlePhase{
         
         // code to create character and a move to space
 
-        let unicornNumber = 4
         let inventoryItems = document.getElementsByTagName('inventory')[0].children as HTMLCollectionOf<HTMLElement>
         let squares = 140
         let xPosSquare = 0
