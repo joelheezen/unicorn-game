@@ -1,35 +1,36 @@
 "use strict";
 var Furniture = (function () {
-    function Furniture(furnX, furnY, furnDim, contains, background) {
-        this.makeFurniture(furnX, furnY, furnDim, contains, background);
+    function Furniture(furnX, furnY, furnDimX, furnDimY, contains, background) {
+        this.makeFurniture(furnX, furnY, furnDimX, furnDimY, contains, background);
     }
-    Furniture.prototype.makeFurniture = function (furnX, furnY, furnDim, contains, background) {
+    Furniture.prototype.makeFurniture = function (furnX, furnY, furnDimX, furnDimY, contains, background) {
         var _this = this;
         this.furniture = document.createElement("furniture");
         this.shakeBox = document.createElement("shakeBox");
         var game = document.getElementsByTagName("game")[0];
         this.furniture.style.backgroundImage = background;
-        this.furniture.style.height = furnDim + "vh";
-        this.furniture.style.width = furnDim + "vh";
+        this.furniture.style.height = furnDimY + "vh";
+        this.furniture.style.width = furnDimX + "vh";
         this.shakeBox.style.transform = "translate(" + furnX + "vw," + furnY + "vh)";
         this.furniture.classList.add('shake');
-        this.furniture.addEventListener('click', function () { return _this.additem(contains, furnX, furnY, furnDim); });
+        this.furniture.addEventListener('click', function () { return _this.additem(contains, furnX, furnY, furnDimX, furnDimY); });
         this.shakeBox.appendChild(this.furniture);
         game.appendChild(this.shakeBox);
     };
-    Furniture.prototype.additem = function (contains, furnX, furnY, furnDim) {
+    Furniture.prototype.additem = function (contains, furnX, furnY, furnDimX, furnDimY) {
         this.furniture.classList.remove('shake');
         var game = document.getElementsByTagName("game")[0];
-        furnDim = furnDim / 2;
+        furnDimX = furnDimX / 2;
+        furnDimY = furnDimY / 2;
         if (contains == "none") {
             var dustcloud_1 = document.createElement("dustcloud");
             game.appendChild(dustcloud_1);
-            dustcloud_1.style.transform = "translate(calc(" + furnX + "vw + " + furnDim + "vh - 50px),calc(" + furnY + "vh + " + furnDim + "vh - 50px))";
+            dustcloud_1.style.transform = "translate(calc(" + furnX + "vw + " + furnDimX + "vh - 50px),calc(" + furnY + "vh + " + furnDimY + "vh - 50px))";
             dustcloud_1.style.transition = "3s";
             dustcloud_1.style.opacity = "0";
             setTimeout(function () {
                 furnY = 50;
-                dustcloud_1.style.transform = "translate(calc(" + furnX + "vw + " + furnDim + "vh - 50px),calc(" + furnY + "vh + " + furnDim + "vh - 50px))";
+                dustcloud_1.style.transform = "translate(calc(" + furnX + "vw + " + furnDimX + "vh - 50px),calc(" + furnY + "vh + " + furnDimY + "vh - 50px))";
                 dustcloud_1.style.opacity = "1";
                 dustcloud_1.style.transform += "rotate(720deg)";
             }, 1);
@@ -46,7 +47,7 @@ var Furniture = (function () {
             game.appendChild(grayout_1);
             game.appendChild(pickup_1);
             pickup_1.style.backgroundImage = "url(assets/" + contains + ".png)";
-            pickup_1.style.transform = "translate(calc(" + furnX + "vw + " + furnDim + "vh - 25px),calc(" + furnY + "vh + " + furnDim + "vh - 25px))";
+            pickup_1.style.transform = "translate(calc(" + furnX + "vw + " + furnDimX + "vh - 25px),calc(" + furnY + "vh + " + furnDimY + "vh - 25px))";
             pickup_1.addEventListener("click", function () {
                 pickup_1.style.marginLeft = "100vw";
                 grayout_1.remove();
@@ -66,9 +67,10 @@ var Furniture = (function () {
 }());
 window.addEventListener("load", function () { return testFurniture(); });
 function testFurniture() {
-    new Furniture(31, 27.5, 17, "unicorn_akimbo", "url(assets/lamp.png)");
-    new Furniture(50, 7, 15, "unicorn_chair", "url(assets/clock.png)");
-    new Furniture(44, 28, 40, "none", "url(assets/chair.png)");
+    new Furniture(31, 27.5, 17, 17, "unicorn_akimbo", "url(assets/lamp.png)");
+    new Furniture(50, 7, 15, 15, "unicorn_chair", "url(assets/clock.png)");
+    new Furniture(44, 28, 40, 40, "none", "url(assets/chair.png)");
+    new Furniture(65, 28, 15, 35, "unicorn_rambo", "url(assets/tree.png)");
 }
 var Inventory = (function () {
     function Inventory() {
