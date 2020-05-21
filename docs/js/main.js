@@ -118,15 +118,29 @@ var BattlePhase = (function () {
         var background = document.createElement("background");
         background.style.backgroundImage = "url(assets/2.png)";
         game.appendChild(background);
-        var xPosChar = 0;
-        var yPosChar = 0;
         var unicornNumber = 4;
         var inventoryItems = document.getElementsByTagName('inventory')[0].children;
         var squares = 140;
         var xPosSquare = 0;
         var yPosSquare = 0;
-        var hoveredOverSpace;
-        var _loop_1 = function (i) {
+        var inventory = document.getElementsByTagName('inventory')[0];
+        function allowDrop(ev) {
+            ev.preventDefault();
+        }
+        function drag(ev) {
+            ev.dataTransfer.setData("text", ev.target.id);
+        }
+        function drop(ev) {
+            if (ev.target.id.substring(0, 4) == "item") {
+                console.log("space already has an item in it");
+            }
+            else {
+                ev.preventDefault();
+                var data = ev.dataTransfer.getData("text");
+                ev.target.appendChild(document.getElementById(data));
+            }
+        }
+        for (var i = 0; i < squares; i++) {
             var moveSpace = document.createElement("moveSpace");
             game.appendChild(moveSpace);
             moveSpace.id = "square" + i;
@@ -136,44 +150,15 @@ var BattlePhase = (function () {
                 xPosSquare = 0;
                 yPosSquare += 10;
             }
-            moveSpace.addEventListener("dragover", function (event) {
-                event.preventDefault();
-                hoveredOverSpace = moveSpace.style.transform;
-            });
-            moveSpace.addEventListener("dragenter", function () {
-                console.log("the unicorn is hovering over " + moveSpace.id);
-            });
-            moveSpace.addEventListener("dragleave", function () {
-                hoveredOverSpace = "";
-            });
-        };
-        for (var i = 0; i < squares; i++) {
-            _loop_1(i);
+            moveSpace.addEventListener("drop", function () { return drop(event); });
+            moveSpace.addEventListener("dragover", function () { return allowDrop(event); });
+            inventory.addEventListener("drop", function () { return drop(event); });
+            inventory.addEventListener("dragover", function () { return allowDrop(event); });
         }
-        var _loop_2 = function (i) {
-            console.log(typeof inventoryItems[i]);
-            var character = document.createElement("character");
-            character.draggable = true;
-            character.id = "player" + i;
-            game.appendChild(character);
-            character.style.transform = "translate(" + xPosChar + "vw, " + yPosChar + "vh)";
-            character.addEventListener("dragstart", function () {
-                console.log(character.id);
-                hoveredOverSpace = character.style.transform;
-            });
-            character.addEventListener("dragend", function (event) {
-                event.preventDefault();
-                var draggedChar = document.getElementById(character.id);
-                if (draggedChar) {
-                    draggedChar.style.transform = hoveredOverSpace;
-                }
-                else {
-                    console.log("draggedChar is not set");
-                }
-            });
-        };
-        for (var i = 0; i < unicornNumber; i++) {
-            _loop_2(i);
+        for (var i = 0; i < inventoryItems.length; i++) {
+            inventoryItems[i].id = "item" + i;
+            inventoryItems[i].draggable = true;
+            inventoryItems[i].addEventListener("dragstart", function () { return drag(event); });
         }
     }
     BattlePhase.prototype.createBoard = function () {
