@@ -1,20 +1,3 @@
-class BattleCheck{
-    constructor(){
-        console.log("button created")
-        let game = document.getElementsByTagName("game")[0]
-        let testButton = document.createElement("button")
-        testButton.style.width = "50px"
-        testButton.style.height = "50px"
-        testButton.style.transform = `translate(90vw, 1vh)`
-        testButton.id = "check"
-        game.appendChild(testButton)
-        if (testButton){
-            testButton.addEventListener("click", () => new BattlePhase())
-        }
-    }
-}
-
-
 class BattlePhase{
     constructor(){
         //deletes everything and puts a new background in
@@ -22,6 +5,7 @@ class BattlePhase{
         let game = document.getElementsByTagName("game")[0]
         let pointer = document.getElementsByTagName("newpointer")[0]
         let inv = document.getElementsByTagName("inventory")[0]
+        let fadetonew = document.getElementsByTagName('fadetonew')[0]
         let gameChildren = new Array
         
         //loops through all children and eliminates every child that is not a pointer or inventory
@@ -30,10 +14,14 @@ class BattlePhase{
             gameChildren.push(children[i])
         }
         gameChildren.forEach(gameChild => {
-            if (gameChild != pointer && gameChild != inv){
+            if (gameChild != pointer && gameChild != inv && gameChild != fadetonew){
                 game.removeChild(gameChild)
             }
         });
+
+        setTimeout(() => {
+            game.removeChild(fadetonew)
+        }, 1000);
 
         //sets a new background
         let background = document.createElement("background")
@@ -96,6 +84,3 @@ class BattlePhase{
         
     }
 }
-
-
-window.addEventListener("load", () => new BattleCheck())

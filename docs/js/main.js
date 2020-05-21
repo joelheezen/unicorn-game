@@ -65,12 +65,57 @@ var Furniture = (function () {
     };
     return Furniture;
 }());
+var EvilFurniture = (function () {
+    function EvilFurniture(furnX, furnY, furnDimX, furnDimY, background) {
+        this.makeEvilFurniture(furnX, furnY, furnDimX, furnDimY, background);
+    }
+    EvilFurniture.prototype.makeEvilFurniture = function (furnX, furnY, furnDimX, furnDimY, background) {
+        var _this = this;
+        this.furniture = document.createElement("furniture");
+        this.shakeBox = document.createElement("shakeBox");
+        var game = document.getElementsByTagName("game")[0];
+        this.furniture.style.backgroundImage = background;
+        this.furniture.style.height = furnDimY + "vh";
+        this.furniture.style.width = furnDimX + "vh";
+        this.shakeBox.style.transform = "translate(" + furnX + "vw," + furnY + "vh)";
+        this.furniture.classList.add('shake');
+        this.shakeBox.addEventListener('click', function () { return _this.startbattle(event); });
+        this.shakeBox.appendChild(this.furniture);
+        game.appendChild(this.shakeBox);
+    };
+    EvilFurniture.prototype.startbattle = function (event) {
+        var game = document.getElementsByTagName("game")[0];
+        this.furniture.classList.remove('shake');
+        var grayout = document.createElement('grayout');
+        var itemMessage = document.createElement('itemMessage');
+        itemMessage.innerHTML = "You have found the enemy";
+        event.target.parentElement.style.zIndex = "150";
+        this.shakeBox.style.animation = "enemyappear 2s forwards";
+        this.shakeBox.style.animationIterationCount = "1";
+        game.append(itemMessage);
+        game.appendChild(grayout);
+        this.skulltop = document.createElement('skulltop');
+        this.skullbottom = document.createElement('skullbottom');
+        this.furniture.appendChild(this.skulltop);
+        this.furniture.appendChild(this.skullbottom);
+        this.furniture.style.animation = "6s battletransition 2s forwards";
+        this.furniture.style.animationIterationCount = "1";
+        var fadetonew = document.createElement("fadetonew");
+        game.appendChild(fadetonew);
+        setTimeout(function () {
+            new BattlePhase();
+        }, 4000);
+        this.shakeBox.outerHTML = this.shakeBox.outerHTML;
+    };
+    return EvilFurniture;
+}());
 window.addEventListener("load", function () { return testFurniture(); });
 function testFurniture() {
     new Furniture(31, 27.5, 17, 17, "unicorn_akimbo", "url(assets/lamp.png)");
     new Furniture(50, 7, 15, 15, "unicorn_chair", "url(assets/clock.png)");
     new Furniture(44, 28, 40, 40, "none", "url(assets/chair.png)");
     new Furniture(65, 28, 15, 35, "unicorn_rambo", "url(assets/tree.png)");
+    new EvilFurniture(50, 57, 15, 20, "url(assets/plant.png)");
 }
 var Inventory = (function () {
     function Inventory() {
@@ -85,38 +130,26 @@ var Inventory = (function () {
     return Inventory;
 }());
 window.addEventListener("load", function () { return new Inventory(); });
-var BattleCheck = (function () {
-    function BattleCheck() {
-        console.log("button created");
-        var game = document.getElementsByTagName("game")[0];
-        var testButton = document.createElement("button");
-        testButton.style.width = "50px";
-        testButton.style.height = "50px";
-        testButton.style.transform = "translate(90vw, 1vh)";
-        testButton.id = "check";
-        game.appendChild(testButton);
-        if (testButton) {
-            testButton.addEventListener("click", function () { return new BattlePhase(); });
-        }
-    }
-    return BattleCheck;
-}());
 var BattlePhase = (function () {
     function BattlePhase() {
         console.log("button pressed, loading in battlephase");
         var game = document.getElementsByTagName("game")[0];
         var pointer = document.getElementsByTagName("newpointer")[0];
         var inv = document.getElementsByTagName("inventory")[0];
+        var fadetonew = document.getElementsByTagName('fadetonew')[0];
         var gameChildren = new Array;
         var children = game.children;
         for (var i = 0; i < children.length; i++) {
             gameChildren.push(children[i]);
         }
         gameChildren.forEach(function (gameChild) {
-            if (gameChild != pointer && gameChild != inv) {
+            if (gameChild != pointer && gameChild != inv && gameChild != fadetonew) {
                 game.removeChild(gameChild);
             }
         });
+        setTimeout(function () {
+            game.removeChild(fadetonew);
+        }, 1000);
         var background = document.createElement("background");
         background.style.backgroundImage = "url(assets/2.png)";
         game.appendChild(background);
@@ -166,7 +199,6 @@ var BattlePhase = (function () {
     };
     return BattlePhase;
 }());
-window.addEventListener("load", function () { return new BattleCheck(); });
 var Game = (function () {
     function Game() {
         console.log("Class Game Loaded");

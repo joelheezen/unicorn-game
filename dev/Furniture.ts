@@ -93,6 +93,74 @@ class Furniture{
 
 }
 
+class EvilFurniture{
+
+    furniture : HTMLElement
+    shakeBox : HTMLElement
+    skulltop: HTMLElement
+    skullbottom: HTMLElement
+
+    constructor(furnX: number,furnY: number,furnDimX: number,furnDimY:number,background: string) {
+        this.makeEvilFurniture(furnX,furnY,furnDimX,furnDimY,background)
+    }
+
+    makeEvilFurniture(furnX: number,furnY: number,furnDimX: number,furnDimY:number, background: string){
+        this.furniture = document.createElement("furniture")
+        //box is neccesary for shake animation
+        this.shakeBox = document.createElement("shakeBox")
+        let game = document.getElementsByTagName("game")[0]
+
+        this.furniture.style.backgroundImage = background
+        this.furniture.style.height = `${furnDimY}vh`
+        this.furniture.style.width = `${furnDimX}vh`
+        this.shakeBox.style.transform = `translate(${furnX}vw,${furnY}vh)`
+        this.furniture.classList.add('shake')
+
+        //when clicked you start the battle
+        this.shakeBox.addEventListener('click',() => this.startbattle(event))
+        this.shakeBox.appendChild(this.furniture)
+        game.appendChild(this.shakeBox)
+    }
+
+    startbattle(event: any){
+                
+                let game = document.getElementsByTagName("game")[0]
+
+                //removes shake animation to indocate no more item
+                this.furniture.classList.remove('shake')
+                let grayout = document.createElement('grayout')
+                let itemMessage = document.createElement('itemMessage')
+
+                itemMessage.innerHTML = "You have found the enemy"
+                event.target.parentElement.style.zIndex = "150"
+
+                this.shakeBox.style.animation= "enemyappear 2s forwards"
+                this.shakeBox.style.animationIterationCount = "1" 
+
+                game.append(itemMessage)
+                game.appendChild(grayout)
+
+                this.skulltop = document.createElement('skulltop')
+                this.skullbottom = document.createElement('skullbottom')
+
+                this.furniture.appendChild(this.skulltop)
+                this.furniture.appendChild(this.skullbottom)
+
+                this.furniture.style.animation = "6s battletransition 2s forwards"
+                this.furniture.style.animationIterationCount = "1" 
+
+                let fadetonew = document.createElement("fadetonew")
+                game.appendChild(fadetonew)
+                
+                setTimeout(() => {
+                    new BattlePhase()
+                }, 4000);
+
+                //removes eventlistener
+                this.shakeBox.outerHTML = this.shakeBox.outerHTML;
+    }
+}
+
 window.addEventListener("load", () => testFurniture())
 
 function testFurniture() {
@@ -100,4 +168,5 @@ function testFurniture() {
     new Furniture(50,7,15,15,"unicorn_chair","url(assets/clock.png)")
     new Furniture(44,28,40,40,"none","url(assets/chair.png)")
     new Furniture(65,28,15,35,"unicorn_rambo","url(assets/tree.png)")
+    new EvilFurniture(50,57,15,20,"url(assets/plant.png)")
 }
