@@ -118,7 +118,6 @@ var BattlePhase = (function () {
         var background = document.createElement("background");
         background.style.backgroundImage = "url(assets/2.png)";
         game.appendChild(background);
-        var unicornNumber = 4;
         var inventoryItems = document.getElementsByTagName('inventory')[0].children;
         var squares = 140;
         var xPosSquare = 0;
