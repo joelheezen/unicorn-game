@@ -240,7 +240,8 @@ var Startscreen = (function () {
         });
     };
     Startscreen.prototype.setCredits = function () {
-        this.menu.remove();
+        var _this = this;
+        this.menu.innerHTML = "";
         var credits = document.createElement('credits');
         this.game.appendChild(credits);
         credits.innerHTML += "<credit>Assets</credit>";
@@ -255,9 +256,18 @@ var Startscreen = (function () {
         credits.innerHTML += "<name>Luuk s&#039;Gravendijk</name>";
         credits.innerHTML += "<name>Luuk s&#039;Gravendijk</name>";
         credits.innerHTML += "<name>All involved</name>";
+        var leave = document.createElement('leave');
+        this.game.appendChild(leave);
+        leave.addEventListener("click", function () {
+            credits.remove();
+            leave.remove();
+            _this.setButtons();
+        });
     };
     Startscreen.prototype.setOptions = function () {
         this.menu.remove();
+        var options = document.createElement('options');
+        this.game.appendChild(options);
     };
     return Startscreen;
 }());
@@ -335,8 +345,8 @@ var unicornPlayer = (function () {
         game.appendChild(newPointer);
         document.addEventListener('mousemove', function (pos) {
             newPointer.style.display = "initial";
-            newPointer.style.transform = "translateY(calc(" + pos.clientY + "px))";
-            newPointer.style.transform += "translateX( calc(" + pos.clientX + "px))";
+            newPointer.style.transform = "translateY(calc(" + pos.clientY + "px - 1vh))";
+            newPointer.style.transform += "translateX( calc(" + pos.clientX + "px - 0.5vw))";
         }, false);
     };
     unicornPlayer.prototype.spawnGlitter = function () {

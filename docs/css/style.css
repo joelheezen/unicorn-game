@@ -256,6 +256,29 @@
     credit{
         font-weight: bold;
     }
+
+    options{
+        position: absolute;
+        width:50vw;
+        height:55vh;
+        top:26vh;
+        left:25vw;
+        padding:2vw;
+        border: dashed 15px pink;
+        background-color: rgb(243, 129, 192);
+        font-size: 1.4em;
+    }
+
+    leave{
+        position: absolute;
+        top:calc(26vh + 15px);
+        left:calc(25vw + 15px);
+        transform: rotate(45deg);
+        background-image: url(../assets/leave.png);
+        background-size: 100% 100%;
+        height:5vh;
+        width:5vh;
+    }
     
     
     

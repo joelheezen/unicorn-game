@@ -26,6 +26,7 @@ class Startscreen{
     }
 
     setButtons(){
+
         let startButton = document.createElement("startButton")
         startButton.innerHTML = "Start"
         let optionsButton = document.createElement("optionsButton")
@@ -43,8 +44,8 @@ class Startscreen{
         this.game.appendChild(this.menu)
 
         startButton.addEventListener('click',()=>{
-                        this.game.innerHTML = ""
-                        new Level1click()
+            this.game.innerHTML = ""
+            new Level1click()
         })
 
         optionsButton.addEventListener('click',()=>{
@@ -63,9 +64,11 @@ class Startscreen{
     }
 
     setCredits(){
-        this.menu.remove();
-        let credits = document.createElement('credits')
+            this.menu.innerHTML = "";
+
+            let credits = document.createElement('credits')
             this.game.appendChild(credits)
+
             credits.innerHTML += "<credit>Assets</credit>"
             credits.innerHTML += "<credit>Point and click mechanics</credit"
             credits.innerHTML += "<credit>Battle mechanics</credit>"
@@ -81,10 +84,23 @@ class Startscreen{
             credits.innerHTML += "<name>Luuk s&#039;Gravendijk</name>"
             credits.innerHTML += "<name>Luuk s&#039;Gravendijk</name>"
             credits.innerHTML += "<name>All involved</name>"
+
+            let leave = document.createElement('leave')
+            this.game.appendChild(leave)
+
+            leave.addEventListener("click",() =>{
+                credits.remove();
+                leave.remove();
+
+                this.setButtons();
+            })
+
     }
 
     setOptions(){
         this.menu.remove();
+        let options = document.createElement('options')
+        this.game.appendChild(options)
     }
 
 

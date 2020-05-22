@@ -13,8 +13,8 @@ changeCursorImage(){
     //make sure the cursor image is stuck on the hidden cursor
     document.addEventListener('mousemove', function(pos){
         newPointer.style.display = "initial"
-        newPointer.style.transform = `translateY(calc(${pos.clientY}px))`;
-        newPointer.style.transform += `translateX( calc(${pos.clientX}px))`;           
+        newPointer.style.transform = `translateY(calc(${pos.clientY}px - 1vh))`;
+        newPointer.style.transform += `translateX( calc(${pos.clientX}px - 0.5vw))`;           
     },false);
 }
 
