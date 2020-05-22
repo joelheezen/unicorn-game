@@ -14,5 +14,3 @@ class Inventory{
         game.appendChild(this.inventory)
     }
 }
-
-window.addEventListener("load", () => new Inventory())

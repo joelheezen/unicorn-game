@@ -16,7 +16,7 @@ class Furniture{
 
         this.furniture.style.backgroundImage = background
         this.furniture.style.height = `${furnDimY}vh`
-        this.furniture.style.width = `${furnDimX}vh`
+        this.furniture.style.width = `${furnDimX}vw`
         this.shakeBox.style.transform = `translate(${furnX}vw,${furnY}vh)`
         this.furniture.classList.add('shake')
 
@@ -39,14 +39,14 @@ class Furniture{
                 let dustcloud = document.createElement("dustcloud")
                 game.appendChild(dustcloud)
 
-                dustcloud.style.transform = `translate(calc(${furnX}vw + ${furnDimX}vh - 50px),calc(${furnY}vh + ${furnDimY}vh - 50px))`
+                dustcloud.style.transform = `translate(calc(${furnX}vw + ${furnDimX}vw - 50px),calc(${furnY}vh + ${furnDimY}vh - 50px))`
                 dustcloud.style.transition = "3s"
                 dustcloud.style.opacity = "0"
 
 
                 setTimeout(()=>{
                     furnY = 50;
-                    dustcloud.style.transform = `translate(calc(${furnX}vw + ${furnDimX}vh - 50px),calc(${furnY}vh + ${furnDimY}vh - 50px))`
+                    dustcloud.style.transform = `translate(calc(${furnX}vw + ${furnDimX}vw - 50px),calc(${furnY}vh + ${furnDimY}vh - 50px))`
                     dustcloud.style.opacity = "1"
                     dustcloud.style.transform += "rotate(720deg)"
                 },1)
@@ -67,7 +67,7 @@ class Furniture{
                 game.appendChild(pickup)
 
                 pickup.style.backgroundImage = `url(assets/${contains}.png)`
-                pickup.style.transform = `translate(calc(${furnX}vw + ${furnDimX}vh - 25px),calc(${furnY}vh + ${furnDimY}vh - 25px))`
+                pickup.style.transform = `translate(calc(${furnX}vw + ${furnDimX}vw - 25px),calc(${furnY}vh + ${furnDimY}vh - 25px))`
 
                 //when the popup is clicked, remove it and add the item to your inventory
                 pickup.addEventListener("click",() =>{
@@ -112,7 +112,7 @@ class EvilFurniture{
 
         this.furniture.style.backgroundImage = background
         this.furniture.style.height = `${furnDimY}vh`
-        this.furniture.style.width = `${furnDimX}vh`
+        this.furniture.style.width = `${furnDimX}vw`
         this.shakeBox.style.transform = `translate(${furnX}vw,${furnY}vh)`
         this.furniture.classList.add('shake')
 
@@ -158,15 +158,10 @@ class EvilFurniture{
 
                 //removes eventlistener
                 this.shakeBox.outerHTML = this.shakeBox.outerHTML;
+
+                setTimeout(() => {
+                    game.removeChild(fadetonew)
+                }, 6000);
     }
 }
 
-window.addEventListener("load", () => testFurniture())
-
-function testFurniture() {
-    new Furniture(31,27.5,17,17,"unicorn_akimbo","url(assets/lamp.png)")
-    new Furniture(50,7,15,15,"unicorn_chair","url(assets/clock.png)")
-    new Furniture(44,28,40,40,"none","url(assets/chair.png)")
-    new Furniture(65,28,15,35,"unicorn_rambo","url(assets/tree.png)")
-    new EvilFurniture(50,57,15,20,"url(assets/plant.png)")
-}

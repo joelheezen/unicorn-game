@@ -19,10 +19,6 @@ class BattlePhase{
             }
         });
 
-        setTimeout(() => {
-            game.removeChild(fadetonew)
-        }, 1000);
-
         //sets a new background
         let background = document.createElement("background")
         background.style.backgroundImage = "url(assets/2.png)"
