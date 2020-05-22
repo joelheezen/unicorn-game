@@ -1,4 +1,4 @@
-window.addEventListener("load", () => new Level1click())
+window.addEventListener("load", () => new Startscreen())
 
 class Startscreen{
 
@@ -19,12 +19,39 @@ class Startscreen{
     }
 
     setAssets(){
-
+        let title = document.createElement("title")
+        title.innerHTML = "Tactical unicorn"
+        this.game.appendChild(title)
 
     }
 
     setButtons(){
+        let start = document.createElement("start")
+        start.innerHTML = "Start"
+        let options = document.createElement("options")
+        options.innerHTML = 'Options'
+        let credits = document.createElement("credits")
+        credits.innerHTML = "Credits"
+        let quit = document.createElement("quit")
+        quit.innerHTML = "Quit"
 
+        let menu = document.createElement('menu')
+
+        menu.appendChild(start)
+        menu.appendChild(options)
+        menu.appendChild(credits)
+        menu.appendChild(quit)
+
+        this.game.appendChild(menu)
+
+        start.addEventListener('click',()=>{
+            this.game.innerHTML = ""
+            new Level1click()
+        })
+
+        quit.addEventListener('click',()=>{close();})
+        
+        
     }
 
     setScreens(){

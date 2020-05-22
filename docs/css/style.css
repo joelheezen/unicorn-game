@@ -199,6 +199,37 @@ hint{
     background-image: url(../assets/note.png);
 }
 
+title{
+    position:absolute;
+    width:100%;
+    text-align:center;
+    top:5vh;
+    font-size:10vh;
+}
+
+menu{
+    position: absolute;
+    width:16vw;
+    height:55vh;
+    top:30vh;
+    left:42vw;
+    padding:0;
+}
+
+menu *{
+    height:20%;
+    width:100%;
+    margin-bottom:5%;
+    background-color: rgb(243, 129, 192);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size:5vh;
+}
+
+
+
 .shake:hover {  
     animation: shake 0.5s;
     animation-iteration-count: infinite;

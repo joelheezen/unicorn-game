@@ -190,7 +190,7 @@ var BattlePhase = (function () {
     };
     return BattlePhase;
 }());
-window.addEventListener("load", function () { return new Level1click(); });
+window.addEventListener("load", function () { return new Startscreen(); });
 var Startscreen = (function () {
     function Startscreen() {
         this.game = document.getElementsByTagName("game")[0];
@@ -206,8 +206,31 @@ var Startscreen = (function () {
         this.game.appendChild(background);
     };
     Startscreen.prototype.setAssets = function () {
+        var title = document.createElement("title");
+        title.innerHTML = "Tactical unicorn";
+        this.game.appendChild(title);
     };
     Startscreen.prototype.setButtons = function () {
+        var _this = this;
+        var start = document.createElement("start");
+        start.innerHTML = "Start";
+        var options = document.createElement("options");
+        options.innerHTML = 'Options';
+        var credits = document.createElement("credits");
+        credits.innerHTML = "Credits";
+        var quit = document.createElement("quit");
+        quit.innerHTML = "Quit";
+        var menu = document.createElement('menu');
+        menu.appendChild(start);
+        menu.appendChild(options);
+        menu.appendChild(credits);
+        menu.appendChild(quit);
+        this.game.appendChild(menu);
+        start.addEventListener('click', function () {
+            _this.game.innerHTML = "";
+            new Level1click();
+        });
+        quit.addEventListener('click', function () { close(); });
     };
     Startscreen.prototype.setScreens = function () {
     };
