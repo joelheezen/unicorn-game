@@ -3,12 +3,12 @@ window.addEventListener("load", () => new Startscreen())
 class Startscreen{
 
     game = document.getElementsByTagName("game")[0]
+    menu = document.createElement('menu')
 
     constructor(){
         this.setBackground()
         this.setButtons()
         this.setAssets()
-        this.setScreens()
     }
 
     setBackground(){
@@ -35,28 +35,42 @@ class Startscreen{
         let quit = document.createElement("quit")
         quit.innerHTML = "Quit"
 
-        let menu = document.createElement('menu')
+        this.menu.appendChild(start)
+        this.menu.appendChild(options)
+        this.menu.appendChild(credits)
+        this.menu.appendChild(quit)
 
-        menu.appendChild(start)
-        menu.appendChild(options)
-        menu.appendChild(credits)
-        menu.appendChild(quit)
-
-        this.game.appendChild(menu)
+        this.game.appendChild(this.menu)
 
         start.addEventListener('click',()=>{
-            this.game.innerHTML = ""
-            new Level1click()
+                        this.game.innerHTML = ""
+                        new Level1click()
         })
 
-        quit.addEventListener('click',()=>{close();})
+        options.addEventListener('click',()=>{
+            this.setCredits()
+        })
+
+        credits.addEventListener('click',()=>{
+            this.setOptions()
+        })
+
+        quit.addEventListener('click',()=>{
+            close();
+        })
         
         
     }
 
-    setScreens(){
-
+    setCredits(){
+        this.menu.remove();
     }
+
+    setOptions(){
+        this.menu.remove();
+    }
+
+
 }
 
 class Level1click{

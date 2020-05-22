@@ -262,6 +262,8 @@ menu *{
     animation-iteration-count: 1;
   }
 
+
+
   @keyframes pickuppopup {
     0%{}
     25%{ top:70px; }
@@ -309,6 +311,9 @@ menu *{
       50%{opacity: 1}
       100%{opacity: 0}
   }
+
+
+
 
 
 

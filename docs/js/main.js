@@ -194,10 +194,10 @@ window.addEventListener("load", function () { return new Startscreen(); });
 var Startscreen = (function () {
     function Startscreen() {
         this.game = document.getElementsByTagName("game")[0];
+        this.menu = document.createElement('menu');
         this.setBackground();
         this.setButtons();
         this.setAssets();
-        this.setScreens();
     }
     Startscreen.prototype.setBackground = function () {
         console.log("level 1 loaded");
@@ -220,19 +220,30 @@ var Startscreen = (function () {
         credits.innerHTML = "Credits";
         var quit = document.createElement("quit");
         quit.innerHTML = "Quit";
-        var menu = document.createElement('menu');
-        menu.appendChild(start);
-        menu.appendChild(options);
-        menu.appendChild(credits);
-        menu.appendChild(quit);
-        this.game.appendChild(menu);
+        this.menu.appendChild(start);
+        this.menu.appendChild(options);
+        this.menu.appendChild(credits);
+        this.menu.appendChild(quit);
+        this.game.appendChild(this.menu);
         start.addEventListener('click', function () {
             _this.game.innerHTML = "";
             new Level1click();
         });
-        quit.addEventListener('click', function () { close(); });
+        options.addEventListener('click', function () {
+            _this.setCredits();
+        });
+        credits.addEventListener('click', function () {
+            _this.setOptions();
+        });
+        quit.addEventListener('click', function () {
+            close();
+        });
     };
-    Startscreen.prototype.setScreens = function () {
+    Startscreen.prototype.setCredits = function () {
+        this.menu.remove();
+    };
+    Startscreen.prototype.setOptions = function () {
+        this.menu.remove();
     };
     return Startscreen;
 }());
