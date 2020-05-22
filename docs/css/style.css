@@ -133,7 +133,7 @@ glitter {
     background-repeat: no-repeat;
     background-size: 100% 100%;
     display: none;
-    width: 30px; height: 30px;
+    width: 5vh; height: 5vh;
     z-index: 150;
     position:absolute
     
