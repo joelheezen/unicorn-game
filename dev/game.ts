@@ -101,6 +101,28 @@ class Startscreen{
         this.menu.remove();
         let options = document.createElement('options')
         this.game.appendChild(options)
+
+        options.innerHTML += "Music Volume"
+
+        let sliderVolume = document.createElement('input')
+        options.appendChild(sliderVolume)
+
+        sliderVolume.type = "range"
+        sliderVolume.min = "1"
+        sliderVolume.max = "100"
+        sliderVolume.value = "50"
+        sliderVolume.id = 'myRange'
+
+        options.innerHTML +="Sound effect volume"
+
+        let soundEffectVolume = document.createElement('input')
+        options.appendChild(soundEffectVolume)
+
+        soundEffectVolume.type = "range"
+        soundEffectVolume.min = "1"
+        soundEffectVolume.max = "100"
+        soundEffectVolume.id = 'myRange'
+        
     }
 
 
