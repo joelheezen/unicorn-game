@@ -207,7 +207,7 @@ var Startscreen = (function () {
     };
     Startscreen.prototype.setAssets = function () {
         var title = document.createElement("title");
-        title.innerHTML = "Tactical unicorn";
+        title.innerHTML = "Tactical un  icorn";
         this.game.appendChild(title);
     };
     Startscreen.prototype.setButtons = function () {
@@ -263,7 +263,7 @@ var Level1click = (function () {
     Level1click.prototype.setFurniture = function () {
         new Furniture(31, 27.5, 8, 17, "unicorn_akimbo", "url(assets/lamp.png)");
         new Furniture(50, 7, 7, 15, "unicorn_chair", "url(assets/clock.png)");
-        new Furniture(44, 28, 20, 40, "none", "url(assets/chair.png)");
+        new Furniture(46, 28, 15, 40, "none", "url(assets/chair.png)");
         new Furniture(65, 28, 8, 35, "unicorn_rambo", "url(assets/tree.png)");
         new EvilFurniture(50, 57, 8, 20, "url(assets/plant.png)");
     };
@@ -326,7 +326,6 @@ var unicornPlayer = (function () {
         }, false);
     };
     unicornPlayer.prototype.spawnGlitter = function () {
-        var game = document.getElementsByTagName("game")[0];
         var body = document.getElementsByTagName('body')[0];
         document.addEventListener('mousemove', function (pos) {
             var d = Math.random();
@@ -337,7 +336,7 @@ var unicornPlayer = (function () {
                 glitter_1.style.filter = "hue-rotate(" + String(Math.floor(Math.random() * 350)) + "deg)";
                 glitter_1.style.transform = 'translateY(' + (pos.clientY + Math.random() * 40) + 'px)';
                 glitter_1.style.transform += 'translateX(' + (pos.clientX + Math.random() * 60) + 'px)';
-                window.setTimeout(function () { body.removeChild(glitter_1); }, 500);
+                window.setTimeout(function () { body.removeChild(glitter_1); }, 1000);
             }
         }, true);
     };

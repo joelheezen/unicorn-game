@@ -20,7 +20,6 @@ changeCursorImage(){
 
 spawnGlitter(){
 
-    let game = document.getElementsByTagName("game")[0]
     let body = document.getElementsByTagName('body')[0]
     document.addEventListener('mousemove', function(pos){
         var d = Math.random()
@@ -31,7 +30,7 @@ spawnGlitter(){
             glitter.style.filter = "hue-rotate("+String(Math.floor(Math.random() * 350))+"deg)" 
             glitter.style.transform = 'translateY('+(pos.clientY  + Math.random()*40)+'px)';
             glitter.style.transform += 'translateX('+(pos.clientX + Math.random()*60)+'px)';  
-            window.setTimeout(function(){body.removeChild(glitter)}, 500);
+            window.setTimeout(function(){body.removeChild(glitter)}, 1000);
 
         }         
     },true);

@@ -20,7 +20,7 @@ class Startscreen{
 
     setAssets(){
         let title = document.createElement("title")
-        title.innerHTML = "Tactical unicorn"
+        title.innerHTML = "Tactical un  icorn"
         this.game.appendChild(title)
 
     }
@@ -94,7 +94,7 @@ class Level1click{
     setFurniture(){
         new Furniture(31,27.5,8,17,"unicorn_akimbo","url(assets/lamp.png)")
         new Furniture(50,7,7,15,"unicorn_chair","url(assets/clock.png)")
-        new Furniture(44,28,20,40,"none","url(assets/chair.png)")
+        new Furniture(46,28,15,40,"none","url(assets/chair.png)")
         new Furniture(65,28,8,35,"unicorn_rambo","url(assets/tree.png)")
 
         new EvilFurniture(50,57,8,20,"url(assets/plant.png)")
