@@ -20,7 +20,7 @@ class Startscreen{
 
     setAssets(){
         let title = document.createElement("title")
-        title.innerHTML = "Tactical un  icorn"
+        title.innerHTML = "Tactical unicorn"
         this.game.appendChild(title)
 
     }
@@ -48,12 +48,23 @@ class Startscreen{
         })
 
         optionsButton.addEventListener('click',()=>{
-            this.setCredits()
+            this.setOptions()
         })
 
         creditsButton.addEventListener('click',()=>{
-            this.setOptions()
-            let credits = document.createElement('credits')
+            this.setCredits()      
+        })
+
+        quitButton.addEventListener('click',()=>{
+            close();
+        })
+        
+        
+    }
+
+    setCredits(){
+        this.menu.remove();
+        let credits = document.createElement('credits')
             this.game.appendChild(credits)
             credits.innerHTML += "<credit>Assets</credit>"
             credits.innerHTML += "<credit>Point and click mechanics</credit"
@@ -70,18 +81,6 @@ class Startscreen{
             credits.innerHTML += "<name>Luuk s&#039;Gravendijk</name>"
             credits.innerHTML += "<name>Luuk s&#039;Gravendijk</name>"
             credits.innerHTML += "<name>All involved</name>"
-            
-        })
-
-        quitButton.addEventListener('click',()=>{
-            close();
-        })
-        
-        
-    }
-
-    setCredits(){
-        this.menu.remove();
     }
 
     setOptions(){

@@ -207,7 +207,7 @@ var Startscreen = (function () {
     };
     Startscreen.prototype.setAssets = function () {
         var title = document.createElement("title");
-        title.innerHTML = "Tactical un  icorn";
+        title.innerHTML = "Tactical unicorn";
         this.game.appendChild(title);
     };
     Startscreen.prototype.setButtons = function () {
@@ -230,24 +230,10 @@ var Startscreen = (function () {
             new Level1click();
         });
         optionsButton.addEventListener('click', function () {
-            _this.setCredits();
+            _this.setOptions();
         });
         creditsButton.addEventListener('click', function () {
-            _this.setOptions();
-            var credits = document.createElement('credits');
-            _this.game.appendChild(credits);
-            credits.innerHTML += "<credit>Assets</credit>";
-            credits.innerHTML += "<credit>Point and click mechanics</credit";
-            credits.innerHTML += "<credit>Battle mechanics</credit>";
-            credits.innerHTML += "<name>Tom Faust</name>";
-            credits.innerHTML += "<name>Tom Faust</name>";
-            credits.innerHTML += "<name>Joel Heezen</name>";
-            credits.innerHTML += "<credit>Cursor</credit>";
-            credits.innerHTML += "<credit>gamerules</credit";
-            credits.innerHTML += "<credit>Concept</credit>";
-            credits.innerHTML += "<name>Luuk s&#039;Gravendijk</name>";
-            credits.innerHTML += "<name>Luuk s&#039;Gravendijk</name>";
-            credits.innerHTML += "<name>All involved</name>";
+            _this.setCredits();
         });
         quitButton.addEventListener('click', function () {
             close();
@@ -255,6 +241,20 @@ var Startscreen = (function () {
     };
     Startscreen.prototype.setCredits = function () {
         this.menu.remove();
+        var credits = document.createElement('credits');
+        this.game.appendChild(credits);
+        credits.innerHTML += "<credit>Assets</credit>";
+        credits.innerHTML += "<credit>Point and click mechanics</credit";
+        credits.innerHTML += "<credit>Battle mechanics</credit>";
+        credits.innerHTML += "<name>Tom Faust</name>";
+        credits.innerHTML += "<name>Tom Faust</name>";
+        credits.innerHTML += "<name>Joel Heezen</name>";
+        credits.innerHTML += "<credit>Cursor</credit>";
+        credits.innerHTML += "<credit>gamerules</credit";
+        credits.innerHTML += "<credit>Concept</credit>";
+        credits.innerHTML += "<name>Luuk s&#039;Gravendijk</name>";
+        credits.innerHTML += "<name>Luuk s&#039;Gravendijk</name>";
+        credits.innerHTML += "<name>All involved</name>";
     };
     Startscreen.prototype.setOptions = function () {
         this.menu.remove();
