@@ -209,6 +209,12 @@ var Startscreen = (function () {
         var title = document.createElement("title");
         title.innerHTML = "Tactical unicorn";
         this.game.appendChild(title);
+        var leftUnicorn = document.createElement("leftUnicorn");
+        leftUnicorn.classList.add("bounce-left");
+        this.game.appendChild(leftUnicorn);
+        var rightUnicorn = document.createElement("rightUnicorn");
+        rightUnicorn.classList.add("bounce-right");
+        this.game.appendChild(rightUnicorn);
     };
     Startscreen.prototype.setButtons = function () {
         var _this = this;
@@ -265,7 +271,8 @@ var Startscreen = (function () {
         });
     };
     Startscreen.prototype.setOptions = function () {
-        this.menu.remove();
+        var _this = this;
+        this.menu.innerHTML = "";
         var options = document.createElement('options');
         this.game.appendChild(options);
         options.innerHTML += "Music Volume";
@@ -283,6 +290,13 @@ var Startscreen = (function () {
         soundEffectVolume.min = "1";
         soundEffectVolume.max = "100";
         soundEffectVolume.id = 'myRange';
+        var leave = document.createElement('leave');
+        this.game.appendChild(leave);
+        leave.addEventListener("click", function () {
+            options.remove();
+            leave.remove();
+            _this.setButtons();
+        });
     };
     return Startscreen;
 }());

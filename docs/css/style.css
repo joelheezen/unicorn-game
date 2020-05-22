@@ -236,10 +236,10 @@
 
     credits{
         position: absolute;
-        width:50vw;
+        width:36vw;
         height:55vh;
         top:26vh;
-        left:25vw;
+        left:calc(31.5vw - 30px);
         padding:2vw;
         border: dashed 15px pink;
         background-color: rgb(243, 129, 192);
@@ -259,10 +259,10 @@
 
     options{
         position: absolute;
-        width:50vw;
+        width:36vw;
         height:55vh;
         top:26vh;
-        left:25vw;
+        left:calc(31.5vw - 30px);
         padding:2vw;
         border: dashed 15px pink;
         background-color: rgb(243, 129, 192);
@@ -272,7 +272,7 @@
     leave{
         position: absolute;
         top:calc(26vh + 15px);
-        left:calc(25vw + 15px);
+        left:calc(31.5vw - 15px);
         transform: rotate(45deg);
         background-image: url(../assets/leave.png);
         background-size: 100% 100%;
@@ -311,6 +311,64 @@
         background: black;
         cursor: pointer;
       }
+
+      rightUnicorn{
+          position: absolute;
+          height:40vh;
+          width:40vh;
+          top:40vh;
+          left:calc(100vw - 60vh);
+          background-image: url(../assets/unicorn_gun.png);
+          background-size: 100% 100%;
+          animation-duration: 2s;
+        animation-iteration-count: infinite;
+      }
+
+      leftUnicorn{
+        position: absolute;
+        height:40vh;
+        width:40vh;
+        top:40vh;
+        left:20vh;
+        background-image: url(../assets/unicorn_gun.png);
+        background-size: 100% 100%;
+        animation-duration: 2s;
+        animation-iteration-count: infinite;
+        transform: scaleX(-1);
+    }
+
+    .bounce-right {
+        animation-name: bounce-right;
+        animation-timing-function: cubic-bezier(0.280, 0.840, 0.420, 1);
+    }
+    
+    @keyframes bounce-right {
+        0%   { transform: scale(1,1)      translateY(0); }
+        10%  { transform: scale(1.1,.9)   translateY(0); }
+        30%  { transform: scale(.9,1.1)   translateY(-100px); }
+        50%  { transform: scale(1.05,.95) translateY(0); }
+        57%  { transform: scale(1,1)      translateY(-7px); }
+        64%  { transform: scale(1,1)      translateY(0); }
+        100% { transform: scale(1,1)      translateY(0); }
+    }
+
+
+    .bounce-left {
+        animation-name: bounce-left;
+        animation-timing-function: cubic-bezier(0.280, 0.840, 0.420, 1);
+    }
+    
+    @keyframes bounce-left {
+        0%   { transform: scale(1,1)      translateY(0) scaleX(-1); }
+        10%  { transform: scale(1.1,.9)   translateY(0) scaleX(-1); }
+        30%  { transform: scale(.9,1.1)   translateY(-100px) scaleX(-1); }
+        50%  { transform: scale(1.05,.95) translateY(0) scaleX(-1); }
+        57%  { transform: scale(1,1)      translateY(-7px) scaleX(-1); }
+        64%  { transform: scale(1,1)      translateY(0) scaleX(-1); }
+        100% { transform: scale(1,1)      translateY(0) scaleX(-1); }
+    }
+
+
 
 
 

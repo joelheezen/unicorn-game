@@ -23,6 +23,14 @@ class Startscreen{
         title.innerHTML = "Tactical unicorn"
         this.game.appendChild(title)
 
+        let leftUnicorn = document.createElement("leftUnicorn")
+        leftUnicorn.classList.add("bounce-left")
+        this.game.appendChild(leftUnicorn)
+
+        let rightUnicorn = document.createElement("rightUnicorn")
+        rightUnicorn.classList.add("bounce-right")
+        this.game.appendChild(rightUnicorn)
+
     }
 
     setButtons(){
@@ -98,7 +106,7 @@ class Startscreen{
     }
 
     setOptions(){
-        this.menu.remove();
+        this.menu.innerHTML = "";
         let options = document.createElement('options')
         this.game.appendChild(options)
 
@@ -122,6 +130,17 @@ class Startscreen{
         soundEffectVolume.min = "1"
         soundEffectVolume.max = "100"
         soundEffectVolume.id = 'myRange'
+
+
+        let leave = document.createElement('leave')
+            this.game.appendChild(leave)
+
+            leave.addEventListener("click",() =>{
+                options.remove();
+                leave.remove();
+
+                this.setButtons();
+            })
         
     }
 
