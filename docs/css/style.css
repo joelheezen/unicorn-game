@@ -1,5 +1,11 @@
+@font-face {
+    font-family: myFirstFont;
+    src: url(../assets/pixel.ttf);
+  }
+
 body{
     overflow:hidden;
+    font-family: myFirstFont;
 }
 
 html{
