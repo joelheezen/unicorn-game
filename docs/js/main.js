@@ -212,30 +212,44 @@ var Startscreen = (function () {
     };
     Startscreen.prototype.setButtons = function () {
         var _this = this;
-        var start = document.createElement("start");
-        start.innerHTML = "Start";
-        var options = document.createElement("options");
-        options.innerHTML = 'Options';
-        var credits = document.createElement("credits");
-        credits.innerHTML = "Credits";
-        var quit = document.createElement("quit");
-        quit.innerHTML = "Quit";
-        this.menu.appendChild(start);
-        this.menu.appendChild(options);
-        this.menu.appendChild(credits);
-        this.menu.appendChild(quit);
+        var startButton = document.createElement("startButton");
+        startButton.innerHTML = "Start";
+        var optionsButton = document.createElement("optionsButton");
+        optionsButton.innerHTML = 'Options';
+        var creditsButton = document.createElement("creditsButton");
+        creditsButton.innerHTML = "Credits";
+        var quitButton = document.createElement("quitButton");
+        quitButton.innerHTML = "Quit";
+        this.menu.appendChild(startButton);
+        this.menu.appendChild(optionsButton);
+        this.menu.appendChild(creditsButton);
+        this.menu.appendChild(quitButton);
         this.game.appendChild(this.menu);
-        start.addEventListener('click', function () {
+        startButton.addEventListener('click', function () {
             _this.game.innerHTML = "";
             new Level1click();
         });
-        options.addEventListener('click', function () {
+        optionsButton.addEventListener('click', function () {
             _this.setCredits();
         });
-        credits.addEventListener('click', function () {
+        creditsButton.addEventListener('click', function () {
             _this.setOptions();
+            var credits = document.createElement('credits');
+            _this.game.appendChild(credits);
+            credits.innerHTML += "<credit>Assets</credit>";
+            credits.innerHTML += "<credit>Point and click mechanics</credit";
+            credits.innerHTML += "<credit>Battle mechanics</credit>";
+            credits.innerHTML += "<name>Tom Faust</name>";
+            credits.innerHTML += "<name>Tom Faust</name>";
+            credits.innerHTML += "<name>Joel Heezen</name>";
+            credits.innerHTML += "<credit>Cursor</credit>";
+            credits.innerHTML += "<credit>gamerules</credit";
+            credits.innerHTML += "<credit>Concept</credit>";
+            credits.innerHTML += "<name>Luuk s&#039;Gravendijk</name>";
+            credits.innerHTML += "<name>Luuk s&#039;Gravendijk</name>";
+            credits.innerHTML += "<name>All involved</name>";
         });
-        quit.addEventListener('click', function () {
+        quitButton.addEventListener('click', function () {
             close();
         });
     };

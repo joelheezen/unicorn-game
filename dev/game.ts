@@ -26,36 +26,54 @@ class Startscreen{
     }
 
     setButtons(){
-        let start = document.createElement("start")
-        start.innerHTML = "Start"
-        let options = document.createElement("options")
-        options.innerHTML = 'Options'
-        let credits = document.createElement("credits")
-        credits.innerHTML = "Credits"
-        let quit = document.createElement("quit")
-        quit.innerHTML = "Quit"
+        let startButton = document.createElement("startButton")
+        startButton.innerHTML = "Start"
+        let optionsButton = document.createElement("optionsButton")
+        optionsButton.innerHTML = 'Options'
+        let creditsButton = document.createElement("creditsButton")
+        creditsButton.innerHTML = "Credits"
+        let quitButton = document.createElement("quitButton")
+        quitButton.innerHTML = "Quit"
 
-        this.menu.appendChild(start)
-        this.menu.appendChild(options)
-        this.menu.appendChild(credits)
-        this.menu.appendChild(quit)
+        this.menu.appendChild(startButton)
+        this.menu.appendChild(optionsButton)
+        this.menu.appendChild(creditsButton)
+        this.menu.appendChild(quitButton)
 
         this.game.appendChild(this.menu)
 
-        start.addEventListener('click',()=>{
+        startButton.addEventListener('click',()=>{
                         this.game.innerHTML = ""
                         new Level1click()
         })
 
-        options.addEventListener('click',()=>{
+        optionsButton.addEventListener('click',()=>{
             this.setCredits()
         })
 
-        credits.addEventListener('click',()=>{
+        creditsButton.addEventListener('click',()=>{
             this.setOptions()
+            let credits = document.createElement('credits')
+            this.game.appendChild(credits)
+            credits.innerHTML += "<credit>Assets</credit>"
+            credits.innerHTML += "<credit>Point and click mechanics</credit"
+            credits.innerHTML += "<credit>Battle mechanics</credit>"
+
+            credits.innerHTML += "<name>Tom Faust</name>"
+            credits.innerHTML += "<name>Tom Faust</name>"
+            credits.innerHTML += "<name>Joel Heezen</name>"
+
+            credits.innerHTML += "<credit>Cursor</credit>"
+            credits.innerHTML += "<credit>gamerules</credit"
+            credits.innerHTML += "<credit>Concept</credit>"
+
+            credits.innerHTML += "<name>Luuk s&#039;Gravendijk</name>"
+            credits.innerHTML += "<name>Luuk s&#039;Gravendijk</name>"
+            credits.innerHTML += "<name>All involved</name>"
+            
         })
 
-        quit.addEventListener('click',()=>{
+        quitButton.addEventListener('click',()=>{
             close();
         })
         

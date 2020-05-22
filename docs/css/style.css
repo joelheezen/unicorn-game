@@ -217,7 +217,7 @@
         position: absolute;
         width:16vw;
         height:55vh;
-        top:30vh;
+        top:25vh;
         left:42vw;
         padding:0;
     }
@@ -227,12 +227,38 @@
         width:100%;
         margin-bottom:5%;
         background-color: rgb(243, 129, 192);
-
+        border: dashed 10px pink;
         display: flex;
         justify-content: center;
         align-items: center;
         font-size:5vh;
     }
+
+    credits{
+        position: absolute;
+        width:50vw;
+        height:55vh;
+        top:26vh;
+        left:25vw;
+        padding:2vw;
+        border: dashed 15px pink;
+        background-color: rgb(243, 129, 192);
+        display: grid !important;
+        grid-template-columns: auto auto auto;
+        font-size: 1.4em;
+    }
+
+    credits *{
+        text-align: center;
+        display:grid !important;
+    }
+
+    credit{
+        font-weight: bold;
+    }
+    
+    
+    
 
 
 
