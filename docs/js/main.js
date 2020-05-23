@@ -29,7 +29,7 @@ var Furniture = (function () {
             dustcloud_1.style.transition = "3s";
             dustcloud_1.style.opacity = "0";
             setTimeout(function () {
-                furnY = 50;
+                furnY = 70;
                 dustcloud_1.style.transform = "translate(calc(" + furnX + "vw + " + furnDimX + "vw - 50px),calc(" + furnY + "vh + " + furnDimY + "vh - 50px))";
                 dustcloud_1.style.opacity = "1";
                 dustcloud_1.style.transform += "rotate(720deg)";
@@ -304,21 +304,21 @@ var Level1click = (function () {
     function Level1click() {
         this.setFurniture();
         this.setBackground();
-        new Hint(60.7, 9, 12.5, 8.6, "dummy text dummy text dummy text dummy text dummy text dummy text dummy text dummy text dummy text dummy text");
+        new Hint(70.7, 9, 12.5, 8.6, "dummy text dummy text dummy text dummy text dummy text dummy text dummy text dummy text dummy text dummy text");
         new Inventory();
     }
     Level1click.prototype.setBackground = function () {
         var background = document.createElement("background");
         var game = document.getElementsByTagName("game")[0];
-        background.style.backgroundImage = "url(assets/3.png)";
+        background.style.backgroundImage = "url(assets/1.png)";
         game.appendChild(background);
     };
     Level1click.prototype.setFurniture = function () {
-        new Furniture(31, 27.5, 8, 17, "unicorn_akimbo", "url(assets/lamp.png)");
-        new Furniture(50, 7, 7, 15, "unicorn_chair", "url(assets/clock.png)");
-        new Furniture(46, 28, 15, 40, "none", "url(assets/chair.png)");
-        new Furniture(65, 28, 8, 35, "unicorn_rambo", "url(assets/tree.png)");
-        new EvilFurniture(50, 57, 8, 20, "url(assets/plant.png)");
+        new Furniture(8.5, 50, 18, 23, "unicorn_laser", "url(assets/television.png)");
+        new Furniture(27.3, 25.7, 9, 17, "unicorn_rifle", "url(assets/clock.png)");
+        new Furniture(80.5, 57.6, 5, 12.1, "none", "url(assets/vase.png)");
+        new Furniture(12.7, 26, 6.8, 7.4, "unicorn_gun", "url(assets/books.png)");
+        new EvilFurniture(82, 10.9, 8, 16.6, "url(assets/plant.png)");
     };
     return Level1click;
 }());
