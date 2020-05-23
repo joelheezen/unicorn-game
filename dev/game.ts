@@ -12,7 +12,6 @@ class Startscreen{
     }
 
     setBackground(){
-        console.log("level 1 loaded")
         let background = document.createElement("background")
         background.style.backgroundImage = "url(assets/startscreen.png)"
         this.game.appendChild(background)
@@ -178,6 +177,36 @@ class Level1click{
 class Level1Battle{
 
 
+}
+
+class Level2click{
+
+    constructor(){
+        this.setFurniture()
+        this.setBackground()
+        new Hint(39,26,12.5,11,"dummy text dummy text dummy text dummy text dummy text dummy text dummy text dummy text dummy text dummy text")
+        new Inventory()
+    }
+
+
+
+    setBackground(){
+        let background = document.createElement("background")
+        let game = document.getElementsByTagName("game")[0]
+        background.style.backgroundImage = "url(assets/2.png)"
+        game.appendChild(background)
+    }
+
+    setFurniture(){
+        new Furniture(7.9,36.7,6,43.4,"unicorn_laser","url(assets/long_lamp.png)")
+        new Furniture(28.7,0,12.3,21.7,"unicorn_rifle","url(assets/ceiling_lamp.png)")
+        new Furniture(30.6,28.3,7.6,21.7,"none","url(assets/long_frame.png)")
+        new Furniture(78.4,41.5,5.7,10.3,"none","url(assets/small_frame.png)")
+        new Furniture(62.5,51.6,2,8.4,"unicorn_gun","url(assets/book.png)")
+        new Furniture(46.6,66.7,2.8,5,"unicorn_gun","url(assets/mug.png)") 
+
+        new EvilFurniture(83.1,61.7,5.6,16.5,"url(assets/fire.png)")
+    }
 }
 
 
