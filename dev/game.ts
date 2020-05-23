@@ -18,7 +18,8 @@ class Startscreen{
         let background = document.createElement("background")
         background.style.backgroundImage = "url(assets/startscreen.png)"
         this.game.appendChild(background)
-        //this.game.innerHTML += '<audio autoplay loop><source src="assets/music.mp3" type="audio/ogg"></audio>'
+        this.game.innerHTML += '<audio autoplay loop><source src="assets/music.mp3" type="audio/ogg"></audio>'
+        document.getElementsByTagName('audio')[0].volume = 0.5
     }
 
     setAssets(){
@@ -103,16 +104,16 @@ class Startscreen{
             new Level2click
         })
 
-        this.makeLevelIcon(40.5,65.3,9.2,30.6,3)
-        this.levelIcon.addEventListener("click",()=>{
-            this.game.innerHTML = ""
-            new Level3click
-        })
-
         this.makeLevelIcon(45.1,44.4,19.4,51.4,4)
         this.levelIcon.addEventListener("click",()=>{
             this.game.innerHTML = ""
             new Level4click
+        })
+
+        this.makeLevelIcon(40.5,65.3,9.2,30.6,3)
+        this.levelIcon.addEventListener("click",()=>{
+            this.game.innerHTML = ""
+            new Level3click
         })
 
         this.makeLevelIcon(64.5,57,10.1,38.9,5)
@@ -186,37 +187,24 @@ class Startscreen{
         let options = document.createElement('options')
         this.game.appendChild(options)
 
-        options.innerHTML += "Music Volume"
+        options.innerHTML +="Music volume"
 
-        let sliderVolume = document.createElement('input')
-        options.appendChild(sliderVolume)
+        let musicVolume = document.createElement('input')
+        options.appendChild(musicVolume)
 
-        sliderVolume.type = "range"
-        sliderVolume.min = "1"
-        sliderVolume.max = "100"
-        sliderVolume.value = "50"
-        sliderVolume.id = 'myRange1'
+        musicVolume.type = "range"
+        musicVolume.min = "1"
+        musicVolume.max = "100"
+        musicVolume.id = 'myRange'
 
-        options.innerHTML +="Sound effect volume"
-
-        let soundEffectVolume = document.createElement('input')
-        options.appendChild(soundEffectVolume)
-
-        soundEffectVolume.type = "range"
-        soundEffectVolume.min = "1"
-        soundEffectVolume.max = "100"
-        soundEffectVolume.id = 'myRange'
-
+            musicVolume.addEventListener("input",()=> {
+                let volume = parseInt(musicVolume.value)
+                volume = volume /100
+                document.getElementsByTagName('audio')[0].volume = volume
+            })
 
         let leave = document.createElement('leave')
-            this.game.appendChild(leave)
-
-            leave.addEventListener("click",() =>{
-                options.remove();
-                leave.remove();
-
-                this.setButtons();
-            })
+        this.game.appendChild(leave)
         
     }
 
@@ -242,7 +230,7 @@ class Level1click{
     }
 
     setFurniture(){
-        new Furniture(8.5,50,18,23,"unicorn_laser","url(assets/television.png)")
+        new Furniture(8.5,50,18,23,"unicorn_sword","url(assets/television.png)")
         new Furniture(27.3,25.7,9,17,"unicorn_rifle","url(assets/clock.png)")
         new Furniture(80.5,57.6,5,12.1,"none","url(assets/vase.png)")
         new Furniture(12.7,26,6.8,7.4,"unicorn_gun","url(assets/books.png)")
@@ -274,11 +262,11 @@ class Level2click{
 
     setFurniture(){
         new Furniture(7.9,36.7,6,43.4,"unicorn_laser","url(assets/long_lamp.png)")
-        new Furniture(28.7,0,12.3,21.7,"unicorn_rifle","url(assets/ceiling_lamp.png)")
+        new Furniture(28.7,0,12.3,21.7,"unicorn_robot","url(assets/ceiling_lamp.png)")
         new Furniture(30.6,28.3,7.6,21.7,"none","url(assets/long_frame.png)")
         new Furniture(78.4,41.5,5.7,10.3,"none","url(assets/small_frame.png)")
-        new Furniture(62.5,51.6,2,8.4,"unicorn_gun","url(assets/book.png)")
-        new Furniture(46.6,66.7,2.8,5,"unicorn_gun","url(assets/mug.png)") 
+        new Furniture(62.5,51.6,2,8.4,"unicorn_sword","url(assets/book.png)")
+        new Furniture(46.6,66.7,2.8,5,"uni-corn","url(assets/mug.png)") 
 
         new EvilFurniture(83.1,61.7,5.6,16.5,"url(assets/fire.png)")
     }
@@ -293,26 +281,26 @@ class Level3click{
     constructor(){
         this.setFurniture()
         this.setBackground()
-        new Hint(39,26,12.5,11,"dummy text dummy text dummy text dummy text dummy text dummy text dummy text dummy text dummy text dummy text")
+        new Hint(9,12,12.5,11,"dummy text dummy text dummy text dummy text dummy text dummy text dummy text dummy text dummy text dummy text")
         new Inventory()
     }
 
     setBackground(){
         let background = document.createElement("background")
         let game = document.getElementsByTagName("game")[0]
-        background.style.backgroundImage = "url(assets/2.png)"
+        background.style.backgroundImage = "url(assets/3.png)"
         game.appendChild(background)
     }
 
     setFurniture(){
-        new Furniture(7.9,36.7,6,43.4,"unicorn_laser","url(assets/long_lamp.png)")
-        new Furniture(28.7,0,12.3,21.7,"unicorn_rifle","url(assets/ceiling_lamp.png)")
-        new Furniture(30.6,28.3,7.6,21.7,"none","url(assets/long_frame.png)")
-        new Furniture(78.4,41.5,5.7,10.3,"none","url(assets/small_frame.png)")
-        new Furniture(62.5,51.6,2,8.4,"unicorn_gun","url(assets/book.png)")
-        new Furniture(46.6,66.7,2.8,5,"unicorn_gun","url(assets/mug.png)") 
+        new Furniture(52.8,21.8,8.6,63,"unicorn_robot","url(assets/thin_lamp.png)")
+        new Furniture(6.6,32.7,6.2,9.5,"unicorn_rifle","url(assets/mini_frame.png)")
+        new Furniture(41.5,18.5,7.6,14.3,"none","url(assets/white_clock.png)")
+        new Furniture(79.7,21.8,2.85,10.2,"none","url(assets/tiny_plant.png)")
+        new Furniture(22.1,26.9,3.8,5.9,"uni-corn","url(assets/tiny_frame.png)")
+        new Furniture(88.7,48.7,5.2,21.9,"unicorn_gun","url(assets/small_lamp.png)") 
 
-        new EvilFurniture(83.1,61.7,5.6,16.5,"url(assets/fire.png)")
+        new EvilFurniture(17,57.5,9.9,11.5,"url(assets/pillow.png)")
     }
 }
 

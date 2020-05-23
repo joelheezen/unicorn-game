@@ -53,7 +53,7 @@
         z-index:101;
         position: absolute;
         background-repeat: no-repeat;
-        background-size: 100% 100%;
+        background-size: 100%;
         transition:1.5s;
         animation: pickuppopup 2s forwards, 3s idlepickup 2s forwards;
         animation-iteration-count: 1,infinite;
@@ -103,7 +103,7 @@
         position:relative;
         width: 10vh; height: 10vh;
         background-repeat: no-repeat;
-        background-size: 100% 100%;
+        background-size: 100%;
         z-index:5;
     }
 
@@ -320,7 +320,8 @@
           top:40vh;
           left:calc(100vw - 60vh);
           background-image: url(../assets/unicorn_gun.png);
-          background-size: 100% 100%;
+          background-size: 100%;
+          background-repeat: no-repeat;
           animation-duration: 2s;
         animation-iteration-count: infinite;
       }
@@ -332,7 +333,8 @@
         top:40vh;
         left:20vh;
         background-image: url(../assets/unicorn_gun.png);
-        background-size: 100% 100%;
+        background-size: 100%;
+        background-repeat: no-repeat;
         animation-duration: 2s;
         animation-iteration-count: infinite;
         transform: scaleX(-1);
