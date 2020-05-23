@@ -338,10 +338,23 @@
         transform: scaleX(-1);
     }
 
+    level{
+        position: absolute;
+        text-align:center;
+        font-size:1.5em;
+    }
+
+    level:hover{
+        border:solid 10px pink;
+        margin:-10px;
+    }
+
     .bounce-right {
         animation-name: bounce-right;
         animation-timing-function: cubic-bezier(0.280, 0.840, 0.420, 1);
     }
+
+    
     
     @keyframes bounce-right {
         0%   { transform: scale(1,1)      translateY(0); }

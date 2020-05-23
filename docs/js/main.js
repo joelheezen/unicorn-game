@@ -208,17 +208,17 @@ var Startscreen = (function () {
         var title = document.createElement("title");
         title.innerHTML = "Tactical unicorn";
         this.game.appendChild(title);
-        var leftUnicorn = document.createElement("leftUnicorn");
-        leftUnicorn.classList.add("bounce-left");
-        this.game.appendChild(leftUnicorn);
-        var rightUnicorn = document.createElement("rightUnicorn");
-        rightUnicorn.classList.add("bounce-right");
-        this.game.appendChild(rightUnicorn);
+        this.leftUnicorn = document.createElement("leftUnicorn");
+        this.leftUnicorn.classList.add("bounce-left");
+        this.game.appendChild(this.leftUnicorn);
+        this.rightUnicorn = document.createElement("rightUnicorn");
+        this.rightUnicorn.classList.add("bounce-right");
+        this.game.appendChild(this.rightUnicorn);
     };
     Startscreen.prototype.setButtons = function () {
         var _this = this;
         var startButton = document.createElement("startButton");
-        startButton.innerHTML = "Start";
+        startButton.innerHTML = "Play";
         var optionsButton = document.createElement("optionsButton");
         optionsButton.innerHTML = 'Options';
         var creditsButton = document.createElement("creditsButton");
@@ -231,8 +231,7 @@ var Startscreen = (function () {
         this.menu.appendChild(quitButton);
         this.game.appendChild(this.menu);
         startButton.addEventListener('click', function () {
-            _this.game.innerHTML = "";
-            new Level1click();
+            _this.levelSelect();
         });
         optionsButton.addEventListener('click', function () {
             _this.setOptions();
@@ -242,6 +241,63 @@ var Startscreen = (function () {
         });
         quitButton.addEventListener('click', function () {
             close();
+        });
+    };
+    Startscreen.prototype.makeLevelIcon = function (posX, posY, width, height, levelNumber) {
+        this.levelIcon = document.createElement('level');
+        this.game.appendChild(this.levelIcon);
+        this.levelIcon.innerHTML = "Level " + levelNumber;
+        this.levelIcon.style.transform = "translate(" + posX + "vw," + posY + "vh)";
+        this.levelIcon.style.width = width + "vw";
+        this.levelIcon.style.height = height + "vh";
+    };
+    Startscreen.prototype.levelSelect = function () {
+        var _this = this;
+        this.menu.innerHTML = "";
+        this.leftUnicorn.remove();
+        this.rightUnicorn.remove();
+        this.makeLevelIcon(14.1, 59.7, 10.8, 36.1, 1);
+        this.levelIcon.addEventListener("click", function () {
+            _this.game.innerHTML = "";
+            new Level1click;
+        });
+        this.makeLevelIcon(25.7, 52.8, 14.75, 43.05, 2);
+        this.levelIcon.addEventListener("click", function () {
+            _this.game.innerHTML = "";
+            new Level2click;
+        });
+        this.makeLevelIcon(40.5, 65.3, 9.2, 30.6, 3);
+        this.levelIcon.addEventListener("click", function () {
+            _this.game.innerHTML = "";
+            new Level3click;
+        });
+        this.makeLevelIcon(45.1, 44.4, 19.4, 51.4, 4);
+        this.levelIcon.addEventListener("click", function () {
+            _this.game.innerHTML = "";
+            new Level4click;
+        });
+        this.makeLevelIcon(64.5, 57, 10.1, 38.9, 5);
+        this.levelIcon.addEventListener("click", function () {
+            _this.game.innerHTML = "";
+            new Level5click;
+        });
+        this.makeLevelIcon(74.7, 45.9, 17, 49.9, 6);
+        this.levelIcon.addEventListener("click", function () {
+            _this.game.innerHTML = "";
+            new Level6click;
+        });
+        var leave = document.createElement('leave');
+        this.game.appendChild(leave);
+        leave.addEventListener("click", function () {
+            document.getElementsByTagName('level')[0].remove();
+            document.getElementsByTagName('level')[0].remove();
+            document.getElementsByTagName('level')[0].remove();
+            document.getElementsByTagName('level')[0].remove();
+            document.getElementsByTagName('level')[0].remove();
+            document.getElementsByTagName('level')[0].remove();
+            leave.remove();
+            _this.setButtons();
+            _this.setAssets();
         });
     };
     Startscreen.prototype.setCredits = function () {
@@ -281,7 +337,7 @@ var Startscreen = (function () {
         sliderVolume.min = "1";
         sliderVolume.max = "100";
         sliderVolume.value = "50";
-        sliderVolume.id = 'myRange';
+        sliderVolume.id = 'myRange1';
         options.innerHTML += "Sound effect volume";
         var soundEffectVolume = document.createElement('input');
         options.appendChild(soundEffectVolume);
@@ -349,6 +405,127 @@ var Level2click = (function () {
         new EvilFurniture(83.1, 61.7, 5.6, 16.5, "url(assets/fire.png)");
     };
     return Level2click;
+}());
+var Level2Battle = (function () {
+    function Level2Battle() {
+    }
+    return Level2Battle;
+}());
+var Level3click = (function () {
+    function Level3click() {
+        this.setFurniture();
+        this.setBackground();
+        new Hint(39, 26, 12.5, 11, "dummy text dummy text dummy text dummy text dummy text dummy text dummy text dummy text dummy text dummy text");
+        new Inventory();
+    }
+    Level3click.prototype.setBackground = function () {
+        var background = document.createElement("background");
+        var game = document.getElementsByTagName("game")[0];
+        background.style.backgroundImage = "url(assets/2.png)";
+        game.appendChild(background);
+    };
+    Level3click.prototype.setFurniture = function () {
+        new Furniture(7.9, 36.7, 6, 43.4, "unicorn_laser", "url(assets/long_lamp.png)");
+        new Furniture(28.7, 0, 12.3, 21.7, "unicorn_rifle", "url(assets/ceiling_lamp.png)");
+        new Furniture(30.6, 28.3, 7.6, 21.7, "none", "url(assets/long_frame.png)");
+        new Furniture(78.4, 41.5, 5.7, 10.3, "none", "url(assets/small_frame.png)");
+        new Furniture(62.5, 51.6, 2, 8.4, "unicorn_gun", "url(assets/book.png)");
+        new Furniture(46.6, 66.7, 2.8, 5, "unicorn_gun", "url(assets/mug.png)");
+        new EvilFurniture(83.1, 61.7, 5.6, 16.5, "url(assets/fire.png)");
+    };
+    return Level3click;
+}());
+var Level3Battle = (function () {
+    function Level3Battle() {
+    }
+    return Level3Battle;
+}());
+var Level4click = (function () {
+    function Level4click() {
+        this.setFurniture();
+        this.setBackground();
+        new Hint(39, 26, 12.5, 11, "dummy text dummy text dummy text dummy text dummy text dummy text dummy text dummy text dummy text dummy text");
+        new Inventory();
+    }
+    Level4click.prototype.setBackground = function () {
+        var background = document.createElement("background");
+        var game = document.getElementsByTagName("game")[0];
+        background.style.backgroundImage = "url(assets/2.png)";
+        game.appendChild(background);
+    };
+    Level4click.prototype.setFurniture = function () {
+        new Furniture(7.9, 36.7, 6, 43.4, "unicorn_laser", "url(assets/long_lamp.png)");
+        new Furniture(28.7, 0, 12.3, 21.7, "unicorn_rifle", "url(assets/ceiling_lamp.png)");
+        new Furniture(30.6, 28.3, 7.6, 21.7, "none", "url(assets/long_frame.png)");
+        new Furniture(78.4, 41.5, 5.7, 10.3, "none", "url(assets/small_frame.png)");
+        new Furniture(62.5, 51.6, 2, 8.4, "unicorn_gun", "url(assets/book.png)");
+        new Furniture(46.6, 66.7, 2.8, 5, "unicorn_gun", "url(assets/mug.png)");
+        new EvilFurniture(83.1, 61.7, 5.6, 16.5, "url(assets/fire.png)");
+    };
+    return Level4click;
+}());
+var Level4Battle = (function () {
+    function Level4Battle() {
+    }
+    return Level4Battle;
+}());
+var Level5click = (function () {
+    function Level5click() {
+        this.setFurniture();
+        this.setBackground();
+        new Hint(39, 26, 12.5, 11, "dummy text dummy text dummy text dummy text dummy text dummy text dummy text dummy text dummy text dummy text");
+        new Inventory();
+    }
+    Level5click.prototype.setBackground = function () {
+        var background = document.createElement("background");
+        var game = document.getElementsByTagName("game")[0];
+        background.style.backgroundImage = "url(assets/2.png)";
+        game.appendChild(background);
+    };
+    Level5click.prototype.setFurniture = function () {
+        new Furniture(7.9, 36.7, 6, 43.4, "unicorn_laser", "url(assets/long_lamp.png)");
+        new Furniture(28.7, 0, 12.3, 21.7, "unicorn_rifle", "url(assets/ceiling_lamp.png)");
+        new Furniture(30.6, 28.3, 7.6, 21.7, "none", "url(assets/long_frame.png)");
+        new Furniture(78.4, 41.5, 5.7, 10.3, "none", "url(assets/small_frame.png)");
+        new Furniture(62.5, 51.6, 2, 8.4, "unicorn_gun", "url(assets/book.png)");
+        new Furniture(46.6, 66.7, 2.8, 5, "unicorn_gun", "url(assets/mug.png)");
+        new EvilFurniture(83.1, 61.7, 5.6, 16.5, "url(assets/fire.png)");
+    };
+    return Level5click;
+}());
+var Level5Battle = (function () {
+    function Level5Battle() {
+    }
+    return Level5Battle;
+}());
+var Level6click = (function () {
+    function Level6click() {
+        this.setFurniture();
+        this.setBackground();
+        new Hint(39, 26, 12.5, 11, "dummy text dummy text dummy text dummy text dummy text dummy text dummy text dummy text dummy text dummy text");
+        new Inventory();
+    }
+    Level6click.prototype.setBackground = function () {
+        var background = document.createElement("background");
+        var game = document.getElementsByTagName("game")[0];
+        background.style.backgroundImage = "url(assets/2.png)";
+        game.appendChild(background);
+    };
+    Level6click.prototype.setFurniture = function () {
+        new Furniture(7.9, 36.7, 6, 43.4, "unicorn_laser", "url(assets/long_lamp.png)");
+        new Furniture(28.7, 0, 12.3, 21.7, "unicorn_rifle", "url(assets/ceiling_lamp.png)");
+        new Furniture(30.6, 28.3, 7.6, 21.7, "none", "url(assets/long_frame.png)");
+        new Furniture(78.4, 41.5, 5.7, 10.3, "none", "url(assets/small_frame.png)");
+        new Furniture(62.5, 51.6, 2, 8.4, "unicorn_gun", "url(assets/book.png)");
+        new Furniture(46.6, 66.7, 2.8, 5, "unicorn_gun", "url(assets/mug.png)");
+        new EvilFurniture(83.1, 61.7, 5.6, 16.5, "url(assets/fire.png)");
+    };
+    return Level6click;
+}());
+var Level6Battle = (function () {
+    function Level6Battle() {
+    }
+    return Level6Battle;
 }());
 var Hint = (function () {
     function Hint(x, y, h, w, message) {
