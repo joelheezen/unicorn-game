@@ -19,7 +19,7 @@ class Startscreen{
         background.style.backgroundImage = "url(assets/startscreen.png)"
         this.game.appendChild(background)
         this.game.innerHTML += '<audio autoplay loop><source src="assets/music.mp3" type="audio/ogg"></audio>'
-        document.getElementsByTagName('audio')[0].volume = 0.5
+        document.getElementsByTagName('audio')[0].volume = 0.5;
     }
 
     setAssets(){
@@ -206,6 +206,12 @@ class Startscreen{
         let leave = document.createElement('leave')
         this.game.appendChild(leave)
         
+        leave.addEventListener("click",() =>{
+            options.remove();
+            leave.remove();
+
+            this.setButtons();
+        })
     }
 
 

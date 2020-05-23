@@ -328,6 +328,7 @@ var Startscreen = (function () {
         });
     };
     Startscreen.prototype.setOptions = function () {
+        var _this = this;
         this.menu.innerHTML = "";
         var options = document.createElement('options');
         this.game.appendChild(options);
@@ -345,6 +346,11 @@ var Startscreen = (function () {
         });
         var leave = document.createElement('leave');
         this.game.appendChild(leave);
+        leave.addEventListener("click", function () {
+            options.remove();
+            leave.remove();
+            _this.setButtons();
+        });
     };
     return Startscreen;
 }());
