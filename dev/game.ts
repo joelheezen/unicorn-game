@@ -368,16 +368,14 @@ class Level5click{
     constructor(){
         this.setFurniture()
         this.setBackground()
-        new Hint(39,26,12.5,11,"dummy text dummy text dummy text dummy text dummy text dummy text dummy text dummy text dummy text dummy text")
+        new Hint(55,17,12.5,11,"dummy text dummy text dummy text dummy text dummy text dummy text dummy text dummy text dummy text dummy text")
         new Inventory()
     }
-
-
 
     setBackground(){
         let background = document.createElement("background")
         let game = document.getElementsByTagName("game")[0]
-        background.style.backgroundImage = "url(assets/2.png)"
+        background.style.backgroundImage = "url(assets/5.png)"
         game.appendChild(background)
 
         let home = document.createElement('backHome')
@@ -386,14 +384,13 @@ class Level5click{
     }
 
     setFurniture(){
-        new Furniture(7.9,36.7,6,43.4,"unicorn_laser","url(assets/long_lamp.png)")
-        new Furniture(28.7,0,12.3,21.7,"unicorn_rifle","url(assets/ceiling_lamp.png)")
-        new Furniture(30.6,28.3,7.6,21.7,"none","url(assets/long_frame.png)")
-        new Furniture(78.4,41.5,5.7,10.3,"none","url(assets/small_frame.png)")
-        new Furniture(62.5,51.6,2,8.4,"unicorn_gun","url(assets/book.png)")
-        new Furniture(46.6,66.7,2.8,5,"unicorn_gun","url(assets/mug.png)") 
+        new Furniture(5.2,73.1,5.3,11,"unicorn_rainbow","url(assets/plantpot.png)")
+        new Furniture(33.1,20.2,6,13.5,"unicorn_shrek","url(assets/dead_plant.png)")
+        new Furniture(56.6,34.45,7.6,12.7,"none","url(assets/lamp_shade.png)")
+        new Furniture(18.9,56.3,4.2,7.6,"unicorn_army","url(assets/square_pillow.png)")
+        new Furniture(72.6,27.7,9,16,"unicorn_super_meat_boy","url(assets/boat_frame.png)")
 
-        new EvilFurniture(83.1,61.7,5.6,16.5,"url(assets/fire.png)")
+        new EvilFurniture(77.4,76.5,15,5.9,"url(assets/drawer.png)")
     }
 }
 
@@ -415,7 +412,7 @@ class Level6click{
     setBackground(){
         let background = document.createElement("background")
         let game = document.getElementsByTagName("game")[0]
-        background.style.backgroundImage = "url(assets/2.png)"
+        background.style.backgroundImage = "url(assets/6.png)"
         game.appendChild(background)
 
         let home = document.createElement('backHome')
