@@ -26,12 +26,6 @@
         display : block;
     }
 
-
-    button{
-        position: absolute;
-        background-color: red;
-    }
-
     furniture {
         width: 100px;
         height: 100px;
@@ -148,18 +142,14 @@
 
     inventory{
         position:absolute;
-        height: calc(96vh - 10px);
+        height: calc(66vh - 30px);
         width: 50px;
         padding-left:10px;
         padding-right:10px;
         top: 2vh;
-        left: calc(99vw - 75px);
-        background-color: white;
-        border-left: solid 5px pink;
-        border-top: solid 5px pink;
-        border-right: solid 5px pink;
-        border-bottom: solid 5px pink;
-        border-style: inset;
+        left: calc(99vw - 100px);
+        background-color: rgb(243, 129, 192);
+        border: dashed 15px pink;
     }
 
     dustcloud{
@@ -354,6 +344,16 @@
     .bounce-right {
         animation-name: bounce-right;
         animation-timing-function: cubic-bezier(0.280, 0.840, 0.420, 1);
+    }
+
+    backhome{
+        height:4vw;
+        width:4vw;
+        position:absolute;
+        background-image: url(../assets/home.png);
+        background-size:100%;
+        margin:1vw;
+        filter: hue-rotate(200deg)
     }
 
     

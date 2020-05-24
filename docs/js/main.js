@@ -195,6 +195,7 @@ var Startscreen = (function () {
     function Startscreen() {
         this.game = document.getElementsByTagName("game")[0];
         this.menu = document.createElement('menu');
+        this.game.innerHTML = "";
         this.setBackground();
         this.setButtons();
         this.setAssets();
@@ -364,6 +365,9 @@ var Level1click = (function () {
         var game = document.getElementsByTagName("game")[0];
         background.style.backgroundImage = "url(assets/1.png)";
         game.appendChild(background);
+        var home = document.createElement('backHome');
+        game.appendChild(home);
+        home.addEventListener('click', function () { return new Startscreen; });
     };
     Level1click.prototype.setFurniture = function () {
         new Furniture(8.5, 50, 18, 23, "unicorn_sword", "url(assets/television.png)");
@@ -391,6 +395,9 @@ var Level2click = (function () {
         var game = document.getElementsByTagName("game")[0];
         background.style.backgroundImage = "url(assets/2.png)";
         game.appendChild(background);
+        var home = document.createElement('backHome');
+        game.appendChild(home);
+        home.addEventListener('click', function () { return new Startscreen; });
     };
     Level2click.prototype.setFurniture = function () {
         new Furniture(70.7, 9.2, 1.5, 14.4, "unicorn_laser", "url(assets/long_book.png)");
@@ -419,6 +426,9 @@ var Level3click = (function () {
         var game = document.getElementsByTagName("game")[0];
         background.style.backgroundImage = "url(assets/3.png)";
         game.appendChild(background);
+        var home = document.createElement('backHome');
+        game.appendChild(home);
+        home.addEventListener('click', function () { return new Startscreen; });
     };
     Level3click.prototype.setFurniture = function () {
         new Furniture(52.8, 21.8, 8.6, 63, "unicorn_robot", "url(assets/thin_lamp.png)");
@@ -448,6 +458,9 @@ var Level4click = (function () {
         var game = document.getElementsByTagName("game")[0];
         background.style.backgroundImage = "url(assets/4.png)";
         game.appendChild(background);
+        var home = document.createElement('backHome');
+        game.appendChild(home);
+        home.addEventListener('click', function () { return new Startscreen; });
     };
     Level4click.prototype.setFurniture = function () {
         new Furniture(7.9, 36.7, 6, 43.4, "unicorn_furniture", "url(assets/long_lamp.png)");
@@ -477,6 +490,9 @@ var Level5click = (function () {
         var game = document.getElementsByTagName("game")[0];
         background.style.backgroundImage = "url(assets/2.png)";
         game.appendChild(background);
+        var home = document.createElement('backHome');
+        game.appendChild(home);
+        home.addEventListener('click', function () { return new Startscreen; });
     };
     Level5click.prototype.setFurniture = function () {
         new Furniture(7.9, 36.7, 6, 43.4, "unicorn_laser", "url(assets/long_lamp.png)");
@@ -506,6 +522,9 @@ var Level6click = (function () {
         var game = document.getElementsByTagName("game")[0];
         background.style.backgroundImage = "url(assets/2.png)";
         game.appendChild(background);
+        var home = document.createElement('backHome');
+        game.appendChild(home);
+        home.addEventListener('click', function () { return new Startscreen; });
     };
     Level6click.prototype.setFurniture = function () {
         new Furniture(7.9, 36.7, 6, 43.4, "unicorn_laser", "url(assets/long_lamp.png)");

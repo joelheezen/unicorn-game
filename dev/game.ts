@@ -9,6 +9,7 @@ class Startscreen{
     levelIcon: HTMLElement
 
     constructor(){
+        this.game.innerHTML = ""
         this.setBackground()
         this.setButtons()
         this.setAssets()
@@ -224,15 +225,18 @@ class Level1click{
         this.setBackground()
         new Hint(70.7,9,12.5,8.6,"dummy text dummy text dummy text dummy text dummy text dummy text dummy text dummy text dummy text dummy text")
         new Inventory()
+
     }
-
-
 
     setBackground(){
         let background = document.createElement("background")
         let game = document.getElementsByTagName("game")[0]
         background.style.backgroundImage = "url(assets/1.png)"
         game.appendChild(background)
+
+        let home = document.createElement('backHome')
+        game.appendChild(home)
+        home.addEventListener('click',() => new Startscreen)
     }
 
     setFurniture(){
@@ -264,6 +268,10 @@ class Level2click{
         let game = document.getElementsByTagName("game")[0]
         background.style.backgroundImage = "url(assets/2.png)"
         game.appendChild(background)
+
+        let home = document.createElement('backHome')
+        game.appendChild(home)
+        home.addEventListener('click',() => new Startscreen)
     }
 
     setFurniture(){
@@ -298,6 +306,10 @@ class Level3click{
         let game = document.getElementsByTagName("game")[0]
         background.style.backgroundImage = "url(assets/3.png)"
         game.appendChild(background)
+
+        let home = document.createElement('backHome')
+        game.appendChild(home)
+        home.addEventListener('click',() => new Startscreen)
     }
 
     setFurniture(){
@@ -329,6 +341,10 @@ class Level4click{
         let game = document.getElementsByTagName("game")[0]
         background.style.backgroundImage = "url(assets/4.png)"
         game.appendChild(background)
+
+        let home = document.createElement('backHome')
+        game.appendChild(home)
+        home.addEventListener('click',() => new Startscreen)
     }
 
     setFurniture(){
@@ -363,6 +379,10 @@ class Level5click{
         let game = document.getElementsByTagName("game")[0]
         background.style.backgroundImage = "url(assets/2.png)"
         game.appendChild(background)
+
+        let home = document.createElement('backHome')
+        game.appendChild(home)
+        home.addEventListener('click',() => new Startscreen)
     }
 
     setFurniture(){
@@ -397,6 +417,10 @@ class Level6click{
         let game = document.getElementsByTagName("game")[0]
         background.style.backgroundImage = "url(assets/2.png)"
         game.appendChild(background)
+
+        let home = document.createElement('backHome')
+        game.appendChild(home)
+        home.addEventListener('click',() => new Startscreen)
     }
 
     setFurniture(){
