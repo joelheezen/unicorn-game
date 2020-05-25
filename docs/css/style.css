@@ -136,6 +136,7 @@
         background-size: 100% 100%;
         display: none;
         width: 5vh; height: 5vh;
+        pointer-events: none;
         z-index: 150;
         position:absolute;
         animation: glitterfade 1s forwards;
@@ -481,3 +482,9 @@
 
 
 
+  @keyframes glitter {
+      0%{}
+      50%{ opacity: 1;}
+      100%{ opacity: 0;}
+  }
+  
