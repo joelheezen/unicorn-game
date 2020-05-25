@@ -18,9 +18,9 @@ class Hint{
         
 
         function zoomin(){
-            game.style.zoom = "300%"
-            let xzoom = x - h
-            let yzoom = y - w 
+            game.style.zoom = "500%"
+            let xzoom = x - h / 2
+            let yzoom = y - w / 2
 
             if(xzoom < 0){
                 xzoom = 0

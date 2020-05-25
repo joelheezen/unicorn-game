@@ -223,7 +223,7 @@ class Level1click{
     constructor(){
         this.setFurniture()
         this.setBackground()
-        new Hint(70.7,9,12.5,8.6,"dummy text dummy text dummy text dummy text dummy text dummy text dummy text dummy text dummy text dummy text")
+        new Hint(70.7,9,12.5,8.6,"The room is quiet and devoid of life, yet there is something that isnt. Its whispering silently, as not to be heared. It seems like its soul is imprisoned.")
         new Inventory()
 
     }
@@ -421,14 +421,16 @@ class Level6click{
     }
 
     setFurniture(){
-        new Furniture(7.9,36.7,6,43.4,"unicorn_laser","url(assets/long_lamp.png)")
-        new Furniture(28.7,0,12.3,21.7,"unicorn_rifle","url(assets/ceiling_lamp.png)")
-        new Furniture(30.6,28.3,7.6,21.7,"none","url(assets/long_frame.png)")
-        new Furniture(78.4,41.5,5.7,10.3,"none","url(assets/small_frame.png)")
-        new Furniture(62.5,51.6,2,8.4,"unicorn_gun","url(assets/book.png)")
-        new Furniture(46.6,66.7,2.8,5,"unicorn_gun","url(assets/mug.png)") 
+        new Furniture(52.8,0,6,13.5,"","url(assets/small_ceiling_lamp.png)")
 
-        new EvilFurniture(83.1,61.7,5.6,16.5,"url(assets/fire.png)")
+        new Furniture(28.7,0,12.3,21.7,"","url(assets/small_cabinet.png)")
+        new Furniture(30.6,28.3,7.6,21.7,"","url(assets/big_plant.png)")
+        new Furniture(78.4,41.5,5.7,10.3,"","url(assets/white_plantpot.png)")
+        new Furniture(62.5,51.6,2,8.4,"","url(assets/small_bunny.png)")
+        new Furniture(46.6,66.7,2.8,5,"","url(assets/two_frames.png)")
+        new Furniture(46.6,66.7,2.8,5,"","url(assets/large_bunny.png)") 
+
+        new EvilFurniture(83.1,61.7,5.6,16.5,"url(assets/large_cabinet.png)")
     }
 }
 
