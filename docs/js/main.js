@@ -148,7 +148,11 @@ var BattlePhase = (function () {
         var squares = 140;
         var xPosSquare = 0;
         var yPosSquare = 0;
+        var spaces = document.getElementsByTagName("moveSpace");
+        var monsters = new Array;
+        var monsterCount;
         var inventory = document.getElementsByTagName('inventory')[0];
+        var stage = 6;
         function allowDrop(ev) {
             ev.preventDefault();
         }
@@ -185,9 +189,147 @@ var BattlePhase = (function () {
             inventoryItems[i].draggable = true;
             inventoryItems[i].addEventListener("dragstart", function () { return drag(event); });
         }
+        if (stage == 1) {
+            monsterCount = 4;
+            for (var i = 0; i < monsterCount; i++) {
+                var monster = document.createElement("monster");
+                monster.id = "monster" + i;
+                monsters.push(monster);
+            }
+            for (var i = 0; i < monsterCount; i++) {
+                var randomNumber = Math.floor(Math.random() * 70);
+                console.log(randomNumber);
+                if (spaces[randomNumber].firstChild) {
+                    i -= 1;
+                }
+                else {
+                    spaces[randomNumber].appendChild(monsters[i]);
+                }
+            }
+        }
+        if (stage == 2) {
+            monsterCount = 4;
+            for (var i = 0; i < monsterCount; i++) {
+                var monster = document.createElement("monster");
+                monster.id = "monster" + i;
+                monsters.push(monster);
+            }
+            for (var i = 0; i < monsterCount; i++) {
+                var randomNumber = Math.floor(Math.random() * 70);
+                console.log(randomNumber);
+                if (spaces[randomNumber].firstChild) {
+                    i -= 1;
+                }
+                else {
+                    spaces[randomNumber].appendChild(monsters[i]);
+                }
+            }
+        }
+        if (stage == 3) {
+            monsterCount = 4;
+            for (var i = 0; i < monsterCount; i++) {
+                var monster = document.createElement("monster");
+                monster.id = "monster" + i;
+                monsters.push(monster);
+            }
+            for (var i = 0; i < monsterCount; i++) {
+                var randomNumber = Math.floor(Math.random() * 70);
+                console.log(randomNumber);
+                if (spaces[randomNumber].firstChild) {
+                    i -= 1;
+                }
+                else {
+                    spaces[randomNumber].appendChild(monsters[i]);
+                }
+            }
+        }
+        if (stage == 4) {
+            monsterCount = 4;
+            for (var i = 0; i < monsterCount; i++) {
+                var monster = document.createElement("monster");
+                monster.id = "monster" + i;
+                monsters.push(monster);
+            }
+            for (var i = 0; i < monsterCount; i++) {
+                var randomNumber = Math.floor(Math.random() * 70);
+                console.log(randomNumber);
+                if (spaces[randomNumber].firstChild) {
+                    i -= 1;
+                }
+                else {
+                    spaces[randomNumber].appendChild(monsters[i]);
+                }
+            }
+        }
+        if (stage == 5) {
+            monsterCount = 4;
+            for (var i = 0; i < monsterCount; i++) {
+                var monster = document.createElement("monster");
+                monster.id = "monster" + i;
+                monsters.push(monster);
+            }
+            for (var i = 0; i < monsterCount; i++) {
+                var randomNumber = Math.floor(Math.random() * 70);
+                console.log(randomNumber);
+                if (spaces[randomNumber].firstChild) {
+                    i -= 1;
+                }
+                else {
+                    spaces[randomNumber].appendChild(monsters[i]);
+                }
+            }
+        }
+        if (stage == 6) {
+            monsterCount = 4;
+            for (var i = 0; i < monsterCount; i++) {
+                var monster = document.createElement("monster");
+                monster.id = "monster" + i;
+                monsters.push(monster);
+            }
+            for (var i = 0; i < monsterCount; i++) {
+                var randomNumber = Math.floor(Math.random() * 70);
+                console.log(randomNumber);
+                if (spaces[randomNumber].firstChild) {
+                    i -= 1;
+                }
+                else {
+                    spaces[randomNumber].appendChild(monsters[i]);
+                }
+            }
+            enemyTurn();
+        }
+        function enemyTurn() {
+            if (document.getElementById("monster0")) {
+                console.log("the enemies are advancing");
+                var monstersLeft = document.getElementsByTagName("monster");
+                var activeMonster = document.getElementById("monster" + Math.floor(Math.random() * monstersLeft.length));
+                if (activeMonster != null) {
+                    var spaceNow = activeMonster.parentNode;
+                    console.log(spaceNow.id);
+                    var direction = Math.floor(Math.random() * 100);
+                    if (direction < 10) {
+                        console.log("move back");
+                    }
+                    else if (direction < 20 && direction >= 10) {
+                        console.log("move left");
+                    }
+                    else if (direction < 30 && direction >= 20) {
+                        console.log("move right");
+                    }
+                    else {
+                        console.log("move forward");
+                    }
+                }
+                console.log(activeMonster);
+            }
+            else {
+                console.log("you won");
+            }
+        }
+        function playerTurn() {
+            enemyTurn();
+        }
     }
-    BattlePhase.prototype.createBoard = function () {
-    };
     return BattlePhase;
 }());
 window.addEventListener("load", function () { return new Startscreen(); });
