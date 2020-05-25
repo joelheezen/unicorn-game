@@ -183,36 +183,31 @@ var BattlePhase = (function () {
             inventoryItems[i].draggable = true;
             inventoryItems[i].addEventListener("dragstart", function () { return _this.drag(event); });
         }
-        var monsterTypes = new Array();
+        var monsterTypes = ["enemy_cabinet", "enemy_candle", "enemy_couch", "enemy_dunbell", "enemy_glass_ball", "enemy_lamp", "enemy_plant", "enemy_vase"];
         switch (stage) {
             case 1:
                 monsterCount = 4;
-                monsterTypes = ["cabinet", "candle", "couch", "dunbell", "glass_ball", "lamp", "plant", "vase"];
                 break;
             case 2:
                 monsterCount = 4;
-                monsterTypes = ["cabinet", "candle", "couch", "dunbell", "glass_ball", "lamp", "plant", "vase"];
                 break;
             case 3:
                 monsterCount = 4;
-                monsterTypes = ["cabinet", "candle", "couch", "dunbell", "glass_ball", "lamp", "plant", "vase"];
                 break;
             case 4:
                 monsterCount = 4;
-                monsterTypes = ["cabinet", "candle", "couch", "dunbell", "glass_ball", "lamp", "plant", "vase"];
                 break;
             case 5:
                 monsterCount = 4;
-                monsterTypes = ["cabinet", "candle", "couch", "dunbell", "glass_ball", "lamp", "plant", "vase"];
                 break;
             case 6:
                 monsterCount = 4;
-                monsterTypes = ["cabinet", "candle", "couch", "dunbell", "glass_ball", "lamp", "plant", "vase"];
+                monsterTypes = ["wizard"];
                 break;
         }
         for (var i = 0; i < monsterCount; i++) {
             var monster = document.createElement("monster");
-            monster.style.backgroundImage = "url(assets/enemy_gen_" + monsterTypes[Math.floor(Math.random() * monsterTypes.length)] + ".png)";
+            monster.style.backgroundImage = "url(assets/" + monsterTypes[Math.floor(Math.random() * monsterTypes.length)] + ".png)";
             console.log(monster.style.backgroundImage);
             monster.id = "monster" + i;
             monsters.push(monster);
