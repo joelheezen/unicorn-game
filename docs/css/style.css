@@ -96,9 +96,10 @@
 
     inventoryitem{
         position:relative;
-        width: 10vh; height: 10vh;
+        width: 8vh; height: 8vh;
         background-repeat: no-repeat;
-        background-size: 100%;
+        background-position: center; 
+        background-size: 80%;
         z-index:5;
     }
 
@@ -108,9 +109,6 @@
         background-repeat: no-repeat;
         position: absolute;
         background-size: 100% 100%;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
     }
 
     #monster0 {
@@ -140,14 +138,20 @@
 
 
     moveSpace{
-        background-image: url(../assets/clock.png);
-        width: 10vh; height: 10vh;
+        width: 9vh; height: 9vh;
         background-repeat: no-repeat;
         background-size: 100% 100%;
         position: absolute;
         top:0;
         left:0;
     }
+
+    movespace *{
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    }
+
     unicornPlayer {
         background-image: url(../assets/unicorn_jetpack.png);
         width: 250px;
@@ -188,7 +192,7 @@
         top: 2vh;
         left: calc(99vw - 100px);
         background-color: rgb(243, 129, 192);
-        border: dashed 15px pink;
+        border: inset 15px pink;
     }
 
     dustcloud{
@@ -395,6 +399,16 @@
         background-size:100%;
         margin:1vw;
         filter: hue-rotate(200deg)
+    }
+
+    gameboard{
+        background-image:url(../assets/gameboard.png);
+        height:90vh; width:90vh;
+        position: absolute;
+        top:5vh;
+        background-size:100%;
+        background-repeat: no-repeat;
+        left:calc(50vw - 45vh);
     }
 
     

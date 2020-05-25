@@ -21,14 +21,14 @@ class BattlePhase{
 
         // sets a new background
         let background = document.createElement("background")
-        background.style.backgroundImage = "url(assets/2.png)"
+        background.style.backgroundImage = "url(assets/gameBackground.png)"
         game.appendChild(background)
         
         // code to take the inventory characters and move them to a space
         let inventoryItems = document.getElementsByTagName('inventory')[0].children as HTMLCollectionOf<HTMLElement>
-        let squares = 140
-        let xPosSquare = 0
-        let yPosSquare = 0
+        let squares = 64
+        let xPosSquare = 8
+        let yPosSquare = 8
         // creates an array of the spaces so you can make a layout of each map
         let spaces = document.getElementsByTagName("moveSpace")
         // new array to store the monsters in per level
@@ -59,16 +59,18 @@ class BattlePhase{
             }
         }
 
+        let gameboard = document.createElement("gameBoard")
+            game.appendChild(gameboard)
 
         for (let i = 0; i < squares; i++) {
             let moveSpace = document.createElement("moveSpace")
-            game.appendChild(moveSpace)
+            gameboard.appendChild(moveSpace)
             moveSpace.id = "square" + i
-            moveSpace.style.transform = `translate(${xPosSquare}vw, ${yPosSquare}vh)`
-            xPosSquare += 6.67
-            if (xPosSquare > 93){
-                xPosSquare = 0
-                yPosSquare += 10
+            moveSpace.style.transform = `translate(${xPosSquare}vh, ${yPosSquare}vh)`
+            xPosSquare += 9.3
+            if (xPosSquare > 73.1){
+                xPosSquare = 8
+                yPosSquare += 9.3
             }
             moveSpace.addEventListener("drop",() => drop(event))
             moveSpace.addEventListener("dragover",() => allowDrop(event))
@@ -91,7 +93,7 @@ class BattlePhase{
                 monsters.push(monster)
             }
             for (let i = 0; i < monsterCount; i++) {
-                let randomNumber = Math.floor(Math.random() * 70)
+                let randomNumber = Math.floor(Math.random() * 31)
                 console.log(randomNumber)
                 if(spaces[randomNumber].firstChild){
                     i -= 1
@@ -110,7 +112,7 @@ class BattlePhase{
                 monsters.push(monster)
             }
             for (let i = 0; i < monsterCount; i++) {
-                let randomNumber = Math.floor(Math.random() * 70)
+                let randomNumber = Math.floor(Math.random() * 31)
                 console.log(randomNumber)
                 if(spaces[randomNumber].firstChild){
                     i -= 1
@@ -129,7 +131,7 @@ class BattlePhase{
                 monsters.push(monster)
             }
             for (let i = 0; i < monsterCount; i++) {
-                let randomNumber = Math.floor(Math.random() * 70)
+                let randomNumber = Math.floor(Math.random() * 40)
                 console.log(randomNumber)
                 if(spaces[randomNumber].firstChild){
                     i -= 1
@@ -148,7 +150,7 @@ class BattlePhase{
                 monsters.push(monster)
             }
             for (let i = 0; i < monsterCount; i++) {
-                let randomNumber = Math.floor(Math.random() * 70)
+                let randomNumber = Math.floor(Math.random() * 31)
                 console.log(randomNumber)
                 if(spaces[randomNumber].firstChild){
                     i -= 1
@@ -167,7 +169,7 @@ class BattlePhase{
                 monsters.push(monster)
             }
             for (let i = 0; i < monsterCount; i++) {
-                let randomNumber = Math.floor(Math.random() * 70)
+                let randomNumber = Math.floor(Math.random() * 31)
                 console.log(randomNumber)
                 if(spaces[randomNumber].firstChild){
                     i -= 1
@@ -186,7 +188,7 @@ class BattlePhase{
                 monsters.push(monster)
             }
             for (let i = 0; i < monsterCount; i++) {
-                let randomNumber = Math.floor(Math.random() * 70)
+                let randomNumber = Math.floor(Math.random() * 31)
                 console.log(randomNumber)
                 if(spaces[randomNumber].firstChild){
                     i -= 1

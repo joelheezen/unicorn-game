@@ -142,12 +142,12 @@ var BattlePhase = (function () {
             }
         });
         var background = document.createElement("background");
-        background.style.backgroundImage = "url(assets/2.png)";
+        background.style.backgroundImage = "url(assets/gameBackground.png)";
         game.appendChild(background);
         var inventoryItems = document.getElementsByTagName('inventory')[0].children;
-        var squares = 140;
-        var xPosSquare = 0;
-        var yPosSquare = 0;
+        var squares = 64;
+        var xPosSquare = 8;
+        var yPosSquare = 8;
         var spaces = document.getElementsByTagName("moveSpace");
         var monsters = new Array;
         var monsterCount;
@@ -169,15 +169,17 @@ var BattlePhase = (function () {
                 ev.target.appendChild(document.getElementById(data));
             }
         }
+        var gameboard = document.createElement("gameBoard");
+        game.appendChild(gameboard);
         for (var i = 0; i < squares; i++) {
             var moveSpace = document.createElement("moveSpace");
-            game.appendChild(moveSpace);
+            gameboard.appendChild(moveSpace);
             moveSpace.id = "square" + i;
-            moveSpace.style.transform = "translate(" + xPosSquare + "vw, " + yPosSquare + "vh)";
-            xPosSquare += 6.67;
-            if (xPosSquare > 93) {
-                xPosSquare = 0;
-                yPosSquare += 10;
+            moveSpace.style.transform = "translate(" + xPosSquare + "vh, " + yPosSquare + "vh)";
+            xPosSquare += 9.3;
+            if (xPosSquare > 73.1) {
+                xPosSquare = 8;
+                yPosSquare += 9.3;
             }
             moveSpace.addEventListener("drop", function () { return drop(event); });
             moveSpace.addEventListener("dragover", function () { return allowDrop(event); });
@@ -197,7 +199,7 @@ var BattlePhase = (function () {
                 monsters.push(monster);
             }
             for (var i = 0; i < monsterCount; i++) {
-                var randomNumber = Math.floor(Math.random() * 70);
+                var randomNumber = Math.floor(Math.random() * 31);
                 console.log(randomNumber);
                 if (spaces[randomNumber].firstChild) {
                     i -= 1;
@@ -215,7 +217,7 @@ var BattlePhase = (function () {
                 monsters.push(monster);
             }
             for (var i = 0; i < monsterCount; i++) {
-                var randomNumber = Math.floor(Math.random() * 70);
+                var randomNumber = Math.floor(Math.random() * 31);
                 console.log(randomNumber);
                 if (spaces[randomNumber].firstChild) {
                     i -= 1;
@@ -233,7 +235,7 @@ var BattlePhase = (function () {
                 monsters.push(monster);
             }
             for (var i = 0; i < monsterCount; i++) {
-                var randomNumber = Math.floor(Math.random() * 70);
+                var randomNumber = Math.floor(Math.random() * 40);
                 console.log(randomNumber);
                 if (spaces[randomNumber].firstChild) {
                     i -= 1;
@@ -251,7 +253,7 @@ var BattlePhase = (function () {
                 monsters.push(monster);
             }
             for (var i = 0; i < monsterCount; i++) {
-                var randomNumber = Math.floor(Math.random() * 70);
+                var randomNumber = Math.floor(Math.random() * 31);
                 console.log(randomNumber);
                 if (spaces[randomNumber].firstChild) {
                     i -= 1;
@@ -269,7 +271,7 @@ var BattlePhase = (function () {
                 monsters.push(monster);
             }
             for (var i = 0; i < monsterCount; i++) {
-                var randomNumber = Math.floor(Math.random() * 70);
+                var randomNumber = Math.floor(Math.random() * 31);
                 console.log(randomNumber);
                 if (spaces[randomNumber].firstChild) {
                     i -= 1;
@@ -287,7 +289,7 @@ var BattlePhase = (function () {
                 monsters.push(monster);
             }
             for (var i = 0; i < monsterCount; i++) {
-                var randomNumber = Math.floor(Math.random() * 70);
+                var randomNumber = Math.floor(Math.random() * 31);
                 console.log(randomNumber);
                 if (spaces[randomNumber].firstChild) {
                     i -= 1;
@@ -655,7 +657,7 @@ var Level6click = (function () {
     function Level6click() {
         this.setFurniture();
         this.setBackground();
-        new Hint(39, 26, 9, 11, "As you walk into the room you feel a powerfull surge. Its cold like you are in a blizzard. When you find the item in witch he resides youll find yourself fighting a wizzard.");
+        new Hint(39, 26, 9, 11, "As you walk into the room you feel a powerfull surge. Its cold like you are in a blizzard. When you find the item in witch he resides youll find yourself fighting a wizard.");
         new Inventory();
     }
     Level6click.prototype.setBackground = function () {
