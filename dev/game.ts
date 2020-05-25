@@ -424,7 +424,7 @@ class Level6click{
         new Furniture(85.8,71.4,6.2,9.3,"unicorn_dragon","url(assets/white_plantpot.png)")
         new Furniture(73.1,32.8,1.4,2.5,"none","url(assets/small_bunny.png)")
         new Furniture(57.5,63.1,5.2,8.3,"unicorn_dinosaur","url(assets/two_frames.png)")
-        new Furniture(69.8,31.1,2.4,4.3,"unicorn_chocoate_chip","url(assets/large_bunny.png)") 
+        new Furniture(69.8,31.1,2.4,4.3,"unicorn_chocolate_chip","url(assets/large_bunny.png)") 
 
         new EvilFurniture(14.7,53,9.8,26,"url(assets/large_cabinet.png)")
     }
