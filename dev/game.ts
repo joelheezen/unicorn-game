@@ -400,7 +400,7 @@ class Level6click{
     constructor(){
         this.setFurniture()
         this.setBackground()
-        new Hint(39,26,9,11,"As you walk into the room you feel a powerfull surge. Its cold like you are in a blizzard. When you find the item in witch he resides youll find yourself fighting a wizzard.")
+        new Hint(39,26,9,11,"As you walk into the room you feel a powerfull surge. Its cold like you are in a blizzard. When you find the item in witch he resides youll find yourself fighting a wizard.")
         new Inventory()
     }
 
