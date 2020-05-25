@@ -126,50 +126,41 @@ var Inventory = (function () {
 }());
 var BattlePhase = (function () {
     function BattlePhase(stage) {
+        var _this = this;
+        this.game = document.getElementsByTagName("game")[0];
         console.log("button pressed, loading in battlephase");
-        var game = document.getElementsByTagName("game")[0];
         var pointer = document.getElementsByTagName("newpointer")[0];
         var inv = document.getElementsByTagName("inventory")[0];
         var fadetonew = document.getElementsByTagName('fadetonew')[0];
         var gameChildren = new Array;
-        var children = game.children;
+        var children = this.game.children;
         for (var i = 0; i < children.length; i++) {
             gameChildren.push(children[i]);
         }
         gameChildren.forEach(function (gameChild) {
             if (gameChild != pointer && gameChild != inv && gameChild != fadetonew) {
-                game.removeChild(gameChild);
+                _this.game.removeChild(gameChild);
             }
         });
         var background = document.createElement("background");
         background.style.backgroundImage = "url(assets/gameBackground.png)";
-        game.appendChild(background);
+        this.game.appendChild(background);
         var inventoryItems = document.getElementsByTagName('inventory')[0].children;
+        if (inventoryItems.length == 0) {
+            var inventoryItem = document.createElement('inventoryItem');
+            var inventoryadd = document.getElementsByTagName("inventory")[0];
+            inventoryItem.style.backgroundImage = "url(assets/unicorn_crash_test.png)";
+            inventoryadd.appendChild(inventoryItem);
+        }
         var squares = 64;
         var xPosSquare = 8;
         var yPosSquare = 8;
         var spaces = document.getElementsByTagName("moveSpace");
         var monsters = new Array;
-        var monsterCount;
+        var monsterCount = 0;
         var inventory = document.getElementsByTagName('inventory')[0];
-        function allowDrop(ev) {
-            ev.preventDefault();
-        }
-        function drag(ev) {
-            ev.dataTransfer.setData("text", ev.target.id);
-        }
-        function drop(ev) {
-            if (ev.target.id.substring(0, 4) == "item") {
-                console.log("space already has an item in it");
-            }
-            else {
-                ev.preventDefault();
-                var data = ev.dataTransfer.getData("text");
-                ev.target.appendChild(document.getElementById(data));
-            }
-        }
         var gameboard = document.createElement("gameBoard");
-        game.appendChild(gameboard);
+        this.game.appendChild(gameboard);
         for (var i = 0; i < squares; i++) {
             var moveSpace = document.createElement("moveSpace");
             gameboard.appendChild(moveSpace);
@@ -181,158 +172,134 @@ var BattlePhase = (function () {
                 yPosSquare += 9.3;
             }
             if (i > 31) {
-                moveSpace.addEventListener("drop", function () { return drop(event); });
-                moveSpace.addEventListener("dragover", function () { return allowDrop(event); });
+                moveSpace.addEventListener("drop", function () { return _this.drop(event); });
+                moveSpace.addEventListener("dragover", function () { return _this.allowDrop(event); });
             }
         }
-        inventory.addEventListener("drop", function () { return drop(event); });
-        inventory.addEventListener("dragover", function () { return allowDrop(event); });
+        inventory.addEventListener("drop", function () { return _this.drop(event); });
+        inventory.addEventListener("dragover", function () { return _this.allowDrop(event); });
         for (var i = 0; i < inventoryItems.length; i++) {
             inventoryItems[i].id = "item" + i;
             inventoryItems[i].draggable = true;
-            inventoryItems[i].addEventListener("dragstart", function () { return drag(event); });
+            inventoryItems[i].addEventListener("dragstart", function () { return _this.drag(event); });
         }
-        if (stage == 1) {
-            monsterCount = 4;
-            for (var i = 0; i < monsterCount; i++) {
-                var monster = document.createElement("monster");
-                monster.id = "monster" + i;
-                monsters.push(monster);
-            }
-            for (var i = 0; i < monsterCount; i++) {
-                var randomNumber = Math.floor(Math.random() * 31);
-                console.log(randomNumber);
-                if (spaces[randomNumber].firstChild) {
-                    i -= 1;
-                }
-                else {
-                    spaces[randomNumber].appendChild(monsters[i]);
-                }
-            }
+        var monsterTypes = new Array();
+        switch (stage) {
+            case 1:
+                monsterCount = 4;
+                monsterTypes = ["cabinet", "candle", "couch", "dunbell", "glass_ball", "lamp", "plant", "vase"];
+                break;
+            case 2:
+                monsterCount = 4;
+                monsterTypes = ["cabinet", "candle", "couch", "dunbell", "glass_ball", "lamp", "plant", "vase"];
+                break;
+            case 3:
+                monsterCount = 4;
+                monsterTypes = ["cabinet", "candle", "couch", "dunbell", "glass_ball", "lamp", "plant", "vase"];
+                break;
+            case 4:
+                monsterCount = 4;
+                monsterTypes = ["cabinet", "candle", "couch", "dunbell", "glass_ball", "lamp", "plant", "vase"];
+                break;
+            case 5:
+                monsterCount = 4;
+                monsterTypes = ["cabinet", "candle", "couch", "dunbell", "glass_ball", "lamp", "plant", "vase"];
+                break;
+            case 6:
+                monsterCount = 4;
+                monsterTypes = ["cabinet", "candle", "couch", "dunbell", "glass_ball", "lamp", "plant", "vase"];
+                break;
         }
-        if (stage == 2) {
-            monsterCount = 4;
-            for (var i = 0; i < monsterCount; i++) {
-                var monster = document.createElement("monster");
-                monster.id = "monster" + i;
-                monsters.push(monster);
-            }
-            for (var i = 0; i < monsterCount; i++) {
-                var randomNumber = Math.floor(Math.random() * 31);
-                console.log(randomNumber);
-                if (spaces[randomNumber].firstChild) {
-                    i -= 1;
-                }
-                else {
-                    spaces[randomNumber].appendChild(monsters[i]);
-                }
-            }
+        for (var i = 0; i < monsterCount; i++) {
+            var monster = document.createElement("monster");
+            monster.style.backgroundImage = "url(assets/enemy_gen_" + monsterTypes[Math.floor(Math.random() * monsterTypes.length)] + ".png)";
+            console.log(monster.style.backgroundImage);
+            monster.id = "monster" + i;
+            monsters.push(monster);
         }
-        if (stage == 3) {
-            monsterCount = 4;
-            for (var i = 0; i < monsterCount; i++) {
-                var monster = document.createElement("monster");
-                monster.id = "monster" + i;
-                monsters.push(monster);
-            }
-            for (var i = 0; i < monsterCount; i++) {
-                var randomNumber = Math.floor(Math.random() * 40);
-                console.log(randomNumber);
-                if (spaces[randomNumber].firstChild) {
-                    i -= 1;
-                }
-                else {
-                    spaces[randomNumber].appendChild(monsters[i]);
-                }
-            }
-        }
-        if (stage == 4) {
-            monsterCount = 4;
-            for (var i = 0; i < monsterCount; i++) {
-                var monster = document.createElement("monster");
-                monster.id = "monster" + i;
-                monsters.push(monster);
-            }
-            for (var i = 0; i < monsterCount; i++) {
-                var randomNumber = Math.floor(Math.random() * 31);
-                console.log(randomNumber);
-                if (spaces[randomNumber].firstChild) {
-                    i -= 1;
-                }
-                else {
-                    spaces[randomNumber].appendChild(monsters[i]);
-                }
-            }
-        }
-        if (stage == 5) {
-            monsterCount = 4;
-            for (var i = 0; i < monsterCount; i++) {
-                var monster = document.createElement("monster");
-                monster.id = "monster" + i;
-                monsters.push(monster);
-            }
-            for (var i = 0; i < monsterCount; i++) {
-                var randomNumber = Math.floor(Math.random() * 31);
-                console.log(randomNumber);
-                if (spaces[randomNumber].firstChild) {
-                    i -= 1;
-                }
-                else {
-                    spaces[randomNumber].appendChild(monsters[i]);
-                }
-            }
-        }
-        if (stage == 6) {
-            monsterCount = 4;
-            for (var i = 0; i < monsterCount; i++) {
-                var monster = document.createElement("monster");
-                monster.id = "monster" + i;
-                monsters.push(monster);
-            }
-            for (var i = 0; i < monsterCount; i++) {
-                var randomNumber = Math.floor(Math.random() * 31);
-                console.log(randomNumber);
-                if (spaces[randomNumber].firstChild) {
-                    i -= 1;
-                }
-                else {
-                    spaces[randomNumber].appendChild(monsters[i]);
-                }
-            }
-            enemyTurn();
-        }
-        function enemyTurn() {
-            if (document.getElementById("monster0")) {
-                console.log("the enemies are advancing");
-                var monstersLeft = document.getElementsByTagName("monster");
-                var activeMonster = document.getElementById("monster" + Math.floor(Math.random() * monstersLeft.length));
-                if (activeMonster != null) {
-                    var spaceNow = activeMonster.parentNode;
-                    console.log(spaceNow.id);
-                    var direction = Math.floor(Math.random() * 100);
-                    if (direction < 10) {
-                        console.log("move back");
-                    }
-                    else if (direction < 20 && direction >= 10) {
-                        console.log("move left");
-                    }
-                    else if (direction < 30 && direction >= 20) {
-                        console.log("move right");
-                    }
-                    else {
-                        console.log("move forward");
-                    }
-                }
-                console.log(activeMonster);
+        for (var i = 0; i < monsterCount; i++) {
+            var randomNumber = Math.floor(Math.random() * 31);
+            console.log(randomNumber);
+            if (spaces[randomNumber].firstChild) {
+                i -= 1;
             }
             else {
-                console.log("you won");
+                spaces[randomNumber].appendChild(monsters[i]);
             }
         }
-        function playerTurn() {
-            enemyTurn();
-        }
+        this.startBattle = document.createElement('startBattle');
+        this.game.appendChild(this.startBattle);
+        this.startBattle.innerHTML = "Start Battle";
+        this.startBattle.addEventListener("click", function () { return _this.prepareBoard(); });
+        this.battleCover = document.createElement('battlecover');
+        this.game.appendChild(this.battleCover);
     }
+    BattlePhase.prototype.allowDrop = function (ev) {
+        ev.preventDefault();
+    };
+    BattlePhase.prototype.drag = function (ev) {
+        ev.dataTransfer.setData("text", ev.target.id);
+    };
+    BattlePhase.prototype.drop = function (ev) {
+        if (ev.target.id.substring(0, 4) == "item") {
+            console.log("space already has an item in it");
+        }
+        else {
+            ev.preventDefault();
+            var data = ev.dataTransfer.getData("text");
+            ev.target.appendChild(document.getElementById(data));
+        }
+        var inventory = document.getElementsByTagName('inventory')[0];
+        if (inventory.childNodes.length == 0) {
+            console.log('no items in inventory');
+            this.battleCover.remove();
+        }
+        if (inventory.childNodes.length > 0) {
+            console.log('items in inventory');
+            this.game.appendChild(this.battleCover);
+        }
+    };
+    BattlePhase.prototype.prepareBoard = function () {
+        for (var index = 32; index < 63; index++) {
+            var old_element = document.getElementById('square' + index);
+            var new_element = old_element.cloneNode(true);
+            old_element.parentNode.replaceChild(new_element, old_element);
+            var startbattle = document.getElementsByTagName('startBattle')[0];
+            startbattle.innerHTML = "End your turn";
+        }
+        this.enemyTurn();
+    };
+    BattlePhase.prototype.enemyTurn = function () {
+        if (document.getElementById("monster0")) {
+            console.log("the enemies are advancing");
+            var monstersLeft = document.getElementsByTagName("monster");
+            var activeMonster = document.getElementById("monster" + Math.floor(Math.random() * monstersLeft.length));
+            if (activeMonster != null) {
+                var spaceNow = activeMonster.parentNode;
+                console.log(spaceNow.id);
+                var direction = Math.floor(Math.random() * 100);
+                if (direction < 10) {
+                    console.log("move back");
+                }
+                else if (direction < 20 && direction >= 10) {
+                    console.log("move left");
+                }
+                else if (direction < 30 && direction >= 20) {
+                    console.log("move right");
+                }
+                else {
+                    console.log("move forward");
+                }
+            }
+            console.log(activeMonster);
+        }
+        else {
+            console.log("you won");
+        }
+    };
+    BattlePhase.prototype.playerTurn = function () {
+        this.enemyTurn();
+    };
     return BattlePhase;
 }());
 window.addEventListener("load", function () { return new Startscreen(); });

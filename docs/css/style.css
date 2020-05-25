@@ -105,7 +105,6 @@
     }
 
     monster{
-        background-image: url(../assets/fire.png);
         width: 50%; height: 50%;
         background-repeat: no-repeat;
         position: absolute;
@@ -410,6 +409,28 @@
         background-size:100%;
         background-repeat: no-repeat;
         left:calc(50vw - 45vh);
+    }
+
+    startbattle{
+        position: absolute;
+        background-color: red;
+        border:inset 5px rgb(255, 33, 33);
+        top:5vh;
+        left:calc(50vw + 45vh);
+        font-size:1.5em;
+        width:13vw;
+        height:4vh;
+    }
+
+    battlecover{
+        position: absolute;
+        background-color: red;
+        border:inset 5px rgb(255, 33, 33);
+        top:5vh;
+        left:calc(50vw + 45vh);
+        font-size:1.5em;
+        width:13vw;
+        height:4vh;
     }
 
     
