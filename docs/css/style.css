@@ -102,6 +102,43 @@
         z-index:5;
     }
 
+    monster{
+        background-image: url(../assets/fire.png);
+        width: 50%; height: 50%;
+        background-repeat: no-repeat;
+        position: absolute;
+        background-size: 100% 100%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    #monster0 {
+        filter: hue-rotate(0deg);
+    }
+    #monster1 {
+        filter: hue-rotate(90deg);
+    }
+    #monster2 {
+        filter: hue-rotate(180deg);
+    }
+    #monster3 {
+        filter: hue-rotate(270deg);
+    }
+    #monster4 {
+        filter: hue-rotate(45deg);
+    }
+    #monster5 {
+        filter: hue-rotate(135deg);
+    }
+    #monster6 {
+        filter: hue-rotate(225deg);
+    }
+    #monster7 {
+        filter: hue-rotate(315deg);
+    }
+
+
     moveSpace{
         background-image: url(../assets/clock.png);
         width: 10vh; height: 10vh;
