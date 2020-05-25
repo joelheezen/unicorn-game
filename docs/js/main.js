@@ -499,7 +499,7 @@ var Level1click = (function () {
     function Level1click() {
         this.setFurniture();
         this.setBackground();
-        new Hint(70.7, 9, 12.5, 8.6, "dummy text dummy text dummy text dummy text dummy text dummy text dummy text dummy text dummy text dummy text");
+        new Hint(70.7, 9, 15, 8.6, "The room is quiet and devoid of life, yet there is something that isnt.Its whispering silently, as not to be heared. It seems like its soul is imprisoned. <br> <br> You hear chanting in the distance as the poor soul weeps. Its something you wouldnt want to have seen. Out of the item comes a slight glow and this glows colored green.");
         new Inventory();
     }
     Level1click.prototype.setBackground = function () {
@@ -529,7 +529,7 @@ var Level2click = (function () {
     function Level2click() {
         this.setFurniture();
         this.setBackground();
-        new Hint(60, 30, 12.5, 11, "dummy text dummy text dummy text dummy text dummy text dummy text dummy text dummy text dummy text dummy text");
+        new Hint(60, 30, 15, 11, "Danger gets heated, but its gone in the night. We depend on its essence, because without it there would be no light. We are blessed by its presence. <br> <br> But this time you feel weird as the object is roaring and in the distance you see and odd-fellow. In the next fight, if you want to win, go after the poor cursed thing that seems yellow.");
         new Inventory();
     }
     Level2click.prototype.setBackground = function () {
@@ -560,7 +560,7 @@ var Level3click = (function () {
     function Level3click() {
         this.setFurniture();
         this.setBackground();
-        new Hint(9, 12, 12.5, 11, "dummy text dummy text dummy text dummy text dummy text dummy text dummy text dummy text dummy text dummy text");
+        new Hint(9, 12, 12.5, 11, "Were you feel most safe, enemies strike. Your life might soon be ova. You struggle and struggle, but no prevail. The danger hides 'round the sofa. <br><br> The magic sounds like buzzing, as you look for a clue. A weird furniture attacks you, as you try to stand your ground you see its hue is colored blue.");
         new Inventory();
     }
     Level3click.prototype.setBackground = function () {
@@ -592,7 +592,7 @@ var Level4click = (function () {
     function Level4click() {
         this.setFurniture();
         this.setBackground();
-        new Hint(39, 26, 12.5, 11, "dummy text dummy text dummy text dummy text dummy text dummy text dummy text dummy text dummy text dummy text");
+        new Hint(39, 26, 12.5, 11, "It brings danger and pain, my dearest red flower. Yet this enemy will be outmatched by a shower. <br> <br> Water is its enemy, but anything else it will harm. Its color is red like the roof of a barn.");
         new Inventory();
     }
     Level4click.prototype.setBackground = function () {
@@ -624,7 +624,7 @@ var Level5click = (function () {
     function Level5click() {
         this.setFurniture();
         this.setBackground();
-        new Hint(55, 17, 12.5, 11, "dummy text dummy text dummy text dummy text dummy text dummy text dummy text dummy text dummy text dummy text");
+        new Hint(55, 17, 14, 11, "The wizzard comes closer with power so great. You can hear him read spells from his scroll. As you feel the magic come from a place in which you might find your console.<br><br> The two handles on its front makes it look like a face. 'Wait a minute, did it just frown?' The wizzard made enemies and for some reason his favourite minion is brown.");
         new Inventory();
     }
     Level5click.prototype.setBackground = function () {
@@ -655,7 +655,7 @@ var Level6click = (function () {
     function Level6click() {
         this.setFurniture();
         this.setBackground();
-        new Hint(39, 26, 12.5, 11, "dummy text dummy text dummy text dummy text dummy text dummy text dummy text dummy text dummy text dummy text");
+        new Hint(39, 26, 9, 11, "As you walk into the room you feel a powerfull surge. Its cold like you are in a blizzard. When you find the item in witch he resides youll find yourself fighting a wizzard.");
         new Inventory();
     }
     Level6click.prototype.setBackground = function () {
@@ -668,13 +668,14 @@ var Level6click = (function () {
         home.addEventListener('click', function () { return new Startscreen; });
     };
     Level6click.prototype.setFurniture = function () {
-        new Furniture(7.9, 36.7, 6, 43.4, "unicorn_laser", "url(assets/long_lamp.png)");
-        new Furniture(28.7, 0, 12.3, 21.7, "unicorn_rifle", "url(assets/ceiling_lamp.png)");
-        new Furniture(30.6, 28.3, 7.6, 21.7, "none", "url(assets/long_frame.png)");
-        new Furniture(78.4, 41.5, 5.7, 10.3, "none", "url(assets/small_frame.png)");
-        new Furniture(62.5, 51.6, 2, 8.4, "unicorn_gun", "url(assets/book.png)");
-        new Furniture(46.6, 66.7, 2.8, 5, "unicorn_gun", "url(assets/mug.png)");
-        new EvilFurniture(83.1, 61.7, 5.6, 16.5, "url(assets/fire.png)");
+        new Furniture(52.8, 0, 3.4, 13.5, "unicorn_wizard", "url(assets/small_ceiling_lamp.png)");
+        new Furniture(69.3, 14.3, 10, 6.7, "unicorn_asylum", "url(assets/small_cabinet.png)");
+        new Furniture(26.9, 39.5, 7.1, 31.1, "unicorn_ninja", "url(assets/big_plant.png)");
+        new Furniture(85.8, 71.4, 6.2, 9.3, "unicorn_dragon", "url(assets/white_plantpot.png)");
+        new Furniture(73.1, 32.8, 1.4, 2.5, "none", "url(assets/small_bunny.png)");
+        new Furniture(57.5, 63.1, 5.2, 8.3, "unicorn_dinosaur", "url(assets/two_frames.png)");
+        new Furniture(69.8, 31.1, 2.4, 4.3, "unicorn_chocolate_chip", "url(assets/large_bunny.png)");
+        new EvilFurniture(14.7, 53, 9.8, 26, "url(assets/large_cabinet.png)");
     };
     return Level6click;
 }());
@@ -697,9 +698,9 @@ var Hint = (function () {
         hint.innerHTML = "<p>" + message + "</p>";
         hint.addEventListener('click', zoomin);
         function zoomin() {
-            game.style.zoom = "300%";
-            var xzoom = x - h;
-            var yzoom = y - w;
+            game.style.zoom = "500%";
+            var xzoom = x - h / 2;
+            var yzoom = y - w / 2;
             if (xzoom < 0) {
                 xzoom = 0;
             }

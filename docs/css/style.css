@@ -42,7 +42,7 @@
 
     pickup {
         width: 50px;
-        height: 50px;
+        height: 60px;
         top:0;
         left:0;
         z-index:101;
@@ -173,6 +173,7 @@
         background-size: 100% 100%;
         display: none;
         width: 5vh; height: 5vh;
+        pointer-events: none;
         z-index: 150;
         position:absolute;
         animation: glitterfade 1s forwards;
@@ -226,9 +227,11 @@
 
     hint{
         position:absolute;
-        font-size: 1.5vh;
+        font-size: 1vh;
         text-align:center;
-        padding:2px;
+        padding-top:8px;
+        padding-left:2px;
+        padding-right:2px;
         background-repeat: no-repeat;
         background-size: 100% 100%;
         background-image: url(../assets/note.png);
@@ -518,3 +521,9 @@
 
 
 
+  @keyframes glitter {
+      0%{}
+      50%{ opacity: 1;}
+      100%{ opacity: 0;}
+  }
+  
