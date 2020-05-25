@@ -357,7 +357,7 @@ var Level1click = (function () {
     function Level1click() {
         this.setFurniture();
         this.setBackground();
-        new Hint(70.7, 9, 12.5, 8.6, "The room is quiet and devoid of life, yet there is something that isnt.Its whispering silently, as not to be heared. It seems like its soul is imprisoned. You hear chanting in the distance as the poor soul weeps. Its something you wouldnt want to have seen. Out of the item comes a slight glow and this glows colored green.");
+        new Hint(70.7, 9, 15, 8.6, "The room is quiet and devoid of life, yet there is something that isnt.Its whispering silently, as not to be heared. It seems like its soul is imprisoned. <br> <br> You hear chanting in the distance as the poor soul weeps. Its something you wouldnt want to have seen. Out of the item comes a slight glow and this glows colored green.");
         new Inventory();
     }
     Level1click.prototype.setBackground = function () {
@@ -387,7 +387,7 @@ var Level2click = (function () {
     function Level2click() {
         this.setFurniture();
         this.setBackground();
-        new Hint(60, 30, 12.5, 11, "Danger gets heated, but its gone in the night. We depend on its essence, because without it there would be no light. We are blessed by its presence. But this time you feel weird as the object is roaring and in the distance you see and odd-fellow. In the next fight, if you want to win, go after the poor cursed thing that seems yellow.");
+        new Hint(60, 30, 15, 11, "Danger gets heated, but its gone in the night. We depend on its essence, because without it there would be no light. We are blessed by its presence. <br> <br> But this time you feel weird as the object is roaring and in the distance you see and odd-fellow. In the next fight, if you want to win, go after the poor cursed thing that seems yellow.");
         new Inventory();
     }
     Level2click.prototype.setBackground = function () {
@@ -418,7 +418,7 @@ var Level3click = (function () {
     function Level3click() {
         this.setFurniture();
         this.setBackground();
-        new Hint(9, 12, 12.5, 11, "Were you feel most safe, enemies strike. Your life might soon be ova. You struggle and struggle, but no prevail. The danger hides 'round the sofa. The magic sounds like buzzing, as you look for a clue. A weird furniture attacks you, as you try to stand your ground you see its hue is colored blue.");
+        new Hint(9, 12, 12.5, 11, "Were you feel most safe, enemies strike. Your life might soon be ova. You struggle and struggle, but no prevail. The danger hides 'round the sofa. <br><br> The magic sounds like buzzing, as you look for a clue. A weird furniture attacks you, as you try to stand your ground you see its hue is colored blue.");
         new Inventory();
     }
     Level3click.prototype.setBackground = function () {
@@ -450,7 +450,7 @@ var Level4click = (function () {
     function Level4click() {
         this.setFurniture();
         this.setBackground();
-        new Hint(39, 26, 12.5, 11, "It brings danger and pain, my dearest red flower. Yet this enemy will be outmatched by a shower. Water is its enemy, but anything else it will harm. Its color is red like the roof of a barn.");
+        new Hint(39, 26, 12.5, 11, "It brings danger and pain, my dearest red flower. Yet this enemy will be outmatched by a shower. <br> <br> Water is its enemy, but anything else it will harm. Its color is red like the roof of a barn.");
         new Inventory();
     }
     Level4click.prototype.setBackground = function () {
@@ -482,7 +482,7 @@ var Level5click = (function () {
     function Level5click() {
         this.setFurniture();
         this.setBackground();
-        new Hint(55, 17, 12.5, 11, "The wizzard comes closer with power so great. You can hear him read spells from his scroll. As you feel the magic come from a place in which you might find your console. The two handles on its front makes it look like a face. 'Wait a minute, did it just frown?' The wizzard made enemies and for some reason his favourite minion is brown.");
+        new Hint(55, 17, 14, 11, "The wizzard comes closer with power so great. You can hear him read spells from his scroll. As you feel the magic come from a place in which you might find your console.<br><br> The two handles on its front makes it look like a face. 'Wait a minute, did it just frown?' The wizzard made enemies and for some reason his favourite minion is brown.");
         new Inventory();
     }
     Level5click.prototype.setBackground = function () {
@@ -513,7 +513,7 @@ var Level6click = (function () {
     function Level6click() {
         this.setFurniture();
         this.setBackground();
-        new Hint(39, 26, 12.5, 11, "As you walk into the room you feel a powerfull surge. Its cold like you are in a blizzard. When you find the item in witch he resides youll find yourself fighting a wizzard.");
+        new Hint(39, 26, 9, 11, "As you walk into the room you feel a powerfull surge. Its cold like you are in a blizzard. When you find the item in witch he resides youll find yourself fighting a wizzard.");
         new Inventory();
     }
     Level6click.prototype.setBackground = function () {
