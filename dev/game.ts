@@ -223,9 +223,8 @@ class Level1click{
     constructor(){
         this.setFurniture()
         this.setBackground()
-        new Hint(70.7,9,12.5,8.6,"The room is quiet and devoid of life, yet there is something that isnt. Its whispering silently, as not to be heared. It seems like its soul is imprisoned.")
+        new Hint(70.7,9,12.5,8.6,"The room is quiet and devoid of life, yet there is something that isnt.Its whispering silently, as not to be heared. It seems like its soul is imprisoned. You hear chanting in the distance as the poor soul weeps. Its something you wouldnt want to have seen. Out of the item comes a slight glow and this glows colored green.")
         new Inventory()
-
     }
 
     setBackground(){
@@ -259,7 +258,7 @@ class Level2click{
     constructor(){
         this.setFurniture()
         this.setBackground()
-        new Hint(60,30,12.5,11,"dummy text dummy text dummy text dummy text dummy text dummy text dummy text dummy text dummy text dummy text")
+        new Hint(60,30,12.5,11,"Danger gets heated, but its gone in the night. We depend on its essence, because without it there would be no light. We are blessed by its presence. But this time you feel weird as the object is roaring and in the distance you see and odd-fellow. In the next fight, if you want to win, go after the poor cursed thing that seems yellow.")
         new Inventory()
     }
 
@@ -277,9 +276,7 @@ class Level2click{
     setFurniture(){
         new Furniture(70.7,9.2,1.5,14.4,"unicorn_laser","url(assets/long_book.png)")
         new Furniture(36.4,68.1,15,5.1,"unicorn_mario","url(assets/couch_cushion.png)")
-
         new Furniture(75,50.4,21.2,28.6,"none","url(assets/red_chair.png)")
-
         new Furniture(83.5,23.6, 6.6,7.5,"none","url(assets/standing_clock.png)")
         new Furniture(58.1,61.4,15,17.6,"unicorn_slime","url(assets/glass_table.png)")
 
@@ -297,7 +294,7 @@ class Level3click{
     constructor(){
         this.setFurniture()
         this.setBackground()
-        new Hint(9,12,12.5,11,"dummy text dummy text dummy text dummy text dummy text dummy text dummy text dummy text dummy text dummy text")
+        new Hint(9,12,12.5,11,"Were you feel most safe, enemies strike. Your life might soon be ova. You struggle and struggle, but no prevail. The danger hides 'round the sofa. The magic sounds like buzzing, as you look for a clue. A weird furniture attacks you, as you try to stand your ground you see its hue is colored blue.")
         new Inventory()
     }
 
@@ -332,7 +329,7 @@ class Level4click{
     constructor(){
         this.setFurniture()
         this.setBackground()
-        new Hint(39,26,12.5,11,"dummy text dummy text dummy text dummy text dummy text dummy text dummy text dummy text dummy text dummy text")
+        new Hint(39,26,12.5,11,"It brings danger and pain, my dearest red flower. Yet this enemy will be outmatched by a shower. Water is its enemy, but anything else it will harm. Its color is red like the roof of a barn.")
         new Inventory()
     }
 
@@ -368,7 +365,7 @@ class Level5click{
     constructor(){
         this.setFurniture()
         this.setBackground()
-        new Hint(55,17,12.5,11,"dummy text dummy text dummy text dummy text dummy text dummy text dummy text dummy text dummy text dummy text")
+        new Hint(55,17,12.5,11,"The wizzard comes closer with power so great. You can hear him read spells from his scroll. As you feel the magic come from a place in which you might find your console. The two handles on its front makes it look like a face. 'Wait a minute, did it just frown?' The wizzard made enemies and for some reason his favourite minion is brown.")
         new Inventory()
     }
 
@@ -403,7 +400,7 @@ class Level6click{
     constructor(){
         this.setFurniture()
         this.setBackground()
-        new Hint(39,26,12.5,11,"dummy text dummy text dummy text dummy text dummy text dummy text dummy text dummy text dummy text dummy text")
+        new Hint(39,26,12.5,11,"As you walk into the room you feel a powerfull surge. Its cold like you are in a blizzard. When you find the item in witch he resides youll find yourself fighting a wizzard.")
         new Inventory()
     }
 
@@ -421,16 +418,15 @@ class Level6click{
     }
 
     setFurniture(){
-        new Furniture(52.8,0,6,13.5,"","url(assets/small_ceiling_lamp.png)")
+        new Furniture(52.8,0,3.4,13.5,"","url(assets/small_ceiling_lamp.png)")
+        new Furniture(69.3,14.3,10,6.7,"","url(assets/small_cabinet.png)")
+        new Furniture(26.9,39.5,7.1,31.1,"","url(assets/big_plant.png)")
+        new Furniture(85.8,71.4,6.2,9.3,"","url(assets/white_plantpot.png)")
+        new Furniture(73.1,32.8,1.4,2.5,"","url(assets/small_bunny.png)")
+        new Furniture(57.5,63.1,5.2,8.3,"","url(assets/two_frames.png)")
+        new Furniture(69.8,31.1,2.4,4.3,"","url(assets/large_bunny.png)") 
 
-        new Furniture(28.7,0,12.3,21.7,"","url(assets/small_cabinet.png)")
-        new Furniture(30.6,28.3,7.6,21.7,"","url(assets/big_plant.png)")
-        new Furniture(78.4,41.5,5.7,10.3,"","url(assets/white_plantpot.png)")
-        new Furniture(62.5,51.6,2,8.4,"","url(assets/small_bunny.png)")
-        new Furniture(46.6,66.7,2.8,5,"","url(assets/two_frames.png)")
-        new Furniture(46.6,66.7,2.8,5,"","url(assets/large_bunny.png)") 
-
-        new EvilFurniture(83.1,61.7,5.6,16.5,"url(assets/large_cabinet.png)")
+        new EvilFurniture(14.7,53,9.8,26,"url(assets/large_cabinet.png)")
     }
 }
 

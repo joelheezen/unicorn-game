@@ -192,7 +192,9 @@
         position:absolute;
         font-size: 1vh;
         text-align:center;
-        padding:2px;
+        padding-top:8px;
+        padding-left:2px;
+        padding-right:2px;
         background-repeat: no-repeat;
         background-size: 100% 100%;
         background-image: url(../assets/note.png);
