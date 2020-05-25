@@ -100,11 +100,11 @@ class EvilFurniture{
     skulltop: HTMLElement
     skullbottom: HTMLElement
 
-    constructor(furnX: number,furnY: number,furnDimX: number,furnDimY:number,background: string) {
-        this.makeEvilFurniture(furnX,furnY,furnDimX,furnDimY,background)
+    constructor(furnX: number,furnY: number,furnDimX: number,furnDimY:number,background: string,level:number) {
+        this.makeEvilFurniture(furnX,furnY,furnDimX,furnDimY,background,level)
     }
 
-    makeEvilFurniture(furnX: number,furnY: number,furnDimX: number,furnDimY:number, background: string){
+    makeEvilFurniture(furnX: number,furnY: number,furnDimX: number,furnDimY:number, background: string,level:number){
         this.furniture = document.createElement("furniture")
         //box is neccesary for shake animation
         this.shakeBox = document.createElement("shakeBox")
@@ -117,12 +117,12 @@ class EvilFurniture{
         this.furniture.classList.add('shake')
 
         //when clicked you start the battle
-        this.shakeBox.addEventListener('click',() => this.startbattle(event))
+        this.shakeBox.addEventListener('click',() => this.startbattle(event,level))
         this.shakeBox.appendChild(this.furniture)
         game.appendChild(this.shakeBox)
     }
 
-    startbattle(event: any){
+    startbattle(event: any,level:number){
                 
                 let game = document.getElementsByTagName("game")[0]
 
@@ -153,7 +153,7 @@ class EvilFurniture{
                 game.appendChild(fadetonew)
                 
                 setTimeout(() => {
-                    new BattlePhase()
+                    new BattlePhase(level)
                 }, 4000);
 
                 //removes eventlistener

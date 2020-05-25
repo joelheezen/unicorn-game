@@ -1,5 +1,5 @@
 class BattlePhase{
-    constructor(){
+    constructor(stage: number){
         //deletes everything and puts a new background in
         console.log("button pressed, loading in battlephase")
         let game = document.getElementsByTagName("game")[0]
@@ -35,8 +35,7 @@ class BattlePhase{
         let monsters = new Array
         let monsterCount
         let inventory = document.getElementsByTagName('inventory')[0]
-        // stage number for testing
-        let stage = 6
+        
 
 
         function allowDrop(ev: any) {
@@ -68,16 +67,18 @@ class BattlePhase{
             moveSpace.id = "square" + i
             moveSpace.style.transform = `translate(${xPosSquare}vh, ${yPosSquare}vh)`
             xPosSquare += 9.3
-            if (xPosSquare > 73.1){
-                xPosSquare = 8
-                yPosSquare += 9.3
+                if (xPosSquare > 73.1){
+                    xPosSquare = 8
+                    yPosSquare += 9.3
+                }
+                if(i > 31){
+                moveSpace.addEventListener("drop",() => drop(event))
+                moveSpace.addEventListener("dragover",() => allowDrop(event))
+                }
             }
-            moveSpace.addEventListener("drop",() => drop(event))
-            moveSpace.addEventListener("dragover",() => allowDrop(event))
 
             inventory.addEventListener("drop",() => drop(event))
             inventory.addEventListener("dragover",() => allowDrop(event))
-            }
 
         for (let i = 0; i < inventoryItems.length; i++){
             inventoryItems[i].id = "item" + i

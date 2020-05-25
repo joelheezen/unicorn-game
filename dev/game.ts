@@ -218,6 +218,7 @@ class Startscreen{
 
 }
 
+
 class Level1click{
 
     constructor(){
@@ -244,14 +245,10 @@ class Level1click{
         new Furniture(80.5,57.6,5,12.1,"none","url(assets/vase.png)")
         new Furniture(12.7,26,6.8,7.4,"unicorn_gun","url(assets/books.png)")
 
-        new EvilFurniture(82,10.9,8,16.6,"url(assets/plant.png)")
+        new EvilFurniture(82,10.9,8,16.6,"url(assets/plant.png)",1)
     }
 }
 
-class Level1Battle{
-
-
-}
 
 class Level2click{
 
@@ -280,12 +277,8 @@ class Level2click{
         new Furniture(83.5,23.6, 6.6,7.5,"none","url(assets/standing_clock.png)")
         new Furniture(58.1,61.4,15,17.6,"unicorn_slime","url(assets/glass_table.png)")
 
-        new EvilFurniture(36.8,12.6,8.8,7.6,"url(assets/sun_and_cloud.png)")
+        new EvilFurniture(36.8,12.6,8.8,7.6,"url(assets/sun_and_cloud.png)",2)
     }
-
-}
-
-class Level2Battle{
 
 }
 
@@ -317,13 +310,10 @@ class Level3click{
         new Furniture(22.1,26.9,3.8,5.9,"uni-corn","url(assets/tiny_frame.png)")
         new Furniture(88.7,48.7,5.2,21.9,"unicorn_ghost","url(assets/small_lamp.png)") 
 
-        new EvilFurniture(17,57.5,9.9,11.5,"url(assets/pillow.png)")
+        new EvilFurniture(17,57.5,9.9,11.5,"url(assets/pillow.png)",3)
     }
 }
 
-class Level3Battle{
-    
-}
 
 class Level4click{
     constructor(){
@@ -352,13 +342,10 @@ class Level4click{
         new Furniture(62.5,51.6,2,8.4,"unicorn_bandage_girl","url(assets/book.png)")
         new Furniture(46.6,66.7,2.8,5,"unicorn_princess","url(assets/mug.png)") 
 
-        new EvilFurniture(83.1,61.7,5.6,16.5,"url(assets/fire.png)")
+        new EvilFurniture(83.1,61.7,5.6,16.5,"url(assets/fire.png)",4)
     }
 }
 
-class Level4Battle{
-    
-}
 
 class Level5click{
 
@@ -387,12 +374,8 @@ class Level5click{
         new Furniture(18.9,56.3,4.2,7.6,"unicorn_army","url(assets/square_pillow.png)")
         new Furniture(72.6,27.7,9,16,"unicorn_super_meat_boy","url(assets/boat_frame.png)")
 
-        new EvilFurniture(77.4,76.5,15,5.9,"url(assets/drawer.png)")
+        new EvilFurniture(77.4,76.5,15,5.9,"url(assets/drawer.png)",5)
     }
-}
-
-class Level5Battle{
-    
 }
 
 class Level6click{
@@ -426,10 +409,7 @@ class Level6click{
         new Furniture(57.5,63.1,5.2,8.3,"unicorn_dinosaur","url(assets/two_frames.png)")
         new Furniture(69.8,31.1,2.4,4.3,"unicorn_chocolate_chip","url(assets/large_bunny.png)") 
 
-        new EvilFurniture(14.7,53,9.8,26,"url(assets/large_cabinet.png)")
+        new EvilFurniture(14.7,53,9.8,26,"url(assets/large_cabinet.png)",6)
     }
 }
 
-class Level6Battle{
-    
-}

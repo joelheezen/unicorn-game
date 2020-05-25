@@ -66,10 +66,10 @@ var Furniture = (function () {
     return Furniture;
 }());
 var EvilFurniture = (function () {
-    function EvilFurniture(furnX, furnY, furnDimX, furnDimY, background) {
-        this.makeEvilFurniture(furnX, furnY, furnDimX, furnDimY, background);
+    function EvilFurniture(furnX, furnY, furnDimX, furnDimY, background, level) {
+        this.makeEvilFurniture(furnX, furnY, furnDimX, furnDimY, background, level);
     }
-    EvilFurniture.prototype.makeEvilFurniture = function (furnX, furnY, furnDimX, furnDimY, background) {
+    EvilFurniture.prototype.makeEvilFurniture = function (furnX, furnY, furnDimX, furnDimY, background, level) {
         var _this = this;
         this.furniture = document.createElement("furniture");
         this.shakeBox = document.createElement("shakeBox");
@@ -79,11 +79,11 @@ var EvilFurniture = (function () {
         this.furniture.style.width = furnDimX + "vw";
         this.shakeBox.style.transform = "translate(" + furnX + "vw," + furnY + "vh)";
         this.furniture.classList.add('shake');
-        this.shakeBox.addEventListener('click', function () { return _this.startbattle(event); });
+        this.shakeBox.addEventListener('click', function () { return _this.startbattle(event, level); });
         this.shakeBox.appendChild(this.furniture);
         game.appendChild(this.shakeBox);
     };
-    EvilFurniture.prototype.startbattle = function (event) {
+    EvilFurniture.prototype.startbattle = function (event, level) {
         var game = document.getElementsByTagName("game")[0];
         this.furniture.classList.remove('shake');
         var grayout = document.createElement('grayout');
@@ -103,7 +103,7 @@ var EvilFurniture = (function () {
         var fadetonew = document.createElement("fadetonew");
         game.appendChild(fadetonew);
         setTimeout(function () {
-            new BattlePhase();
+            new BattlePhase(level);
         }, 4000);
         this.shakeBox.outerHTML = this.shakeBox.outerHTML;
         setTimeout(function () {
@@ -125,7 +125,7 @@ var Inventory = (function () {
     return Inventory;
 }());
 var BattlePhase = (function () {
-    function BattlePhase() {
+    function BattlePhase(stage) {
         console.log("button pressed, loading in battlephase");
         var game = document.getElementsByTagName("game")[0];
         var pointer = document.getElementsByTagName("newpointer")[0];
@@ -152,7 +152,6 @@ var BattlePhase = (function () {
         var monsters = new Array;
         var monsterCount;
         var inventory = document.getElementsByTagName('inventory')[0];
-        var stage = 6;
         function allowDrop(ev) {
             ev.preventDefault();
         }
@@ -181,11 +180,13 @@ var BattlePhase = (function () {
                 xPosSquare = 8;
                 yPosSquare += 9.3;
             }
-            moveSpace.addEventListener("drop", function () { return drop(event); });
-            moveSpace.addEventListener("dragover", function () { return allowDrop(event); });
-            inventory.addEventListener("drop", function () { return drop(event); });
-            inventory.addEventListener("dragover", function () { return allowDrop(event); });
+            if (i > 31) {
+                moveSpace.addEventListener("drop", function () { return drop(event); });
+                moveSpace.addEventListener("dragover", function () { return allowDrop(event); });
+            }
         }
+        inventory.addEventListener("drop", function () { return drop(event); });
+        inventory.addEventListener("dragover", function () { return allowDrop(event); });
         for (var i = 0; i < inventoryItems.length; i++) {
             inventoryItems[i].id = "item" + i;
             inventoryItems[i].draggable = true;
@@ -518,14 +519,9 @@ var Level1click = (function () {
         new Furniture(27.3, 25.7, 9, 17, "unicorn_rifle", "url(assets/clock.png)");
         new Furniture(80.5, 57.6, 5, 12.1, "none", "url(assets/vase.png)");
         new Furniture(12.7, 26, 6.8, 7.4, "unicorn_gun", "url(assets/books.png)");
-        new EvilFurniture(82, 10.9, 8, 16.6, "url(assets/plant.png)");
+        new EvilFurniture(82, 10.9, 8, 16.6, "url(assets/plant.png)", 1);
     };
     return Level1click;
-}());
-var Level1Battle = (function () {
-    function Level1Battle() {
-    }
-    return Level1Battle;
 }());
 var Level2click = (function () {
     function Level2click() {
@@ -549,14 +545,9 @@ var Level2click = (function () {
         new Furniture(75, 50.4, 21.2, 28.6, "none", "url(assets/red_chair.png)");
         new Furniture(83.5, 23.6, 6.6, 7.5, "none", "url(assets/standing_clock.png)");
         new Furniture(58.1, 61.4, 15, 17.6, "unicorn_slime", "url(assets/glass_table.png)");
-        new EvilFurniture(36.8, 12.6, 8.8, 7.6, "url(assets/sun_and_cloud.png)");
+        new EvilFurniture(36.8, 12.6, 8.8, 7.6, "url(assets/sun_and_cloud.png)", 2);
     };
     return Level2click;
-}());
-var Level2Battle = (function () {
-    function Level2Battle() {
-    }
-    return Level2Battle;
 }());
 var Level3click = (function () {
     function Level3click() {
@@ -581,14 +572,9 @@ var Level3click = (function () {
         new Furniture(79.7, 21.8, 2.85, 10.2, "none", "url(assets/tiny_plant.png)");
         new Furniture(22.1, 26.9, 3.8, 5.9, "uni-corn", "url(assets/tiny_frame.png)");
         new Furniture(88.7, 48.7, 5.2, 21.9, "unicorn_ghost", "url(assets/small_lamp.png)");
-        new EvilFurniture(17, 57.5, 9.9, 11.5, "url(assets/pillow.png)");
+        new EvilFurniture(17, 57.5, 9.9, 11.5, "url(assets/pillow.png)", 3);
     };
     return Level3click;
-}());
-var Level3Battle = (function () {
-    function Level3Battle() {
-    }
-    return Level3Battle;
 }());
 var Level4click = (function () {
     function Level4click() {
@@ -613,14 +599,9 @@ var Level4click = (function () {
         new Furniture(78.4, 41.5, 5.7, 10.3, "none", "url(assets/small_frame.png)");
         new Furniture(62.5, 51.6, 2, 8.4, "unicorn_bandage_girl", "url(assets/book.png)");
         new Furniture(46.6, 66.7, 2.8, 5, "unicorn_princess", "url(assets/mug.png)");
-        new EvilFurniture(83.1, 61.7, 5.6, 16.5, "url(assets/fire.png)");
+        new EvilFurniture(83.1, 61.7, 5.6, 16.5, "url(assets/fire.png)", 4);
     };
     return Level4click;
-}());
-var Level4Battle = (function () {
-    function Level4Battle() {
-    }
-    return Level4Battle;
 }());
 var Level5click = (function () {
     function Level5click() {
@@ -644,14 +625,9 @@ var Level5click = (function () {
         new Furniture(56.6, 34.45, 7.6, 12.7, "none", "url(assets/lamp_shade.png)");
         new Furniture(18.9, 56.3, 4.2, 7.6, "unicorn_army", "url(assets/square_pillow.png)");
         new Furniture(72.6, 27.7, 9, 16, "unicorn_super_meat_boy", "url(assets/boat_frame.png)");
-        new EvilFurniture(77.4, 76.5, 15, 5.9, "url(assets/drawer.png)");
+        new EvilFurniture(77.4, 76.5, 15, 5.9, "url(assets/drawer.png)", 5);
     };
     return Level5click;
-}());
-var Level5Battle = (function () {
-    function Level5Battle() {
-    }
-    return Level5Battle;
 }());
 var Level6click = (function () {
     function Level6click() {
@@ -677,14 +653,9 @@ var Level6click = (function () {
         new Furniture(73.1, 32.8, 1.4, 2.5, "none", "url(assets/small_bunny.png)");
         new Furniture(57.5, 63.1, 5.2, 8.3, "unicorn_dinosaur", "url(assets/two_frames.png)");
         new Furniture(69.8, 31.1, 2.4, 4.3, "unicorn_chocolate_chip", "url(assets/large_bunny.png)");
-        new EvilFurniture(14.7, 53, 9.8, 26, "url(assets/large_cabinet.png)");
+        new EvilFurniture(14.7, 53, 9.8, 26, "url(assets/large_cabinet.png)", 6);
     };
     return Level6click;
-}());
-var Level6Battle = (function () {
-    function Level6Battle() {
-    }
-    return Level6Battle;
 }());
 var Hint = (function () {
     function Hint(x, y, h, w, message) {
