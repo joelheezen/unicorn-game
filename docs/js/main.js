@@ -526,13 +526,13 @@ var Level6click = (function () {
         home.addEventListener('click', function () { return new Startscreen; });
     };
     Level6click.prototype.setFurniture = function () {
-        new Furniture(52.8, 0, 3.4, 13.5, "", "url(assets/small_ceiling_lamp.png)");
-        new Furniture(69.3, 14.3, 10, 6.7, "", "url(assets/small_cabinet.png)");
-        new Furniture(26.9, 39.5, 7.1, 31.1, "", "url(assets/big_plant.png)");
-        new Furniture(85.8, 71.4, 6.2, 9.3, "", "url(assets/white_plantpot.png)");
-        new Furniture(73.1, 32.8, 1.4, 2.5, "", "url(assets/small_bunny.png)");
-        new Furniture(57.5, 63.1, 5.2, 8.3, "", "url(assets/two_frames.png)");
-        new Furniture(69.8, 31.1, 2.4, 4.3, "", "url(assets/large_bunny.png)");
+        new Furniture(52.8, 0, 3.4, 13.5, "unicorn_wizard", "url(assets/small_ceiling_lamp.png)");
+        new Furniture(69.3, 14.3, 10, 6.7, "unicorn_asylum", "url(assets/small_cabinet.png)");
+        new Furniture(26.9, 39.5, 7.1, 31.1, "unicorn_ninja", "url(assets/big_plant.png)");
+        new Furniture(85.8, 71.4, 6.2, 9.3, "unicorn_dragon", "url(assets/white_plantpot.png)");
+        new Furniture(73.1, 32.8, 1.4, 2.5, "none", "url(assets/small_bunny.png)");
+        new Furniture(57.5, 63.1, 5.2, 8.3, "unicorn_dinosaur", "url(assets/two_frames.png)");
+        new Furniture(69.8, 31.1, 2.4, 4.3, "unicorn_chocoate_chip", "url(assets/large_bunny.png)");
         new EvilFurniture(14.7, 53, 9.8, 26, "url(assets/large_cabinet.png)");
     };
     return Level6click;
