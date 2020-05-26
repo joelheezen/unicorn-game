@@ -433,6 +433,36 @@
         height:4vh;
     }
 
+    dialogWindow{
+        width:calc(30vw - 25vh - 20px);
+        height:20vh;
+        left:35vw;
+        top:75vh;
+        position:absolute;
+        background-color: rgb(243, 129, 192);
+        border: inset 15px pink;
+        padding-left:calc(25vh - 20px);
+        
+    }
+
+    playerIcon{
+        height:calc(25vh - 30px);
+        width:calc(25vh - 30px);
+        left:calc(35vw + 20px);
+        top:calc(75vh + 20px);
+        background-position: center;
+        background-size: 100%;
+        background-repeat: no-repeat;
+        position: absolute;
+    }
+
+    nextMessage{
+        position: absolute;
+        left:calc(65vw - 50px)  ;
+        top:calc(95vh - 20px);
+        font-size: 2rem;
+    }
+
     
     
     @keyframes bounce-right {

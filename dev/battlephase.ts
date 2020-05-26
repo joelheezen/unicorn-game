@@ -78,7 +78,7 @@ class BattlePhase{
             inventoryItems[i].addEventListener("dragstart",() => this.drag(event))
         }
         
-        let monsterTypes = ["enemy_cabinet","enemy_candle","enemy_couch","enemy_dunbell","enemy_glass_ball","enemy_lamp","enemy_plant","enemy_vase"]
+        let monsterTypes = ["enemy_cabinet","enemy_couch","enemy_dunbell","enemy_lamp","enemy_plant"]
 
         switch(stage){
             case 1:
