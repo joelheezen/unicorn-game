@@ -355,7 +355,7 @@ class Level5click{
     constructor(){
         this.setFurniture()
         this.setBackground()
-        new Hint(55,17,14,11,"The wizzard comes closer with power so great. You can hear him read spells from his scroll. As you feel the magic come from a place in which you might find your console.<br><br> The two handles on its front makes it look like a face. 'Wait a minute, did it just frown?' The wizzard made enemies and for some reason his favourite minion is brown.")
+        new Hint(55,17,14,11,"The wizard comes closer with power so great. You can hear him read spells from his scroll. As you feel the magic come from a place in which you might find your console.<br><br> The two handles on its front makes it look like a face. 'Wait a minute, did it just frown?' The wizzard made enemies and for some reason his favourite minion is brown.")
         new Inventory()
     }
 
