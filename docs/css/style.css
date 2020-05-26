@@ -419,7 +419,7 @@
         left:calc(50vw + 45vh);
         font-size:1.5em;
         width:13vw;
-        height:4vh;
+        height:4vh; 
     }
 
     battlecover{

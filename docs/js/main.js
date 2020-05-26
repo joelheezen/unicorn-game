@@ -259,7 +259,7 @@ var Furniture = (function () {
             var pickup_1 = document.createElement("pickup");
             var grayout_1 = document.createElement('grayout');
             var itemMessage_1 = document.createElement('itemMessage');
-            itemMessage_1.innerHTML = "Item '" + contains.replace("_", " ") + "' added to inventory";
+            itemMessage_1.innerHTML = "You found '" + contains.replace("_", " ") + "'";
             game.append(itemMessage_1);
             game.appendChild(grayout_1);
             game.appendChild(pickup_1);
@@ -305,7 +305,7 @@ var EvilFurniture = (function () {
         this.furniture.classList.remove('shake');
         var grayout = document.createElement('grayout');
         var itemMessage = document.createElement('itemMessage');
-        itemMessage.innerHTML = "You have found the enemy";
+        itemMessage.innerHTML = "You have found the wizard";
         event.target.parentElement.style.zIndex = "150";
         this.shakeBox.style.animation = "enemyappear 2s forwards";
         this.shakeBox.style.animationIterationCount = "1";
@@ -343,6 +343,9 @@ var Startscreen = (function () {
         var background = document.createElement("background");
         background.style.backgroundImage = "url(assets/startscreen.png)";
         this.game.appendChild(background);
+        this.game.innerHTML += '<audio id="audioplayer"><source src="assets/music.mp3" type="audio/ogg"></audio>';
+        document.getElementsByTagName('audio')[0].volume = 0.5;
+        document.getElementsByTagName('audio')[0].play();
     };
     Startscreen.prototype.setAssets = function () {
         var title = document.createElement("title");

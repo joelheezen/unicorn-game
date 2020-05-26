@@ -60,7 +60,7 @@ class Furniture{
                 let pickup = document.createElement("pickup")
                 let grayout = document.createElement('grayout')
                 let itemMessage = document.createElement('itemMessage')
-                itemMessage.innerHTML = "Item '"+ contains.replace("_"," ") +"' added to inventory"
+                itemMessage.innerHTML = "You found '"+ contains.replace("_"," ") +"'"
 
                 game.append(itemMessage)
                 game.appendChild(grayout)
@@ -131,7 +131,7 @@ class EvilFurniture{
                 let grayout = document.createElement('grayout')
                 let itemMessage = document.createElement('itemMessage')
 
-                itemMessage.innerHTML = "You have found the enemy"
+                itemMessage.innerHTML = "You have found the wizard"
                 event.target.parentElement.style.zIndex = "150"
 
                 this.shakeBox.style.animation= "enemyappear 2s forwards"

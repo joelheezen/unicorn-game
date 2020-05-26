@@ -19,8 +19,10 @@ class Startscreen{
         let background = document.createElement("background")
         background.style.backgroundImage = "url(assets/startscreen.png)"
         this.game.appendChild(background)
-        //this.game.innerHTML += '<audio autoPlay loop><source src="assets/music.mp3" type="audio/ogg"></audio>'
-        //document.getElementsByTagName('audio')[0].volume = 0.5;
+        this.game.innerHTML += '<audio id="audioplayer"><source src="assets/music.mp3" type="audio/ogg"></audio>'
+        document.getElementsByTagName('audio')[0].volume = 0.5;
+        document.getElementsByTagName('audio')[0].play()
+    
     }
 
     setAssets(){
