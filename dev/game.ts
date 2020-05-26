@@ -196,7 +196,7 @@ class Startscreen{
         options.appendChild(musicVolume)
 
         musicVolume.type = "range"
-        musicVolume.min = "1"
+        musicVolume.min = "0"
         musicVolume.max = "100"
         musicVolume.id = 'myRange'
 
