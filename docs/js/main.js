@@ -499,7 +499,7 @@ var Level1click = (function () {
     function Level1click() {
         this.setFurniture();
         this.setBackground();
-        new Hint(70.7, 9, 15, 8.6, "The room is quiet and devoid of life, yet there is something that isnt.Its whispering silently, as not to be heared. It seems like its soul is imprisoned. <br> <br> You hear chanting in the distance as the poor soul weeps. Its something you wouldnt want to have seen. Out of the item comes a slight glow and this glows colored green.");
+        new Hint(70.7, 9, 15, 8.6, "The room is quiet and devoid of life, yet there is something that isnt.Its whispering silently, as not to be heard. It seems like its soul is imprisoned. <br> <br> You hear chanting in the distance as the poor soul weeps. Its something you wouldnt want to have seen. Out of the item comes a slight glow and this glows colored green.");
         new Inventory();
         new Dialogbox("unicorn_player", "Where did that wizard go?*And who does he think he is, chasing my friends into here.*I better find them all before i run into him.*What does that note say?");
     }
