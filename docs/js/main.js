@@ -582,6 +582,7 @@ var unicornPlayer = (function () {
     function unicornPlayer() {
         this.changeCursorImage();
         this.spawnGlitter();
+        this.circleOnClick();
     }
     unicornPlayer.prototype.changeCursorImage = function () {
         var newPointer = document.createElement("newPointer");
@@ -606,6 +607,22 @@ var unicornPlayer = (function () {
                 glitter_1.style.transform += 'translateX(' + (pos.clientX + Math.random() * 60) + 'px)';
                 window.setTimeout(function () { body.removeChild(glitter_1); }, 1000);
             }
+        }, true);
+    };
+    unicornPlayer.prototype.circleOnClick = function () {
+        var body = document.getElementsByTagName('body')[0];
+        document.addEventListener('mousedown', function (pos) {
+            var circle = document.createElement("circle");
+            body.appendChild(circle);
+            circle.style.display = "initial";
+            circle.style.transform += 'translateY(' + (pos.clientY - 25) + 'px)';
+            circle.style.transform += 'translateX(' + (pos.clientX - 30) + 'px)';
+            circle.style.transform += 'scale(0)';
+            circle.style.transition = 'all 1s';
+            circle.style.transform = 'scale(2)';
+            circle.style.transform = 'translateY(' + (pos.clientY - 25) + 'px)';
+            circle.style.transform = 'translateX(' + (pos.clientX - 30) + 'px)';
+            window.setTimeout(function () { body.removeChild(circle); }, 1000);
         }, true);
     };
     return unicornPlayer;

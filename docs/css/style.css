@@ -139,7 +139,19 @@
         pointer-events: none;
         z-index: 150;
         position:absolute;
-        animation: glitterfade 1s forwards;
+        animation: glitter 1s forwards;
+    }
+    circle {
+        background-image: url(../assets/rainbowcircle.png);
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+        transition: 1s;
+        width: 5vh; height: 5vh;
+        pointer-events: none;
+        z-index: 149;
+        position:absolute;
+    
+        
     }
 
     inventory{
@@ -473,20 +485,12 @@
         50%{opacity: 1}
         100%{opacity: 0}
     }
-
-    @keyframes glitterfade{
-        0%{opacity:1}
-        100%{opacity:0}
-    }
-
-
-
-
-
-
-  @keyframes glitter {
-      0%{}
-      50%{ opacity: 1;}
-      100%{ opacity: 0;}
+    @keyframes glitter {
+        0%{ opacity: 1;}
+        100%{ opacity: 0;}
   }
   
+    @keyframes rainbowcircle {
+        0%{transform: scale(0);}
+        100%{ transform: scale(2);}
+    }

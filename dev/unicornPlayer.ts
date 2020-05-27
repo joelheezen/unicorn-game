@@ -2,6 +2,7 @@ class unicornPlayer{
     constructor() {
         this.changeCursorImage()
         this.spawnGlitter()
+        this.circleOnClick()
     }
         
     //change cursor image
@@ -34,6 +35,25 @@ spawnGlitter(){
 
         }         
     },true);
+}
+
+circleOnClick(){
+
+    let body = document.getElementsByTagName('body')[0]
+    document.addEventListener('mousedown', function(pos){
+        let circle = document.createElement("circle")
+        body.appendChild(circle)
+        circle.style.display = "initial" 
+        circle.style.transform += 'translateY('+(pos.clientY - 25)+'px)';
+        circle.style.transform += 'translateX('+(pos.clientX - 30)+'px)'; 
+        circle.style.transform += 'scale(0)';
+        circle.style.transition = 'all 1s';
+
+
+        window.setTimeout(function(){body.removeChild(circle)}, 1000);
+
+    },true);
+
 }
 
 
