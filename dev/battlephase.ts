@@ -229,22 +229,12 @@ class BattlePhase{
                 unicornPlayers.push(document.getElementsByTagName("inventoryitem")[i])
             }
             
+            let dragged
 
             unicornPlayers.forEach(element => {
-                element.addEventListener('drop', event => {
-                    event.preventdefault()
-
-                    if (event.target.className = "dropzone") {
-                        if(event.target.id.substring(0,4) == "item"){
-                            console.log("space already has an item in it")
-                        }else{
-                        event.preventDefault();
-                        var data = event.dataTransfer.getData("text");
-                        event.target.appendChild(document.getElementById(data));
-                        }
-                    }
-                })
+                
                 element.addEventListener('dragstart', event => {
+                    dragged = event.target
                     let spaceNow = element.parentNode.id
                     let number = Number(spaceNow.slice(6, 8))
                     let spacesThen = new Array
@@ -252,13 +242,13 @@ class BattlePhase{
                     let numberRight = number + 1
                     let numberBot = number + 8
                     let numberLeft = number -1
-                    if (numberTop > 7) {
+                    if (numberTop > 0) {
                         spacesThen.push(document.getElementById("square" + numberTop))
                     }
                     if (numberRight % 8) {
                         spacesThen.push(document.getElementById("square" + numberRight))
                     }
-                    if (numberBot < 56) {
+                    if (numberBot < 63) {
                         spacesThen.push(document.getElementById("square" + numberBot))
                     }
                     if ((numberLeft + 1) % 8){
@@ -268,8 +258,21 @@ class BattlePhase{
                     console.log(spacesThen)
                     event.dataTransfer.setData("text", event.target.id);
                     spacesThen.forEach(element => {
+                        element.addEventListener('drop', event => {
+                            event.preventdefault()
+                            console.log("test")
+                            dragged.parentNode.removeChild(dragged);
+                            event.target.appendChild(dragged);
+                            /*if(event.target.id.substring(0,4) == "item"){
+                                console.log("space already has an item in it")
+                            }else{
+                            event.preventDefault();
+                            var data = event.dataTransfer.getData("text");
+                            event.target.appendChild(document.getElementById(data));
+                            }*/
+                        })
                         element.style.border = "thick solid #0000FF"
-                        element.classList.add("dropzone")
+                        element.addEventListener('dragover', () => this.allowDrop(event))
                         element.addEventListener('dragenter', event => {
                             console.log(event.target)
                         })

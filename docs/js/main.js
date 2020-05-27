@@ -299,26 +299,16 @@ var BattlePhase = (function () {
         }
     };
     BattlePhase.prototype.playerTurn = function () {
+        var _this = this;
         var unicornPlayers = new Array;
         var unicornsLeft = document.getElementsByTagName("inventoryitem");
         for (var i = 0; i < unicornsLeft.length; i++) {
             unicornPlayers.push(document.getElementsByTagName("inventoryitem")[i]);
         }
+        var dragged;
         unicornPlayers.forEach(function (element) {
-            element.addEventListener('drop', function (event) {
-                event.preventdefault();
-                if (event.target.className = "dropzone") {
-                    if (event.target.id.substring(0, 4) == "item") {
-                        console.log("space already has an item in it");
-                    }
-                    else {
-                        event.preventDefault();
-                        var data = event.dataTransfer.getData("text");
-                        event.target.appendChild(document.getElementById(data));
-                    }
-                }
-            });
             element.addEventListener('dragstart', function (event) {
+                dragged = event.target;
                 var spaceNow = element.parentNode.id;
                 var number = Number(spaceNow.slice(6, 8));
                 var spacesThen = new Array;
@@ -326,13 +316,13 @@ var BattlePhase = (function () {
                 var numberRight = number + 1;
                 var numberBot = number + 8;
                 var numberLeft = number - 1;
-                if (numberTop > 7) {
+                if (numberTop > 0) {
                     spacesThen.push(document.getElementById("square" + numberTop));
                 }
                 if (numberRight % 8) {
                     spacesThen.push(document.getElementById("square" + numberRight));
                 }
-                if (numberBot < 56) {
+                if (numberBot < 63) {
                     spacesThen.push(document.getElementById("square" + numberBot));
                 }
                 if ((numberLeft + 1) % 8) {
@@ -342,8 +332,14 @@ var BattlePhase = (function () {
                 console.log(spacesThen);
                 event.dataTransfer.setData("text", event.target.id);
                 spacesThen.forEach(function (element) {
+                    element.addEventListener('drop', function (event) {
+                        event.preventdefault();
+                        console.log("test");
+                        dragged.parentNode.removeChild(dragged);
+                        event.target.appendChild(dragged);
+                    });
                     element.style.border = "thick solid #0000FF";
-                    element.classList.add("dropzone");
+                    element.addEventListener('dragover', function () { return _this.allowDrop(event); });
                     element.addEventListener('dragenter', function (event) {
                         console.log(event.target);
                     });
