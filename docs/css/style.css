@@ -186,13 +186,10 @@
         background-image: url(../assets/rainbowcircle.png);
         background-repeat: no-repeat;
         background-size: 100% 100%;
-        transition: 1s;
         width: 5vh; height: 5vh;
         pointer-events: none;
         z-index: 149;
         position:absolute;
-    
-        
     }
 
     inventory{
@@ -592,8 +589,3 @@
         0%{ opacity: 1;}
         100%{ opacity: 0;}
   }
-  
-    @keyframes rainbowcircle {
-        0%{transform: scale(0);}
-        100%{ transform: scale(2);}
-    }
