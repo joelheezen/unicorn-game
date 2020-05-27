@@ -167,8 +167,14 @@ class BattlePhase{
 
             for (let index = 32; index < 63; index++) {
                 let old_element = document.getElementById('square' + index)
-                let new_element = old_element.cloneNode(true);
+                let new_element
+
+                if (old_element != null){
+                    new_element = old_element.cloneNode(true);
+                }
+                if (old_element != null && old_element.parentNode != null && new_element  != null) {
                 old_element.parentNode.replaceChild(new_element, old_element);
+                }
 
                 let startbattle = document.getElementsByTagName('startBattle')[0]
                 startbattle.innerHTML = "End your turn"
@@ -188,6 +194,7 @@ class BattlePhase{
             if (document.getElementById("monster0")) {
                 console.log("the enemies are advancing")
                 let monstersLeft = document.getElementsByTagName("monster")
+                
                 // if this deletes monster number 2 it will fuck up
                 let activeMonster = document.getElementById("monster" + Math.floor(Math.random() * monstersLeft.length))
                 if (activeMonster != null) {
@@ -208,7 +215,7 @@ class BattlePhase{
                     }
                 }
                 console.log(activeMonster)
-                //playerTurn()
+                //this.playerTurn()
             } // otherwise you should have won and the game advances to the next level
             else {
                 console.log("you won")
@@ -216,6 +223,7 @@ class BattlePhase{
         }
 
         playerTurn() {
+            
             this.enemyTurn()
         }
             
