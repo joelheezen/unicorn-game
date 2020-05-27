@@ -209,6 +209,7 @@ class BattlePhase{
             if (document.getElementById("monster0")) {
                 console.log("the enemies are advancing")
                 let monstersLeft = document.getElementsByTagName("monster")
+                // if this deletes monster number 2 it will fuck up
                 let activeMonster = document.getElementById("monster" + Math.floor(Math.random() * monstersLeft.length))
                 if (activeMonster != null) {
                     let spaceNow = activeMonster.parentNode as Element
