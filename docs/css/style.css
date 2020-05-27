@@ -328,8 +328,10 @@
     
     options input {
         -webkit-appearance: none;
-        width: 100%;
+        width: 80%;
         height: 25px;
+        left:15%;
+        position: absolute;
         background: pink;
         outline: none;
         opacity: 0.7;
@@ -470,6 +472,16 @@
         left:calc(65vw - 50px)  ;
         top:calc(95vh - 20px);
         font-size: 2rem;
+    }
+
+    muteGame {
+        height:30px;
+        width:30px;
+        background-size: 100%;
+        background-position:center ;
+        position: absolute;
+ 
+        background-image: url(../assets/muted.png);
     }
 
     
