@@ -345,7 +345,7 @@ class Level3click{
         this.setBackground()
         new Hint(9,12,12.5,11,"Were you feel most safe, enemies strike. Your life might soon be ova. You struggle and struggle, but no prevail. The danger hides 'round the sofa. <br><br> The magic sounds like buzzing, as you look for a clue. A weird furniture attacks you, as you try to stand your ground you see its hue is colored blue.")
         new Inventory()
-        new Dialogbox("unicorn_player","I can smell, his smell, his smelly smell that*SMELLSS!!!*Hahah Spongebob*But in all seriousness he must have gone through this room")
+        new Dialogbox("unicorn_player","I can smell, his smell, his smelly smell that*SMELLS!!!*Hahah Spongebob*But in all seriousness he must have gone through this room")
     }
 
     setBackground(){
