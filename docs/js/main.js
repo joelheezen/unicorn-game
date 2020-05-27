@@ -402,22 +402,22 @@ var Startscreen = (function () {
         var unlockeds;
         unlockeds = [];
         if (lvlAchieved == 0) {
-            unlockeds = [false, true, true, true, true];
+            unlockeds = [false, true, true, true, true, true];
         }
         if (lvlAchieved == 1) {
-            unlockeds = [false, false, true, true, true];
+            unlockeds = [false, false, true, true, true, true];
         }
         if (lvlAchieved == 2) {
-            unlockeds = [false, false, false, true, true];
+            unlockeds = [false, false, false, true, true, true];
         }
         if (lvlAchieved == 3) {
-            unlockeds = [false, false, false, true, true];
+            unlockeds = [false, false, false, false, true, true];
         }
         if (lvlAchieved == 4) {
-            unlockeds = [false, false, false, false, true];
+            unlockeds = [false, false, false, false, false, true];
         }
         if (lvlAchieved == 5) {
-            unlockeds = [false, false, false, false, false];
+            unlockeds = [false, false, false, false, false, false];
         }
         return unlockeds;
     };
@@ -426,7 +426,7 @@ var Startscreen = (function () {
         this.menu.innerHTML = "";
         this.leftUnicorn.remove();
         this.rightUnicorn.remove();
-        var unlocked = this.setUnlock(4);
+        var unlocked = this.setUnlock(5);
         if (unlocked[0] == false) {
             this.makeLevelIcon(14.1, 59.7, 10.8, 36.1, 1);
             this.levelIcon.addEventListener("click", function () {
