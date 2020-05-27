@@ -126,9 +126,6 @@ class BattlePhase{
             this.game.appendChild(this.startBattle)
             this.startBattle.innerHTML = "Start Battle"
             this.startBattle.addEventListener("click",()=>this.prepareBoard())
-
-            this.battleCover = document.createElement('battlecover')
-            this.game.appendChild(this.battleCover)
         
         }
 
@@ -158,12 +155,12 @@ class BattlePhase{
             
             if(inventory.childNodes.length == 0){
                 console.log('no items in inventory')
-                this.battleCover.remove()
+                this.startBattle.style.opacity = "1"
             }
 
             if(inventory.childNodes.length > 0){
                 console.log('items in inventory')
-                this.game.appendChild(this.battleCover)
+                this.startBattle.style.opacity = "0"
             }
             if (element != null){
                 if (element.classList.contains("gamer") && ev.target.classList.contains("dropzone")) {

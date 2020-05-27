@@ -433,20 +433,9 @@
         border:inset 5px rgb(255, 33, 33);
         top:5vh;
         left:calc(50vw + 45vh);
-        font-size:1.5em;
-        width:13vw;
-        height:4vh; 
-    }
-
-    battlecover{
-        position: absolute;
-        background-color: red;
-        border:inset 5px rgb(255, 33, 33);
-        top:5vh;
-        left:calc(50vw + 45vh);
-        font-size:1.5em;
-        width:13vw;
-        height:4vh;
+        font-size:4vh;
+        text-align: center;
+        opacity:0;
     }
 
     dialogWindow{

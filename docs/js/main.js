@@ -114,8 +114,6 @@ var BattlePhase = (function () {
         this.game.appendChild(this.startBattle);
         this.startBattle.innerHTML = "Start Battle";
         this.startBattle.addEventListener("click", function () { return _this.prepareBoard(); });
-        this.battleCover = document.createElement('battlecover');
-        this.game.appendChild(this.battleCover);
     }
     BattlePhase.prototype.allowDrop = function (ev) {
         ev.preventDefault();
@@ -138,11 +136,11 @@ var BattlePhase = (function () {
         var inventory = document.getElementsByTagName('inventory')[0];
         if (inventory.childNodes.length == 0) {
             console.log('no items in inventory');
-            this.battleCover.remove();
+            this.startBattle.style.opacity = "1";
         }
         if (inventory.childNodes.length > 0) {
             console.log('items in inventory');
-            this.game.appendChild(this.battleCover);
+            this.startBattle.style.opacity = "0";
         }
         if (element != null) {
             if (element.classList.contains("gamer") && ev.target.classList.contains("dropzone")) {
@@ -858,12 +856,13 @@ var unicornPlayer = (function () {
             var circle = document.createElement("circle");
             body.appendChild(circle);
             circle.style.display = "initial";
-            circle.style.transform = 'translateY(' + (pos.clientY - 30) + 'px) translateX(' + (pos.clientX - 30) + 'px) scale(1)';
-            circle.style.transition = "transform 2s";
+            circle.style.transform = "translate(calc(" + pos.clientX + "px - 3vh),calc(" + pos.clientY + "px - 3vh)) scale(1)";
+            circle.style.transition = "all 1s";
             setTimeout(function () {
-                circle.style.transform = 'translateY(' + (pos.clientY - 30) + 'px) translateX(' + (pos.clientX - 30) + 'px) scale(9)';
-            }, 50);
-            window.setTimeout(function () { body.removeChild(circle); }, 2000);
+                circle.style.transform = "translate(calc(" + pos.clientX + "px - 3vh),calc(" + pos.clientY + "px - 3vh)) scale(2)";
+                circle.style.opacity = '0';
+            }, 1);
+            window.setTimeout(function () { body.removeChild(circle); }, 1000);
         }, true);
     };
     return unicornPlayer;
