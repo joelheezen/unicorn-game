@@ -257,8 +257,13 @@ var BattlePhase = (function () {
     BattlePhase.prototype.prepareBoard = function () {
         for (var index = 32; index < 63; index++) {
             var old_element = document.getElementById('square' + index);
-            var new_element = old_element.cloneNode(true);
-            old_element.parentNode.replaceChild(new_element, old_element);
+            var new_element = void 0;
+            if (old_element != null) {
+                new_element = old_element.cloneNode(true);
+            }
+            if (old_element != null && old_element.parentNode != null && new_element != null) {
+                old_element.parentNode.replaceChild(new_element, old_element);
+            }
             var startbattle = document.getElementsByTagName('startBattle')[0];
             startbattle.innerHTML = "End your turn";
         }
