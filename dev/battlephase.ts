@@ -165,20 +165,16 @@ class BattlePhase{
 
         prepareBoard(){
 
-            for (let index = 32; index < 63; index++) {
-                let old_element = document.getElementById('square' + index)
-                let new_element
+            let enemySide = document.getElementsByTagName('movespace')
 
-                if (old_element != null){
-                    new_element = old_element.cloneNode(true);
-                }
-                if (old_element != null && old_element.parentNode != null && new_element  != null) {
-                old_element.parentNode.replaceChild(new_element, old_element);
-                }
-
-                let startbattle = document.getElementsByTagName('startBattle')[0]
-                startbattle.innerHTML = "End your turn"
+            for (let index = 0; index < 31; index++) {
+                enemySide[index].addEventListener("drop",() => this.drop(event))
+                enemySide[index].addEventListener("dragover",() => this.allowDrop(event))
+                
             }
+
+            let startbattle = document.getElementsByTagName('startBattle')[0]
+                startbattle.innerHTML = "End your turn"
 
             this.enemyTurn()
         }
@@ -231,10 +227,15 @@ class BattlePhase{
             
 
             unicornPlayers.forEach(element => {
-                element.addEventListener('drop', event => {
-                    event.preventdefault()
 
-                    if (event.target.className = "dropzone") {
+                console.log('')
+
+                element.addEventListener('drop', (event:any) => {
+                    event.preventdefault()
+                    console.log(event.target)
+                        console.log('hello')
+                    if (event.target.classList.contains("dropzone")) {  
+                        
                         if(event.target.id.substring(0,4) == "item"){
                             console.log("space already has an item in it")
                         }else{
@@ -244,6 +245,7 @@ class BattlePhase{
                         }
                     }
                 })
+
                 element.addEventListener('dragstart', event => {
                     let spaceNow = element.parentNode.id
                     let number = Number(spaceNow.slice(6, 8))
