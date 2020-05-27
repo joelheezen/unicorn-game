@@ -70,7 +70,7 @@ var BattlePhase = (function () {
             inventoryItems[i].draggable = true;
             inventoryItems[i].addEventListener("dragstart", function () { return _this.drag(event); });
         }
-        var monsterTypes = ["enemy_cabinet", "enemy_couch", "enemy_dunbell", "enemy_lamp", "enemy_plant"];
+        var monsterTypes = ["enemy_cabinet", "enemy_couch", "enemy_dumbell", "enemy_lamp", "enemy_plant"];
         switch (stage) {
             case 1:
                 monsterCount = 4;
