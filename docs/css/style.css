@@ -195,6 +195,7 @@
         pointer-events: none;
         z-index: 149;
         position:absolute;
+        transform:translate(0,0);
     }
 
     inventory{
