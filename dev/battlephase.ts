@@ -10,6 +10,7 @@ class BattlePhase{
         let pointer = document.getElementsByTagName("newpointer")[0]
         let inv = document.getElementsByTagName("inventory")[0]
         let fadetonew = document.getElementsByTagName('fadetonew')[0]
+        new Music().changeMusic('battleMusic.mp3')
         let gameChildren = new Array
         
         //loops through all children and eliminates every child that is not a pointer or inventory
@@ -97,7 +98,7 @@ class BattlePhase{
                 monsterCount = 4
                 break;
             case 6:
-                monsterCount = 4
+                monsterCount = 7
                 monsterTypes = ["wizard"]
                 break;
         }
@@ -139,6 +140,7 @@ class BattlePhase{
         }
           
         drop(ev: any) {
+            new Soundeffect("assets/nes-01-00.wav")
             let data = ev.dataTransfer.getData("text")
             let element = document.getElementById(data)
             //stops an item from being dropped inside another item
@@ -177,6 +179,7 @@ class BattlePhase{
                     let monsterParent = monsterChild.parentNode
                     if (monsterParent) {
                         monsterParent.removeChild(monsterChild)
+                        new Soundeffect("assets/nes-05-07.wav")
                     }
                     monsterParent.appendChild(document.getElementById(data));
                     element = document.getElementById(data)

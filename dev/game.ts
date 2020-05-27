@@ -8,20 +8,23 @@ class Startscreen{
     rightUnicorn: HTMLElement
     levelIcon: HTMLElement
     lock: HTMLElement
+    
+    
 
     constructor(){
         this.game.innerHTML = ""
         this.setBackground()
         this.setButtons()
         this.setAssets()
+        new Music().playMusic('music.mp3')
+        document.getElementById('music').volume = 0
     }
 
     setBackground(){
         let background = document.createElement("background")
         background.style.backgroundImage = "url(assets/startscreen.png)"
         this.game.appendChild(background)
-        this.game.innerHTML += '<audio id="audioplayer"><source src="assets/music.mp3" type="audio/ogg"></audio>'
-        document.getElementsByTagName('audio')[0].volume = 0.5;
+        
     }
 
     setAssets(){
@@ -59,14 +62,17 @@ class Startscreen{
 
         startButton.addEventListener('click',()=>{
             this.levelSelect()
+            
         })
 
         optionsButton.addEventListener('click',()=>{
             this.setOptions()
+            
         })
 
         creditsButton.addEventListener('click',()=>{
-            this.setCredits()      
+            this.setCredits()    
+
         })
 
         quitButton.addEventListener('click',()=>{
@@ -172,7 +178,6 @@ class Startscreen{
             while(document.getElementsByTagName('level').length>0){
                 for (let i = 0; i < document.getElementsByTagName('level').length; i++) {
                     document.getElementsByTagName('level')[i].remove()
-                    
                 }}
                 leave.remove();
 
@@ -230,27 +235,42 @@ class Startscreen{
         let muteGame = document.createElement('muteGame')
         musicOptions.appendChild(muteGame)
 
-        let musicVolume = document.createElement('input')
-        musicOptions.appendChild(musicVolume)
+        let musicSlider = document.createElement('input')
+        musicOptions.appendChild(musicSlider)
 
 
 
-        musicVolume.type = "range"
-        musicVolume.min = "0"
-        musicVolume.max = "100"
-        musicVolume.id = 'myRange'
-        musicVolume.value = '0'
+        musicSlider.type = "range"
+        musicSlider.min = "0"
+        musicSlider.max = "100"
+        musicSlider.id = 'myRange'
 
-            musicVolume.addEventListener("input",()=> {
-                let volume = parseInt(musicVolume.value)
+        if(document.getElementById('music') ){
+            
+            let newVolume = document.getElementById('music').volume * 100
+            musicSlider.value = newVolume.toString()
+        }else{
+            musicSlider.value = '0'
+        }
+
+        
+
+            musicSlider.addEventListener("input",()=> {
+
+                let musicVolume = parseInt(musicSlider.value)
+
+                console.log(musicVolume)
+
+                let volume = parseInt(musicSlider.value)
                 volume = volume /100
-                document.getElementsByTagName('audio')[0].volume = volume
+                
+                document.getElementById('music').volume = volume
 
-                if(musicVolume.value !== '0'){
-                    document.getElementsByTagName('audio')[0].play()
+                if(musicSlider.value !== '0'){
+                    document.getElementById('music').play()
                     muteGame.style.backgroundImage = 'url(assets/unmuted.png)'
                 }else{
-                    document.getElementsByTagName('audio')[0].pause() 
+                    document.getElementById('music').pause() 
                     muteGame.style.backgroundImage = 'url(assets/muted.png)'
                 }
             })
