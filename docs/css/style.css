@@ -180,7 +180,16 @@
         pointer-events: none;
         z-index: 150;
         position:absolute;
-        animation: glitterfade 1s forwards;
+        animation: glitter 1s forwards;
+    }
+    circle {
+        background-image: url(../assets/rainbowcircle.png);
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+        width: 5vh; height: 5vh;
+        pointer-events: none;
+        z-index: 149;
+        position:absolute;
     }
 
     inventory{
@@ -319,8 +328,10 @@
     
     options input {
         -webkit-appearance: none;
-        width: 100%;
+        width: 80%;
         height: 25px;
+        left:15%;
+        position: absolute;
         background: pink;
         outline: none;
         opacity: 0.7;
@@ -463,6 +474,16 @@
         font-size: 2rem;
     }
 
+    muteGame {
+        height:30px;
+        width:30px;
+        background-size: 100%;
+        background-position:center ;
+        position: absolute;
+ 
+        background-image: url(../assets/muted.png);
+    }
+
     
     
     @keyframes bounce-right {
@@ -576,16 +597,7 @@
         50%{opacity: 1}
         100%{opacity: 0}
     }
-
-    @keyframes glitterfade{
-        0%{opacity:1}
-        100%{opacity:0}
-    }
-    
-
-  @keyframes glitter {
-      0%{}
-      50%{ opacity: 1;}
-      100%{ opacity: 0;}
+    @keyframes glitter {
+        0%{ opacity: 1;}
+        100%{ opacity: 0;}
   }
-  

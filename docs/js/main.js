@@ -403,7 +403,6 @@ var Startscreen = (function () {
         this.game.appendChild(background);
         this.game.innerHTML += '<audio id="audioplayer"><source src="assets/music.mp3" type="audio/ogg"></audio>';
         document.getElementsByTagName('audio')[0].volume = 0.5;
-        document.getElementsByTagName('audio')[0].play();
     };
     Startscreen.prototype.setAssets = function () {
         var title = document.createElement("title");
@@ -452,50 +451,83 @@ var Startscreen = (function () {
         this.levelIcon.style.width = width + "vw";
         this.levelIcon.style.height = height + "vh";
     };
+    Startscreen.prototype.setUnlock = function (lvlAchieved) {
+        var unlockeds;
+        unlockeds = [];
+        if (lvlAchieved == 0) {
+            unlockeds = [false, true, true, true, true, true];
+        }
+        if (lvlAchieved == 1) {
+            unlockeds = [false, false, true, true, true, true];
+        }
+        if (lvlAchieved == 2) {
+            unlockeds = [false, false, false, true, true, true];
+        }
+        if (lvlAchieved == 3) {
+            unlockeds = [false, false, false, false, true, true];
+        }
+        if (lvlAchieved == 4) {
+            unlockeds = [false, false, false, false, false, true];
+        }
+        if (lvlAchieved == 5) {
+            unlockeds = [false, false, false, false, false, false];
+        }
+        return unlockeds;
+    };
     Startscreen.prototype.levelSelect = function () {
         var _this = this;
         this.menu.innerHTML = "";
         this.leftUnicorn.remove();
         this.rightUnicorn.remove();
-        this.makeLevelIcon(14.1, 59.7, 10.8, 36.1, 1);
-        this.levelIcon.addEventListener("click", function () {
-            _this.game.innerHTML = "";
-            new Level1click;
-        });
-        this.makeLevelIcon(25.7, 52.8, 14.75, 43.05, 2);
-        this.levelIcon.addEventListener("click", function () {
-            _this.game.innerHTML = "";
-            new Level2click;
-        });
-        this.makeLevelIcon(45.1, 44.4, 19.4, 51.4, 4);
-        this.levelIcon.addEventListener("click", function () {
-            _this.game.innerHTML = "";
-            new Level4click;
-        });
-        this.makeLevelIcon(40.5, 65.3, 9.2, 30.6, 3);
-        this.levelIcon.addEventListener("click", function () {
-            _this.game.innerHTML = "";
-            new Level3click;
-        });
-        this.makeLevelIcon(64.5, 57, 10.1, 38.9, 5);
-        this.levelIcon.addEventListener("click", function () {
-            _this.game.innerHTML = "";
-            new Level5click;
-        });
-        this.makeLevelIcon(74.7, 45.9, 17, 49.9, 6);
-        this.levelIcon.addEventListener("click", function () {
-            _this.game.innerHTML = "";
-            new Level6click;
-        });
+        var unlocked = this.setUnlock(5);
+        if (unlocked[0] == false) {
+            this.makeLevelIcon(14.1, 59.7, 10.8, 36.1, 1);
+            this.levelIcon.addEventListener("click", function () {
+                _this.game.innerHTML = "";
+                new Level1click;
+            });
+        }
+        if (unlocked[1] == false) {
+            this.makeLevelIcon(25.7, 52.8, 14.75, 43.05, 2);
+            this.levelIcon.addEventListener("click", function () {
+                _this.game.innerHTML = "";
+                new Level2click;
+            });
+        }
+        if (unlocked[3] == false) {
+            this.makeLevelIcon(45.1, 44.4, 19.4, 51.4, 4);
+            this.levelIcon.addEventListener("click", function () {
+                _this.game.innerHTML = "";
+                new Level4click;
+            });
+        }
+        if (unlocked[2] == false) {
+            this.makeLevelIcon(40.5, 65.3, 9.2, 30.6, 3);
+            this.levelIcon.addEventListener("click", function () {
+                _this.game.innerHTML = "";
+                new Level3click;
+            });
+        }
+        if (unlocked[4] == false) {
+            this.makeLevelIcon(64.5, 57, 10.1, 38.9, 5);
+            this.levelIcon.addEventListener("click", function () {
+                _this.game.innerHTML = "";
+                new Level5click;
+            });
+        }
+        if (unlocked[5] == false) {
+            this.makeLevelIcon(74.7, 45.9, 17, 49.9, 6);
+            this.levelIcon.addEventListener("click", function () {
+                _this.game.innerHTML = "";
+                new Level6click;
+            });
+        }
         var leave = document.createElement('leave');
         this.game.appendChild(leave);
         leave.addEventListener("click", function () {
-            document.getElementsByTagName('level')[0].remove();
-            document.getElementsByTagName('level')[0].remove();
-            document.getElementsByTagName('level')[0].remove();
-            document.getElementsByTagName('level')[0].remove();
-            document.getElementsByTagName('level')[0].remove();
-            document.getElementsByTagName('level')[0].remove();
+            for (var i = 0; i < document.getElementsByTagName('level').length; i++) {
+                document.getElementsByTagName('level')[0].remove();
+            }
             leave.remove();
             _this.setButtons();
             _this.setAssets();
@@ -531,17 +563,30 @@ var Startscreen = (function () {
         this.menu.innerHTML = "";
         var options = document.createElement('options');
         this.game.appendChild(options);
-        options.innerHTML += "Music volume";
+        var musicOptions = document.createElement('musicOptions');
+        options.appendChild(musicOptions);
+        musicOptions.innerHTML += "Music Volume";
+        var muteGame = document.createElement('muteGame');
+        musicOptions.appendChild(muteGame);
         var musicVolume = document.createElement('input');
-        options.appendChild(musicVolume);
+        musicOptions.appendChild(musicVolume);
         musicVolume.type = "range";
         musicVolume.min = "0";
         musicVolume.max = "100";
         musicVolume.id = 'myRange';
+        musicVolume.value = '0';
         musicVolume.addEventListener("input", function () {
             var volume = parseInt(musicVolume.value);
             volume = volume / 100;
             document.getElementsByTagName('audio')[0].volume = volume;
+            if (musicVolume.value !== '0') {
+                document.getElementsByTagName('audio')[0].play();
+                muteGame.style.backgroundImage = 'url(assets/unmuted.png)';
+            }
+            else {
+                document.getElementsByTagName('audio')[0].pause();
+                muteGame.style.backgroundImage = 'url(assets/muted.png)';
+            }
         });
         var leave = document.createElement('leave');
         this.game.appendChild(leave);
@@ -559,7 +604,7 @@ var Level1click = (function () {
         this.setBackground();
         new Hint(70.7, 9, 15, 8.6, "The room is quiet and devoid of life, yet there is something that isnt.Its whispering silently, as not to be heard. It seems like its soul is imprisoned. <br> <br> You hear chanting in the distance as the poor soul weeps. Its something you wouldnt want to have seen. Out of the item comes a slight glow and this glows colored green.");
         new Inventory();
-        new Dialogbox("unicorn_player", "Where did that wizard go?*And who does he think he is, chasing my friends into here.*I better find them all before i run into him.*What does that note say?");
+        new Dialogbox("unicorn_player", "Where did that wizard go?*And who does he think he is, chasing my friends into here.*Dont forget that he cursed these innocent funitures*I better find them all before i run into him.*What does that note say?");
     }
     Level1click.prototype.setBackground = function () {
         var background = document.createElement("background");
@@ -585,6 +630,7 @@ var Level2click = (function () {
         this.setBackground();
         new Hint(60, 30, 15, 11, "Danger gets heated, but its gone in the night. We depend on its essence, because without it there would be no light. We are blessed by its presence. <br> <br> But this time you feel weird as the object is roaring and in the distance you see and odd-fellow. In the next fight, if you want to win, go after the poor cursed thing that seems yellow.");
         new Inventory();
+        new Dialogbox("unicorn_player", "What!! furniture is fighting us?*If we want to win we are going to need some more friends*I think the wizzard might has gone this way!!!");
     }
     Level2click.prototype.setBackground = function () {
         var background = document.createElement("background");
@@ -611,6 +657,7 @@ var Level3click = (function () {
         this.setBackground();
         new Hint(9, 12, 12.5, 11, "Were you feel most safe, enemies strike. Your life might soon be ova. You struggle and struggle, but no prevail. The danger hides 'round the sofa. <br><br> The magic sounds like buzzing, as you look for a clue. A weird furniture attacks you, as you try to stand your ground you see its hue is colored blue.");
         new Inventory();
+        new Dialogbox("unicorn_player", "I can smell, his smell, his smelly smell that*SMELLSS!!!*Hahah Spongebob*But in all seriousness he must have gone through this room");
     }
     Level3click.prototype.setBackground = function () {
         var background = document.createElement("background");
@@ -638,6 +685,7 @@ var Level4click = (function () {
         this.setBackground();
         new Hint(39, 26, 12.5, 11, "It brings danger and pain, my dearest red flower. Yet this enemy will be outmatched by a shower. <br> <br> Water is its enemy, but anything else it will harm. Its color is red like the roof of a barn.");
         new Inventory();
+        new Dialogbox("unicorn_player", "The smell is getting stronger and I feel powerfull waves of magic*I hope we find him soon");
     }
     Level4click.prototype.setBackground = function () {
         var background = document.createElement("background");
@@ -665,6 +713,7 @@ var Level5click = (function () {
         this.setBackground();
         new Hint(55, 17, 14, 11, "The wizard comes closer with power so great. You can hear him read spells from his scroll. As you feel the magic come from a place in which you might find your console.<br><br> The two handles on its front makes it look like a face. 'Wait a minute, did it just frown?' The wizzard made enemies and for some reason his favourite minion is brown.");
         new Inventory();
+        new Dialogbox("unicorn_player", "The magic is starting to hurt now*aaaaAAAAaaaaAH*aaAAaaaAAAAAaaaaaaaAAAAAAAAAA*It hurts pretty bad, I cant imagine the pain my friends are in*WE NEED TO STOP HIM!!!");
     }
     Level5click.prototype.setBackground = function () {
         var background = document.createElement("background");
@@ -691,6 +740,8 @@ var Level6click = (function () {
         this.setBackground();
         new Hint(39, 26, 9, 11, "As you walk into the room you feel a powerfull surge. Its cold like you are in a blizzard. When you find the item in witch he resides youll find yourself fighting a wizard.");
         new Inventory();
+        new Dialogbox("unicorn_player", "I can feel hes in the room somewhere");
+        new Dialogbox("wizard", "...*...*I hope they dont find me in here*But if they do I will surely destroy them");
     }
     Level6click.prototype.setBackground = function () {
         var background = document.createElement("background");
@@ -753,6 +804,7 @@ var unicornPlayer = (function () {
     function unicornPlayer() {
         this.changeCursorImage();
         this.spawnGlitter();
+        this.circleOnClick();
     }
     unicornPlayer.prototype.changeCursorImage = function () {
         var newPointer = document.createElement("newPointer");
@@ -777,6 +829,18 @@ var unicornPlayer = (function () {
                 glitter_1.style.transform += 'translateX(' + (pos.clientX + Math.random() * 60) + 'px)';
                 window.setTimeout(function () { body.removeChild(glitter_1); }, 1000);
             }
+        }, true);
+    };
+    unicornPlayer.prototype.circleOnClick = function () {
+        var body = document.getElementsByTagName('body')[0];
+        document.addEventListener('mousedown', function (pos) {
+            var circle = document.createElement("circle");
+            body.appendChild(circle);
+            circle.style.display = "initial";
+            circle.style.transform = 'translateY(' + (pos.clientY - 25) + 'px) translateX(' + (pos.clientX - 30) + 'px) scale(0.5)';
+            circle.style.transition = '1s';
+            circle.style.transform = 'translateY(' + (pos.clientY - 25) + 'px) translateX(' + (pos.clientX - 30) + 'px) scale(1)';
+            window.setTimeout(function () { body.removeChild(circle); }, 2000);
         }, true);
     };
     return unicornPlayer;
