@@ -292,13 +292,66 @@ var BattlePhase = (function () {
                 }
             }
             console.log(activeMonster);
+            this.playerTurn();
         }
         else {
             console.log("you won");
         }
     };
     BattlePhase.prototype.playerTurn = function () {
-        this.enemyTurn();
+        var unicornPlayers = new Array;
+        var unicornsLeft = document.getElementsByTagName("inventoryitem");
+        for (var i = 0; i < unicornsLeft.length; i++) {
+            unicornPlayers.push(document.getElementsByTagName("inventoryitem")[i]);
+        }
+        unicornPlayers.forEach(function (element) {
+            element.addEventListener('drop', function (event) {
+                event.preventdefault();
+                if (event.target.className = "dropzone") {
+                    if (event.target.id.substring(0, 4) == "item") {
+                        console.log("space already has an item in it");
+                    }
+                    else {
+                        event.preventDefault();
+                        var data = event.dataTransfer.getData("text");
+                        event.target.appendChild(document.getElementById(data));
+                    }
+                }
+            });
+            element.addEventListener('dragstart', function (event) {
+                var spaceNow = element.parentNode.id;
+                var number = Number(spaceNow.slice(6, 8));
+                var spacesThen = new Array;
+                var numberTop = number - 8;
+                var numberRight = number + 1;
+                var numberBot = number + 8;
+                var numberLeft = number - 1;
+                if (numberTop > 7) {
+                    spacesThen.push(document.getElementById("square" + numberTop));
+                }
+                if (numberRight % 8) {
+                    spacesThen.push(document.getElementById("square" + numberRight));
+                }
+                if (numberBot < 56) {
+                    spacesThen.push(document.getElementById("square" + numberBot));
+                }
+                if ((numberLeft + 1) % 8) {
+                    spacesThen.push(document.getElementById("square" + numberLeft));
+                }
+                console.log(spaceNow);
+                console.log(spacesThen);
+                event.dataTransfer.setData("text", event.target.id);
+                spacesThen.forEach(function (element) {
+                    element.style.border = "thick solid #0000FF";
+                    element.classList.add("dropzone");
+                    element.addEventListener('dragenter', function (event) {
+                        console.log(event.target);
+                    });
+                });
+            });
+        });
+        console.log(unicornPlayers);
+        console.log(unicornsLeft);
     };
     return BattlePhase;
 }());

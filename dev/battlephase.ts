@@ -215,7 +215,7 @@ class BattlePhase{
                     }
                 }
                 console.log(activeMonster)
-                //this.playerTurn()
+                this.playerTurn()
             } // otherwise you should have won and the game advances to the next level
             else {
                 console.log("you won")
@@ -223,8 +223,63 @@ class BattlePhase{
         }
 
         playerTurn() {
+            let unicornPlayers = new Array
+            let unicornsLeft = document.getElementsByTagName("inventoryitem")
+            for (let i = 0; i < unicornsLeft.length; i++) {
+                unicornPlayers.push(document.getElementsByTagName("inventoryitem")[i])
+            }
             
-            this.enemyTurn()
+
+            unicornPlayers.forEach(element => {
+                element.addEventListener('drop', event => {
+                    event.preventdefault()
+
+                    if (event.target.className = "dropzone") {
+                        if(event.target.id.substring(0,4) == "item"){
+                            console.log("space already has an item in it")
+                        }else{
+                        event.preventDefault();
+                        var data = event.dataTransfer.getData("text");
+                        event.target.appendChild(document.getElementById(data));
+                        }
+                    }
+                })
+                element.addEventListener('dragstart', event => {
+                    let spaceNow = element.parentNode.id
+                    let number = Number(spaceNow.slice(6, 8))
+                    let spacesThen = new Array
+                    let numberTop = number - 8
+                    let numberRight = number + 1
+                    let numberBot = number + 8
+                    let numberLeft = number -1
+                    if (numberTop > 7) {
+                        spacesThen.push(document.getElementById("square" + numberTop))
+                    }
+                    if (numberRight % 8) {
+                        spacesThen.push(document.getElementById("square" + numberRight))
+                    }
+                    if (numberBot < 56) {
+                        spacesThen.push(document.getElementById("square" + numberBot))
+                    }
+                    if ((numberLeft + 1) % 8){
+                        spacesThen.push(document.getElementById("square" + numberLeft))
+                    }
+                    console.log(spaceNow)
+                    console.log(spacesThen)
+                    event.dataTransfer.setData("text", event.target.id);
+                    spacesThen.forEach(element => {
+                        element.style.border = "thick solid #0000FF"
+                        element.classList.add("dropzone")
+                        element.addEventListener('dragenter', event => {
+                            console.log(event.target)
+                        })
+                        
+                    });
+                })
+            });
+            console.log(unicornPlayers)
+            console.log(unicornsLeft)
+            //this.enemyTurn()
         }
             
 }
