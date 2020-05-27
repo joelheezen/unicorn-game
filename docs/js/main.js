@@ -144,8 +144,13 @@ var BattlePhase = (function () {
     BattlePhase.prototype.prepareBoard = function () {
         for (var index = 32; index < 63; index++) {
             var old_element = document.getElementById('square' + index);
-            var new_element = old_element.cloneNode(true);
-            old_element.parentNode.replaceChild(new_element, old_element);
+            var new_element = void 0;
+            if (old_element != null) {
+                new_element = old_element.cloneNode(true);
+            }
+            if (old_element != null && old_element.parentNode != null && new_element != null) {
+                old_element.parentNode.replaceChild(new_element, old_element);
+            }
             var startbattle = document.getElementsByTagName('startBattle')[0];
             startbattle.innerHTML = "End your turn";
         }
@@ -344,8 +349,7 @@ var Startscreen = (function () {
         background.style.backgroundImage = "url(assets/startscreen.png)";
         this.game.appendChild(background);
         this.game.innerHTML += '<audio id="audioplayer"><source src="assets/music.mp3" type="audio/ogg"></audio>';
-        document.getElementsByTagName('audio')[0].volume = 0;
-        document.getElementsByTagName('audio')[0].play();
+        document.getElementsByTagName('audio')[0].volume = 0.5;
     };
     Startscreen.prototype.setAssets = function () {
         var title = document.createElement("title");
@@ -473,9 +477,13 @@ var Startscreen = (function () {
         this.menu.innerHTML = "";
         var options = document.createElement('options');
         this.game.appendChild(options);
-        options.innerHTML += "Music volume";
+        var musicOptions = document.createElement('musicOptions');
+        options.appendChild(musicOptions);
+        musicOptions.innerHTML += "Music Volume";
+        var muteGame = document.createElement('muteGame');
+        musicOptions.appendChild(muteGame);
         var musicVolume = document.createElement('input');
-        options.appendChild(musicVolume);
+        musicOptions.appendChild(musicVolume);
         musicVolume.type = "range";
         musicVolume.min = "0";
         musicVolume.max = "100";
@@ -485,6 +493,14 @@ var Startscreen = (function () {
             var volume = parseInt(musicVolume.value);
             volume = volume / 100;
             document.getElementsByTagName('audio')[0].volume = volume;
+            if (musicVolume.value !== '0') {
+                document.getElementsByTagName('audio')[0].play();
+                muteGame.style.backgroundImage = 'url(assets/unmuted.png)';
+            }
+            else {
+                document.getElementsByTagName('audio')[0].pause();
+                muteGame.style.backgroundImage = 'url(assets/muted.png)';
+            }
         });
         var leave = document.createElement('leave');
         this.game.appendChild(leave);

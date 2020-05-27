@@ -20,9 +20,7 @@ class Startscreen{
         background.style.backgroundImage = "url(assets/startscreen.png)"
         this.game.appendChild(background)
         this.game.innerHTML += '<audio id="audioplayer"><source src="assets/music.mp3" type="audio/ogg"></audio>'
-        document.getElementsByTagName('audio')[0].volume = 0    ;
-        document.getElementsByTagName('audio')[0].play()
-    
+        document.getElementsByTagName('audio')[0].volume = 0.5;
     }
 
     setAssets(){
@@ -190,10 +188,18 @@ class Startscreen{
         let options = document.createElement('options')
         this.game.appendChild(options)
 
-        options.innerHTML +="Music volume"
+        let musicOptions = document.createElement('musicOptions')
+        options.appendChild(musicOptions)
+
+        musicOptions.innerHTML += "Music Volume"
+
+        let muteGame = document.createElement('muteGame')
+        musicOptions.appendChild(muteGame)
 
         let musicVolume = document.createElement('input')
-        options.appendChild(musicVolume)
+        musicOptions.appendChild(musicVolume)
+
+
 
         musicVolume.type = "range"
         musicVolume.min = "0"
@@ -205,7 +211,18 @@ class Startscreen{
                 let volume = parseInt(musicVolume.value)
                 volume = volume /100
                 document.getElementsByTagName('audio')[0].volume = volume
+
+                if(musicVolume.value !== '0'){
+                    document.getElementsByTagName('audio')[0].play()
+                    muteGame.style.backgroundImage = 'url(assets/unmuted.png)'
+                }else{
+                    document.getElementsByTagName('audio')[0].pause() 
+                    muteGame.style.backgroundImage = 'url(assets/muted.png)'
+                }
             })
+
+
+
 
         let leave = document.createElement('leave')
         this.game.appendChild(leave)
