@@ -183,7 +183,7 @@ var BattlePhase = (function () {
             inventoryItems[i].draggable = true;
             inventoryItems[i].addEventListener("dragstart", function () { return _this.drag(event); });
         }
-        var monsterTypes = ["enemy_cabinet", "enemy_couch", "enemy_dunbell", "enemy_lamp", "enemy_plant"];
+        var monsterTypes = ["enemy_cabinet", "enemy_couch", "enemy_dumbell", "enemy_lamp", "enemy_plant"];
         switch (stage) {
             case 1:
                 monsterCount = 4;
@@ -255,18 +255,14 @@ var BattlePhase = (function () {
         }
     };
     BattlePhase.prototype.prepareBoard = function () {
-        for (var index = 32; index < 63; index++) {
-            var old_element = document.getElementById('square' + index);
-            var new_element = void 0;
-            if (old_element != null) {
-                new_element = old_element.cloneNode(true);
-            }
-            if (old_element != null && old_element.parentNode != null && new_element != null) {
-                old_element.parentNode.replaceChild(new_element, old_element);
-            }
-            var startbattle = document.getElementsByTagName('startBattle')[0];
-            startbattle.innerHTML = "End your turn";
+        var _this = this;
+        var enemySide = document.getElementsByTagName('movespace');
+        for (var index = 0; index < 31; index++) {
+            enemySide[index].addEventListener("drop", function () { return _this.drop(event); });
+            enemySide[index].addEventListener("dragover", function () { return _this.allowDrop(event); });
         }
+        var startbattle = document.getElementsByTagName('startBattle')[0];
+        startbattle.innerHTML = "End your turn";
         this.enemyTurn();
     };
     BattlePhase.prototype.enemyTurn = function () {
@@ -292,13 +288,69 @@ var BattlePhase = (function () {
                 }
             }
             console.log(activeMonster);
+            this.playerTurn();
         }
         else {
             console.log("you won");
         }
     };
     BattlePhase.prototype.playerTurn = function () {
-        this.enemyTurn();
+        var unicornPlayers = new Array;
+        var unicornsLeft = document.getElementsByTagName("inventoryitem");
+        for (var i = 0; i < unicornsLeft.length; i++) {
+            unicornPlayers.push(document.getElementsByTagName("inventoryitem")[i]);
+        }
+        unicornPlayers.forEach(function (element) {
+            console.log('');
+            element.addEventListener('drop', function (event) {
+                event.preventdefault();
+                console.log(event.target);
+                console.log('hello');
+                if (event.target.classList.contains("dropzone")) {
+                    if (event.target.id.substring(0, 4) == "item") {
+                        console.log("space already has an item in it");
+                    }
+                    else {
+                        event.preventDefault();
+                        var data = event.dataTransfer.getData("text");
+                        event.target.appendChild(document.getElementById(data));
+                    }
+                }
+            });
+            element.addEventListener('dragstart', function (event) {
+                var spaceNow = element.parentNode.id;
+                var number = Number(spaceNow.slice(6, 8));
+                var spacesThen = new Array;
+                var numberTop = number - 8;
+                var numberRight = number + 1;
+                var numberBot = number + 8;
+                var numberLeft = number - 1;
+                if (numberTop > 7) {
+                    spacesThen.push(document.getElementById("square" + numberTop));
+                }
+                if (numberRight % 8) {
+                    spacesThen.push(document.getElementById("square" + numberRight));
+                }
+                if (numberBot < 56) {
+                    spacesThen.push(document.getElementById("square" + numberBot));
+                }
+                if ((numberLeft + 1) % 8) {
+                    spacesThen.push(document.getElementById("square" + numberLeft));
+                }
+                console.log(spaceNow);
+                console.log(spacesThen);
+                event.dataTransfer.setData("text", event.target.id);
+                spacesThen.forEach(function (element) {
+                    element.style.border = "thick solid #0000FF";
+                    element.classList.add("dropzone");
+                    element.addEventListener('dragenter', function (event) {
+                        console.log(event.target);
+                    });
+                });
+            });
+        });
+        console.log(unicornPlayers);
+        console.log(unicornsLeft);
     };
     return BattlePhase;
 }());
