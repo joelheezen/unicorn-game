@@ -168,11 +168,12 @@ class Startscreen{
             this.game.appendChild(leave)
 
             leave.addEventListener("click",() =>{
-                
+            //bug where level elements where still there after going back to main menu (fixed)
+            while(document.getElementsByTagName('level').length>0){
                 for (let i = 0; i < document.getElementsByTagName('level').length; i++) {
-                    document.getElementsByTagName('level')[0].remove()
+                    document.getElementsByTagName('level')[i].remove()
                     
-                }
+                }}
                 leave.remove();
 
                 this.setButtons();

@@ -44,9 +44,7 @@ circleOnClick(){
         let circle = document.createElement("circle")
         body.appendChild(circle)
         circle.style.display = "initial" 
-        circle.style.transform = 'translateY('+(pos.clientY - 25)+'px) translateX('+(pos.clientX - 30)+'px) scale(0.5)';
-        circle.style.transition = '1s';
-        circle.style.transform = 'translateY('+(pos.clientY - 25)+'px) translateX('+(pos.clientX - 30)+'px) scale(1)';
+        circle.style.transform = 'translateY('+(pos.clientY - 30)+'px) translateX('+(pos.clientX - 30)+'px) scale(1)';
         
 
         window.setTimeout(function(){body.removeChild(circle)}, 2000);
