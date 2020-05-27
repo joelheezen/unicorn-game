@@ -344,7 +344,7 @@ var Startscreen = (function () {
         background.style.backgroundImage = "url(assets/startscreen.png)";
         this.game.appendChild(background);
         this.game.innerHTML += '<audio id="audioplayer"><source src="assets/music.mp3" type="audio/ogg"></audio>';
-        document.getElementsByTagName('audio')[0].volume = 0.5;
+        document.getElementsByTagName('audio')[0].volume = 0;
         document.getElementsByTagName('audio')[0].play();
     };
     Startscreen.prototype.setAssets = function () {
@@ -477,9 +477,10 @@ var Startscreen = (function () {
         var musicVolume = document.createElement('input');
         options.appendChild(musicVolume);
         musicVolume.type = "range";
-        musicVolume.min = "1";
+        musicVolume.min = "0";
         musicVolume.max = "100";
         musicVolume.id = 'myRange';
+        musicVolume.value = '0';
         musicVolume.addEventListener("input", function () {
             var volume = parseInt(musicVolume.value);
             volume = volume / 100;
@@ -605,7 +606,7 @@ var Level5click = (function () {
     function Level5click() {
         this.setFurniture();
         this.setBackground();
-        new Hint(55, 17, 14, 11, "The wizzard comes closer with power so great. You can hear him read spells from his scroll. As you feel the magic come from a place in which you might find your console.<br><br> The two handles on its front makes it look like a face. 'Wait a minute, did it just frown?' The wizzard made enemies and for some reason his favourite minion is brown.");
+        new Hint(55, 17, 14, 11, "The wizard comes closer with power so great. You can hear him read spells from his scroll. As you feel the magic come from a place in which you might find your console.<br><br> The two handles on its front makes it look like a face. 'Wait a minute, did it just frown?' The wizzard made enemies and for some reason his favourite minion is brown.");
         new Inventory();
     }
     Level5click.prototype.setBackground = function () {

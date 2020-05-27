@@ -20,7 +20,7 @@ class Startscreen{
         background.style.backgroundImage = "url(assets/startscreen.png)"
         this.game.appendChild(background)
         this.game.innerHTML += '<audio id="audioplayer"><source src="assets/music.mp3" type="audio/ogg"></audio>'
-        document.getElementsByTagName('audio')[0].volume = 0.5;
+        document.getElementsByTagName('audio')[0].volume = 0    ;
         document.getElementsByTagName('audio')[0].play()
     
     }
@@ -199,6 +199,7 @@ class Startscreen{
         musicVolume.min = "0"
         musicVolume.max = "100"
         musicVolume.id = 'myRange'
+        musicVolume.value = '0'
 
             musicVolume.addEventListener("input",()=> {
                 let volume = parseInt(musicVolume.value)
