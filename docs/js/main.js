@@ -1,4 +1,221 @@
 "use strict";
+var Inventory = (function () {
+    function Inventory() {
+        this.setInventory();
+    }
+    Inventory.prototype.setInventory = function () {
+        console.log("Created inventory");
+        this.inventory = document.createElement("inventory");
+        var game = document.getElementsByTagName("game")[0];
+        game.appendChild(this.inventory);
+    };
+    return Inventory;
+}());
+var BattlePhase = (function () {
+    function BattlePhase(stage) {
+        var _this = this;
+        this.game = document.getElementsByTagName("game")[0];
+        console.log("button pressed, loading in battlephase");
+        var pointer = document.getElementsByTagName("newpointer")[0];
+        var inv = document.getElementsByTagName("inventory")[0];
+        var fadetonew = document.getElementsByTagName('fadetonew')[0];
+        var gameChildren = new Array;
+        var children = this.game.children;
+        for (var i = 0; i < children.length; i++) {
+            gameChildren.push(children[i]);
+        }
+        gameChildren.forEach(function (gameChild) {
+            if (gameChild != pointer && gameChild != inv && gameChild != fadetonew) {
+                _this.game.removeChild(gameChild);
+            }
+        });
+        var background = document.createElement("background");
+        background.style.backgroundImage = "url(assets/gameBackground.png)";
+        this.game.appendChild(background);
+        var inventoryItems = document.getElementsByTagName('inventory')[0].children;
+        if (inventoryItems.length == 0) {
+            var inventoryItem = document.createElement('inventoryItem');
+            var inventoryadd = document.getElementsByTagName("inventory")[0];
+            inventoryItem.style.backgroundImage = "url(assets/unicorn_crash_test.png)";
+            inventoryadd.appendChild(inventoryItem);
+        }
+        var squares = 64;
+        var xPosSquare = 8;
+        var yPosSquare = 8;
+        var spaces = document.getElementsByTagName("moveSpace");
+        var monsters = new Array;
+        var monsterCount = 0;
+        var inventory = document.getElementsByTagName('inventory')[0];
+        var gameboard = document.createElement("gameBoard");
+        this.game.appendChild(gameboard);
+        for (var i = 0; i < squares; i++) {
+            var moveSpace = document.createElement("moveSpace");
+            gameboard.appendChild(moveSpace);
+            moveSpace.id = "square" + i;
+            moveSpace.style.transform = "translate(" + xPosSquare + "vh, " + yPosSquare + "vh)";
+            xPosSquare += 9.3;
+            if (xPosSquare > 73.1) {
+                xPosSquare = 8;
+                yPosSquare += 9.3;
+            }
+            if (i > 31) {
+                moveSpace.addEventListener("drop", function () { return _this.drop(event); });
+                moveSpace.addEventListener("dragover", function () { return _this.allowDrop(event); });
+            }
+        }
+        inventory.addEventListener("drop", function () { return _this.drop(event); });
+        inventory.addEventListener("dragover", function () { return _this.allowDrop(event); });
+        for (var i = 0; i < inventoryItems.length; i++) {
+            inventoryItems[i].id = "item" + i;
+            inventoryItems[i].draggable = true;
+            inventoryItems[i].addEventListener("dragstart", function () { return _this.drag(event); });
+        }
+        var monsterTypes = ["enemy_cabinet", "enemy_couch", "enemy_dunbell", "enemy_lamp", "enemy_plant"];
+        switch (stage) {
+            case 1:
+                monsterCount = 4;
+                break;
+            case 2:
+                monsterCount = 4;
+                break;
+            case 3:
+                monsterCount = 4;
+                break;
+            case 4:
+                monsterCount = 4;
+                break;
+            case 5:
+                monsterCount = 4;
+                break;
+            case 6:
+                monsterCount = 4;
+                monsterTypes = ["wizard"];
+                break;
+        }
+        for (var i = 0; i < monsterCount; i++) {
+            var monster = document.createElement("monster");
+            monster.style.backgroundImage = "url(assets/" + monsterTypes[Math.floor(Math.random() * monsterTypes.length)] + ".png)";
+            console.log(monster.style.backgroundImage);
+            monster.id = "monster" + i;
+            monsters.push(monster);
+        }
+        for (var i = 0; i < monsterCount; i++) {
+            var randomNumber = Math.floor(Math.random() * 31);
+            console.log(randomNumber);
+            if (spaces[randomNumber].firstChild) {
+                i -= 1;
+            }
+            else {
+                spaces[randomNumber].appendChild(monsters[i]);
+            }
+        }
+        this.startBattle = document.createElement('startBattle');
+        this.game.appendChild(this.startBattle);
+        this.startBattle.innerHTML = "Start Battle";
+        this.startBattle.addEventListener("click", function () { return _this.prepareBoard(); });
+        this.battleCover = document.createElement('battlecover');
+        this.game.appendChild(this.battleCover);
+    }
+    BattlePhase.prototype.allowDrop = function (ev) {
+        ev.preventDefault();
+    };
+    BattlePhase.prototype.drag = function (ev) {
+        ev.dataTransfer.setData("text", ev.target.id);
+    };
+    BattlePhase.prototype.drop = function (ev) {
+        if (ev.target.id.substring(0, 4) == "item") {
+            console.log("space already has an item in it");
+        }
+        else {
+            ev.preventDefault();
+            var data = ev.dataTransfer.getData("text");
+            ev.target.appendChild(document.getElementById(data));
+        }
+        var inventory = document.getElementsByTagName('inventory')[0];
+        if (inventory.childNodes.length == 0) {
+            console.log('no items in inventory');
+            this.battleCover.remove();
+        }
+        if (inventory.childNodes.length > 0) {
+            console.log('items in inventory');
+            this.game.appendChild(this.battleCover);
+        }
+    };
+    BattlePhase.prototype.prepareBoard = function () {
+        for (var index = 32; index < 63; index++) {
+            var old_element = document.getElementById('square' + index);
+            var new_element = old_element.cloneNode(true);
+            old_element.parentNode.replaceChild(new_element, old_element);
+            var startbattle = document.getElementsByTagName('startBattle')[0];
+            startbattle.innerHTML = "End your turn";
+        }
+        this.enemyTurn();
+    };
+    BattlePhase.prototype.enemyTurn = function () {
+        if (document.getElementById("monster0")) {
+            console.log("the enemies are advancing");
+            var monstersLeft = document.getElementsByTagName("monster");
+            var activeMonster = document.getElementById("monster" + Math.floor(Math.random() * monstersLeft.length));
+            if (activeMonster != null) {
+                var spaceNow = activeMonster.parentNode;
+                console.log(spaceNow.id);
+                var direction = Math.floor(Math.random() * 100);
+                if (direction < 10) {
+                    console.log("move back");
+                }
+                else if (direction < 20 && direction >= 10) {
+                    console.log("move left");
+                }
+                else if (direction < 30 && direction >= 20) {
+                    console.log("move right");
+                }
+                else {
+                    console.log("move forward");
+                }
+            }
+            console.log(activeMonster);
+        }
+        else {
+            console.log("you won");
+        }
+    };
+    BattlePhase.prototype.playerTurn = function () {
+        this.enemyTurn();
+    };
+    return BattlePhase;
+}());
+var Dialogbox = (function () {
+    function Dialogbox(player, message) {
+        this.game = document.getElementsByTagName('game')[0];
+        var messages = message.split('*');
+        this.newDialog(player, messages);
+    }
+    Dialogbox.prototype.newDialog = function (player, messages) {
+        var dialog = document.createElement('dialogWindow');
+        this.game.appendChild(dialog);
+        var playerIcon = document.createElement('playerIcon');
+        this.game.appendChild(playerIcon);
+        var nextMessage = document.createElement('nextMessage');
+        this.game.appendChild(nextMessage);
+        nextMessage.innerHTML = ">";
+        playerIcon.style.backgroundImage = "url(assets/" + player + ".png)";
+        var currentDialog = 0;
+        dialog.innerHTML = messages[currentDialog];
+        nextMessage.addEventListener('click', function () {
+            currentDialog += 1;
+            if (currentDialog < messages.length) {
+                dialog.innerHTML = "";
+                dialog.innerHTML += messages[currentDialog];
+            }
+            else {
+                dialog.remove();
+                playerIcon.remove();
+                nextMessage.remove();
+            }
+        });
+    };
+    return Dialogbox;
+}());
 var Furniture = (function () {
     function Furniture(furnX, furnY, furnDimX, furnDimY, contains, background) {
         this.makeFurniture(furnX, furnY, furnDimX, furnDimY, contains, background);
@@ -42,7 +259,7 @@ var Furniture = (function () {
             var pickup_1 = document.createElement("pickup");
             var grayout_1 = document.createElement('grayout');
             var itemMessage_1 = document.createElement('itemMessage');
-            itemMessage_1.innerHTML = "Item '" + contains.replace("_", " ") + "' added to inventory";
+            itemMessage_1.innerHTML = "You found '" + contains.replace("_", " ") + "'";
             game.append(itemMessage_1);
             game.appendChild(grayout_1);
             game.appendChild(pickup_1);
@@ -66,10 +283,10 @@ var Furniture = (function () {
     return Furniture;
 }());
 var EvilFurniture = (function () {
-    function EvilFurniture(furnX, furnY, furnDimX, furnDimY, background) {
-        this.makeEvilFurniture(furnX, furnY, furnDimX, furnDimY, background);
+    function EvilFurniture(furnX, furnY, furnDimX, furnDimY, background, level) {
+        this.makeEvilFurniture(furnX, furnY, furnDimX, furnDimY, background, level);
     }
-    EvilFurniture.prototype.makeEvilFurniture = function (furnX, furnY, furnDimX, furnDimY, background) {
+    EvilFurniture.prototype.makeEvilFurniture = function (furnX, furnY, furnDimX, furnDimY, background, level) {
         var _this = this;
         this.furniture = document.createElement("furniture");
         this.shakeBox = document.createElement("shakeBox");
@@ -79,16 +296,16 @@ var EvilFurniture = (function () {
         this.furniture.style.width = furnDimX + "vw";
         this.shakeBox.style.transform = "translate(" + furnX + "vw," + furnY + "vh)";
         this.furniture.classList.add('shake');
-        this.shakeBox.addEventListener('click', function () { return _this.startbattle(event); });
+        this.shakeBox.addEventListener('click', function () { return _this.startbattle(event, level); });
         this.shakeBox.appendChild(this.furniture);
         game.appendChild(this.shakeBox);
     };
-    EvilFurniture.prototype.startbattle = function (event) {
+    EvilFurniture.prototype.startbattle = function (event, level) {
         var game = document.getElementsByTagName("game")[0];
         this.furniture.classList.remove('shake');
         var grayout = document.createElement('grayout');
         var itemMessage = document.createElement('itemMessage');
-        itemMessage.innerHTML = "You have found the enemy";
+        itemMessage.innerHTML = "You have found the wizard";
         event.target.parentElement.style.zIndex = "150";
         this.shakeBox.style.animation = "enemyappear 2s forwards";
         this.shakeBox.style.animationIterationCount = "1";
@@ -103,7 +320,7 @@ var EvilFurniture = (function () {
         var fadetonew = document.createElement("fadetonew");
         game.appendChild(fadetonew);
         setTimeout(function () {
-            new BattlePhase();
+            new BattlePhase(level);
         }, 4000);
         this.shakeBox.outerHTML = this.shakeBox.outerHTML;
         setTimeout(function () {
@@ -111,226 +328,6 @@ var EvilFurniture = (function () {
         }, 6000);
     };
     return EvilFurniture;
-}());
-var Inventory = (function () {
-    function Inventory() {
-        this.setInventory();
-    }
-    Inventory.prototype.setInventory = function () {
-        console.log("Created inventory");
-        this.inventory = document.createElement("inventory");
-        var game = document.getElementsByTagName("game")[0];
-        game.appendChild(this.inventory);
-    };
-    return Inventory;
-}());
-var BattlePhase = (function () {
-    function BattlePhase() {
-        console.log("button pressed, loading in battlephase");
-        var game = document.getElementsByTagName("game")[0];
-        var pointer = document.getElementsByTagName("newpointer")[0];
-        var inv = document.getElementsByTagName("inventory")[0];
-        var fadetonew = document.getElementsByTagName('fadetonew')[0];
-        var gameChildren = new Array;
-        var children = game.children;
-        for (var i = 0; i < children.length; i++) {
-            gameChildren.push(children[i]);
-        }
-        gameChildren.forEach(function (gameChild) {
-            if (gameChild != pointer && gameChild != inv && gameChild != fadetonew) {
-                game.removeChild(gameChild);
-            }
-        });
-        var background = document.createElement("background");
-        background.style.backgroundImage = "url(assets/2.png)";
-        game.appendChild(background);
-        var inventoryItems = document.getElementsByTagName('inventory')[0].children;
-        var squares = 140;
-        var xPosSquare = 0;
-        var yPosSquare = 0;
-        var spaces = document.getElementsByTagName("moveSpace");
-        var monsters = new Array;
-        var monsterCount;
-        var inventory = document.getElementsByTagName('inventory')[0];
-        var stage = 6;
-        function allowDrop(ev) {
-            ev.preventDefault();
-        }
-        function drag(ev) {
-            ev.dataTransfer.setData("text", ev.target.id);
-        }
-        function drop(ev) {
-            if (ev.target.id.substring(0, 4) == "item") {
-                console.log("space already has an item in it");
-            }
-            else {
-                ev.preventDefault();
-                var data = ev.dataTransfer.getData("text");
-                ev.target.appendChild(document.getElementById(data));
-            }
-        }
-        for (var i = 0; i < squares; i++) {
-            var moveSpace = document.createElement("moveSpace");
-            game.appendChild(moveSpace);
-            moveSpace.id = "square" + i;
-            moveSpace.style.transform = "translate(" + xPosSquare + "vw, " + yPosSquare + "vh)";
-            xPosSquare += 6.67;
-            if (xPosSquare > 93) {
-                xPosSquare = 0;
-                yPosSquare += 10;
-            }
-            moveSpace.addEventListener("drop", function () { return drop(event); });
-            moveSpace.addEventListener("dragover", function () { return allowDrop(event); });
-            inventory.addEventListener("drop", function () { return drop(event); });
-            inventory.addEventListener("dragover", function () { return allowDrop(event); });
-        }
-        for (var i = 0; i < inventoryItems.length; i++) {
-            inventoryItems[i].id = "item" + i;
-            inventoryItems[i].draggable = true;
-            inventoryItems[i].addEventListener("dragstart", function () { return drag(event); });
-        }
-        if (stage == 1) {
-            monsterCount = 4;
-            for (var i = 0; i < monsterCount; i++) {
-                var monster = document.createElement("monster");
-                monster.id = "monster" + i;
-                monsters.push(monster);
-            }
-            for (var i = 0; i < monsterCount; i++) {
-                var randomNumber = Math.floor(Math.random() * 70);
-                console.log(randomNumber);
-                if (spaces[randomNumber].firstChild) {
-                    i -= 1;
-                }
-                else {
-                    spaces[randomNumber].appendChild(monsters[i]);
-                }
-            }
-        }
-        if (stage == 2) {
-            monsterCount = 4;
-            for (var i = 0; i < monsterCount; i++) {
-                var monster = document.createElement("monster");
-                monster.id = "monster" + i;
-                monsters.push(monster);
-            }
-            for (var i = 0; i < monsterCount; i++) {
-                var randomNumber = Math.floor(Math.random() * 70);
-                console.log(randomNumber);
-                if (spaces[randomNumber].firstChild) {
-                    i -= 1;
-                }
-                else {
-                    spaces[randomNumber].appendChild(monsters[i]);
-                }
-            }
-        }
-        if (stage == 3) {
-            monsterCount = 4;
-            for (var i = 0; i < monsterCount; i++) {
-                var monster = document.createElement("monster");
-                monster.id = "monster" + i;
-                monsters.push(monster);
-            }
-            for (var i = 0; i < monsterCount; i++) {
-                var randomNumber = Math.floor(Math.random() * 70);
-                console.log(randomNumber);
-                if (spaces[randomNumber].firstChild) {
-                    i -= 1;
-                }
-                else {
-                    spaces[randomNumber].appendChild(monsters[i]);
-                }
-            }
-        }
-        if (stage == 4) {
-            monsterCount = 4;
-            for (var i = 0; i < monsterCount; i++) {
-                var monster = document.createElement("monster");
-                monster.id = "monster" + i;
-                monsters.push(monster);
-            }
-            for (var i = 0; i < monsterCount; i++) {
-                var randomNumber = Math.floor(Math.random() * 70);
-                console.log(randomNumber);
-                if (spaces[randomNumber].firstChild) {
-                    i -= 1;
-                }
-                else {
-                    spaces[randomNumber].appendChild(monsters[i]);
-                }
-            }
-        }
-        if (stage == 5) {
-            monsterCount = 4;
-            for (var i = 0; i < monsterCount; i++) {
-                var monster = document.createElement("monster");
-                monster.id = "monster" + i;
-                monsters.push(monster);
-            }
-            for (var i = 0; i < monsterCount; i++) {
-                var randomNumber = Math.floor(Math.random() * 70);
-                console.log(randomNumber);
-                if (spaces[randomNumber].firstChild) {
-                    i -= 1;
-                }
-                else {
-                    spaces[randomNumber].appendChild(monsters[i]);
-                }
-            }
-        }
-        if (stage == 6) {
-            monsterCount = 4;
-            for (var i = 0; i < monsterCount; i++) {
-                var monster = document.createElement("monster");
-                monster.id = "monster" + i;
-                monsters.push(monster);
-            }
-            for (var i = 0; i < monsterCount; i++) {
-                var randomNumber = Math.floor(Math.random() * 70);
-                console.log(randomNumber);
-                if (spaces[randomNumber].firstChild) {
-                    i -= 1;
-                }
-                else {
-                    spaces[randomNumber].appendChild(monsters[i]);
-                }
-            }
-            enemyTurn();
-        }
-        function enemyTurn() {
-            if (document.getElementById("monster0")) {
-                console.log("the enemies are advancing");
-                var monstersLeft = document.getElementsByTagName("monster");
-                var activeMonster = document.getElementById("monster" + Math.floor(Math.random() * monstersLeft.length));
-                if (activeMonster != null) {
-                    var spaceNow = activeMonster.parentNode;
-                    console.log(spaceNow.id);
-                    var direction = Math.floor(Math.random() * 100);
-                    if (direction < 10) {
-                        console.log("move back");
-                    }
-                    else if (direction < 20 && direction >= 10) {
-                        console.log("move left");
-                    }
-                    else if (direction < 30 && direction >= 20) {
-                        console.log("move right");
-                    }
-                    else {
-                        console.log("move forward");
-                    }
-                }
-                console.log(activeMonster);
-            }
-            else {
-                console.log("you won");
-            }
-        }
-        function playerTurn() {
-            enemyTurn();
-        }
-    }
-    return BattlePhase;
 }());
 window.addEventListener("load", function () { return new Startscreen(); });
 var Startscreen = (function () {
@@ -346,6 +343,9 @@ var Startscreen = (function () {
         var background = document.createElement("background");
         background.style.backgroundImage = "url(assets/startscreen.png)";
         this.game.appendChild(background);
+        this.game.innerHTML += '<audio id="audioplayer"><source src="assets/music.mp3" type="audio/ogg"></audio>';
+        document.getElementsByTagName('audio')[0].volume = 0.5;
+        document.getElementsByTagName('audio')[0].play();
     };
     Startscreen.prototype.setAssets = function () {
         var title = document.createElement("title");
@@ -499,8 +499,9 @@ var Level1click = (function () {
     function Level1click() {
         this.setFurniture();
         this.setBackground();
-        new Hint(70.7, 9, 15, 8.6, "The room is quiet and devoid of life, yet there is something that isnt.Its whispering silently, as not to be heared. It seems like its soul is imprisoned. <br> <br> You hear chanting in the distance as the poor soul weeps. Its something you wouldnt want to have seen. Out of the item comes a slight glow and this glows colored green.");
+        new Hint(70.7, 9, 15, 8.6, "The room is quiet and devoid of life, yet there is something that isnt.Its whispering silently, as not to be heard. It seems like its soul is imprisoned. <br> <br> You hear chanting in the distance as the poor soul weeps. Its something you wouldnt want to have seen. Out of the item comes a slight glow and this glows colored green.");
         new Inventory();
+        new Dialogbox("unicorn_player", "Where did that wizard go?*And who does he think he is, chasing my friends into here.*I better find them all before i run into him.*What does that note say?");
     }
     Level1click.prototype.setBackground = function () {
         var background = document.createElement("background");
@@ -516,14 +517,9 @@ var Level1click = (function () {
         new Furniture(27.3, 25.7, 9, 17, "unicorn_rifle", "url(assets/clock.png)");
         new Furniture(80.5, 57.6, 5, 12.1, "none", "url(assets/vase.png)");
         new Furniture(12.7, 26, 6.8, 7.4, "unicorn_gun", "url(assets/books.png)");
-        new EvilFurniture(82, 10.9, 8, 16.6, "url(assets/plant.png)");
+        new EvilFurniture(82, 10.9, 8, 16.6, "url(assets/plant.png)", 1);
     };
     return Level1click;
-}());
-var Level1Battle = (function () {
-    function Level1Battle() {
-    }
-    return Level1Battle;
 }());
 var Level2click = (function () {
     function Level2click() {
@@ -547,14 +543,9 @@ var Level2click = (function () {
         new Furniture(75, 50.4, 21.2, 28.6, "none", "url(assets/red_chair.png)");
         new Furniture(83.5, 23.6, 6.6, 7.5, "none", "url(assets/standing_clock.png)");
         new Furniture(58.1, 61.4, 15, 17.6, "unicorn_slime", "url(assets/glass_table.png)");
-        new EvilFurniture(36.8, 12.6, 8.8, 7.6, "url(assets/sun_and_cloud.png)");
+        new EvilFurniture(36.8, 12.6, 8.8, 7.6, "url(assets/sun_and_cloud.png)", 2);
     };
     return Level2click;
-}());
-var Level2Battle = (function () {
-    function Level2Battle() {
-    }
-    return Level2Battle;
 }());
 var Level3click = (function () {
     function Level3click() {
@@ -579,14 +570,9 @@ var Level3click = (function () {
         new Furniture(79.7, 21.8, 2.85, 10.2, "none", "url(assets/tiny_plant.png)");
         new Furniture(22.1, 26.9, 3.8, 5.9, "uni-corn", "url(assets/tiny_frame.png)");
         new Furniture(88.7, 48.7, 5.2, 21.9, "unicorn_ghost", "url(assets/small_lamp.png)");
-        new EvilFurniture(17, 57.5, 9.9, 11.5, "url(assets/pillow.png)");
+        new EvilFurniture(17, 57.5, 9.9, 11.5, "url(assets/pillow.png)", 3);
     };
     return Level3click;
-}());
-var Level3Battle = (function () {
-    function Level3Battle() {
-    }
-    return Level3Battle;
 }());
 var Level4click = (function () {
     function Level4click() {
@@ -611,14 +597,9 @@ var Level4click = (function () {
         new Furniture(78.4, 41.5, 5.7, 10.3, "none", "url(assets/small_frame.png)");
         new Furniture(62.5, 51.6, 2, 8.4, "unicorn_bandage_girl", "url(assets/book.png)");
         new Furniture(46.6, 66.7, 2.8, 5, "unicorn_princess", "url(assets/mug.png)");
-        new EvilFurniture(83.1, 61.7, 5.6, 16.5, "url(assets/fire.png)");
+        new EvilFurniture(83.1, 61.7, 5.6, 16.5, "url(assets/fire.png)", 4);
     };
     return Level4click;
-}());
-var Level4Battle = (function () {
-    function Level4Battle() {
-    }
-    return Level4Battle;
 }());
 var Level5click = (function () {
     function Level5click() {
@@ -642,20 +623,15 @@ var Level5click = (function () {
         new Furniture(56.6, 34.45, 7.6, 12.7, "none", "url(assets/lamp_shade.png)");
         new Furniture(18.9, 56.3, 4.2, 7.6, "unicorn_army", "url(assets/square_pillow.png)");
         new Furniture(72.6, 27.7, 9, 16, "unicorn_super_meat_boy", "url(assets/boat_frame.png)");
-        new EvilFurniture(77.4, 76.5, 15, 5.9, "url(assets/drawer.png)");
+        new EvilFurniture(77.4, 76.5, 15, 5.9, "url(assets/drawer.png)", 5);
     };
     return Level5click;
-}());
-var Level5Battle = (function () {
-    function Level5Battle() {
-    }
-    return Level5Battle;
 }());
 var Level6click = (function () {
     function Level6click() {
         this.setFurniture();
         this.setBackground();
-        new Hint(39, 26, 9, 11, "As you walk into the room you feel a powerfull surge. Its cold like you are in a blizzard. When you find the item in witch he resides youll find yourself fighting a wizzard.");
+        new Hint(39, 26, 9, 11, "As you walk into the room you feel a powerfull surge. Its cold like you are in a blizzard. When you find the item in witch he resides youll find yourself fighting a wizard.");
         new Inventory();
     }
     Level6click.prototype.setBackground = function () {
@@ -675,14 +651,9 @@ var Level6click = (function () {
         new Furniture(73.1, 32.8, 1.4, 2.5, "none", "url(assets/small_bunny.png)");
         new Furniture(57.5, 63.1, 5.2, 8.3, "unicorn_dinosaur", "url(assets/two_frames.png)");
         new Furniture(69.8, 31.1, 2.4, 4.3, "unicorn_chocolate_chip", "url(assets/large_bunny.png)");
-        new EvilFurniture(14.7, 53, 9.8, 26, "url(assets/large_cabinet.png)");
+        new EvilFurniture(14.7, 53, 9.8, 26, "url(assets/large_cabinet.png)", 6);
     };
     return Level6click;
-}());
-var Level6Battle = (function () {
-    function Level6Battle() {
-    }
-    return Level6Battle;
 }());
 var Hint = (function () {
     function Hint(x, y, h, w, message) {
@@ -698,9 +669,9 @@ var Hint = (function () {
         hint.innerHTML = "<p>" + message + "</p>";
         hint.addEventListener('click', zoomin);
         function zoomin() {
-            game.style.zoom = "500%";
-            var xzoom = x - h / 2;
-            var yzoom = y - w / 2;
+            game.style.zoom = "450%";
+            var xzoom = x - h / 2.5;
+            var yzoom = y - w / 2.5;
             if (xzoom < 0) {
                 xzoom = 0;
             }
