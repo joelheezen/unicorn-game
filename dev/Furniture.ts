@@ -131,7 +131,7 @@ class EvilFurniture{
                 let grayout = document.createElement('grayout')
                 let itemMessage = document.createElement('itemMessage')
 
-                itemMessage.innerHTML = "You have found the wizard"
+                itemMessage.innerHTML = "You have found the wizards minion"
                 event.target.parentElement.style.zIndex = "150"
 
                 this.shakeBox.style.animation= "enemyappear 2s forwards"

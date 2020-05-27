@@ -88,7 +88,7 @@ var EvilFurniture = (function () {
         this.furniture.classList.remove('shake');
         var grayout = document.createElement('grayout');
         var itemMessage = document.createElement('itemMessage');
-        itemMessage.innerHTML = "You have found the wizard";
+        itemMessage.innerHTML = "You have found the wizards minion";
         event.target.parentElement.style.zIndex = "150";
         this.shakeBox.style.animation = "enemyappear 2s forwards";
         this.shakeBox.style.animationIterationCount = "1";
@@ -183,7 +183,7 @@ var BattlePhase = (function () {
             inventoryItems[i].draggable = true;
             inventoryItems[i].addEventListener("dragstart", function () { return _this.drag(event); });
         }
-        var monsterTypes = ["enemy_cabinet", "enemy_couch", "enemy_dunbell", "enemy_lamp", "enemy_plant"];
+        var monsterTypes = ["enemy_cabinet", "enemy_couch", "enemy_dumbell", "enemy_lamp", "enemy_plant"];
         switch (stage) {
             case 1:
                 monsterCount = 4;
@@ -544,8 +544,10 @@ var Startscreen = (function () {
         var leave = document.createElement('leave');
         this.game.appendChild(leave);
         leave.addEventListener("click", function () {
-            for (var i = 0; i < document.getElementsByTagName('level').length; i++) {
-                document.getElementsByTagName('level')[0].remove();
+            while (document.getElementsByTagName('level').length > 0) {
+                for (var i = 0; i < document.getElementsByTagName('level').length; i++) {
+                    document.getElementsByTagName('level')[i].remove();
+                }
             }
             leave.remove();
             _this.setButtons();
@@ -856,9 +858,7 @@ var unicornPlayer = (function () {
             var circle = document.createElement("circle");
             body.appendChild(circle);
             circle.style.display = "initial";
-            circle.style.transform = 'translateY(' + (pos.clientY - 25) + 'px) translateX(' + (pos.clientX - 30) + 'px) scale(0.5)';
-            circle.style.transition = '1s';
-            circle.style.transform = 'translateY(' + (pos.clientY - 25) + 'px) translateX(' + (pos.clientX - 30) + 'px) scale(1)';
+            circle.style.transform = 'translateY(' + (pos.clientY - 30) + 'px) translateX(' + (pos.clientX - 30) + 'px) scale(1)';
             window.setTimeout(function () { body.removeChild(circle); }, 2000);
         }, true);
     };
