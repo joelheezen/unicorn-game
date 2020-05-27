@@ -140,7 +140,7 @@ class BattlePhase{
         }
           
         drop(ev: any) {
-            
+
             //stops an item from being dropped inside another item
             if(ev.target.id.substring(0,4) == "item"){
                 console.log("space already has an item in it")

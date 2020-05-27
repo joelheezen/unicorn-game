@@ -378,12 +378,11 @@
         width:40vh;
         top:40vh;
         left:20vh;
-        background-image: url(../assets/unicorn_gun.png);
+        background-image: url(../assets/wizard.png);
         background-size: 100%;
         background-repeat: no-repeat;
         animation-duration: 2s;
         animation-iteration-count: infinite;
-        transform: scaleX(-1);
     }
 
     level{
