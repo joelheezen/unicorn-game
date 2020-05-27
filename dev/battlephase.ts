@@ -105,6 +105,7 @@ class BattlePhase{
             for (let i = 0; i < monsterCount; i++) {
                 
                 let monster = document.createElement("monster")
+                monster.classList.add("monster")
                 monster.style.backgroundImage = `url(assets/${monsterTypes[Math.floor(Math.random() * monsterTypes.length)]}.png)`
                 console.log(monster.style.backgroundImage)
                 monster.id = "monster" + i
@@ -136,18 +137,21 @@ class BattlePhase{
         }
           
         drag(ev: any) {
-            ev.dataTransfer.setData("text", ev.target.id);
+            ev.dataTransfer.setData("text", ev.target.id)
+            
         }
           
         drop(ev: any) {
-            
+            let data = ev.dataTransfer.getData("text")
+            let element = document.getElementById(data)
             //stops an item from being dropped inside another item
             if(ev.target.id.substring(0,4) == "item"){
                 console.log("space already has an item in it")
-            }else{
-            ev.preventDefault();
-            var data = ev.dataTransfer.getData("text");
-            ev.target.appendChild(document.getElementById(data));
+            }else if (element != null) {
+                if (!element.classList.contains("gamer")) {
+                    ev.preventDefault();
+                    ev.target.appendChild(document.getElementById(data));
+                    }
             }
 
             let inventory = document.getElementsByTagName('inventory')[0]
@@ -161,24 +165,40 @@ class BattlePhase{
                 console.log('items in inventory')
                 this.game.appendChild(this.battleCover)
             }
+            if (element != null){
+                if (element.classList.contains("gamer") && ev.target.classList.contains("dropzone")) {
+                    ev.preventDefault();
+                    ev.target.appendChild(document.getElementById(data));
+                    element = document.getElementById(data)
+                }
+            }
+            if (element != null){
+                if (element.classList.contains("gamer") && ev.target.classList.contains("monster")) {
+                    ev.preventDefault();
+                    console.log("you hit a monster")
+                    let monsterChild = ev.target
+                    let monsterParent = monsterChild.parentNode
+                    if (monsterParent) {
+                        monsterParent.removeChild(monsterChild)
+                    }
+                    monsterParent.appendChild(document.getElementById(data));
+                    element = document.getElementById(data)
+                }
+            }
         }
 
         prepareBoard(){
 
-            for (let index = 32; index < 63; index++) {
-                let old_element = document.getElementById('square' + index)
-                let new_element
+            let enemySide = document.getElementsByTagName('movespace')
 
-                if (old_element != null){
-                    new_element = old_element.cloneNode(true);
-                }
-                if (old_element != null && old_element.parentNode != null && new_element  != null) {
-                old_element.parentNode.replaceChild(new_element, old_element);
-                }
-
-                let startbattle = document.getElementsByTagName('startBattle')[0]
-                startbattle.innerHTML = "End your turn"
+            for (let index = 0; index <= 31; index++) {
+                enemySide[index].addEventListener("drop",() => this.drop(event))
+                enemySide[index].addEventListener("dragover",() => this.allowDrop(event))
+                
             }
+
+            let startbattle = document.getElementsByTagName('startBattle')[0]
+                startbattle.innerHTML = "End your turn"
 
             this.enemyTurn()
         }
@@ -193,8 +213,7 @@ class BattlePhase{
             // if the boss lives the enemy turn starts
             if (document.getElementById("monster0")) {
                 console.log("the enemies are advancing")
-                let monstersLeft = document.getElementsByTagName("monster")
-                
+                let monstersLeft = document.getElementsByTagName("monster")                
                 // if this deletes monster number 2 it will fuck up
                 let activeMonster = document.getElementById("monster" + Math.floor(Math.random() * monstersLeft.length))
                 if (activeMonster != null) {
@@ -229,12 +248,10 @@ class BattlePhase{
                 unicornPlayers.push(document.getElementsByTagName("inventoryitem")[i])
             }
             
-            let dragged
+            
 
             unicornPlayers.forEach(element => {
-                
-                element.addEventListener('dragstart', event => {
-                    dragged = event.target
+                element.addEventListener('dragstart', (event: { dataTransfer: { setData: (arg0: string, arg1: any) => void }; target: { id: any } }) => {
                     let spaceNow = element.parentNode.id
                     let number = Number(spaceNow.slice(6, 8))
                     let spacesThen = new Array
@@ -242,13 +259,14 @@ class BattlePhase{
                     let numberRight = number + 1
                     let numberBot = number + 8
                     let numberLeft = number -1
+                    element.classList.add("gamer")
                     if (numberTop > 0) {
                         spacesThen.push(document.getElementById("square" + numberTop))
                     }
                     if (numberRight % 8) {
                         spacesThen.push(document.getElementById("square" + numberRight))
                     }
-                    if (numberBot < 63) {
+                    if (numberBot < 64) {
                         spacesThen.push(document.getElementById("square" + numberBot))
                     }
                     if ((numberLeft + 1) % 8){
@@ -258,26 +276,22 @@ class BattlePhase{
                     console.log(spacesThen)
                     event.dataTransfer.setData("text", event.target.id);
                     spacesThen.forEach(element => {
-                        element.addEventListener('drop', event => {
-                            event.preventdefault()
-                            console.log("test")
-                            dragged.parentNode.removeChild(dragged);
-                            event.target.appendChild(dragged);
-                            /*if(event.target.id.substring(0,4) == "item"){
-                                console.log("space already has an item in it")
-                            }else{
-                            event.preventDefault();
-                            var data = event.dataTransfer.getData("text");
-                            event.target.appendChild(document.getElementById(data));
-                            }*/
-                        })
-                        element.style.border = "thick solid #0000FF"
-                        element.addEventListener('dragover', () => this.allowDrop(event))
-                        element.addEventListener('dragenter', event => {
-                            console.log(event.target)
-                        })
-                        
+                        element.classList.add("dropzone")
+                        element.addEventListener('dragover', () => this.allowDrop(event))                        
                     });
+                })
+                element.addEventListener('dragend', () => {
+                    element.classList.remove("gamer")
+                    let oldSpaces = document.getElementsByClassName("dropzone")
+                    for (let i = 0; i < oldSpaces.length; i++) {
+                        oldSpaces[i].classList.remove("dropzone")
+                    }
+                    for (let i = 0; i < oldSpaces.length; i++) {
+                        oldSpaces[i].classList.remove("dropzone")
+                    }
+                    for (let i = 0; i < oldSpaces.length; i++) {
+                        oldSpaces[i].classList.remove("dropzone")
+                    }
                 })
             });
             console.log(unicornPlayers)

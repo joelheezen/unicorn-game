@@ -207,6 +207,7 @@ var BattlePhase = (function () {
         }
         for (var i = 0; i < monsterCount; i++) {
             var monster = document.createElement("monster");
+            monster.classList.add("monster");
             monster.style.backgroundImage = "url(assets/" + monsterTypes[Math.floor(Math.random() * monsterTypes.length)] + ".png)";
             console.log(monster.style.backgroundImage);
             monster.id = "monster" + i;
@@ -236,13 +237,16 @@ var BattlePhase = (function () {
         ev.dataTransfer.setData("text", ev.target.id);
     };
     BattlePhase.prototype.drop = function (ev) {
+        var data = ev.dataTransfer.getData("text");
+        var element = document.getElementById(data);
         if (ev.target.id.substring(0, 4) == "item") {
             console.log("space already has an item in it");
         }
-        else {
-            ev.preventDefault();
-            var data = ev.dataTransfer.getData("text");
-            ev.target.appendChild(document.getElementById(data));
+        else if (element != null) {
+            if (!element.classList.contains("gamer")) {
+                ev.preventDefault();
+                ev.target.appendChild(document.getElementById(data));
+            }
         }
         var inventory = document.getElementsByTagName('inventory')[0];
         if (inventory.childNodes.length == 0) {
@@ -253,20 +257,36 @@ var BattlePhase = (function () {
             console.log('items in inventory');
             this.game.appendChild(this.battleCover);
         }
+        if (element != null) {
+            if (element.classList.contains("gamer") && ev.target.classList.contains("dropzone")) {
+                ev.preventDefault();
+                ev.target.appendChild(document.getElementById(data));
+                element = document.getElementById(data);
+            }
+        }
+        if (element != null) {
+            if (element.classList.contains("gamer") && ev.target.classList.contains("monster")) {
+                ev.preventDefault();
+                console.log("you hit a monster");
+                var monsterChild = ev.target;
+                var monsterParent = monsterChild.parentNode;
+                if (monsterParent) {
+                    monsterParent.removeChild(monsterChild);
+                }
+                monsterParent.appendChild(document.getElementById(data));
+                element = document.getElementById(data);
+            }
+        }
     };
     BattlePhase.prototype.prepareBoard = function () {
-        for (var index = 32; index < 63; index++) {
-            var old_element = document.getElementById('square' + index);
-            var new_element = void 0;
-            if (old_element != null) {
-                new_element = old_element.cloneNode(true);
-            }
-            if (old_element != null && old_element.parentNode != null && new_element != null) {
-                old_element.parentNode.replaceChild(new_element, old_element);
-            }
-            var startbattle = document.getElementsByTagName('startBattle')[0];
-            startbattle.innerHTML = "End your turn";
+        var _this = this;
+        var enemySide = document.getElementsByTagName('movespace');
+        for (var index = 0; index <= 31; index++) {
+            enemySide[index].addEventListener("drop", function () { return _this.drop(event); });
+            enemySide[index].addEventListener("dragover", function () { return _this.allowDrop(event); });
         }
+        var startbattle = document.getElementsByTagName('startBattle')[0];
+        startbattle.innerHTML = "End your turn";
         this.enemyTurn();
     };
     BattlePhase.prototype.enemyTurn = function () {
@@ -305,10 +325,8 @@ var BattlePhase = (function () {
         for (var i = 0; i < unicornsLeft.length; i++) {
             unicornPlayers.push(document.getElementsByTagName("inventoryitem")[i]);
         }
-        var dragged;
         unicornPlayers.forEach(function (element) {
             element.addEventListener('dragstart', function (event) {
-                dragged = event.target;
                 var spaceNow = element.parentNode.id;
                 var number = Number(spaceNow.slice(6, 8));
                 var spacesThen = new Array;
@@ -316,13 +334,14 @@ var BattlePhase = (function () {
                 var numberRight = number + 1;
                 var numberBot = number + 8;
                 var numberLeft = number - 1;
+                element.classList.add("gamer");
                 if (numberTop > 0) {
                     spacesThen.push(document.getElementById("square" + numberTop));
                 }
                 if (numberRight % 8) {
                     spacesThen.push(document.getElementById("square" + numberRight));
                 }
-                if (numberBot < 63) {
+                if (numberBot < 64) {
                     spacesThen.push(document.getElementById("square" + numberBot));
                 }
                 if ((numberLeft + 1) % 8) {
@@ -332,18 +351,22 @@ var BattlePhase = (function () {
                 console.log(spacesThen);
                 event.dataTransfer.setData("text", event.target.id);
                 spacesThen.forEach(function (element) {
-                    element.addEventListener('drop', function (event) {
-                        event.preventdefault();
-                        console.log("test");
-                        dragged.parentNode.removeChild(dragged);
-                        event.target.appendChild(dragged);
-                    });
-                    element.style.border = "thick solid #0000FF";
+                    element.classList.add("dropzone");
                     element.addEventListener('dragover', function () { return _this.allowDrop(event); });
-                    element.addEventListener('dragenter', function (event) {
-                        console.log(event.target);
-                    });
                 });
+            });
+            element.addEventListener('dragend', function () {
+                element.classList.remove("gamer");
+                var oldSpaces = document.getElementsByClassName("dropzone");
+                for (var i = 0; i < oldSpaces.length; i++) {
+                    oldSpaces[i].classList.remove("dropzone");
+                }
+                for (var i = 0; i < oldSpaces.length; i++) {
+                    oldSpaces[i].classList.remove("dropzone");
+                }
+                for (var i = 0; i < oldSpaces.length; i++) {
+                    oldSpaces[i].classList.remove("dropzone");
+                }
             });
         });
         console.log(unicornPlayers);
