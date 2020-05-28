@@ -171,8 +171,9 @@ class BattlePhase{
                     element = document.getElementById(data)
                 }
             }
+
             if (element != null){
-                if (element.classList.contains("gamer") && ev.target.classList.contains("monster")) {
+                if (element.classList.contains("gamer") && ev.target.classList.contains("monster") && ev.target.parentElement.classList.contains("dropzone")) {
                     ev.preventDefault();
                     console.log("you hit a monster")
                     let monsterChild = ev.target

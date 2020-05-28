@@ -62,7 +62,6 @@ class Startscreen{
 
         startButton.addEventListener('click',()=>{
             this.levelSelect()
-            
         })
 
         optionsButton.addEventListener('click',()=>{

@@ -264,7 +264,7 @@ var BattlePhase = (function () {
             }
         }
         if (element != null) {
-            if (element.classList.contains("gamer") && ev.target.classList.contains("monster")) {
+            if (element.classList.contains("gamer") && ev.target.classList.contains("monster") && ev.target.parentElement.classList.contains("dropzone")) {
                 ev.preventDefault();
                 console.log("you hit a monster");
                 var monsterChild = ev.target;
