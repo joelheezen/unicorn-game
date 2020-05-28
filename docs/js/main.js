@@ -127,6 +127,7 @@ var BattlePhase = (function () {
     function BattlePhase(stage) {
         var _this = this;
         this.game = document.getElementsByTagName("game")[0];
+        this.battleStarted = false;
         console.log("button pressed, loading in battlephase");
         var pointer = document.getElementsByTagName("newpointer")[0];
         var inv = document.getElementsByTagName("inventory")[0];
@@ -277,6 +278,9 @@ var BattlePhase = (function () {
                 element = document.getElementById(data);
             }
         }
+        if (this.battleStarted == true) {
+            this.enemyTurn();
+        }
     };
     BattlePhase.prototype.prepareBoard = function () {
         var _this = this;
@@ -286,8 +290,9 @@ var BattlePhase = (function () {
             enemySide[index].addEventListener("dragover", function () { return _this.allowDrop(event); });
         }
         var startbattle = document.getElementsByTagName('startBattle')[0];
-        startbattle.innerHTML = "End your turn";
+        startbattle.remove();
         this.enemyTurn();
+        this.battleStarted = true;
     };
     BattlePhase.prototype.enemyTurn = function () {
         if (document.getElementById("monster0")) {
@@ -296,19 +301,36 @@ var BattlePhase = (function () {
             var activeMonster = document.getElementById("monster" + Math.floor(Math.random() * monstersLeft.length));
             if (activeMonster != null) {
                 var spaceNow = activeMonster.parentNode;
-                console.log(spaceNow.id);
+                var spaceNowPos = spaceNow.id.substring(6, 8);
                 var direction = Math.floor(Math.random() * 100);
+                var moveMonsterTo = document.getElementsByTagName('movespace');
                 if (direction < 10) {
                     console.log("move back");
+                    if (moveMonsterTo[parseInt(spaceNowPos) - 8].childNodes.length > 0) {
+                        moveMonsterTo[parseInt(spaceNowPos) - 8].removeChild(moveMonsterTo[parseInt(spaceNowPos) - 8].childNodes[0]);
+                    }
+                    moveMonsterTo[parseInt(spaceNowPos) - 8].appendChild(activeMonster);
                 }
                 else if (direction < 20 && direction >= 10) {
                     console.log("move left");
+                    if (moveMonsterTo[parseInt(spaceNowPos) - 1].childNodes.length > 0) {
+                        moveMonsterTo[parseInt(spaceNowPos) - 1].removeChild(moveMonsterTo[parseInt(spaceNowPos) - 1].childNodes[0]);
+                    }
+                    moveMonsterTo[parseInt(spaceNowPos) - 1].appendChild(activeMonster);
                 }
                 else if (direction < 30 && direction >= 20) {
                     console.log("move right");
+                    if (moveMonsterTo[parseInt(spaceNowPos) + 1].childNodes.length > 0) {
+                        moveMonsterTo[parseInt(spaceNowPos) + 1].removeChild(moveMonsterTo[parseInt(spaceNowPos) + 1].childNodes[0]);
+                    }
+                    moveMonsterTo[parseInt(spaceNowPos) + 1].appendChild(activeMonster);
                 }
                 else {
                     console.log("move forward");
+                    if (moveMonsterTo[parseInt(spaceNowPos) + 8].childNodes.length > 0) {
+                        moveMonsterTo[parseInt(spaceNowPos) + 8].removeChild(moveMonsterTo[parseInt(spaceNowPos) + 8].childNodes[0]);
+                    }
+                    moveMonsterTo[parseInt(spaceNowPos) + 8].appendChild(activeMonster);
                 }
             }
             console.log(activeMonster);

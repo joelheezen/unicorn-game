@@ -3,6 +3,7 @@ class BattlePhase{
     startBattle: HTMLElement
     battleCover: HTMLElement
     game = document.getElementsByTagName("game")[0]
+    battleStarted = false;
     
     constructor(stage: number){
         //deletes everything and puts a new background in
@@ -186,6 +187,10 @@ class BattlePhase{
                     element = document.getElementById(data)
                 }
             }
+
+            if (this.battleStarted == true){
+                this.enemyTurn()
+            }
         }
 
         prepareBoard(){
@@ -199,9 +204,10 @@ class BattlePhase{
             }
 
             let startbattle = document.getElementsByTagName('startBattle')[0]
-                startbattle.innerHTML = "End your turn"
+                startbattle.remove();
 
             this.enemyTurn()
+            this.battleStarted = true
         }
 
         enemyTurn(){
@@ -219,19 +225,39 @@ class BattlePhase{
                 let activeMonster = document.getElementById("monster" + Math.floor(Math.random() * monstersLeft.length))
                 if (activeMonster != null) {
                     let spaceNow = activeMonster.parentNode as Element
-                    console.log(spaceNow.id)
+                    let spaceNowPos = spaceNow.id.substring(6,8)
                     let direction = Math.floor(Math.random() * 100)
+                    let moveMonsterTo = document.getElementsByTagName('movespace')
+
+
                     if (direction < 10){
                         console.log("move back")
+                        if(moveMonsterTo[parseInt(spaceNowPos) - 8].childNodes.length > 0){
+                            moveMonsterTo[parseInt(spaceNowPos) - 8].removeChild(moveMonsterTo[parseInt(spaceNowPos) - 8].childNodes[0])
+                        }
+                        moveMonsterTo[parseInt(spaceNowPos) - 8].appendChild(activeMonster)
                     }
                     else if(direction < 20 && direction >= 10) {
                         console.log("move left")
+                        if(moveMonsterTo[parseInt(spaceNowPos) - 1].childNodes.length > 0){
+                            moveMonsterTo[parseInt(spaceNowPos) - 1].removeChild(moveMonsterTo[parseInt(spaceNowPos) - 1].childNodes[0])
+                        }
+                        moveMonsterTo[parseInt(spaceNowPos) - 1].appendChild(activeMonster)
+                        
                     }
                     else if(direction < 30 && direction >= 20) {
                         console.log("move right")
+                        if(moveMonsterTo[parseInt(spaceNowPos) + 1].childNodes.length > 0){
+                            moveMonsterTo[parseInt(spaceNowPos) + 1].removeChild(moveMonsterTo[parseInt(spaceNowPos) + 1].childNodes[0])
+                        }
+                        moveMonsterTo[parseInt(spaceNowPos) + 1].appendChild(activeMonster)
                     }
                     else {
                         console.log("move forward")
+                        if(moveMonsterTo[parseInt(spaceNowPos) + 8].childNodes.length > 0){
+                            moveMonsterTo[parseInt(spaceNowPos) + 8].removeChild(moveMonsterTo[parseInt(spaceNowPos) + 8].childNodes[0])
+                        }
+                        moveMonsterTo[parseInt(spaceNowPos) + 8].appendChild(activeMonster)
                     }
                 }
                 console.log(activeMonster)
