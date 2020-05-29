@@ -220,12 +220,7 @@ class BattlePhase{
             for(let i = 0;i < this.monsterCount;i++){
             // if the boss lives the enemy turn starts
             if (document.getElementById("monster0")) {
-
-                
-
-                
-                console.log("the enemies are advancing")
-                let monstersLeft = document.getElementsByTagName("monster")                
+             
                 // if this deletes monster number 2 it will fuck up
                 let activeMonster = document.getElementById("monster" + i)
                 if (activeMonster != null) {
