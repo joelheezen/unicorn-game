@@ -17,7 +17,6 @@ class Startscreen{
         this.setButtons()
         this.setAssets()
         new Music().playMusic('music.mp3')
-        document.getElementById('music').volume = 0
     }
 
     setBackground(){

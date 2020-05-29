@@ -80,6 +80,7 @@ class Furniture{
                     //Add item to inventory code here
                     let inventory = document.getElementsByTagName("inventory")[0]
                     let inventoryItem = document.createElement('inventoryItem')
+                    inventory.classList.add('player')
                     inventoryItem.style.backgroundImage = `url(assets/${contains}.png)`
 
                     inventory.appendChild(inventoryItem)
@@ -135,7 +136,7 @@ class EvilFurniture{
                 itemMessage.innerHTML = "You have found the wizards minion"
                 event.target.parentElement.style.zIndex = "150"
 
-                this.shakeBox.style.animation= "enemyappear 2s forwards"
+                this.shakeBox.style.animation= "enemyappear 3s forwards"
                 this.shakeBox.style.animationIterationCount = "1" 
 
                 game.append(itemMessage)

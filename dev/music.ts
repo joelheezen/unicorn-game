@@ -12,6 +12,7 @@ class Music{
             this.music.id = "music"
             document.body.appendChild(this.music);
             this.music.play();
+            this.music.volume = 0
     }
 
     changeMusic(src:string){

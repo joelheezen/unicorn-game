@@ -36,7 +36,7 @@ class BattlePhase{
                     let inventoryItem = document.createElement('inventoryItem')
                     let inventoryadd = document.getElementsByTagName("inventory")[0]
                     inventoryItem.style.backgroundImage = `url(assets/unicorn_crash_test.png)`
-
+                    inventoryItem.classList.add('player')
                     inventoryadd.appendChild(inventoryItem)
         }
 
@@ -87,19 +87,19 @@ class BattlePhase{
                 monsterCount = 4
                 break;
             case 2:
-                monsterCount = 4
+                monsterCount = 5
                  break;
             case 3:
-                monsterCount = 4
+                monsterCount = 6
                 break;
             case 4:
-                monsterCount = 4
+                monsterCount = 7
                 break;
             case 5:
-                monsterCount = 4
+                monsterCount = 8
                 break;
             case 6:
-                monsterCount = 7
+                monsterCount = 9
                 monsterTypes = ["wizard"]
                 break;
         }
@@ -229,35 +229,101 @@ class BattlePhase{
                     let direction = Math.floor(Math.random() * 100)
                     let moveMonsterTo = document.getElementsByTagName('movespace')
 
+                    let moved = false
 
-                    if (direction < 10){
-                        console.log("move back")
-                        if(moveMonsterTo[parseInt(spaceNowPos) - 8].childNodes.length > 0){
-                            moveMonsterTo[parseInt(spaceNowPos) - 8].removeChild(moveMonsterTo[parseInt(spaceNowPos) - 8].childNodes[0])
+                    while(moved == false){
+
+                        if (direction <= 10){
+                            console.log("move back")
+
+                            let spaceToMove = moveMonsterTo[parseInt(spaceNowPos) - 8]
+
+                            if(spaceToMove){
+                                if(spaceToMove.childNodes.length > 0){
+                                    if(spaceToMove.children[0].classList.contains("monster")){
+                                        direction = Math.floor(Math.random() * 100)
+                                    }else if(spaceToMove.children[0].classList.contains("player")){
+                                        spaceToMove.removeChild(spaceToMove.childNodes[0])
+                                        spaceToMove.appendChild(activeMonster)
+                                        moved = true
+                                    }
+                                }else{
+                                    spaceToMove.appendChild(activeMonster)
+                                    moved = true
+                                } 
+                            }else{
+                                direction = Math.floor(Math.random() * 100)
+                            }
+                            
+                        }else if (direction > 10 && direction <= 30){
+                            console.log("move back")
+
+                            let spaceToMove = moveMonsterTo[parseInt(spaceNowPos) - 1]
+
+                            if(spaceToMove){
+                                if(spaceToMove.childNodes.length > 0){
+                                    if(spaceToMove.children[0].classList.contains("monster")){
+                                        direction = Math.floor(Math.random() * 100)
+                                    }else if(spaceToMove.children[0].classList.contains("player")){
+                                        spaceToMove.removeChild(spaceToMove.childNodes[0])
+                                        spaceToMove.appendChild(activeMonster)
+                                        moved = true
+                                    }
+                                }else{
+                                    spaceToMove.appendChild(activeMonster)
+                                    moved = true
+                                } 
+                            }else{
+                                direction = Math.floor(Math.random() * 100)
+                            }
+                            
+                        }else if (direction > 30 && direction <= 50){
+                            console.log("move back")
+
+                            let spaceToMove = moveMonsterTo[parseInt(spaceNowPos) + 1]
+
+                            if(spaceToMove){
+                                if(spaceToMove.childNodes.length > 0){
+                                    if(spaceToMove.children[0].classList.contains("monster")){
+                                        direction = Math.floor(Math.random() * 100)
+                                    }else if(spaceToMove.children[0].classList.contains("player")){
+                                        spaceToMove.removeChild(spaceToMove.childNodes[0])
+                                        spaceToMove.appendChild(activeMonster)
+                                        moved = true
+                                    }
+                                }else{
+                                    spaceToMove.appendChild(activeMonster)
+                                    moved = true
+                                } 
+                            }else{
+                                direction = Math.floor(Math.random() * 100)
+                            }
+                            
+                        }else{
+                            console.log("move back")
+
+                            let spaceToMove = moveMonsterTo[parseInt(spaceNowPos) + 8]
+
+                            if(spaceToMove){
+                                if(spaceToMove.childNodes.length > 0){
+                                    if(spaceToMove.children[0].classList.contains("monster")){
+                                        direction = Math.floor(Math.random() * 100)
+                                    }else if(spaceToMove.children[0].classList.contains("player")){
+                                        spaceToMove.removeChild(spaceToMove.childNodes[0])
+                                        spaceToMove.appendChild(activeMonster)
+                                        moved = true
+                                    }
+                                }else{
+                                    spaceToMove.appendChild(activeMonster)
+                                    moved = true
+                                } 
+                            }else{
+                                direction = Math.floor(Math.random() * 100)
+                            }
+                            
                         }
-                        moveMonsterTo[parseInt(spaceNowPos) - 8].appendChild(activeMonster)
-                    }
-                    else if(direction < 20 && direction >= 10) {
-                        console.log("move left")
-                        if(moveMonsterTo[parseInt(spaceNowPos) - 1].childNodes.length > 0){
-                            moveMonsterTo[parseInt(spaceNowPos) - 1].removeChild(moveMonsterTo[parseInt(spaceNowPos) - 1].childNodes[0])
-                        }
-                        moveMonsterTo[parseInt(spaceNowPos) - 1].appendChild(activeMonster)
                         
-                    }
-                    else if(direction < 30 && direction >= 20) {
-                        console.log("move right")
-                        if(moveMonsterTo[parseInt(spaceNowPos) + 1].childNodes.length > 0){
-                            moveMonsterTo[parseInt(spaceNowPos) + 1].removeChild(moveMonsterTo[parseInt(spaceNowPos) + 1].childNodes[0])
-                        }
-                        moveMonsterTo[parseInt(spaceNowPos) + 1].appendChild(activeMonster)
-                    }
-                    else {
-                        console.log("move forward")
-                        if(moveMonsterTo[parseInt(spaceNowPos) + 8].childNodes.length > 0){
-                            moveMonsterTo[parseInt(spaceNowPos) + 8].removeChild(moveMonsterTo[parseInt(spaceNowPos) + 8].childNodes[0])
-                        }
-                        moveMonsterTo[parseInt(spaceNowPos) + 8].appendChild(activeMonster)
+                        
                     }
                 }
                 console.log(activeMonster)
