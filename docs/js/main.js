@@ -56,7 +56,7 @@ var Furniture = (function () {
                 }, 1000);
                 var inventory = document.getElementsByTagName("inventory")[0];
                 var inventoryItem = document.createElement('inventoryItem');
-                inventory.classList.add('player');
+                inventoryItem.classList.add('player');
                 inventoryItem.style.backgroundImage = "url(assets/" + contains + ".png)";
                 inventory.appendChild(inventoryItem);
             });
@@ -130,6 +130,7 @@ var BattlePhase = (function () {
         var _this = this;
         this.game = document.getElementsByTagName("game")[0];
         this.battleStarted = false;
+        this.monsterCount = 0;
         console.log("button pressed, loading in battlephase");
         var pointer = document.getElementsByTagName("newpointer")[0];
         var inv = document.getElementsByTagName("inventory")[0];
@@ -161,7 +162,6 @@ var BattlePhase = (function () {
         var yPosSquare = 8;
         var spaces = document.getElementsByTagName("moveSpace");
         var monsters = new Array;
-        var monsterCount = 0;
         var inventory = document.getElementsByTagName('inventory')[0];
         var gameboard = document.createElement("gameBoard");
         this.game.appendChild(gameboard);
@@ -190,26 +190,26 @@ var BattlePhase = (function () {
         var monsterTypes = ["enemy_cabinet", "enemy_couch", "enemy_dumbell", "enemy_lamp", "enemy_plant"];
         switch (stage) {
             case 1:
-                monsterCount = 4;
+                this.monsterCount = 4;
                 break;
             case 2:
-                monsterCount = 5;
+                this.monsterCount = 5;
                 break;
             case 3:
-                monsterCount = 6;
+                this.monsterCount = 6;
                 break;
             case 4:
-                monsterCount = 7;
+                this.monsterCount = 7;
                 break;
             case 5:
-                monsterCount = 8;
+                this.monsterCount = 8;
                 break;
             case 6:
-                monsterCount = 9;
+                this.monsterCount = 9;
                 monsterTypes = ["wizard"];
                 break;
         }
-        for (var i = 0; i < monsterCount; i++) {
+        for (var i = 0; i < this.monsterCount; i++) {
             var monster = document.createElement("monster");
             monster.classList.add("monster");
             monster.style.backgroundImage = "url(assets/" + monsterTypes[Math.floor(Math.random() * monsterTypes.length)] + ".png)";
@@ -217,8 +217,8 @@ var BattlePhase = (function () {
             monster.id = "monster" + i;
             monsters.push(monster);
         }
-        for (var i = 0; i < monsterCount; i++) {
-            var randomNumber = Math.floor(Math.random() * 31);
+        for (var i = 0; i < this.monsterCount; i++) {
+            var randomNumber = Math.floor(Math.random() * 32);
             console.log(randomNumber);
             if (spaces[randomNumber].firstChild) {
                 i -= 1;
@@ -298,60 +298,81 @@ var BattlePhase = (function () {
         this.battleStarted = true;
     };
     BattlePhase.prototype.enemyTurn = function () {
-        if (document.getElementById("monster0")) {
-            console.log("the enemies are advancing");
-            var monstersLeft = document.getElementsByTagName("monster");
-            var activeMonster = document.getElementById("monster" + Math.floor(Math.random() * monstersLeft.length));
-            if (activeMonster != null) {
-                var spaceNow = activeMonster.parentNode;
-                var spaceNowPos = spaceNow.id.substring(6, 8);
-                var direction = Math.floor(Math.random() * 100);
-                var moveMonsterTo = document.getElementsByTagName('movespace');
-                var moved = false;
-                while (moved == false) {
-                    var spaceToMove = void 0;
-                    if (direction <= 10) {
-                        console.log("move back");
-                        spaceToMove = moveMonsterTo[parseInt(spaceNowPos) - 8];
-                    }
-                    else if (direction > 10 && direction <= 30) {
-                        console.log("move back");
-                        spaceToMove = moveMonsterTo[parseInt(spaceNowPos) - 1];
-                    }
-                    else if (direction > 30 && direction <= 50) {
-                        console.log("move back");
-                        spaceToMove = moveMonsterTo[parseInt(spaceNowPos) + 1];
-                    }
-                    else {
-                        console.log("move back");
-                        spaceToMove = moveMonsterTo[parseInt(spaceNowPos) + 8];
-                    }
-                    if (spaceToMove) {
-                        if (spaceToMove.childNodes.length > 0) {
-                            if (spaceToMove.children[0].classList.contains("monster")) {
-                                direction = Math.floor(Math.random() * 100);
+        for (var i = 0; i < this.monsterCount; i++) {
+            if (document.getElementById("monster0")) {
+                console.log("the enemies are advancing");
+                var monstersLeft = document.getElementsByTagName("monster");
+                var activeMonster = document.getElementById("monster" + i);
+                if (activeMonster != null) {
+                    var spaceNow = activeMonster.parentNode;
+                    var spaceNowPos = spaceNow.id.substring(6, 8);
+                    var moveMonsterTo = document.getElementsByTagName('movespace');
+                    var moved = false;
+                    console.log(activeMonster);
+                    console.log(spaceNow);
+                    while (moved == false) {
+                        var direction = Math.floor(Math.random() * 100);
+                        var spaceToMove = void 0;
+                        if (direction <= 25) {
+                            console.log("move back");
+                            spaceToMove = moveMonsterTo[parseInt(spaceNowPos) - 8];
+                        }
+                        else if (direction > 25 && direction <= 50) {
+                            console.log("move left");
+                            var moveto = parseInt(spaceNowPos) - 1;
+                            console.log(moveto);
+                            console.log((moveto + 1) % 8);
+                            if (((moveto + 1) % 8) == 0) {
+                                console.log("cant move here, retry");
+                                continue;
                             }
-                            else if (spaceToMove.children[0].classList.contains("player")) {
-                                spaceToMove.removeChild(spaceToMove.childNodes[0]);
+                            spaceToMove = moveMonsterTo[moveto];
+                        }
+                        else if (direction > 50 && direction <= 75) {
+                            console.log("move right");
+                            var moveto = parseInt(spaceNowPos) + 1;
+                            console.log(moveto);
+                            console.log(moveto % 8);
+                            if ((moveto % 8) == 0) {
+                                console.log("cant move here, retry");
+                                continue;
+                            }
+                            spaceToMove = moveMonsterTo[moveto];
+                        }
+                        else if (direction > 75 && direction <= 100) {
+                            console.log("move down");
+                            spaceToMove = moveMonsterTo[parseInt(spaceNowPos) + 8];
+                        }
+                        if (spaceToMove) {
+                            if (spaceToMove.childNodes.length > 0) {
+                                if (spaceToMove.children[0].classList.contains("monster")) {
+                                    spaceToMove.appendChild(activeMonster);
+                                    spaceNow.appendChild(spaceToMove.children[0]);
+                                    moved = true;
+                                }
+                                else if (spaceToMove.children[0].classList.contains("player")) {
+                                    spaceToMove.removeChild(spaceToMove.childNodes[0]);
+                                    spaceToMove.appendChild(activeMonster);
+                                    moved = true;
+                                }
+                            }
+                            else {
                                 spaceToMove.appendChild(activeMonster);
                                 moved = true;
                             }
                         }
                         else {
-                            spaceToMove.appendChild(activeMonster);
-                            moved = true;
+                            console.log('space doesnt exist');
+                            direction = Math.floor(Math.random() * 100);
                         }
                     }
-                    else {
-                        direction = Math.floor(Math.random() * 100);
-                    }
                 }
+                this.playerTurn();
             }
-            console.log(activeMonster);
-            this.playerTurn();
-        }
-        else {
-            console.log("you won");
+            else {
+                console.log("you won");
+                break;
+            }
         }
     };
     BattlePhase.prototype.playerTurn = function () {
@@ -371,7 +392,7 @@ var BattlePhase = (function () {
                 var numberBot = number + 8;
                 var numberLeft = number - 1;
                 element.classList.add("gamer");
-                if (numberTop > 0) {
+                if (numberTop >= 0) {
                     spacesThen.push(document.getElementById("square" + numberTop));
                 }
                 if (numberRight % 8) {
@@ -383,8 +404,6 @@ var BattlePhase = (function () {
                 if ((numberLeft + 1) % 8) {
                     spacesThen.push(document.getElementById("square" + numberLeft));
                 }
-                console.log(spaceNow);
-                console.log(spacesThen);
                 event.dataTransfer.setData("text", event.target.id);
                 spacesThen.forEach(function (element) {
                     element.classList.add("dropzone");
@@ -405,8 +424,6 @@ var BattlePhase = (function () {
                 }
             });
         });
-        console.log(unicornPlayers);
-        console.log(unicornsLeft);
     };
     return BattlePhase;
 }());
@@ -919,7 +936,7 @@ var unicornPlayer = (function () {
         var body = document.getElementsByTagName('body')[0];
         document.addEventListener('mousemove', function (pos) {
             var d = Math.random();
-            if (d > 0.5) {
+            if (d > 0.90) {
                 var glitter_1 = document.createElement("glitter");
                 body.appendChild(glitter_1);
                 glitter_1.style.display = "initial";

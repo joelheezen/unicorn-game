@@ -4,6 +4,7 @@ class BattlePhase{
     battleCover: HTMLElement
     game = document.getElementsByTagName("game")[0]
     battleStarted = false;
+    monsterCount= 0
     
     constructor(stage: number){
         //deletes everything and puts a new background in
@@ -47,7 +48,7 @@ class BattlePhase{
         let spaces = document.getElementsByTagName("moveSpace")
         // new array to store the monsters in per level
         let monsters = new Array
-        let monsterCount = 0
+
         let inventory = document.getElementsByTagName('inventory')[0]
 
         let gameboard = document.createElement("gameBoard")
@@ -84,27 +85,27 @@ class BattlePhase{
 
         switch(stage){
             case 1:
-                monsterCount = 4
+                this.monsterCount = 4
                 break;
             case 2:
-                monsterCount = 5
+                this.monsterCount = 5
                  break;
             case 3:
-                monsterCount = 6
+                this.monsterCount = 6
                 break;
             case 4:
-                monsterCount = 7
+                this.monsterCount = 7
                 break;
             case 5:
-                monsterCount = 8
+                this.monsterCount = 8
                 break;
             case 6:
-                monsterCount = 9
+                this.monsterCount = 9
                 monsterTypes = ["wizard"]
                 break;
         }
         
-            for (let i = 0; i < monsterCount; i++) {
+            for (let i = 0; i < this.monsterCount; i++) {
                 
                 let monster = document.createElement("monster")
                 monster.classList.add("monster")
@@ -113,8 +114,8 @@ class BattlePhase{
                 monster.id = "monster" + i
                 monsters.push(monster)
             }
-            for (let i = 0; i < monsterCount; i++) {
-                let randomNumber = Math.floor(Math.random() * 31)
+            for (let i = 0; i < this.monsterCount; i++) {
+                let randomNumber = Math.floor(Math.random() * 32)
                 console.log(randomNumber)
                 if(spaces[randomNumber].firstChild){
                     i -= 1
@@ -216,72 +217,115 @@ class BattlePhase{
             if (toDelete != null && toDelete.parentNode != null){
             toDelete.parentNode.removeChild(toDelete)
             } */ 
-
+            for(let i = 0;i < this.monsterCount;i++){
             // if the boss lives the enemy turn starts
             if (document.getElementById("monster0")) {
+
+                
+
+                
                 console.log("the enemies are advancing")
                 let monstersLeft = document.getElementsByTagName("monster")                
                 // if this deletes monster number 2 it will fuck up
-                let activeMonster = document.getElementById("monster" + Math.floor(Math.random() * monstersLeft.length))
+                let activeMonster = document.getElementById("monster" + i)
                 if (activeMonster != null) {
+
+
+                    
                     let spaceNow = activeMonster.parentNode as Element
                     let spaceNowPos = spaceNow.id.substring(6,8)
-                    let direction = Math.floor(Math.random() * 100)
+                    
                     let moveMonsterTo = document.getElementsByTagName('movespace')
 
                     let moved = false
 
+                    
+                    console.log(activeMonster)
+                    console.log(spaceNow)
+
                     while(moved == false){
+
+                        let direction = Math.floor(Math.random() * 100)
 
                         let spaceToMove
 
-                        if (direction <= 10){
+                        
+
+                        if (direction <= 25){
                             console.log("move back")
 
                             spaceToMove = moveMonsterTo[parseInt(spaceNowPos) - 8]
                             
-                        }else if (direction > 10 && direction <= 30){
-                            console.log("move back")
+                        }else if (direction > 25 && direction <= 50){
+                            console.log("move left")
 
-                            spaceToMove = moveMonsterTo[parseInt(spaceNowPos) - 1]
-                            
-                        }else if (direction > 30 && direction <= 50){
-                            console.log("move back")
+                            let moveto = parseInt(spaceNowPos) - 1
 
-                            spaceToMove = moveMonsterTo[parseInt(spaceNowPos) + 1]
+                            console.log(moveto)
+                            console.log((moveto + 1) % 8)
+
+                            if(((moveto + 1) % 8) == 0){
+                                console.log("cant move here, retry")
+                                continue
+                            }
+
+                            spaceToMove = moveMonsterTo[moveto]
                             
-                        }else{
-                            console.log("move back")
+                        }else if (direction > 50 && direction <= 75){
+                            console.log("move right")
+
+                            let moveto = parseInt(spaceNowPos) + 1
+
+                            console.log(moveto)
+                            console.log(moveto % 8)
+
+                            if((moveto  % 8) == 0){
+                                console.log("cant move here, retry")
+                                continue
+                            }
+
+                            spaceToMove = moveMonsterTo[moveto]
+                            
+                            
+                        }else if(direction > 75 && direction <= 100){
+                            console.log("move down")
 
                             spaceToMove = moveMonsterTo[parseInt(spaceNowPos) + 8]
+
                         }
 
                         if(spaceToMove){
                             if(spaceToMove.childNodes.length > 0){
                                 if(spaceToMove.children[0].classList.contains("monster")){
-                                    direction = Math.floor(Math.random() * 100)
-
+                                    spaceToMove.appendChild(activeMonster)
+                                    spaceNow.appendChild(spaceToMove.children[0])
+                                    moved = true
                                 }else if(spaceToMove.children[0].classList.contains("player")){
                                     spaceToMove.removeChild(spaceToMove.childNodes[0])
                                     spaceToMove.appendChild(activeMonster)
-                                    moved = true
+                                    moved = true    
                                 }
                             }else{
                                 spaceToMove.appendChild(activeMonster)
                                 moved = true
                             } 
                         }else{
+                            console.log('space doesnt exist')
                             direction = Math.floor(Math.random() * 100)
                         }
                         
                     }
                 }
-                console.log(activeMonster)
+                
+                
                 this.playerTurn()
             } // otherwise you should have won and the game advances to the next level
             else {
                 console.log("you won")
+                break
             }
+
+        }
         }
 
         playerTurn() {
@@ -303,7 +347,7 @@ class BattlePhase{
                     let numberBot = number + 8
                     let numberLeft = number -1
                     element.classList.add("gamer")
-                    if (numberTop > 0) {
+                    if (numberTop >= 0) {
                         spacesThen.push(document.getElementById("square" + numberTop))
                     }
                     if (numberRight % 8) {
@@ -315,8 +359,8 @@ class BattlePhase{
                     if ((numberLeft + 1) % 8){
                         spacesThen.push(document.getElementById("square" + numberLeft))
                     }
-                    console.log(spaceNow)
-                    console.log(spacesThen)
+                    //console.log(spaceNow)
+                    //console.log(spacesThen)
                     event.dataTransfer.setData("text", event.target.id);
                     spacesThen.forEach(element => {
                         element.classList.add("dropzone")
@@ -337,8 +381,6 @@ class BattlePhase{
                     }
                 })
             });
-            console.log(unicornPlayers)
-            console.log(unicornsLeft)
             //this.enemyTurn()
         }
             

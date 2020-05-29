@@ -80,7 +80,7 @@ class Furniture{
                     //Add item to inventory code here
                     let inventory = document.getElementsByTagName("inventory")[0]
                     let inventoryItem = document.createElement('inventoryItem')
-                    inventory.classList.add('player')
+                    inventoryItem.classList.add('player')
                     inventoryItem.style.backgroundImage = `url(assets/${contains}.png)`
 
                     inventory.appendChild(inventoryItem)
