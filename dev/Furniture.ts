@@ -124,6 +124,7 @@ class EvilFurniture{
 
     startbattle(event: any,level:number){
                 
+                new Soundeffect("assets/minionFound.mp3")
                 let game = document.getElementsByTagName("game")[0]
 
                 //removes shake animation to indocate no more item

@@ -5,12 +5,18 @@ class Soundeffect{
     }
 
     playSound(src:string){
+
             let sound = document.createElement("audio");
             sound.src = src;
             sound.setAttribute("preload", "auto");
             sound.setAttribute("controls", "none");
             sound.style.display = "none";
             document.body.appendChild(sound);
-            sound.play();
+
+            setTimeout(() => {
+                sound.play();
+
+            }, 0);
+            
     }
 }

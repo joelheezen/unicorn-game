@@ -83,6 +83,7 @@ var EvilFurniture = (function () {
         game.appendChild(this.shakeBox);
     };
     EvilFurniture.prototype.startbattle = function (event, level) {
+        new Soundeffect("assets/minionFound.mp3");
         var game = document.getElementsByTagName("game")[0];
         this.furniture.classList.remove('shake');
         var grayout = document.createElement('grayout');
@@ -879,7 +880,9 @@ var Soundeffect = (function () {
         sound.setAttribute("controls", "none");
         sound.style.display = "none";
         document.body.appendChild(sound);
-        sound.play();
+        setTimeout(function () {
+            sound.play();
+        }, 0);
     };
     return Soundeffect;
 }());
