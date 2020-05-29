@@ -276,6 +276,7 @@ class BattlePhase{
 
                             let moveto = parseInt(spaceNowPos) + 1
 
+                            
                             console.log(moveto)
                             console.log(moveto % 8)
 
