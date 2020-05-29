@@ -309,97 +309,41 @@ var BattlePhase = (function () {
                 var moveMonsterTo = document.getElementsByTagName('movespace');
                 var moved = false;
                 while (moved == false) {
+                    var spaceToMove = void 0;
                     if (direction <= 10) {
                         console.log("move back");
-                        var spaceToMove = moveMonsterTo[parseInt(spaceNowPos) - 8];
-                        if (spaceToMove) {
-                            if (spaceToMove.childNodes.length > 0) {
-                                if (spaceToMove.children[0].classList.contains("monster")) {
-                                    direction = Math.floor(Math.random() * 100);
-                                }
-                                else if (spaceToMove.children[0].classList.contains("player")) {
-                                    spaceToMove.removeChild(spaceToMove.childNodes[0]);
-                                    spaceToMove.appendChild(activeMonster);
-                                    moved = true;
-                                }
-                            }
-                            else {
-                                spaceToMove.appendChild(activeMonster);
-                                moved = true;
-                            }
-                        }
-                        else {
-                            direction = Math.floor(Math.random() * 100);
-                        }
+                        spaceToMove = moveMonsterTo[parseInt(spaceNowPos) - 8];
                     }
                     else if (direction > 10 && direction <= 30) {
                         console.log("move back");
-                        var spaceToMove = moveMonsterTo[parseInt(spaceNowPos) - 1];
-                        if (spaceToMove) {
-                            if (spaceToMove.childNodes.length > 0) {
-                                if (spaceToMove.children[0].classList.contains("monster")) {
-                                    direction = Math.floor(Math.random() * 100);
-                                }
-                                else if (spaceToMove.children[0].classList.contains("player")) {
-                                    spaceToMove.removeChild(spaceToMove.childNodes[0]);
-                                    spaceToMove.appendChild(activeMonster);
-                                    moved = true;
-                                }
-                            }
-                            else {
-                                spaceToMove.appendChild(activeMonster);
-                                moved = true;
-                            }
-                        }
-                        else {
-                            direction = Math.floor(Math.random() * 100);
-                        }
+                        spaceToMove = moveMonsterTo[parseInt(spaceNowPos) - 1];
                     }
                     else if (direction > 30 && direction <= 50) {
                         console.log("move back");
-                        var spaceToMove = moveMonsterTo[parseInt(spaceNowPos) + 1];
-                        if (spaceToMove) {
-                            if (spaceToMove.childNodes.length > 0) {
-                                if (spaceToMove.children[0].classList.contains("monster")) {
-                                    direction = Math.floor(Math.random() * 100);
-                                }
-                                else if (spaceToMove.children[0].classList.contains("player")) {
-                                    spaceToMove.removeChild(spaceToMove.childNodes[0]);
-                                    spaceToMove.appendChild(activeMonster);
-                                    moved = true;
-                                }
-                            }
-                            else {
-                                spaceToMove.appendChild(activeMonster);
-                                moved = true;
-                            }
-                        }
-                        else {
-                            direction = Math.floor(Math.random() * 100);
-                        }
+                        spaceToMove = moveMonsterTo[parseInt(spaceNowPos) + 1];
                     }
                     else {
                         console.log("move back");
-                        var spaceToMove = moveMonsterTo[parseInt(spaceNowPos) + 8];
-                        if (spaceToMove) {
-                            if (spaceToMove.childNodes.length > 0) {
-                                if (spaceToMove.children[0].classList.contains("monster")) {
-                                    direction = Math.floor(Math.random() * 100);
-                                }
-                                else if (spaceToMove.children[0].classList.contains("player")) {
-                                    spaceToMove.removeChild(spaceToMove.childNodes[0]);
-                                    spaceToMove.appendChild(activeMonster);
-                                    moved = true;
-                                }
+                        spaceToMove = moveMonsterTo[parseInt(spaceNowPos) + 8];
+                    }
+                    if (spaceToMove) {
+                        if (spaceToMove.childNodes.length > 0) {
+                            if (spaceToMove.children[0].classList.contains("monster")) {
+                                direction = Math.floor(Math.random() * 100);
                             }
-                            else {
+                            else if (spaceToMove.children[0].classList.contains("player")) {
+                                spaceToMove.removeChild(spaceToMove.childNodes[0]);
                                 spaceToMove.appendChild(activeMonster);
                                 moved = true;
                             }
                         }
                         else {
-                            direction = Math.floor(Math.random() * 100);
+                            spaceToMove.appendChild(activeMonster);
+                            moved = true;
                         }
+                    }
+                    else {
+                        direction = Math.floor(Math.random() * 100);
                     }
                 }
             }
