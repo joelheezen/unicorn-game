@@ -300,16 +300,12 @@ var BattlePhase = (function () {
     BattlePhase.prototype.enemyTurn = function () {
         for (var i = 0; i < this.monsterCount; i++) {
             if (document.getElementById("monster0")) {
-                console.log("the enemies are advancing");
-                var monstersLeft = document.getElementsByTagName("monster");
                 var activeMonster = document.getElementById("monster" + i);
                 if (activeMonster != null) {
                     var spaceNow = activeMonster.parentNode;
                     var spaceNowPos = spaceNow.id.substring(6, 8);
                     var moveMonsterTo = document.getElementsByTagName('movespace');
                     var moved = false;
-                    console.log(activeMonster);
-                    console.log(spaceNow);
                     while (moved == false) {
                         var direction = Math.floor(Math.random() * 100);
                         var spaceToMove = void 0;
@@ -320,8 +316,6 @@ var BattlePhase = (function () {
                         else if (direction > 25 && direction <= 50) {
                             console.log("move left");
                             var moveto = parseInt(spaceNowPos) - 1;
-                            console.log(moveto);
-                            console.log((moveto + 1) % 8);
                             if (((moveto + 1) % 8) == 0) {
                                 console.log("cant move here, retry");
                                 continue;
@@ -331,8 +325,6 @@ var BattlePhase = (function () {
                         else if (direction > 50 && direction <= 75) {
                             console.log("move right");
                             var moveto = parseInt(spaceNowPos) + 1;
-                            console.log(moveto);
-                            console.log(moveto % 8);
                             if ((moveto % 8) == 0) {
                                 console.log("cant move here, retry");
                                 continue;
@@ -353,6 +345,7 @@ var BattlePhase = (function () {
                                 else if (spaceToMove.children[0].classList.contains("player")) {
                                     spaceToMove.removeChild(spaceToMove.childNodes[0]);
                                     spaceToMove.appendChild(activeMonster);
+                                    spaceToMove.style.backgroundImage = "url(assets/unicorn_dead.png)";
                                     moved = true;
                                 }
                             }

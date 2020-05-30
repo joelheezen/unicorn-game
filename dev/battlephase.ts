@@ -211,6 +211,8 @@ class BattlePhase{
             this.battleStarted = true
         }
 
+        
+
         enemyTurn(){
             // this piece of code is to check the else loop of the next if statement
             /*let toDelete = document.getElementById("monster0")
@@ -219,109 +221,86 @@ class BattlePhase{
             } */ 
             for(let i = 0;i < this.monsterCount;i++){
             // if the boss lives the enemy turn starts
-            if (document.getElementById("monster0")) {
+                if (document.getElementById("monster0")) {
              
-                // if this deletes monster number 2 it will fuck up
-                let activeMonster = document.getElementById("monster" + i)
-                if (activeMonster != null) {
-
-
+                    // if this deletes monster number 2 it will fuck up
+                    let activeMonster = document.getElementById("monster" + i)
+                    if (activeMonster != null) {
                     
-                    let spaceNow = activeMonster.parentNode as Element
-                    let spaceNowPos = spaceNow.id.substring(6,8)
-                    
-                    let moveMonsterTo = document.getElementsByTagName('movespace')
+                        let spaceNow = activeMonster.parentNode as Element
+                        let spaceNowPos = spaceNow.id.substring(6,8)
+                        let moveMonsterTo = document.getElementsByTagName('movespace')
+                        let moved = false
 
-                    let moved = false
+                        while(moved == false){
 
-                    
-                    console.log(activeMonster)
-                    console.log(spaceNow)
+                            let direction = Math.floor(Math.random() * 100)
 
-                    while(moved == false){
+                            let spaceToMove
 
-                        let direction = Math.floor(Math.random() * 100)
+                            if (direction <= 25){
+                                console.log("move back")
+                                spaceToMove = moveMonsterTo[parseInt(spaceNowPos) - 8]
 
-                        let spaceToMove
+                            }else if (direction > 25 && direction <= 50){
+                                console.log("move left")
+                                let moveto = parseInt(spaceNowPos) - 1
 
-                        
-
-                        if (direction <= 25){
-                            console.log("move back")
-
-                            spaceToMove = moveMonsterTo[parseInt(spaceNowPos) - 8]
-                            
-                        }else if (direction > 25 && direction <= 50){
-                            console.log("move left")
-
-                            let moveto = parseInt(spaceNowPos) - 1
-
-                            console.log(moveto)
-                            console.log((moveto + 1) % 8)
-
-                            if(((moveto + 1) % 8) == 0){
-                                console.log("cant move here, retry")
-                                continue
-                            }
-
-                            spaceToMove = moveMonsterTo[moveto]
-                            
-                        }else if (direction > 50 && direction <= 75){
-                            console.log("move right")
-
-                            let moveto = parseInt(spaceNowPos) + 1
-
-                            
-                            console.log(moveto)
-                            console.log(moveto % 8)
-
-                            if((moveto  % 8) == 0){
-                                console.log("cant move here, retry")
-                                continue
-                            }
-
-                            spaceToMove = moveMonsterTo[moveto]
-                            
-                            
-                        }else if(direction > 75 && direction <= 100){
-                            console.log("move down")
-
-                            spaceToMove = moveMonsterTo[parseInt(spaceNowPos) + 8]
-
-                        }
-
-                        if(spaceToMove){
-                            if(spaceToMove.childNodes.length > 0){
-                                if(spaceToMove.children[0].classList.contains("monster")){
-                                    spaceToMove.appendChild(activeMonster)
-                                    spaceNow.appendChild(spaceToMove.children[0])
-                                    moved = true
-                                }else if(spaceToMove.children[0].classList.contains("player")){
-                                    spaceToMove.removeChild(spaceToMove.childNodes[0])
-                                    spaceToMove.appendChild(activeMonster)
-                                    moved = true    
+                                if(((moveto + 1) % 8) == 0){
+                                    console.log("cant move here, retry")
+                                    continue
                                 }
-                            }else{
-                                spaceToMove.appendChild(activeMonster)
-                                moved = true
-                            } 
-                        }else{
-                            console.log('space doesnt exist')
-                            direction = Math.floor(Math.random() * 100)
-                        }
-                        
-                    }
-                }
-                
-                
-                this.playerTurn()
-            } // otherwise you should have won and the game advances to the next level
-            else {
-                console.log("you won")
-                break
-            }
+                                spaceToMove = moveMonsterTo[moveto]
+                            
+                            }else if (direction > 50 && direction <= 75){
+                                console.log("move right")
+                                let moveto = parseInt(spaceNowPos) + 1
 
-        }
+                                if((moveto  % 8) == 0){
+                                    console.log("cant move here, retry")
+                                    continue
+                                }
+
+                                spaceToMove = moveMonsterTo[moveto]
+                                                       
+                            }else if(direction > 75 && direction <= 100){
+                                console.log("move down")
+
+                                spaceToMove = moveMonsterTo[parseInt(spaceNowPos) + 8]
+
+                            }
+
+                            if(spaceToMove){
+                                if(spaceToMove.childNodes.length > 0){
+                                    if(spaceToMove.children[0].classList.contains("monster")){
+                                        spaceToMove.appendChild(activeMonster)
+                                        spaceNow.appendChild(spaceToMove.children[0])
+                                        moved = true
+                                    }else if(spaceToMove.children[0].classList.contains("player")){
+                                        spaceToMove.removeChild(spaceToMove.childNodes[0])
+                                        spaceToMove.appendChild(activeMonster)
+                                        spaceToMove.style.backgroundImage = "url(assets/unicorn_dead.png)"
+                                        moved = true    
+                                    }
+                                }else{
+                                    spaceToMove.appendChild(activeMonster)
+                                    moved = true
+                                } 
+                            }else{
+                                console.log('space doesnt exist')
+                                direction = Math.floor(Math.random() * 100)
+                            }
+                        
+                        }
+                    }
+                   
+                this.playerTurn()
+                }else{
+                    // otherwise you should have won and the game advances to the next level
+                    console.log("you won")
+                    break
+                }
+            }
         }
 
         playerTurn() {
