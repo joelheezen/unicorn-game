@@ -294,14 +294,15 @@ class BattlePhase{
                         }
                     }
                    
-                this.playerTurn()
+                
                 }else{
                     // otherwise you should have won and the game advances to the next level
                     console.log("you won")
-                    break
                 }
 
             }
+
+            this.playerTurn()
         }
 
         playerTurn() {

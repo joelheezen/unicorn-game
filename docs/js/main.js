@@ -360,13 +360,12 @@ var BattlePhase = (function () {
                         }
                     }
                 }
-                this.playerTurn();
             }
             else {
                 console.log("you won");
-                break;
             }
         }
+        this.playerTurn();
     };
     BattlePhase.prototype.playerTurn = function () {
         var _this = this;
@@ -851,25 +850,17 @@ var Hint = (function () {
         hint.style.width = w + "vw";
         hint.innerHTML = "<p>" + message + "</p>";
         hint.addEventListener('click', zoomin);
+        var zoomed = document.createElement("zoomed");
+        var grayfade = document.createElement('grayout');
         function zoomin() {
-            game.style.zoom = "450%";
-            var xzoom = x - h / 2.5;
-            var yzoom = y - w / 2.5;
-            if (xzoom < 0) {
-                xzoom = 0;
-            }
-            if (yzoom < 0) {
-                yzoom = 0;
-            }
-            game.style.transform += "translate(-" + xzoom + "vw,-" + yzoom + "vh)";
-            hint.removeEventListener('click', zoomin);
-            hint.addEventListener('click', zoomout);
+            game.appendChild(zoomed);
+            game.appendChild(grayfade);
+            zoomed.innerHTML = message;
+            zoomed.addEventListener("click", function () { return zoomout(); });
         }
         function zoomout() {
-            game.style.zoom = "100%";
-            game.style.transform = "";
-            hint.removeEventListener('click', zoomout);
-            hint.addEventListener('click', zoomin);
+            zoomed.remove();
+            grayfade.remove();
         }
     };
     return Hint;
@@ -898,6 +889,7 @@ var Soundeffect = (function () {
     }
     Soundeffect.prototype.playSound = function (src) {
         var sound = document.createElement("audio");
+        sound.volume = 0.2;
         sound.src = src;
         sound.setAttribute("preload", "auto");
         sound.setAttribute("controls", "none");

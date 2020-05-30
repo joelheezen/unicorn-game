@@ -257,6 +257,24 @@
         background-image: url(../assets/note.png);
     }
 
+    zoomed{
+        position:absolute;
+        font-size: 5vh;
+        text-align:center;
+        padding-top:15vh;
+        padding-left:5vw;
+        padding-right:5vw;
+        top:0;
+        left:20vw;
+        height: 80vh;
+        width: 50vw;
+        z-index: 101;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 100% 100% ;
+        background-image: url(../assets/note.png);
+    }
+
     title{
         position:absolute;
         width:100%;
