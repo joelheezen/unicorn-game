@@ -7,6 +7,7 @@ class Furniture{
         this.makeFurniture(furnX,furnY,furnDimX,furnDimY,contains,background)
     }
 
+
     //makes the furniture object
     makeFurniture(furnX: number,furnY: number,furnDimX: number,furnDimY:number,contains: string, background: string){
         this.furniture = document.createElement("furniture")
@@ -22,12 +23,15 @@ class Furniture{
 
         //when clicked an item is dropped to add to your inventory
         this.furniture.addEventListener('click',() => this.additem(contains,furnX,furnY,furnDimX,furnDimY))
+        this.furniture.addEventListener('mouseover',()=>{
+            new Soundeffect("assets/rumble.wav")
+        })
         this.shakeBox.appendChild(this.furniture)
         game.appendChild(this.shakeBox)
     }
 
     additem(contains: string,furnX: number,furnY: number,furnDimX: number,furnDimY:number){
-
+            
             //removes shake animation to indocate no more item
             this.furniture.classList.remove('shake')
             let game = document.getElementsByTagName("game")[0]
@@ -36,6 +40,7 @@ class Furniture{
             furnDimY = furnDimY / 2;
 
             if(contains == "none"){
+                new Soundeffect("assets/noItem.mp3")
                 let dustcloud = document.createElement("dustcloud")
                 game.appendChild(dustcloud)
 
@@ -56,7 +61,7 @@ class Furniture{
                     dustcloud.remove()
                 },3000)
             }else{
-
+                new Soundeffect("assets/foundItem.wav")
                 let pickup = document.createElement("pickup")
                 let grayout = document.createElement('grayout')
                 let itemMessage = document.createElement('itemMessage')

@@ -20,6 +20,7 @@ class Hint{
         let grayfade = document.createElement('grayout')
 
         function zoomin(){
+            new Soundeffect("assets/readHint.mp3")
             
             game.appendChild(zoomed)
             game.appendChild(grayfade)
@@ -30,6 +31,7 @@ class Hint{
         }
 
         function zoomout(){
+            new Soundeffect("assets/readHint.mp3")
             zoomed.remove()
             grayfade.remove()
         }

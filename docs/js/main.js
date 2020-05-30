@@ -1,3 +1,4 @@
+"use strict";
 var Furniture = (function () {
     function Furniture(furnX, furnY, furnDimX, furnDimY, contains, background) {
         this.makeFurniture(furnX, furnY, furnDimX, furnDimY, contains, background);
@@ -13,6 +14,9 @@ var Furniture = (function () {
         this.shakeBox.style.transform = "translate(" + furnX + "vw," + furnY + "vh)";
         this.furniture.classList.add('shake');
         this.furniture.addEventListener('click', function () { return _this.additem(contains, furnX, furnY, furnDimX, furnDimY); });
+        this.furniture.addEventListener('mouseover', function () {
+            new Soundeffect("assets/rumble.wav");
+        });
         this.shakeBox.appendChild(this.furniture);
         game.appendChild(this.shakeBox);
     };
@@ -22,6 +26,7 @@ var Furniture = (function () {
         furnDimX = furnDimX / 2;
         furnDimY = furnDimY / 2;
         if (contains == "none") {
+            new Soundeffect("assets/noItem.mp3");
             var dustcloud_1 = document.createElement("dustcloud");
             game.appendChild(dustcloud_1);
             dustcloud_1.style.transform = "translate(calc(" + furnX + "vw + " + furnDimX + "vw - 50px),calc(" + furnY + "vh + " + furnDimY + "vh - 50px))";
@@ -38,6 +43,7 @@ var Furniture = (function () {
             }, 3000);
         }
         else {
+            new Soundeffect("assets/foundItem.wav");
             var pickup_1 = document.createElement("pickup");
             var grayout_1 = document.createElement('grayout');
             var itemMessage_1 = document.createElement('itemMessage');
@@ -190,22 +196,22 @@ var BattlePhase = (function () {
         var monsterTypes = ["enemy_cabinet", "enemy_couch", "enemy_dumbell", "enemy_lamp", "enemy_plant"];
         switch (stage) {
             case 1:
-                this.monsterCount = 4;
-                break;
-            case 2:
-                this.monsterCount = 5;
-                break;
-            case 3:
                 this.monsterCount = 6;
                 break;
-            case 4:
+            case 2:
                 this.monsterCount = 7;
                 break;
-            case 5:
+            case 3:
                 this.monsterCount = 8;
                 break;
-            case 6:
+            case 4:
                 this.monsterCount = 9;
+                break;
+            case 5:
+                this.monsterCount = 10;
+                break;
+            case 6:
+                this.monsterCount = 11;
                 monsterTypes = ["wizard"];
                 break;
         }
@@ -343,6 +349,7 @@ var BattlePhase = (function () {
                                     moved = true;
                                 }
                                 else if (spaceToMove.children[0].classList.contains("player")) {
+                                    new Soundeffect("assets/allyDie.wav");
                                     spaceToMove.removeChild(spaceToMove.childNodes[0]);
                                     spaceToMove.appendChild(activeMonster);
                                     spaceToMove.style.backgroundImage = "url(assets/unicorn_dead.png)";
@@ -495,12 +502,15 @@ var Startscreen = (function () {
         this.game.appendChild(this.menu);
         startButton.addEventListener('click', function () {
             _this.levelSelect();
+            new Soundeffect("assets/menuSelect.mp3");
         });
         optionsButton.addEventListener('click', function () {
             _this.setOptions();
+            new Soundeffect("assets/menuSelect.mp3");
         });
         creditsButton.addEventListener('click', function () {
             _this.setCredits();
+            new Soundeffect("assets/menuSelect.mp3");
         });
         quitButton.addEventListener('click', function () {
             close();
@@ -548,6 +558,7 @@ var Startscreen = (function () {
             this.levelIcon.addEventListener("click", function () {
                 _this.game.innerHTML = "";
                 new Level1click;
+                new Soundeffect("assets/menuSelect.mp3");
             });
         }
         if (unlocked[1] == false) {
@@ -555,6 +566,7 @@ var Startscreen = (function () {
             this.levelIcon.addEventListener("click", function () {
                 _this.game.innerHTML = "";
                 new Level2click;
+                new Soundeffect("assets/menuSelect.mp3");
             });
         }
         if (unlocked[3] == false) {
@@ -562,6 +574,7 @@ var Startscreen = (function () {
             this.levelIcon.addEventListener("click", function () {
                 _this.game.innerHTML = "";
                 new Level4click;
+                new Soundeffect("assets/menuSelect.mp3");
             });
         }
         if (unlocked[2] == false) {
@@ -569,6 +582,7 @@ var Startscreen = (function () {
             this.levelIcon.addEventListener("click", function () {
                 _this.game.innerHTML = "";
                 new Level3click;
+                new Soundeffect("assets/menuSelect.mp3");
             });
         }
         if (unlocked[4] == false) {
@@ -576,6 +590,7 @@ var Startscreen = (function () {
             this.levelIcon.addEventListener("click", function () {
                 _this.game.innerHTML = "";
                 new Level5click;
+                new Soundeffect("assets/menuSelect.mp3");
             });
         }
         if (unlocked[5] == false) {
@@ -583,6 +598,7 @@ var Startscreen = (function () {
             this.levelIcon.addEventListener("click", function () {
                 _this.game.innerHTML = "";
                 new Level6click;
+                new Soundeffect("assets/menuSelect.mp3");
             });
         }
         var leave = document.createElement('leave');
@@ -594,6 +610,7 @@ var Startscreen = (function () {
                 }
             }
             leave.remove();
+            new Soundeffect("assets/menuBack.wav");
             _this.setButtons();
             _this.setAssets();
         });
@@ -620,6 +637,7 @@ var Startscreen = (function () {
         leave.addEventListener("click", function () {
             credits.remove();
             leave.remove();
+            new Soundeffect("assets/menuBack.wav");
             _this.setButtons();
         });
     };
@@ -666,6 +684,7 @@ var Startscreen = (function () {
         leave.addEventListener("click", function () {
             options.remove();
             leave.remove();
+            new Soundeffect("assets/menuBack.wav");
             _this.setButtons();
         });
     };
@@ -853,12 +872,14 @@ var Hint = (function () {
         var zoomed = document.createElement("zoomed");
         var grayfade = document.createElement('grayout');
         function zoomin() {
+            new Soundeffect("assets/readHint.mp3");
             game.appendChild(zoomed);
             game.appendChild(grayfade);
             zoomed.innerHTML = message;
             zoomed.addEventListener("click", function () { return zoomout(); });
         }
         function zoomout() {
+            new Soundeffect("assets/readHint.mp3");
             zoomed.remove();
             grayfade.remove();
         }
@@ -889,7 +910,7 @@ var Soundeffect = (function () {
     }
     Soundeffect.prototype.playSound = function (src) {
         var sound = document.createElement("audio");
-        sound.volume = 0.2;
+        sound.volume = 0.3;
         sound.src = src;
         sound.setAttribute("preload", "auto");
         sound.setAttribute("controls", "none");

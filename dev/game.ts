@@ -61,16 +61,17 @@ class Startscreen{
 
         startButton.addEventListener('click',()=>{
             this.levelSelect()
+            new Soundeffect("assets/menuSelect.mp3")
         })
 
         optionsButton.addEventListener('click',()=>{
             this.setOptions()
-            
+            new Soundeffect("assets/menuSelect.mp3")
         })
 
         creditsButton.addEventListener('click',()=>{
             this.setCredits()    
-
+            new Soundeffect("assets/menuSelect.mp3")
         })
 
         quitButton.addEventListener('click',()=>{
@@ -129,6 +130,7 @@ class Startscreen{
         this.levelIcon.addEventListener("click",()=>{
             this.game.innerHTML = ""
             new Level1click
+            new Soundeffect("assets/menuSelect.mp3")
         })
         }
         if(unlocked[1]==false){
@@ -136,6 +138,7 @@ class Startscreen{
         this.levelIcon.addEventListener("click",()=>{
             this.game.innerHTML = ""
             new Level2click
+            new Soundeffect("assets/menuSelect.mp3")
         })
         }
 
@@ -144,6 +147,7 @@ class Startscreen{
         this.levelIcon.addEventListener("click",()=>{
             this.game.innerHTML = ""
             new Level4click
+            new Soundeffect("assets/menuSelect.mp3")
         })
         }
         if(unlocked[2]==false){
@@ -151,6 +155,7 @@ class Startscreen{
         this.levelIcon.addEventListener("click",()=>{
             this.game.innerHTML = ""
             new Level3click
+            new Soundeffect("assets/menuSelect.mp3")
         })
         }
         if(unlocked[4]==false){
@@ -158,6 +163,7 @@ class Startscreen{
         this.levelIcon.addEventListener("click",()=>{
             this.game.innerHTML = ""
             new Level5click
+            new Soundeffect("assets/menuSelect.mp3")
         })
         }
         if(unlocked[5]==false){
@@ -165,6 +171,7 @@ class Startscreen{
         this.levelIcon.addEventListener("click",()=>{
             this.game.innerHTML = ""
             new Level6click
+            new Soundeffect("assets/menuSelect.mp3")
         })
         }
 
@@ -178,7 +185,7 @@ class Startscreen{
                     document.getElementsByTagName('level')[i].remove()
                 }}
                 leave.remove();
-
+                new Soundeffect("assets/menuBack.wav")
                 this.setButtons();
                 this.setAssets();
             })
@@ -214,7 +221,7 @@ class Startscreen{
             leave.addEventListener("click",() =>{
                 credits.remove();
                 leave.remove();
-
+                new Soundeffect("assets/menuBack.wav")
                 this.setButtons();
             })
 
@@ -244,7 +251,7 @@ class Startscreen{
         musicSlider.id = 'myRange'
 
         if(document.getElementById('music') ){
-            
+
             let newVolume = document.getElementById('music').volume * 100
             musicSlider.value = newVolume.toString()
         }else{
@@ -282,7 +289,7 @@ class Startscreen{
         leave.addEventListener("click",() =>{
             options.remove();
             leave.remove();
-
+            new Soundeffect("assets/menuBack.wav")
             this.setButtons();
         })
     }

@@ -7,7 +7,7 @@ class Soundeffect{
     playSound(src:string){
 
             let sound = document.createElement("audio");
-            sound.volume = 0.2
+            sound.volume = 0.3
             sound.src = src;
             sound.setAttribute("preload", "auto");
             sound.setAttribute("controls", "none");

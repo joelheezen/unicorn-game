@@ -85,22 +85,22 @@ class BattlePhase{
 
         switch(stage){
             case 1:
-                this.monsterCount = 4
-                break;
-            case 2:
-                this.monsterCount = 5
-                 break;
-            case 3:
                 this.monsterCount = 6
                 break;
-            case 4:
+            case 2:
                 this.monsterCount = 7
-                break;
-            case 5:
+                 break;
+            case 3:
                 this.monsterCount = 8
                 break;
-            case 6:
+            case 4:
                 this.monsterCount = 9
+                break;
+            case 5:
+                this.monsterCount = 10
+                break;
+            case 6:
+                this.monsterCount = 11
                 monsterTypes = ["wizard"]
                 break;
         }
@@ -236,7 +236,7 @@ class BattlePhase{
 
                             let direction = Math.floor(Math.random() * 100)
 
-                            let spaceToMove
+                            let spaceToMove: any
 
                             if (direction <= 25){
                                 console.log("move back")
@@ -277,6 +277,7 @@ class BattlePhase{
                                         spaceNow.appendChild(spaceToMove.children[0])
                                         moved = true
                                     }else if(spaceToMove.children[0].classList.contains("player")){
+                                        new Soundeffect("assets/allyDie.wav")
                                         spaceToMove.removeChild(spaceToMove.childNodes[0])
                                         spaceToMove.appendChild(activeMonster)
                                         spaceToMove.style.backgroundImage = "url(assets/unicorn_dead.png)"
