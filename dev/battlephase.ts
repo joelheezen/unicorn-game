@@ -300,6 +300,7 @@ class BattlePhase{
                     console.log("you won")
                     break
                 }
+
             }
         }
 
