@@ -262,7 +262,11 @@ class Startscreen{
             musicSlider.value = '0'
         }
 
-        
+        if(parseInt(musicSlider.value) > 0){
+            muteGame.style.backgroundImage = "url(assets/unmuted.png)"
+        }else{
+            muteGame.style.backgroundImage = "url(assets/muted.png)"
+        }
 
             musicSlider.addEventListener("input",()=> {
 
@@ -305,6 +309,12 @@ class Startscreen{
         }else{
             effectSlider.value = '0'
         }  
+
+        if(parseInt(effectSlider.value) > 0){
+            muteEffect.style.backgroundImage = "url(assets/unmuted.png)"
+        }else{
+            muteEffect.style.backgroundImage = "url(assets/muted.png)"
+        }
 
         effectSlider.addEventListener("input",()=> {
 

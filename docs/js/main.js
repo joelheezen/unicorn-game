@@ -668,6 +668,12 @@ var Startscreen = (function () {
         else {
             musicSlider.value = '0';
         }
+        if (parseInt(musicSlider.value) > 0) {
+            muteGame.style.backgroundImage = "url(assets/unmuted.png)";
+        }
+        else {
+            muteGame.style.backgroundImage = "url(assets/muted.png)";
+        }
         musicSlider.addEventListener("input", function () {
             var volume = parseInt(musicSlider.value);
             volume = volume / 100;
@@ -698,6 +704,12 @@ var Startscreen = (function () {
         }
         else {
             effectSlider.value = '0';
+        }
+        if (parseInt(effectSlider.value) > 0) {
+            muteEffect.style.backgroundImage = "url(assets/unmuted.png)";
+        }
+        else {
+            muteEffect.style.backgroundImage = "url(assets/muted.png)";
         }
         effectSlider.addEventListener("input", function () {
             var volume = parseInt(effectSlider.value);
@@ -948,7 +960,7 @@ var Soundeffect = (function () {
         this.sound.id = "soundeffect";
         this.sound.style.display = "none";
         this.sound.autoplay = true;
-        this.sound.volume = 0;
+        this.sound.volume = 0.3;
         document.body.appendChild(this.sound);
     };
     Soundeffect.prototype.playThis = function (src) {
