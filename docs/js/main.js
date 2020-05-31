@@ -211,7 +211,7 @@ var BattlePhase = (function () {
                 break;
             case 3:
                 this.monsterCount = 8;
-                this.obstaclePlaces = [17, 18, 19, 20, 21, 22, 41, 42, 43, 44, 45, 46];
+                this.obstaclePlaces = [17, 18, 19, 20, 21, 22];
                 break;
             case 4:
                 this.monsterCount = 9;
@@ -219,7 +219,7 @@ var BattlePhase = (function () {
                 break;
             case 5:
                 this.monsterCount = 10;
-                this.obstaclePlaces = [0, 2, 4, 6, 17, 19, 21, 23, 32, 34, 36, 38, 49, 51, 53, 55];
+                this.obstaclePlaces = [0, 2, 4, 6, 17, 19, 21, 23];
                 break;
             case 6:
                 this.monsterCount = 11;
@@ -908,7 +908,7 @@ var Level6click = (function () {
         new Hint(39, 26, 9, 11, "As you walk into the room you feel a powerfull surge. Its cold like you are in a blizzard. When you find the item in witch he resides youll find yourself fighting a wizard.");
         new Inventory();
         new Dialogbox("unicorn_player", "I can feel hes in the room somewhere");
-        new Dialogbox("wizard", "...*...*I hope they dont find me in here*But if they do I will surely destroy them");
+        new Dialogbox("enemy_wizard", "...*...*I hope they dont find me in here*But if they do I will surely destroy them");
     }
     Level6click.prototype.setBackground = function () {
         var background = document.createElement("background");

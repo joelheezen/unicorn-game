@@ -68,9 +68,9 @@ class BattlePhase{
                 }
 
                 if(i > 31){
-                moveSpace.addEventListener("drop",() => this.drop(event))
-                moveSpace.addEventListener("dragover",() => this.allowDrop(event))
-                moveSpace.classList.add("canplace")
+                    moveSpace.addEventListener("drop",() => this.drop(event))
+                    moveSpace.addEventListener("dragover",() => this.allowDrop(event))
+                    moveSpace.classList.add("canplace")
                 }
 
             }
@@ -98,7 +98,7 @@ class BattlePhase{
                  break;
             case 3:
                 this.monsterCount = 8
-                this.obstaclePlaces = [17,18,19,20,21,22,41,42,43,44,45,46]
+                this.obstaclePlaces = [17,18,19,20,21,22]
                 break;
             case 4:
                 this.monsterCount = 9
@@ -106,7 +106,7 @@ class BattlePhase{
                 break;
             case 5:
                 this.monsterCount = 10
-                this.obstaclePlaces = [0,2,4,6,17,19,21,23,32,34,36,38,49,51,53,55]
+                this.obstaclePlaces = [0,2,4,6,17,19,21,23]
                 break;
             case 6:
                 this.monsterCount = 11

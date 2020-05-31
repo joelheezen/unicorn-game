@@ -522,7 +522,7 @@ class Level6click{
         new Hint(39,26,9,11,"As you walk into the room you feel a powerfull surge. Its cold like you are in a blizzard. When you find the item in witch he resides youll find yourself fighting a wizard.")
         new Inventory()
         new Dialogbox("unicorn_player","I can feel hes in the room somewhere")
-        new Dialogbox("wizard","...*...*I hope they dont find me in here*But if they do I will surely destroy them")
+        new Dialogbox("enemy_wizard","...*...*I hope they dont find me in here*But if they do I will surely destroy them")
     }
 
 
