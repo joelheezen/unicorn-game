@@ -5,6 +5,7 @@ class BattlePhase{
     game = document.getElementsByTagName("game")[0]
     battleStarted = false;
     monsterCount= 0
+    obstaclePlaces: any
     
     constructor(stage: number){
         //deletes everything and puts a new background in
@@ -48,6 +49,7 @@ class BattlePhase{
         let spaces = document.getElementsByTagName("moveSpace")
         // new array to store the monsters in per level
         let monsters = new Array
+        let obstacles = new Array
 
         let inventory = document.getElementsByTagName('inventory')[0]
 
@@ -82,39 +84,63 @@ class BattlePhase{
             inventoryItems[i].addEventListener("dragstart",() => this.drag(event))
         }
         
-        let monsterTypes = ["enemy_cabinet","enemy_couch","enemy_dumbell","enemy_lamp","enemy_plant"]
+        let monsterTypes = ["cabinet","couch","dumbell","lamp","plant","jug"]
+        let obstacleTypes = ['rock','water','tree','roadblock','lava','manhole']
 
         switch(stage){
             case 1:
                 this.monsterCount = 6
+                this.obstaclePlaces = [2,12,26,20,16,31]
                 break;
             case 2:
                 this.monsterCount = 7
+                this.obstaclePlaces = [16,18,21,23,24,25,26,29,30,31]
                  break;
             case 3:
                 this.monsterCount = 8
+                this.obstaclePlaces = [17,18,19,20,21,22,41,42,43,44,45,46]
                 break;
             case 4:
                 this.monsterCount = 9
+                this.obstaclePlaces = [25,26,27,28,29,30]
                 break;
             case 5:
                 this.monsterCount = 10
+                this.obstaclePlaces = [0,2,4,6,17,19,21,23,32,34,36,38,49,51,53,55]
                 break;
             case 6:
                 this.monsterCount = 11
+                this.obstaclePlaces = []
                 monsterTypes = ["wizard"]
                 break;
         }
         
+        for (let i = 0; i < this.obstaclePlaces.length; i++) {
+            let obstacle = document.createElement("obstacle")
+            obstacle.classList.add("obstacle")
+            obstacle.style.backgroundImage = `url(assets/obstacle_${obstacleTypes[Math.floor(Math.random() * monsterTypes.length)]}.png)`
+            obstacles.push(obstacle)
+        }
+
+        for (let i = 0; i < this.obstaclePlaces.length; i++) {
+            
+            if(spaces[this.obstaclePlaces[i]].firstChild){
+                i -= 1
+            }
+            else {
+                spaces[this.obstaclePlaces[i]].appendChild(obstacles[i])
+            }
+        }
+
+
             for (let i = 0; i < this.monsterCount; i++) {
-                
                 let monster = document.createElement("monster")
                 monster.classList.add("monster")
-                monster.style.backgroundImage = `url(assets/${monsterTypes[Math.floor(Math.random() * monsterTypes.length)]}.png)`
-                console.log(monster.style.backgroundImage)
+                monster.style.backgroundImage = `url(assets/enemy_${monsterTypes[Math.floor(Math.random() * monsterTypes.length)]}.png)`
                 monster.id = "monster" + i
                 monsters.push(monster)
             }
+
             for (let i = 0; i < this.monsterCount; i++) {
                 let randomNumber = Math.floor(Math.random() * 32)
                 console.log(randomNumber)
@@ -236,6 +262,7 @@ class BattlePhase{
                         let spaceNowPos = spaceNow.id.substring(6,8)
                         let moveMonsterTo = document.getElementsByTagName('movespace')
                         let moved = false
+                        
 
                         while(moved == false){
 
@@ -287,6 +314,9 @@ class BattlePhase{
                                         spaceToMove.appendChild(activeMonster)
                                         spaceToMove.style.backgroundImage = "url(assets/unicorn_dead.png)"
                                         moved = true    
+                                    }else if(spaceToMove.children[0].classList.contains("obstacle")){
+                                        console.log('obstacle in the way')
+                                        direction = Math.floor(Math.random() * 100)
                                     }
                                 }else{
                                     spaceToMove.appendChild(activeMonster)

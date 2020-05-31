@@ -97,10 +97,10 @@
 
     inventoryitem{
         position:relative;
-        width: 8vh; height: 8vh;
+        width: 9vh; height: 9vh;
         background-repeat: no-repeat;
         background-position: center; 
-        background-size: 80%;
+        background-size: 70%;
         z-index:5;
     }
 
@@ -137,6 +137,14 @@
         filter: hue-rotate(315deg);
     }
 
+    obstacle{
+        width: 100%; height: 100%;
+        background-repeat: no-repeat;
+        position: absolute;
+        background-size: 50% 50%;
+        background-position: center;
+    }
+
 
     moveSpace{
         width: 9vh; height: 9vh;
@@ -151,12 +159,6 @@
     .canplace{
         animation: pulse 2s;
         animation-iteration-count: infinite;
-    }
-
-    movespace *{
-    top: 50% !important;
-    left: 50% !important;
-    transform: translate(-50%, -50%) !important;
     }
 
     unicornPlayer {
