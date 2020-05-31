@@ -17,6 +17,9 @@ class Startscreen{
         this.setButtons()
         this.setAssets()
         new Music().playMusic('music.mp3')
+        new Soundeffect().setSound()
+
+
     }
 
     setBackground(){
@@ -61,17 +64,17 @@ class Startscreen{
 
         startButton.addEventListener('click',()=>{
             this.levelSelect()
-            new Soundeffect("assets/menuSelect.mp3")
+            new Soundeffect().playThis("menuSelect.mp3")
         })
 
         optionsButton.addEventListener('click',()=>{
             this.setOptions()
-            new Soundeffect("assets/menuSelect.mp3")
+            new Soundeffect().playThis("menuSelect.mp3")
         })
 
         creditsButton.addEventListener('click',()=>{
             this.setCredits()    
-            new Soundeffect("assets/menuSelect.mp3")
+            new Soundeffect().playThis("menuSelect.mp3")
         })
 
         quitButton.addEventListener('click',()=>{
@@ -130,7 +133,7 @@ class Startscreen{
         this.levelIcon.addEventListener("click",()=>{
             this.game.innerHTML = ""
             new Level1click
-            new Soundeffect("assets/menuSelect.mp3")
+            new Soundeffect().playThis("menuSelect.mp3")
         })
         }
         if(unlocked[1]==false){
@@ -138,7 +141,7 @@ class Startscreen{
         this.levelIcon.addEventListener("click",()=>{
             this.game.innerHTML = ""
             new Level2click
-            new Soundeffect("assets/menuSelect.mp3")
+            new Soundeffect().playThis("menuSelect.mp3")
         })
         }
 
@@ -147,7 +150,7 @@ class Startscreen{
         this.levelIcon.addEventListener("click",()=>{
             this.game.innerHTML = ""
             new Level4click
-            new Soundeffect("assets/menuSelect.mp3")
+            new Soundeffect().playThis("menuSelect.mp3")
         })
         }
         if(unlocked[2]==false){
@@ -155,7 +158,7 @@ class Startscreen{
         this.levelIcon.addEventListener("click",()=>{
             this.game.innerHTML = ""
             new Level3click
-            new Soundeffect("assets/menuSelect.mp3")
+            new Soundeffect().playThis("menuSelect.mp3")
         })
         }
         if(unlocked[4]==false){
@@ -163,7 +166,7 @@ class Startscreen{
         this.levelIcon.addEventListener("click",()=>{
             this.game.innerHTML = ""
             new Level5click
-            new Soundeffect("assets/menuSelect.mp3")
+            new Soundeffect().playThis("menuSelect.mp3")
         })
         }
         if(unlocked[5]==false){
@@ -171,7 +174,7 @@ class Startscreen{
         this.levelIcon.addEventListener("click",()=>{
             this.game.innerHTML = ""
             new Level6click
-            new Soundeffect("assets/menuSelect.mp3")
+            new Soundeffect().playThis("menuSelect.mp3")
         })
         }
 
@@ -185,7 +188,7 @@ class Startscreen{
                     document.getElementsByTagName('level')[i].remove()
                 }}
                 leave.remove();
-                new Soundeffect("assets/menuBack.wav")
+                new Soundeffect().playThis("menuBack.wav")
                 this.setButtons();
                 this.setAssets();
             })
@@ -221,7 +224,7 @@ class Startscreen{
             leave.addEventListener("click",() =>{
                 credits.remove();
                 leave.remove();
-                new Soundeffect("assets/menuBack.wav")
+                new Soundeffect().playThis("menuBack.wav")
                 this.setButtons();
             })
 
@@ -232,6 +235,9 @@ class Startscreen{
         let options = document.createElement('options')
         this.game.appendChild(options)
 
+
+
+        //all part of setting the volume of the music
         let musicOptions = document.createElement('musicOptions')
         options.appendChild(musicOptions)
 
@@ -243,8 +249,6 @@ class Startscreen{
         let musicSlider = document.createElement('input')
         musicOptions.appendChild(musicSlider)
 
-
-
         musicSlider.type = "range"
         musicSlider.min = "0"
         musicSlider.max = "100"
@@ -252,7 +256,7 @@ class Startscreen{
 
         if(document.getElementById('music') ){
 
-            let newVolume = document.getElementById('music').volume * 100
+            let newVolume = document.getElementById('music')!.volume * 100
             musicSlider.value = newVolume.toString()
         }else{
             musicSlider.value = '0'
@@ -262,25 +266,63 @@ class Startscreen{
 
             musicSlider.addEventListener("input",()=> {
 
-                let musicVolume = parseInt(musicSlider.value)
-
-                console.log(musicVolume)
-
                 let volume = parseInt(musicSlider.value)
                 volume = volume /100
                 
-                document.getElementById('music').volume = volume
+                document.getElementById('music')!.volume = volume
 
                 if(musicSlider.value !== '0'){
-                    document.getElementById('music').play()
+                    document.getElementById('music')!.play()
                     muteGame.style.backgroundImage = 'url(assets/unmuted.png)'
                 }else{
-                    document.getElementById('music').pause() 
+                    document.getElementById('music')!.pause() 
                     muteGame.style.backgroundImage = 'url(assets/muted.png)'
                 }
             })
 
 
+        //all part of setting the volume for the soundeffects
+        let effectOptions = document.createElement('effectOptions')
+        options.appendChild(effectOptions)
+
+        effectOptions.innerHTML += "Soundeffect Volume"
+
+        let muteEffect = document.createElement('muteEffect')
+        effectOptions.appendChild(muteEffect)
+
+        let effectSlider = document.createElement('input')
+        effectOptions.appendChild(effectSlider)
+
+        effectSlider.type = "range"
+        effectSlider.min = "0"
+        effectSlider.max = "100"
+        effectSlider.id = 'myRange'
+
+        if(document.getElementById('soundeffect') ){
+
+            let newVolume = document.getElementById('soundeffect')!.volume * 100
+            effectSlider.value = newVolume.toString()
+        }else{
+            effectSlider.value = '0'
+        }  
+
+        effectSlider.addEventListener("input",()=> {
+
+                let volume = parseInt(effectSlider.value)
+                volume = volume /100
+                
+                document.getElementById('soundeffect')!.volume = volume
+
+                if(effectSlider.value !== '0'){
+                    muteEffect.style.backgroundImage = 'url(assets/unmuted.png)'
+                }else{
+                    muteEffect.style.backgroundImage = 'url(assets/muted.png)'
+                }
+        })
+
+        effectSlider.addEventListener("change",()=>{
+            new Soundeffect().playThis('menuSelect.mp3')
+        })
 
 
         let leave = document.createElement('leave')
@@ -289,7 +331,7 @@ class Startscreen{
         leave.addEventListener("click",() =>{
             options.remove();
             leave.remove();
-            new Soundeffect("assets/menuBack.wav")
+            new Soundeffect().playThis("menuBack.wav")
             this.setButtons();
         })
     }

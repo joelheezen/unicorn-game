@@ -15,7 +15,7 @@ var Furniture = (function () {
         this.furniture.classList.add('shake');
         this.furniture.addEventListener('click', function () { return _this.additem(contains, furnX, furnY, furnDimX, furnDimY); });
         this.furniture.addEventListener('mouseover', function () {
-            new Soundeffect("assets/rumble.wav");
+            new Soundeffect().playThis("rumble.wav");
         });
         this.shakeBox.appendChild(this.furniture);
         game.appendChild(this.shakeBox);
@@ -26,7 +26,7 @@ var Furniture = (function () {
         furnDimX = furnDimX / 2;
         furnDimY = furnDimY / 2;
         if (contains == "none") {
-            new Soundeffect("assets/noItem.mp3");
+            new Soundeffect().playThis("noItem.mp3");
             var dustcloud_1 = document.createElement("dustcloud");
             game.appendChild(dustcloud_1);
             dustcloud_1.style.transform = "translate(calc(" + furnX + "vw + " + furnDimX + "vw - 50px),calc(" + furnY + "vh + " + furnDimY + "vh - 50px))";
@@ -43,7 +43,7 @@ var Furniture = (function () {
             }, 3000);
         }
         else {
-            new Soundeffect("assets/foundItem.wav");
+            new Soundeffect().playThis("foundItem.wav");
             var pickup_1 = document.createElement("pickup");
             var grayout_1 = document.createElement('grayout');
             var itemMessage_1 = document.createElement('itemMessage');
@@ -85,12 +85,15 @@ var EvilFurniture = (function () {
         this.furniture.style.width = furnDimX + "vw";
         this.shakeBox.style.transform = "translate(" + furnX + "vw," + furnY + "vh)";
         this.furniture.classList.add('shake');
+        this.furniture.addEventListener('mouseover', function () {
+            new Soundeffect().playThis("rumble.wav");
+        });
         this.shakeBox.addEventListener('click', function () { return _this.startbattle(event, level); });
         this.shakeBox.appendChild(this.furniture);
         game.appendChild(this.shakeBox);
     };
     EvilFurniture.prototype.startbattle = function (event, level) {
-        new Soundeffect("assets/minionFound.mp3");
+        new Soundeffect().playThis("minionFound.mp3");
         var game = document.getElementsByTagName("game")[0];
         this.furniture.classList.remove('shake');
         var grayout = document.createElement('grayout');
@@ -245,7 +248,7 @@ var BattlePhase = (function () {
         ev.dataTransfer.setData("text", ev.target.id);
     };
     BattlePhase.prototype.drop = function (ev) {
-        new Soundeffect("assets/nes-01-00.wav");
+        new Soundeffect().playThis("nes-01-00.wav");
         var data = ev.dataTransfer.getData("text");
         var element = document.getElementById(data);
         if (ev.target.id.substring(0, 4) == "item") {
@@ -281,7 +284,7 @@ var BattlePhase = (function () {
                 var monsterParent = monsterChild.parentNode;
                 if (monsterParent) {
                     monsterParent.removeChild(monsterChild);
-                    new Soundeffect("assets/nes-05-07.wav");
+                    new Soundeffect().playThis("nes-05-07.wav");
                 }
                 monsterParent.appendChild(document.getElementById(data));
                 element = document.getElementById(data);
@@ -349,7 +352,7 @@ var BattlePhase = (function () {
                                     moved = true;
                                 }
                                 else if (spaceToMove.children[0].classList.contains("player")) {
-                                    new Soundeffect("assets/allyDie.wav");
+                                    new Soundeffect().playThis("allyDie.wav");
                                     spaceToMove.removeChild(spaceToMove.childNodes[0]);
                                     spaceToMove.appendChild(activeMonster);
                                     spaceToMove.style.backgroundImage = "url(assets/unicorn_dead.png)";
@@ -468,6 +471,7 @@ var Startscreen = (function () {
         this.setButtons();
         this.setAssets();
         new Music().playMusic('music.mp3');
+        new Soundeffect().setSound();
     }
     Startscreen.prototype.setBackground = function () {
         var background = document.createElement("background");
@@ -502,15 +506,15 @@ var Startscreen = (function () {
         this.game.appendChild(this.menu);
         startButton.addEventListener('click', function () {
             _this.levelSelect();
-            new Soundeffect("assets/menuSelect.mp3");
+            new Soundeffect().playThis("menuSelect.mp3");
         });
         optionsButton.addEventListener('click', function () {
             _this.setOptions();
-            new Soundeffect("assets/menuSelect.mp3");
+            new Soundeffect().playThis("menuSelect.mp3");
         });
         creditsButton.addEventListener('click', function () {
             _this.setCredits();
-            new Soundeffect("assets/menuSelect.mp3");
+            new Soundeffect().playThis("menuSelect.mp3");
         });
         quitButton.addEventListener('click', function () {
             close();
@@ -558,7 +562,7 @@ var Startscreen = (function () {
             this.levelIcon.addEventListener("click", function () {
                 _this.game.innerHTML = "";
                 new Level1click;
-                new Soundeffect("assets/menuSelect.mp3");
+                new Soundeffect().playThis("menuSelect.mp3");
             });
         }
         if (unlocked[1] == false) {
@@ -566,7 +570,7 @@ var Startscreen = (function () {
             this.levelIcon.addEventListener("click", function () {
                 _this.game.innerHTML = "";
                 new Level2click;
-                new Soundeffect("assets/menuSelect.mp3");
+                new Soundeffect().playThis("menuSelect.mp3");
             });
         }
         if (unlocked[3] == false) {
@@ -574,7 +578,7 @@ var Startscreen = (function () {
             this.levelIcon.addEventListener("click", function () {
                 _this.game.innerHTML = "";
                 new Level4click;
-                new Soundeffect("assets/menuSelect.mp3");
+                new Soundeffect().playThis("menuSelect.mp3");
             });
         }
         if (unlocked[2] == false) {
@@ -582,7 +586,7 @@ var Startscreen = (function () {
             this.levelIcon.addEventListener("click", function () {
                 _this.game.innerHTML = "";
                 new Level3click;
-                new Soundeffect("assets/menuSelect.mp3");
+                new Soundeffect().playThis("menuSelect.mp3");
             });
         }
         if (unlocked[4] == false) {
@@ -590,7 +594,7 @@ var Startscreen = (function () {
             this.levelIcon.addEventListener("click", function () {
                 _this.game.innerHTML = "";
                 new Level5click;
-                new Soundeffect("assets/menuSelect.mp3");
+                new Soundeffect().playThis("menuSelect.mp3");
             });
         }
         if (unlocked[5] == false) {
@@ -598,7 +602,7 @@ var Startscreen = (function () {
             this.levelIcon.addEventListener("click", function () {
                 _this.game.innerHTML = "";
                 new Level6click;
-                new Soundeffect("assets/menuSelect.mp3");
+                new Soundeffect().playThis("menuSelect.mp3");
             });
         }
         var leave = document.createElement('leave');
@@ -610,7 +614,7 @@ var Startscreen = (function () {
                 }
             }
             leave.remove();
-            new Soundeffect("assets/menuBack.wav");
+            new Soundeffect().playThis("menuBack.wav");
             _this.setButtons();
             _this.setAssets();
         });
@@ -637,7 +641,7 @@ var Startscreen = (function () {
         leave.addEventListener("click", function () {
             credits.remove();
             leave.remove();
-            new Soundeffect("assets/menuBack.wav");
+            new Soundeffect().playThis("menuBack.wav");
             _this.setButtons();
         });
     };
@@ -665,8 +669,6 @@ var Startscreen = (function () {
             musicSlider.value = '0';
         }
         musicSlider.addEventListener("input", function () {
-            var musicVolume = parseInt(musicSlider.value);
-            console.log(musicVolume);
             var volume = parseInt(musicSlider.value);
             volume = volume / 100;
             document.getElementById('music').volume = volume;
@@ -679,12 +681,44 @@ var Startscreen = (function () {
                 muteGame.style.backgroundImage = 'url(assets/muted.png)';
             }
         });
+        var effectOptions = document.createElement('effectOptions');
+        options.appendChild(effectOptions);
+        effectOptions.innerHTML += "Soundeffect Volume";
+        var muteEffect = document.createElement('muteEffect');
+        effectOptions.appendChild(muteEffect);
+        var effectSlider = document.createElement('input');
+        effectOptions.appendChild(effectSlider);
+        effectSlider.type = "range";
+        effectSlider.min = "0";
+        effectSlider.max = "100";
+        effectSlider.id = 'myRange';
+        if (document.getElementById('soundeffect')) {
+            var newVolume = document.getElementById('soundeffect').volume * 100;
+            effectSlider.value = newVolume.toString();
+        }
+        else {
+            effectSlider.value = '0';
+        }
+        effectSlider.addEventListener("input", function () {
+            var volume = parseInt(effectSlider.value);
+            volume = volume / 100;
+            document.getElementById('soundeffect').volume = volume;
+            if (effectSlider.value !== '0') {
+                muteEffect.style.backgroundImage = 'url(assets/unmuted.png)';
+            }
+            else {
+                muteEffect.style.backgroundImage = 'url(assets/muted.png)';
+            }
+        });
+        effectSlider.addEventListener("change", function () {
+            new Soundeffect().playThis('menuSelect.mp3');
+        });
         var leave = document.createElement('leave');
         this.game.appendChild(leave);
         leave.addEventListener("click", function () {
             options.remove();
             leave.remove();
-            new Soundeffect("assets/menuBack.wav");
+            new Soundeffect().playThis("menuBack.wav");
             _this.setButtons();
         });
     };
@@ -872,14 +906,14 @@ var Hint = (function () {
         var zoomed = document.createElement("zoomed");
         var grayfade = document.createElement('grayout');
         function zoomin() {
-            new Soundeffect("assets/readHint.mp3");
+            new Soundeffect().playThis("readHint.mp3");
             game.appendChild(zoomed);
             game.appendChild(grayfade);
             zoomed.innerHTML = message;
             zoomed.addEventListener("click", function () { return zoomout(); });
         }
         function zoomout() {
-            new Soundeffect("assets/readHint.mp3");
+            new Soundeffect().playThis("readHint.mp3");
             zoomed.remove();
             grayfade.remove();
         }
@@ -905,20 +939,21 @@ var Music = (function () {
     return Music;
 }());
 var Soundeffect = (function () {
-    function Soundeffect(src) {
-        this.playSound(src);
+    function Soundeffect() {
+        this.sound = document.createElement("audio");
     }
-    Soundeffect.prototype.playSound = function (src) {
-        var sound = document.createElement("audio");
-        sound.volume = 0.3;
-        sound.src = src;
-        sound.setAttribute("preload", "auto");
-        sound.setAttribute("controls", "none");
-        sound.style.display = "none";
-        document.body.appendChild(sound);
-        setTimeout(function () {
-            sound.play();
-        }, 0);
+    Soundeffect.prototype.setSound = function () {
+        this.sound.setAttribute("preload", "auto");
+        this.sound.setAttribute("controls", "none");
+        this.sound.id = "soundeffect";
+        this.sound.style.display = "none";
+        this.sound.autoplay = true;
+        this.sound.volume = 0;
+        document.body.appendChild(this.sound);
+    };
+    Soundeffect.prototype.playThis = function (src) {
+        document.getElementById('soundeffect').src = "assets/" + src;
+        document.getElementById('soundeffect').play();
     };
     return Soundeffect;
 }());

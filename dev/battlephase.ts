@@ -142,7 +142,7 @@ class BattlePhase{
         }
           
         drop(ev: any) {
-            new Soundeffect("assets/nes-01-00.wav")
+            new Soundeffect().playThis("nes-01-00.wav")
             let data = ev.dataTransfer.getData("text")
             let element = document.getElementById(data)
             //stops an item from being dropped inside another item
@@ -182,7 +182,7 @@ class BattlePhase{
                     let monsterParent = monsterChild.parentNode
                     if (monsterParent) {
                         monsterParent.removeChild(monsterChild)
-                        new Soundeffect("assets/nes-05-07.wav")
+                        new Soundeffect().playThis("nes-05-07.wav")
                     }
                     monsterParent.appendChild(document.getElementById(data));
                     element = document.getElementById(data)
@@ -277,7 +277,7 @@ class BattlePhase{
                                         spaceNow.appendChild(spaceToMove.children[0])
                                         moved = true
                                     }else if(spaceToMove.children[0].classList.contains("player")){
-                                        new Soundeffect("assets/allyDie.wav")
+                                        new Soundeffect().playThis("allyDie.wav")
                                         spaceToMove.removeChild(spaceToMove.childNodes[0])
                                         spaceToMove.appendChild(activeMonster)
                                         spaceToMove.style.backgroundImage = "url(assets/unicorn_dead.png)"

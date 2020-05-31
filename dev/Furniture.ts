@@ -24,7 +24,7 @@ class Furniture{
         //when clicked an item is dropped to add to your inventory
         this.furniture.addEventListener('click',() => this.additem(contains,furnX,furnY,furnDimX,furnDimY))
         this.furniture.addEventListener('mouseover',()=>{
-            new Soundeffect("assets/rumble.wav")
+            new Soundeffect().playThis("rumble.wav")
         })
         this.shakeBox.appendChild(this.furniture)
         game.appendChild(this.shakeBox)
@@ -40,7 +40,7 @@ class Furniture{
             furnDimY = furnDimY / 2;
 
             if(contains == "none"){
-                new Soundeffect("assets/noItem.mp3")
+                new Soundeffect().playThis("noItem.mp3")
                 let dustcloud = document.createElement("dustcloud")
                 game.appendChild(dustcloud)
 
@@ -61,7 +61,7 @@ class Furniture{
                     dustcloud.remove()
                 },3000)
             }else{
-                new Soundeffect("assets/foundItem.wav")
+                new Soundeffect().playThis("foundItem.wav")
                 let pickup = document.createElement("pickup")
                 let grayout = document.createElement('grayout')
                 let itemMessage = document.createElement('itemMessage')
@@ -122,6 +122,10 @@ class EvilFurniture{
         this.shakeBox.style.transform = `translate(${furnX}vw,${furnY}vh)`
         this.furniture.classList.add('shake')
 
+        this.furniture.addEventListener('mouseover',()=>{
+            new Soundeffect().playThis("rumble.wav")
+        })
+
         //when clicked you start the battle
         this.shakeBox.addEventListener('click',() => this.startbattle(event,level))
         this.shakeBox.appendChild(this.furniture)
@@ -130,7 +134,7 @@ class EvilFurniture{
 
     startbattle(event: any,level:number){
                 
-                new Soundeffect("assets/minionFound.mp3")
+                new Soundeffect().playThis("minionFound.mp3")
                 let game = document.getElementsByTagName("game")[0]
 
                 //removes shake animation to indocate no more item

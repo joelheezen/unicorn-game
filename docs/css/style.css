@@ -339,6 +339,10 @@
         font-size: 2vw;
     }
 
+    effectoptions{
+        padding-top:50px;
+    }
+
     leave{
         position: absolute;
         top:calc(26vh + 15px);
@@ -488,6 +492,16 @@
     }
 
     muteGame {
+        height:30px;
+        width:30px;
+        background-size: 100%;
+        background-position:center ;
+        position: absolute;
+ 
+        background-image: url(../assets/muted.png);
+    }
+
+    muteEffect{
         height:30px;
         width:30px;
         background-size: 100%;

@@ -1,23 +1,23 @@
 class Soundeffect{
 
-    constructor(src:string){
-        this.playSound(src)
+    sound = document.createElement("audio");
+    
+    constructor(){
+        
     }
 
-    playSound(src:string){
+    setSound(){
+            this.sound.setAttribute("preload", "auto");
+            this.sound.setAttribute("controls", "none");
+            this.sound.id = "soundeffect"
+            this.sound.style.display = "none";
+            this.sound.autoplay = true
+            this.sound.volume = 0
+            document.body.appendChild(this.sound);      
+    }
 
-            let sound = document.createElement("audio");
-            sound.volume = 0.3
-            sound.src = src;
-            sound.setAttribute("preload", "auto");
-            sound.setAttribute("controls", "none");
-            sound.style.display = "none";
-            document.body.appendChild(sound);
-
-            setTimeout(() => {
-                sound.play();
-
-            }, 0);
-            
+    playThis(src:string){
+        document.getElementById('soundeffect')!.src = `assets/${src}`;
+        document.getElementById('soundeffect')!.play();
     }
 }
