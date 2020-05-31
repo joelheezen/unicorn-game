@@ -187,6 +187,7 @@ var BattlePhase = (function () {
             if (i > 31) {
                 moveSpace.addEventListener("drop", function () { return _this.drop(event); });
                 moveSpace.addEventListener("dragover", function () { return _this.allowDrop(event); });
+                moveSpace.classList.add("canplace");
             }
         }
         inventory.addEventListener("drop", function () { return _this.drop(event); });
@@ -270,14 +271,14 @@ var BattlePhase = (function () {
             this.startBattle.style.opacity = "0";
         }
         if (element != null) {
-            if (element.classList.contains("gamer") && ev.target.classList.contains("dropzone")) {
+            if (element.classList.contains("gamer") && ev.target.classList.contains("canplace")) {
                 ev.preventDefault();
                 ev.target.appendChild(document.getElementById(data));
                 element = document.getElementById(data);
             }
         }
         if (element != null) {
-            if (element.classList.contains("gamer") && ev.target.classList.contains("monster") && ev.target.parentElement.classList.contains("dropzone")) {
+            if (element.classList.contains("gamer") && ev.target.classList.contains("monster") && ev.target.parentElement.classList.contains("canplace")) {
                 ev.preventDefault();
                 console.log("you hit a monster");
                 var monsterChild = ev.target;
@@ -300,6 +301,9 @@ var BattlePhase = (function () {
         for (var index = 0; index <= 31; index++) {
             enemySide[index].addEventListener("drop", function () { return _this.drop(event); });
             enemySide[index].addEventListener("dragover", function () { return _this.allowDrop(event); });
+        }
+        for (var index = 31; index <= 63; index++) {
+            document.getElementsByTagName('movespace')[index].classList.remove('canplace');
         }
         var startbattle = document.getElementsByTagName('startBattle')[0];
         startbattle.remove();
@@ -408,21 +412,21 @@ var BattlePhase = (function () {
                 }
                 event.dataTransfer.setData("text", event.target.id);
                 spacesThen.forEach(function (element) {
-                    element.classList.add("dropzone");
+                    element.classList.add("canplace");
                     element.addEventListener('dragover', function () { return _this.allowDrop(event); });
                 });
             });
             element.addEventListener('dragend', function () {
                 element.classList.remove("gamer");
-                var oldSpaces = document.getElementsByClassName("dropzone");
+                var oldSpaces = document.getElementsByClassName("canplace");
                 for (var i = 0; i < oldSpaces.length; i++) {
-                    oldSpaces[i].classList.remove("dropzone");
+                    oldSpaces[i].classList.remove("canplace");
                 }
                 for (var i = 0; i < oldSpaces.length; i++) {
-                    oldSpaces[i].classList.remove("dropzone");
+                    oldSpaces[i].classList.remove("canplace");
                 }
                 for (var i = 0; i < oldSpaces.length; i++) {
-                    oldSpaces[i].classList.remove("dropzone");
+                    oldSpaces[i].classList.remove("canplace");
                 }
             });
         });

@@ -68,6 +68,7 @@ class BattlePhase{
                 if(i > 31){
                 moveSpace.addEventListener("drop",() => this.drop(event))
                 moveSpace.addEventListener("dragover",() => this.allowDrop(event))
+                moveSpace.classList.add("canplace")
                 }
 
             }
@@ -167,7 +168,7 @@ class BattlePhase{
                 this.startBattle.style.opacity = "0"
             }
             if (element != null){
-                if (element.classList.contains("gamer") && ev.target.classList.contains("dropzone")) {
+                if (element.classList.contains("gamer") && ev.target.classList.contains("canplace")) {
                     ev.preventDefault();
                     ev.target.appendChild(document.getElementById(data));
                     element = document.getElementById(data)
@@ -175,7 +176,7 @@ class BattlePhase{
             }
 
             if (element != null){
-                if (element.classList.contains("gamer") && ev.target.classList.contains("monster") && ev.target.parentElement.classList.contains("dropzone")) {
+                if (element.classList.contains("gamer") && ev.target.classList.contains("monster") && ev.target.parentElement.classList.contains("canplace")) {
                     ev.preventDefault();
                     console.log("you hit a monster")
                     let monsterChild = ev.target
@@ -202,6 +203,10 @@ class BattlePhase{
                 enemySide[index].addEventListener("drop",() => this.drop(event))
                 enemySide[index].addEventListener("dragover",() => this.allowDrop(event))
                 
+            }
+
+            for (let index = 31; index <= 63; index++) {
+                document.getElementsByTagName('movespace')[index].classList.remove('canplace')
             }
 
             let startbattle = document.getElementsByTagName('startBattle')[0]
@@ -341,21 +346,21 @@ class BattlePhase{
                     //console.log(spacesThen)
                     event.dataTransfer.setData("text", event.target.id);
                     spacesThen.forEach(element => {
-                        element.classList.add("dropzone")
+                        element.classList.add("canplace")
                         element.addEventListener('dragover', () => this.allowDrop(event))                        
                     });
                 })
                 element.addEventListener('dragend', () => {
                     element.classList.remove("gamer")
-                    let oldSpaces = document.getElementsByClassName("dropzone")
+                    let oldSpaces = document.getElementsByClassName("canplace")
                     for (let i = 0; i < oldSpaces.length; i++) {
-                        oldSpaces[i].classList.remove("dropzone")
+                        oldSpaces[i].classList.remove("canplace")
                     }
                     for (let i = 0; i < oldSpaces.length; i++) {
-                        oldSpaces[i].classList.remove("dropzone")
+                        oldSpaces[i].classList.remove("canplace")
                     }
                     for (let i = 0; i < oldSpaces.length; i++) {
-                        oldSpaces[i].classList.remove("dropzone")
+                        oldSpaces[i].classList.remove("canplace")
                     }
                 })
             });
