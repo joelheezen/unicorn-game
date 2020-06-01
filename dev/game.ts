@@ -133,7 +133,7 @@ class Startscreen{
         this.levelIcon.addEventListener("click",()=>{
             this.game.innerHTML = ""
             new Level1click
-            new Soundeffect().playThis("menuSelect.mp3")
+            new Soundeffect().playThis("door.wav")
         })
         }
         if(unlocked[1]==false){
@@ -141,7 +141,7 @@ class Startscreen{
         this.levelIcon.addEventListener("click",()=>{
             this.game.innerHTML = ""
             new Level2click
-            new Soundeffect().playThis("menuSelect.mp3")
+            new Soundeffect().playThis("door.wav")
         })
         }
 
@@ -150,7 +150,7 @@ class Startscreen{
         this.levelIcon.addEventListener("click",()=>{
             this.game.innerHTML = ""
             new Level4click
-            new Soundeffect().playThis("menuSelect.mp3")
+            new Soundeffect().playThis("door.wav")
         })
         }
         if(unlocked[2]==false){
@@ -158,7 +158,7 @@ class Startscreen{
         this.levelIcon.addEventListener("click",()=>{
             this.game.innerHTML = ""
             new Level3click
-            new Soundeffect().playThis("menuSelect.mp3")
+            new Soundeffect().playThis("door.wav")
         })
         }
         if(unlocked[4]==false){
@@ -166,7 +166,7 @@ class Startscreen{
         this.levelIcon.addEventListener("click",()=>{
             this.game.innerHTML = ""
             new Level5click
-            new Soundeffect().playThis("menuSelect.mp3")
+            new Soundeffect().playThis("door.wav")
         })
         }
         if(unlocked[5]==false){
@@ -174,7 +174,7 @@ class Startscreen{
         this.levelIcon.addEventListener("click",()=>{
             this.game.innerHTML = ""
             new Level6click
-            new Soundeffect().playThis("menuSelect.mp3")
+            new Soundeffect().playThis("door.wav")
         })
         }
 

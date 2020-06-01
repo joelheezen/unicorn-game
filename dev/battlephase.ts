@@ -6,6 +6,8 @@ class BattlePhase{
     battleStarted = false;
     monsterCount= 0
     obstaclePlaces: any
+    monsterKingImg: string
+    
     
     constructor(stage: number){
         //deletes everything and puts a new background in
@@ -91,27 +93,33 @@ class BattlePhase{
             case 1:
                 this.monsterCount = 6
                 this.obstaclePlaces = [2,12,26,20,16,31]
+                this.monsterKingImg = "plant"
                 break;
             case 2:
                 this.monsterCount = 7
                 this.obstaclePlaces = [16,18,21,23,24,25,26,29,30,31]
+                this.monsterKingImg = "couch"
                  break;
             case 3:
                 this.monsterCount = 8
                 this.obstaclePlaces = [17,18,19,20,21,22]
+                this.monsterKingImg = "dumbell"
                 break;
             case 4:
                 this.monsterCount = 9
                 this.obstaclePlaces = [25,26,27,28,29,30]
+                this.monsterKingImg = "jug"
                 break;
             case 5:
                 this.monsterCount = 10
                 this.obstaclePlaces = [0,2,4,6,17,19,21,23]
+                this.monsterKingImg = "cabinet"
                 break;
             case 6:
                 this.monsterCount = 11
                 this.obstaclePlaces = []
                 monsterTypes = ["wizard"]
+                this.monsterKingImg = "wizard"
                 break;
         }
         
@@ -132,12 +140,28 @@ class BattlePhase{
             }
         }
 
+            let monsterKing = document.createElement("monster")
+            monsterKing.classList.add("monster")
+            monsterKing.id = "monster-1"
+            monsterKing.style.backgroundImage = `url(assets/enemy_${this.monsterKingImg}.png)`
+            
+            let placed = false
+            while(placed == false){
+                let randomNumber = Math.floor(Math.random() * 32)
+                if(!spaces[randomNumber].firstChild){
+                    placed = true
+                    spaces[randomNumber].appendChild(monsterKing)
+                }
+            }
+            
+
 
             for (let i = 0; i < this.monsterCount; i++) {
                 let monster = document.createElement("monster")
                 monster.classList.add("monster")
                 monster.style.backgroundImage = `url(assets/enemy_${monsterTypes[Math.floor(Math.random() * monsterTypes.length)]}.png)`
                 monster.id = "monster" + i
+                monster.style.filter = `contrast(50%) sepia(100%) hue-rotate(230deg) `
                 monsters.push(monster)
             }
 
@@ -250,9 +274,9 @@ class BattlePhase{
             if (toDelete != null && toDelete.parentNode != null){
             toDelete.parentNode.removeChild(toDelete)
             } */ 
-            for(let i = 0;i < this.monsterCount;i++){
+            for(let i = -1;i < this.monsterCount;i++){
             // if the boss lives the enemy turn starts
-                if (document.getElementById("monster0")) {
+                if (document.getElementById("monster-1")) {
              
                     // if this deletes monster number 2 it will fuck up
                     let activeMonster = document.getElementById("monster" + i)

@@ -204,27 +204,33 @@ var BattlePhase = (function () {
             case 1:
                 this.monsterCount = 6;
                 this.obstaclePlaces = [2, 12, 26, 20, 16, 31];
+                this.monsterKingImg = "plant";
                 break;
             case 2:
                 this.monsterCount = 7;
                 this.obstaclePlaces = [16, 18, 21, 23, 24, 25, 26, 29, 30, 31];
+                this.monsterKingImg = "couch";
                 break;
             case 3:
                 this.monsterCount = 8;
                 this.obstaclePlaces = [17, 18, 19, 20, 21, 22];
+                this.monsterKingImg = "dumbell";
                 break;
             case 4:
                 this.monsterCount = 9;
                 this.obstaclePlaces = [25, 26, 27, 28, 29, 30];
+                this.monsterKingImg = "jug";
                 break;
             case 5:
                 this.monsterCount = 10;
                 this.obstaclePlaces = [0, 2, 4, 6, 17, 19, 21, 23];
+                this.monsterKingImg = "cabinet";
                 break;
             case 6:
                 this.monsterCount = 11;
                 this.obstaclePlaces = [];
                 monsterTypes = ["wizard"];
+                this.monsterKingImg = "wizard";
                 break;
         }
         for (var i = 0; i < this.obstaclePlaces.length; i++) {
@@ -241,11 +247,24 @@ var BattlePhase = (function () {
                 spaces[this.obstaclePlaces[i]].appendChild(obstacles[i]);
             }
         }
+        var monsterKing = document.createElement("monster");
+        monsterKing.classList.add("monster");
+        monsterKing.id = "monster-1";
+        monsterKing.style.backgroundImage = "url(assets/enemy_" + this.monsterKingImg + ".png)";
+        var placed = false;
+        while (placed == false) {
+            var randomNumber = Math.floor(Math.random() * 32);
+            if (!spaces[randomNumber].firstChild) {
+                placed = true;
+                spaces[randomNumber].appendChild(monsterKing);
+            }
+        }
         for (var i = 0; i < this.monsterCount; i++) {
             var monster = document.createElement("monster");
             monster.classList.add("monster");
             monster.style.backgroundImage = "url(assets/enemy_" + monsterTypes[Math.floor(Math.random() * monsterTypes.length)] + ".png)";
             monster.id = "monster" + i;
+            monster.style.filter = "contrast(50%) sepia(100%) hue-rotate(230deg) ";
             monsters.push(monster);
         }
         for (var i = 0; i < this.monsterCount; i++) {
@@ -332,8 +351,8 @@ var BattlePhase = (function () {
         this.battleStarted = true;
     };
     BattlePhase.prototype.enemyTurn = function () {
-        for (var i = 0; i < this.monsterCount; i++) {
-            if (document.getElementById("monster0")) {
+        for (var i = -1; i < this.monsterCount; i++) {
+            if (document.getElementById("monster-1")) {
                 var activeMonster = document.getElementById("monster" + i);
                 if (activeMonster != null) {
                     var spaceNow = activeMonster.parentNode;
@@ -591,7 +610,7 @@ var Startscreen = (function () {
             this.levelIcon.addEventListener("click", function () {
                 _this.game.innerHTML = "";
                 new Level1click;
-                new Soundeffect().playThis("menuSelect.mp3");
+                new Soundeffect().playThis("door.wav");
             });
         }
         if (unlocked[1] == false) {
@@ -599,7 +618,7 @@ var Startscreen = (function () {
             this.levelIcon.addEventListener("click", function () {
                 _this.game.innerHTML = "";
                 new Level2click;
-                new Soundeffect().playThis("menuSelect.mp3");
+                new Soundeffect().playThis("door.wav");
             });
         }
         if (unlocked[3] == false) {
@@ -607,7 +626,7 @@ var Startscreen = (function () {
             this.levelIcon.addEventListener("click", function () {
                 _this.game.innerHTML = "";
                 new Level4click;
-                new Soundeffect().playThis("menuSelect.mp3");
+                new Soundeffect().playThis("door.wav");
             });
         }
         if (unlocked[2] == false) {
@@ -615,7 +634,7 @@ var Startscreen = (function () {
             this.levelIcon.addEventListener("click", function () {
                 _this.game.innerHTML = "";
                 new Level3click;
-                new Soundeffect().playThis("menuSelect.mp3");
+                new Soundeffect().playThis("door.wav");
             });
         }
         if (unlocked[4] == false) {
@@ -623,7 +642,7 @@ var Startscreen = (function () {
             this.levelIcon.addEventListener("click", function () {
                 _this.game.innerHTML = "";
                 new Level5click;
-                new Soundeffect().playThis("menuSelect.mp3");
+                new Soundeffect().playThis("door.wav");
             });
         }
         if (unlocked[5] == false) {
@@ -631,7 +650,7 @@ var Startscreen = (function () {
             this.levelIcon.addEventListener("click", function () {
                 _this.game.innerHTML = "";
                 new Level6click;
-                new Soundeffect().playThis("menuSelect.mp3");
+                new Soundeffect().playThis("door.wav");
             });
         }
         var leave = document.createElement('leave');
