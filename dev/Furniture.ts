@@ -23,10 +23,16 @@ class Furniture{
 
         //when clicked an item is dropped to add to your inventory
         this.furniture.addEventListener('click',() => this.additem(contains,furnX,furnY,furnDimX,furnDimY))
+        
+        //make sound when hovered
         this.furniture.addEventListener('mouseover',()=>{
             new Soundeffect().playThis("rumble.wav")
         })
+
+        //put the furniture inside a box to make the shake animation work with css translate
         this.shakeBox.appendChild(this.furniture)
+
+        //put the box with the furniture in the game
         game.appendChild(this.shakeBox)
     }
 
@@ -36,8 +42,10 @@ class Furniture{
             this.furniture.classList.remove('shake')
             let game = document.getElementsByTagName("game")[0]
 
+            // puts the item in the center of the furniture
             furnDimX = furnDimX / 2;
             furnDimY = furnDimY / 2;
+
 
             if(contains == "none"){
                 new Soundeffect().playThis("noItem.mp3")
@@ -48,7 +56,7 @@ class Furniture{
                 dustcloud.style.transition = "3s"
                 dustcloud.style.opacity = "0"
 
-
+                //gives time for the changes to agnolage the css transition
                 setTimeout(()=>{
                     furnY = 70;
                     dustcloud.style.transform = `translate(calc(${furnX}vw + ${furnDimX}vw - 50px),calc(${furnY}vh + ${furnDimY}vh - 50px))`
@@ -82,7 +90,8 @@ class Furniture{
                     setTimeout(()=>{
                         pickup.remove()
                     },1000)
-                    //Add item to inventory code here
+
+                    //creates new element to add to inventory
                     let inventory = document.getElementsByTagName("inventory")[0]
                     let inventoryItem = document.createElement('inventoryItem')
                     inventoryItem.classList.add('player')
