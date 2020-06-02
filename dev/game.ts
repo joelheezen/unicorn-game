@@ -2,15 +2,15 @@ window.addEventListener("load", () => new Startscreen())
 
 class Startscreen{
 
-    game = document.getElementsByTagName("game")[0]
-    menu = document.createElement('menu')
-    leftUnicorn: HTMLElement
-    rightUnicorn: HTMLElement
-    levelIcon: HTMLElement
-    lock: HTMLElement
+    private game = document.getElementsByTagName('game')[0]
+    private menu = document.createElement('menu')
+    private leftUnicorn: HTMLElement
+    private rightUnicorn: HTMLElement
+    private levelIcon: HTMLElement
+    private lock: HTMLElement
 
     constructor(){
-        this.game.innerHTML = ""
+        this.game.innerHTML = ''
         this.setBackground()
         this.setButtons()
         this.setAssets()
@@ -19,36 +19,36 @@ class Startscreen{
     }
 
     setBackground(){
-        let background = document.createElement("background")
-        background.style.backgroundImage = "url(assets/startscreen.png)"
+        let background = document.createElement('background')
+        background.style.backgroundImage = 'url(assets/startscreen.png)'
         this.game.appendChild(background)
     }
 
     setAssets(){
-        let title = document.createElement("title")
-        title.innerHTML = "Tactical unicorn"
+        let title = document.createElement('title')
+        title.innerHTML = 'Tactical unicorn'
         this.game.appendChild(title)
 
-        this.leftUnicorn = document.createElement("leftUnicorn")
-        this.leftUnicorn.classList.add("bounce-left")
+        this.leftUnicorn = document.createElement('leftUnicorn')
+        this.leftUnicorn.classList.add('bounce-left')
         this.game.appendChild(this.leftUnicorn)
 
-        this.rightUnicorn = document.createElement("rightUnicorn")
-        this.rightUnicorn.classList.add("bounce-right")
+        this.rightUnicorn = document.createElement('rightUnicorn')
+        this.rightUnicorn.classList.add('bounce-right')
         this.game.appendChild(this.rightUnicorn)
 
     }
 
     setButtons(){
 
-        let startButton = document.createElement("startButton")
-        startButton.innerHTML = "Play"
-        let optionsButton = document.createElement("optionsButton")
+        let startButton = document.createElement('startButton')
+        startButton.innerHTML = 'Play'
+        let optionsButton = document.createElement('optionsButton')
         optionsButton.innerHTML = 'Options'
-        let creditsButton = document.createElement("creditsButton")
-        creditsButton.innerHTML = "Credits"
-        let quitButton = document.createElement("quitButton")
-        quitButton.innerHTML = "Quit"
+        let creditsButton = document.createElement('creditsButton')
+        creditsButton.innerHTML = 'Credits'
+        let quitButton = document.createElement('quitButton')
+        quitButton.innerHTML = 'Quit'
 
         this.menu.appendChild(startButton)
         this.menu.appendChild(optionsButton)
@@ -59,7 +59,7 @@ class Startscreen{
 
         startButton.addEventListener('click',()=>{
             this.levelSelect()
-            new Soundeffect().playThis("menuSelect.mp3")
+            new Soundeffect().playThis('menuSelect.mp3')
         })
 
         optionsButton.addEventListener('click',()=>{

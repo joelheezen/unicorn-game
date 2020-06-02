@@ -18,9 +18,9 @@ var Furniture = (function () {
     }
     Furniture.prototype.makeFurniture = function (furnX, furnY, furnDimX, furnDimY, contains, background) {
         var _this = this;
-        this.furniture = document.createElement("furniture");
-        this.shakeBox = document.createElement("shakeBox");
-        var game = document.getElementsByTagName("game")[0];
+        this.furniture = document.createElement('furniture');
+        this.shakeBox = document.createElement('shakeBox');
+        var game = document.getElementsByTagName('game')[0];
         this.furniture.style.backgroundImage = background;
         this.furniture.style.height = furnDimY + "vh";
         this.furniture.style.width = furnDimX + "vw";
@@ -28,7 +28,7 @@ var Furniture = (function () {
         this.furniture.classList.add('shake');
         this.furniture.addEventListener('click', function () { return _this.additem(contains, furnX, furnY, furnDimX, furnDimY); });
         this.furniture.addEventListener('mouseover', function () {
-            new Soundeffect().playThis("rumble.wav");
+            new Soundeffect().playThis('rumble.wav');
         });
         this.shakeBox.appendChild(this.furniture);
         game.appendChild(this.shakeBox);
@@ -525,9 +525,9 @@ var Dialogbox = (function () {
 window.addEventListener("load", function () { return new Startscreen(); });
 var Startscreen = (function () {
     function Startscreen() {
-        this.game = document.getElementsByTagName("game")[0];
+        this.game = document.getElementsByTagName('game')[0];
         this.menu = document.createElement('menu');
-        this.game.innerHTML = "";
+        this.game.innerHTML = '';
         this.setBackground();
         this.setButtons();
         this.setAssets();
@@ -535,31 +535,31 @@ var Startscreen = (function () {
         new Soundeffect().setSound();
     }
     Startscreen.prototype.setBackground = function () {
-        var background = document.createElement("background");
-        background.style.backgroundImage = "url(assets/startscreen.png)";
+        var background = document.createElement('background');
+        background.style.backgroundImage = 'url(assets/startscreen.png)';
         this.game.appendChild(background);
     };
     Startscreen.prototype.setAssets = function () {
-        var title = document.createElement("title");
-        title.innerHTML = "Tactical unicorn";
+        var title = document.createElement('title');
+        title.innerHTML = 'Tactical unicorn';
         this.game.appendChild(title);
-        this.leftUnicorn = document.createElement("leftUnicorn");
-        this.leftUnicorn.classList.add("bounce-left");
+        this.leftUnicorn = document.createElement('leftUnicorn');
+        this.leftUnicorn.classList.add('bounce-left');
         this.game.appendChild(this.leftUnicorn);
-        this.rightUnicorn = document.createElement("rightUnicorn");
-        this.rightUnicorn.classList.add("bounce-right");
+        this.rightUnicorn = document.createElement('rightUnicorn');
+        this.rightUnicorn.classList.add('bounce-right');
         this.game.appendChild(this.rightUnicorn);
     };
     Startscreen.prototype.setButtons = function () {
         var _this = this;
-        var startButton = document.createElement("startButton");
-        startButton.innerHTML = "Play";
-        var optionsButton = document.createElement("optionsButton");
+        var startButton = document.createElement('startButton');
+        startButton.innerHTML = 'Play';
+        var optionsButton = document.createElement('optionsButton');
         optionsButton.innerHTML = 'Options';
-        var creditsButton = document.createElement("creditsButton");
-        creditsButton.innerHTML = "Credits";
-        var quitButton = document.createElement("quitButton");
-        quitButton.innerHTML = "Quit";
+        var creditsButton = document.createElement('creditsButton');
+        creditsButton.innerHTML = 'Credits';
+        var quitButton = document.createElement('quitButton');
+        quitButton.innerHTML = 'Quit';
         this.menu.appendChild(startButton);
         this.menu.appendChild(optionsButton);
         this.menu.appendChild(creditsButton);
@@ -567,7 +567,7 @@ var Startscreen = (function () {
         this.game.appendChild(this.menu);
         startButton.addEventListener('click', function () {
             _this.levelSelect();
-            new Soundeffect().playThis("menuSelect.mp3");
+            new Soundeffect().playThis('menuSelect.mp3');
         });
         optionsButton.addEventListener('click', function () {
             _this.setOptions();

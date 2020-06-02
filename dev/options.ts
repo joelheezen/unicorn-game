@@ -1,9 +1,8 @@
 class Options extends Startscreen{
 
-
     constructor(){
         super();
-        
+
         this.menu.innerHTML = "";
         let options = document.createElement('options')
         this.game.appendChild(options)
@@ -17,6 +16,7 @@ class Options extends Startscreen{
         let muteGame = document.createElement('muteGame')
         musicOptions.appendChild(muteGame)
 
+        //make music slider
         let musicSlider = document.createElement('input')
         musicOptions.appendChild(musicSlider)
 
@@ -26,19 +26,20 @@ class Options extends Startscreen{
         musicSlider.id = 'myRange'
 
         if(document.getElementById('music') ){
-
             let newVolume = document.getElementById('music')!.volume * 100
             musicSlider.value = newVolume.toString()
         }else{
             musicSlider.value = '0'
         }
 
+        //sets an image to show that music is turned off when the slider goes to 0
         if(parseInt(musicSlider.value) > 0){
             muteGame.style.backgroundImage = "url(assets/unmuted.png)"
         }else{
             muteGame.style.backgroundImage = "url(assets/muted.png)"
         }
 
+            //changes the music volume when adjusting the slider
             musicSlider.addEventListener("input",()=> {
 
                 let volume = parseInt(musicSlider.value)
@@ -65,6 +66,7 @@ class Options extends Startscreen{
         let muteEffect = document.createElement('muteEffect')
         effectOptions.appendChild(muteEffect)
 
+        //sets sound effect slider
         let effectSlider = document.createElement('input')
         effectOptions.appendChild(effectSlider)
 

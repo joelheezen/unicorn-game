@@ -10,10 +10,11 @@ class Furniture{
 
     //makes the furniture object
     makeFurniture(furnX: number,furnY: number,furnDimX: number,furnDimY:number,contains: string, background: string){
-        this.furniture = document.createElement("furniture")
+        this.furniture = document.createElement('furniture')
+
         //box is neccesary for shake animation
-        this.shakeBox = document.createElement("shakeBox")
-        let game = document.getElementsByTagName("game")[0]
+        this.shakeBox = document.createElement('shakeBox')
+        let game = document.getElementsByTagName('game')[0]
 
         this.furniture.style.backgroundImage = background
         this.furniture.style.height = `${furnDimY}vh`
@@ -26,7 +27,7 @@ class Furniture{
         
         //make sound when hovered
         this.furniture.addEventListener('mouseover',()=>{
-            new Soundeffect().playThis("rumble.wav")
+            new Soundeffect().playThis('rumble.wav')
         })
 
         //put the furniture inside a box to make the shake animation work with css translate
