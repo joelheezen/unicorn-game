@@ -209,8 +209,8 @@ class Startscreen{
             credits.innerHTML += "<credit>gamerules</credit"
             credits.innerHTML += "<credit>Concept</credit>"
 
-            credits.innerHTML += "<name>Luuk s&#039;Gravendijk</name>"
-            credits.innerHTML += "<name>Luuk s&#039;Gravendijk</name>"
+            credits.innerHTML += "<name>Luuk 's-Gravendijk</name>"
+            credits.innerHTML += "<name>Luuk 's-Gravendijk</name>"
             credits.innerHTML += "<name>All involved</name>"
 
             let leave = document.createElement('leave')
