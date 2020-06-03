@@ -1022,7 +1022,7 @@ var Soundeffect = (function () {
         this.sound.id = "soundeffect";
         this.sound.style.display = "none";
         this.sound.autoplay = true;
-        this.sound.volume = 0.3;
+        this.sound.volume = 0.2;
         document.body.appendChild(this.sound);
     };
     Soundeffect.prototype.playThis = function (src) {
