@@ -140,28 +140,18 @@ class BattlePhase{
             }
         }
 
-            let monsterKing = document.createElement("monster")
-            monsterKing.classList.add("monster")
-            monsterKing.id = "monster-1"
-            monsterKing.style.backgroundImage = `url(assets/enemy_${this.monsterKingImg}.png)`
-            
-            let placed = false
-            while(placed == false){
-                let randomNumber = Math.floor(Math.random() * 32)
-                if(!spaces[randomNumber].firstChild){
-                    placed = true
-                    spaces[randomNumber].appendChild(monsterKing)
-                }
-            }
-            
-
 
             for (let i = 0; i < this.monsterCount; i++) {
                 let monster = document.createElement("monster")
                 monster.classList.add("monster")
-                monster.style.backgroundImage = `url(assets/enemy_${monsterTypes[Math.floor(Math.random() * monsterTypes.length)]}.png)`
+
+                if(i == 0){
+                    monster.style.backgroundImage = `url(assets/enemy_${this.monsterKingImg}.png)`
+                }else{
+                    monster.style.backgroundImage = `url(assets/enemy_${monsterTypes[Math.floor(Math.random() * monsterTypes.length)]}.png)`
+                    monster.style.filter = `contrast(50%) sepia(100%) hue-rotate(230deg)`
+                }
                 monster.id = "monster" + i
-                monster.style.filter = `contrast(50%) sepia(100%) hue-rotate(230deg) `
                 monsters.push(monster)
             }
 
@@ -276,7 +266,7 @@ class BattlePhase{
             } */ 
             for(let i = -1;i < this.monsterCount;i++){
             // if the boss lives the enemy turn starts
-                if (document.getElementById("monster-1")) {
+                if (document.getElementById("monster0")) {
              
                     // if this deletes monster number 2 it will fuck up
                     let activeMonster = document.getElementById("monster" + i)

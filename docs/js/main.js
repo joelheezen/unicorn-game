@@ -260,24 +260,17 @@ var BattlePhase = (function () {
                 spaces[this.obstaclePlaces[i]].appendChild(obstacles[i]);
             }
         }
-        var monsterKing = document.createElement("monster");
-        monsterKing.classList.add("monster");
-        monsterKing.id = "monster-1";
-        monsterKing.style.backgroundImage = "url(assets/enemy_" + this.monsterKingImg + ".png)";
-        var placed = false;
-        while (placed == false) {
-            var randomNumber = Math.floor(Math.random() * 32);
-            if (!spaces[randomNumber].firstChild) {
-                placed = true;
-                spaces[randomNumber].appendChild(monsterKing);
-            }
-        }
         for (var i = 0; i < this.monsterCount; i++) {
             var monster = document.createElement("monster");
             monster.classList.add("monster");
-            monster.style.backgroundImage = "url(assets/enemy_" + monsterTypes[Math.floor(Math.random() * monsterTypes.length)] + ".png)";
+            if (i == 0) {
+                monster.style.backgroundImage = "url(assets/enemy_" + this.monsterKingImg + ".png)";
+            }
+            else {
+                monster.style.backgroundImage = "url(assets/enemy_" + monsterTypes[Math.floor(Math.random() * monsterTypes.length)] + ".png)";
+                monster.style.filter = "contrast(50%) sepia(100%) hue-rotate(230deg)";
+            }
             monster.id = "monster" + i;
-            monster.style.filter = "contrast(50%) sepia(100%) hue-rotate(230deg) ";
             monsters.push(monster);
         }
         for (var i = 0; i < this.monsterCount; i++) {
@@ -365,7 +358,7 @@ var BattlePhase = (function () {
     };
     BattlePhase.prototype.enemyTurn = function () {
         for (var i = -1; i < this.monsterCount; i++) {
-            if (document.getElementById("monster-1")) {
+            if (document.getElementById("monster0")) {
                 var activeMonster = document.getElementById("monster" + i);
                 if (activeMonster != null) {
                     var spaceNow = activeMonster.parentNode;

@@ -2,8 +2,8 @@ window.addEventListener("load", () => new Startscreen())
 
 class Startscreen{
 
-    private game = document.getElementsByTagName('game')[0]
-    private menu = document.createElement('menu')
+    protected game = document.getElementsByTagName('game')[0]
+    protected menu = document.createElement('menu')
     private leftUnicorn: HTMLElement
     private rightUnicorn: HTMLElement
     private levelIcon: HTMLElement
