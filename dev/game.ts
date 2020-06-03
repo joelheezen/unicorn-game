@@ -44,7 +44,7 @@ class Startscreen{
         let startButton = document.createElement('startButton')
         startButton.innerHTML = 'Play'
         let optionsButton = document.createElement('optionsButton')
-        optionsButton.innerHTML = 'Options'
+        optionsButton.innerHTML = 'Settings'
         let creditsButton = document.createElement('creditsButton')
         creditsButton.innerHTML = 'Credits'
         let quitButton = document.createElement('quitButton')

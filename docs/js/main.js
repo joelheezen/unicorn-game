@@ -321,6 +321,9 @@ var BattlePhase = (function () {
                 ev.preventDefault();
                 ev.target.appendChild(document.getElementById(data));
                 element = document.getElementById(data);
+                if (this.battleStarted == true) {
+                    this.enemyTurn();
+                }
             }
         }
         if (element != null) {
@@ -335,10 +338,10 @@ var BattlePhase = (function () {
                 }
                 monsterParent.appendChild(document.getElementById(data));
                 element = document.getElementById(data);
+                if (this.battleStarted == true) {
+                    this.enemyTurn();
+                }
             }
-        }
-        if (this.battleStarted == true) {
-            this.enemyTurn();
         }
     };
     BattlePhase.prototype.prepareBoard = function () {
@@ -500,7 +503,7 @@ var Dialogbox = (function () {
         playerIcon.style.backgroundImage = "url(assets/" + player + ".png)";
         var currentDialog = 0;
         dialog.innerHTML = messages[currentDialog];
-        nextMessage.addEventListener('click', function () {
+        dialog.addEventListener('click', function () {
             currentDialog += 1;
             if (currentDialog < messages.length) {
                 dialog.innerHTML = "";
@@ -548,7 +551,7 @@ var Startscreen = (function () {
         var startButton = document.createElement('startButton');
         startButton.innerHTML = 'Play';
         var optionsButton = document.createElement('optionsButton');
-        optionsButton.innerHTML = 'Options';
+        optionsButton.innerHTML = 'Settings';
         var creditsButton = document.createElement('creditsButton');
         creditsButton.innerHTML = 'Credits';
         var quitButton = document.createElement('quitButton');

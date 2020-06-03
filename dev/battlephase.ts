@@ -212,6 +212,10 @@ class BattlePhase{
                     ev.preventDefault();
                     ev.target.appendChild(document.getElementById(data));
                     element = document.getElementById(data)
+
+                    if (this.battleStarted == true){
+                        this.enemyTurn()
+                    }
                 }
             }
 
@@ -227,12 +231,13 @@ class BattlePhase{
                     }
                     monsterParent.appendChild(document.getElementById(data));
                     element = document.getElementById(data)
+
+                    if (this.battleStarted == true){
+                        this.enemyTurn()
+                    }
                 }
             }
 
-            if (this.battleStarted == true){
-                this.enemyTurn()
-            }
         }
 
         prepareBoard(){

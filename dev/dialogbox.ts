@@ -23,7 +23,7 @@ class Dialogbox{
             let currentDialog = 0
             dialog.innerHTML = messages[currentDialog]
                 
-            nextMessage.addEventListener('click',() =>{
+            dialog.addEventListener('click',() =>{
                     currentDialog += 1
 
                     if(currentDialog < messages.length){
