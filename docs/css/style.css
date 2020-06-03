@@ -444,34 +444,35 @@
     }
 
     dialogWindow{
-        width:calc(40vw - 30vh - 20px);
+        width:40vw;
         height:25vh;
         left:30vw;
         top:70vh;
         position:absolute;
         background-color: rgb(243, 129, 192);
         border: inset 15px pink;
-        padding-left:calc(30vh - 20px);
         font-size: 1.5em;
     }
 
+    messageBox{
+        position: absolute;
+        right:0;
+        top:0;
+        width:27vw;
+    }
+
     playerIcon{
-        height:calc(30vh - 30px);
-        width:calc(30vh - 30px);
-        left:calc(30vw + 20px);
-        top:calc(70vh + 20px);
+        height:11vw;
+        width:11vw ; 
+        padding-left:1vw; 
+        top:0;
+        left:0; 
         background-position: center;
         background-size: 100%;
         background-repeat: no-repeat;
         position: absolute;
     }
 
-    nextMessage{
-        position: absolute;
-        left:calc(70vw - 50px)  ;
-        top:calc(95vh - 20px);
-        font-size: 2rem;
-    }
 
     muteGame {
         height:30px;
