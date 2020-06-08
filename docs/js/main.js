@@ -496,23 +496,20 @@ var Dialogbox = (function () {
         var dialog = document.createElement('dialogWindow');
         this.game.appendChild(dialog);
         var playerIcon = document.createElement('playerIcon');
-        this.game.appendChild(playerIcon);
-        var nextMessage = document.createElement('nextMessage');
-        this.game.appendChild(nextMessage);
-        nextMessage.innerHTML = ">";
+        dialog.appendChild(playerIcon);
         playerIcon.style.backgroundImage = "url(assets/" + player + ".png)";
+        var messageBox = document.createElement('messageBox');
+        dialog.appendChild(messageBox);
         var currentDialog = 0;
-        dialog.innerHTML = messages[currentDialog];
+        messageBox.innerHTML = messages[currentDialog];
         dialog.addEventListener('click', function () {
             currentDialog += 1;
             if (currentDialog < messages.length) {
-                dialog.innerHTML = "";
-                dialog.innerHTML += messages[currentDialog];
+                messageBox.innerHTML = "";
+                messageBox.innerHTML += messages[currentDialog];
             }
             else {
                 dialog.remove();
-                playerIcon.remove();
-                nextMessage.remove();
             }
         });
     };

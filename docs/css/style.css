@@ -5,7 +5,7 @@
 
     body{
         overflow:hidden;
-        font-family: myFirstFont;
+        font-family: myFirstFont
     }
 
     html{
@@ -372,10 +372,10 @@
 
       rightUnicorn{
           position: absolute;
-          height:40vh;
-          width:40vh;
+          height:20vw;
+          width:20vw;
           top:40vh;
-          left:calc(100vw - 60vh);
+          right:10vw;
           background-image: url(../assets/enemy_wizard.png);
           background-size: 100%;
           background-repeat: no-repeat;
@@ -385,10 +385,10 @@
 
       leftUnicorn{
         position: absolute;
-        height:40vh;
-        width:40vh;
+        height:20vw;
+        width:20vw;
         top:40vh;
-        left:20vh;
+        left:10vw;
         background-image: url(../assets/unicorn_player.png);
         background-size: 100%;
         background-repeat: no-repeat;
@@ -444,34 +444,35 @@
     }
 
     dialogWindow{
-        width:calc(40vw - 30vh - 20px);
+        width:40vw;
         height:25vh;
         left:30vw;
         top:70vh;
         position:absolute;
         background-color: rgb(243, 129, 192);
         border: inset 15px pink;
-        padding-left:calc(30vh - 20px);
         font-size: 1.5em;
     }
 
+    messageBox{
+        position: absolute;
+        right:0;
+        top:0;
+        width:27vw;
+    }
+
     playerIcon{
-        height:calc(30vh - 30px);
-        width:calc(30vh - 30px);
-        left:calc(30vw + 20px);
-        top:calc(70vh + 20px);
+        height:11vw;
+        width:11vw ; 
+        padding-left:1vw; 
+        top:0;
+        left:0; 
         background-position: center;
         background-size: 100%;
         background-repeat: no-repeat;
         position: absolute;
     }
 
-    nextMessage{
-        position: absolute;
-        left:calc(70vw - 50px)  ;
-        top:calc(95vh - 20px);
-        font-size: 2rem;
-    }
 
     muteGame {
         height:30px;
