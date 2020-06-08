@@ -12,18 +12,155 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+<<<<<<< HEAD
+=======
+var Furniture = (function () {
+    function Furniture(furnX, furnY, furnDimX, furnDimY, contains, background) {
+        this.makeFurniture(furnX, furnY, furnDimX, furnDimY, contains, background);
+    }
+    Furniture.prototype.makeFurniture = function (furnX, furnY, furnDimX, furnDimY, contains, background) {
+        var _this = this;
+        this.furniture = document.createElement('furniture');
+        this.shakeBox = document.createElement('shakeBox');
+        var game = document.getElementsByTagName('game')[0];
+        this.furniture.style.backgroundImage = background;
+        this.furniture.style.height = furnDimY + "vh";
+        this.furniture.style.width = furnDimX + "vw";
+        this.shakeBox.style.transform = "translate(" + furnX + "vw," + furnY + "vh)";
+        this.furniture.classList.add('shake');
+        this.furniture.addEventListener('click', function () { return _this.additem(contains, furnX, furnY, furnDimX, furnDimY); });
+        this.furniture.addEventListener('mouseover', function () {
+            new Soundeffect().playThis('rumble.wav');
+        });
+        this.shakeBox.appendChild(this.furniture);
+        game.appendChild(this.shakeBox);
+    };
+    Furniture.prototype.additem = function (contains, furnX, furnY, furnDimX, furnDimY) {
+        this.furniture.classList.remove('shake');
+        var game = document.getElementsByTagName("game")[0];
+        furnDimX = furnDimX / 2;
+        furnDimY = furnDimY / 2;
+        if (contains == "none") {
+            new Soundeffect().playThis("noItem.mp3");
+            var dustcloud_1 = document.createElement("dustcloud");
+            game.appendChild(dustcloud_1);
+            dustcloud_1.style.transform = "translate(calc(" + furnX + "vw + " + furnDimX + "vw - 50px),calc(" + furnY + "vh + " + furnDimY + "vh - 50px))";
+            dustcloud_1.style.transition = "3s";
+            dustcloud_1.style.opacity = "0";
+            setTimeout(function () {
+                furnY = 70;
+                dustcloud_1.style.transform = "translate(calc(" + furnX + "vw + " + furnDimX + "vw - 50px),calc(" + furnY + "vh + " + furnDimY + "vh - 50px))";
+                dustcloud_1.style.opacity = "1";
+                dustcloud_1.style.transform += "rotate(720deg)";
+            }, 1);
+            setTimeout(function () {
+                dustcloud_1.remove();
+            }, 3000);
+        }
+        else {
+            new Soundeffect().playThis("foundItem.wav");
+            var pickup_1 = document.createElement("pickup");
+            var grayout_1 = document.createElement('grayout');
+            var itemMessage_1 = document.createElement('itemMessage');
+            itemMessage_1.innerHTML = "You found '" + contains.replace("_", " ") + "'";
+            game.append(itemMessage_1);
+            game.appendChild(grayout_1);
+            game.appendChild(pickup_1);
+            pickup_1.style.backgroundImage = "url(assets/" + contains + ".png)";
+            pickup_1.style.transform = "translate(calc(" + furnX + "vw + " + furnDimX + "vw - 25px),calc(" + furnY + "vh + " + furnDimY + "vh - 25px))";
+            pickup_1.addEventListener("click", function () {
+                pickup_1.style.marginLeft = "100vw";
+                grayout_1.remove();
+                itemMessage_1.remove();
+                setTimeout(function () {
+                    pickup_1.remove();
+                }, 1000);
+                var inventory = document.getElementsByTagName("inventory")[0];
+                var inventoryItem = document.createElement('inventoryItem');
+                inventoryItem.classList.add('player');
+                inventoryItem.style.backgroundImage = "url(assets/" + contains + ".png)";
+                inventory.appendChild(inventoryItem);
+            });
+        }
+        this.furniture.outerHTML = this.furniture.outerHTML;
+    };
+    return Furniture;
+}());
+var EvilFurniture = (function () {
+    function EvilFurniture(furnX, furnY, furnDimX, furnDimY, background, level) {
+        this.makeEvilFurniture(furnX, furnY, furnDimX, furnDimY, background, level);
+    }
+    EvilFurniture.prototype.makeEvilFurniture = function (furnX, furnY, furnDimX, furnDimY, background, level) {
+        var _this = this;
+        this.furniture = document.createElement("furniture");
+        this.shakeBox = document.createElement("shakeBox");
+        var game = document.getElementsByTagName("game")[0];
+        this.furniture.style.backgroundImage = background;
+        this.furniture.style.height = furnDimY + "vh";
+        this.furniture.style.width = furnDimX + "vw";
+        this.shakeBox.style.transform = "translate(" + furnX + "vw," + furnY + "vh)";
+        this.furniture.classList.add('shake');
+        this.furniture.addEventListener('mouseover', function () {
+            new Soundeffect().playThis("rumble.wav");
+        });
+        this.shakeBox.addEventListener('click', function () { return _this.startbattle(event, level); });
+        this.shakeBox.appendChild(this.furniture);
+        game.appendChild(this.shakeBox);
+    };
+    EvilFurniture.prototype.startbattle = function (event, level) {
+        new Soundeffect().playThis("minionFound.mp3");
+        var game = document.getElementsByTagName("game")[0];
+        this.furniture.classList.remove('shake');
+        var grayout = document.createElement('grayout');
+        var itemMessage = document.createElement('itemMessage');
+        itemMessage.innerHTML = "You have found the wizards minion";
+        event.target.parentElement.style.zIndex = "150";
+        this.shakeBox.style.animation = "enemyappear 3s forwards";
+        this.shakeBox.style.animationIterationCount = "1";
+        game.append(itemMessage);
+        game.appendChild(grayout);
+        this.skulltop = document.createElement('skulltop');
+        this.skullbottom = document.createElement('skullbottom');
+        this.furniture.appendChild(this.skulltop);
+        this.furniture.appendChild(this.skullbottom);
+        this.furniture.style.animation = "6s battletransition 2s forwards";
+        this.furniture.style.animationIterationCount = "1";
+        var fadetonew = document.createElement("fadetonew");
+        game.appendChild(fadetonew);
+        setTimeout(function () {
+            new BattlePhase(level);
+        }, 4000);
+        this.shakeBox.outerHTML = this.shakeBox.outerHTML;
+        setTimeout(function () {
+            game.removeChild(fadetonew);
+        }, 6000);
+    };
+    return EvilFurniture;
+}());
+var Inventory = (function () {
+    function Inventory() {
+        this.setInventory();
+    }
+    Inventory.prototype.setInventory = function () {
+        this.inventory = document.createElement("inventory");
+        var game = document.getElementsByTagName("game")[0];
+        game.appendChild(this.inventory);
+    };
+    return Inventory;
+}());
+>>>>>>> 09e6afec6eb5f8e8ac64eb103f87a512f01dea4c
 var BattlePhase = (function () {
     function BattlePhase(stage) {
         var _this = this;
         this.game = document.getElementsByTagName("game")[0];
         this.battleStarted = false;
         this.monsterCount = 0;
-        console.log("button pressed, loading in battlephase");
         var pointer = document.getElementsByTagName("newpointer")[0];
         var inv = document.getElementsByTagName("inventory")[0];
         var fadetonew = document.getElementsByTagName('fadetonew')[0];
         new Music().changeMusic('battleMusic.mp3');
         var gameChildren = new Array;
+        this.nextLevel = stage + 1;
         var children = this.game.children;
         for (var i = 0; i < children.length; i++) {
             gameChildren.push(children[i]);
@@ -140,7 +277,6 @@ var BattlePhase = (function () {
         }
         for (var i = 0; i < this.monsterCount; i++) {
             var randomNumber = Math.floor(Math.random() * 32);
-            console.log(randomNumber);
             if (spaces[randomNumber].firstChild) {
                 i -= 1;
             }
@@ -164,7 +300,6 @@ var BattlePhase = (function () {
         var data = ev.dataTransfer.getData("text");
         var element = document.getElementById(data);
         if (ev.target.id.substring(0, 4) == "item") {
-            console.log("space already has an item in it");
         }
         else if (element != null) {
             if (!element.classList.contains("gamer")) {
@@ -174,11 +309,9 @@ var BattlePhase = (function () {
         }
         var inventory = document.getElementsByTagName('inventory')[0];
         if (inventory.childNodes.length == 0) {
-            console.log('no items in inventory');
             this.startBattle.style.opacity = "1";
         }
         if (inventory.childNodes.length > 0) {
-            console.log('items in inventory');
             this.startBattle.style.opacity = "0";
         }
         if (element != null) {
@@ -194,7 +327,6 @@ var BattlePhase = (function () {
         if (element != null) {
             if (element.classList.contains("gamer") && ev.target.classList.contains("monster") && ev.target.parentElement.classList.contains("canplace")) {
                 ev.preventDefault();
-                console.log("you hit a monster");
                 var monsterChild = ev.target;
                 var monsterParent = monsterChild.parentNode;
                 if (monsterParent) {
@@ -225,6 +357,7 @@ var BattlePhase = (function () {
         this.battleStarted = true;
     };
     BattlePhase.prototype.enemyTurn = function () {
+        var _a, _b, _c, _d, _e;
         for (var i = -1; i < this.monsterCount; i++) {
             if (document.getElementById("monster0")) {
                 var activeMonster = document.getElementById("monster" + i);
@@ -237,29 +370,23 @@ var BattlePhase = (function () {
                         var direction = Math.floor(Math.random() * 100);
                         var spaceToMove = void 0;
                         if (direction <= 25) {
-                            console.log("move back");
                             spaceToMove = moveMonsterTo[parseInt(spaceNowPos) - 8];
                         }
                         else if (direction > 25 && direction <= 50) {
-                            console.log("move left");
                             var moveto = parseInt(spaceNowPos) - 1;
                             if (((moveto + 1) % 8) == 0) {
-                                console.log("cant move here, retry");
                                 continue;
                             }
                             spaceToMove = moveMonsterTo[moveto];
                         }
                         else if (direction > 50 && direction <= 75) {
-                            console.log("move right");
                             var moveto = parseInt(spaceNowPos) + 1;
                             if ((moveto % 8) == 0) {
-                                console.log("cant move here, retry");
                                 continue;
                             }
                             spaceToMove = moveMonsterTo[moveto];
                         }
                         else if (direction > 75 && direction <= 100) {
-                            console.log("move down");
                             spaceToMove = moveMonsterTo[parseInt(spaceNowPos) + 8];
                         }
                         if (spaceToMove) {
@@ -277,7 +404,6 @@ var BattlePhase = (function () {
                                     moved = true;
                                 }
                                 else if (spaceToMove.children[0].classList.contains("obstacle")) {
-                                    console.log('obstacle in the way');
                                     direction = Math.floor(Math.random() * 100);
                                 }
                             }
@@ -287,14 +413,38 @@ var BattlePhase = (function () {
                             }
                         }
                         else {
-                            console.log('space doesnt exist');
                             direction = Math.floor(Math.random() * 100);
                         }
                     }
                 }
             }
             else {
-                console.log("you won");
+                var board = document.getElementsByTagName("gameboard")[0];
+                if (this.nextLevel == 2) {
+                    (_a = board.parentNode) === null || _a === void 0 ? void 0 : _a.removeChild(board);
+                    new Level2click();
+                }
+                else if (this.nextLevel == 3) {
+                    (_b = board.parentNode) === null || _b === void 0 ? void 0 : _b.removeChild(board);
+                    new Level3click();
+                }
+                else if (this.nextLevel == 4) {
+                    (_c = board.parentNode) === null || _c === void 0 ? void 0 : _c.removeChild(board);
+                    new Level4click();
+                }
+                else if (this.nextLevel == 5) {
+                    (_d = board.parentNode) === null || _d === void 0 ? void 0 : _d.removeChild(board);
+                    new Level5click();
+                }
+                else if (this.nextLevel == 6) {
+                    (_e = board.parentNode) === null || _e === void 0 ? void 0 : _e.removeChild(board);
+                    new Level6click();
+                }
+                else if (this.nextLevel == 7) {
+                }
+                else {
+                    console.log("something is fucked up");
+                }
             }
         }
         this.playerTurn();
