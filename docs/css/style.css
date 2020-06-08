@@ -419,6 +419,13 @@
         margin:-10px;
     }
 
+    levelLock{
+        background-size:auto 40%;
+        background-position: center;
+        position: absolute;
+        background-repeat: no-repeat;
+    }
+
     .bounce-right {
         animation-name: bounce-right;
         animation-timing-function: cubic-bezier(0.280, 0.840, 0.420, 1);

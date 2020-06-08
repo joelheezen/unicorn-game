@@ -616,6 +616,14 @@ var Startscreen = (function () {
         this.levelIcon.style.width = width + "vw";
         this.levelIcon.style.height = height + "vh";
     };
+    Startscreen.prototype.makeLevelLock = function (posX, posY, width, height) {
+        this.levelIcon = document.createElement('levelLock');
+        this.game.appendChild(this.levelIcon);
+        this.levelIcon.style.transform = "translate(" + posX + "vw," + posY + "vh)";
+        this.levelIcon.style.width = width + "vw";
+        this.levelIcon.style.height = height + "vh";
+        this.levelIcon.style.backgroundImage = "url(assets/lock.png)";
+    };
     Startscreen.prototype.setUnlock = function () {
         var unlockeds;
         unlockeds = [];
@@ -660,6 +668,10 @@ var Startscreen = (function () {
                 new Level2click;
             });
         }
+        else {
+            console.log('level 6 locked');
+            this.makeLevelLock(25.7, 52.8, 14.75, 43.05);
+        }
         if (unlocked[2] == false) {
             this.makeLevelIcon(40.5, 65.3, 9.2, 30.6, 3);
             this.levelIcon.addEventListener("click", function () {
@@ -668,14 +680,20 @@ var Startscreen = (function () {
                 new Level3click;
             });
         }
+        else {
+            console.log('level 6 locked');
+            this.makeLevelLock(40.5, 65.3, 9.2, 30.6);
+        }
         if (unlocked[3] == false) {
-            console.log('level 3 is open');
             this.makeLevelIcon(45.1, 44.4, 19.4, 51.4, 4);
             this.levelIcon.addEventListener("click", function () {
                 _this.game.innerHTML = "";
                 new Soundeffect().playThis("door.wav");
                 new Level4click;
             });
+        }
+        else {
+            this.makeLevelLock(45.1, 44.4, 19.4, 51.4);
         }
         if (unlocked[4] == false) {
             this.makeLevelIcon(64.5, 57, 10.1, 38.9, 5);
@@ -685,6 +703,9 @@ var Startscreen = (function () {
                 new Level5click;
             });
         }
+        else {
+            this.makeLevelLock(64.5, 57, 10.1, 38.9);
+        }
         if (unlocked[5] == false) {
             this.makeLevelIcon(74.7, 45.9, 17, 49.9, 6);
             this.levelIcon.addEventListener("click", function () {
@@ -692,6 +713,9 @@ var Startscreen = (function () {
                 new Soundeffect().playThis("door.wav");
                 new Level6click;
             });
+        }
+        else {
+            this.makeLevelLock(74.7, 45.9, 17, 49.9);
         }
         var leave = document.createElement('leave');
         this.game.appendChild(leave);
@@ -740,6 +764,7 @@ var Startscreen = (function () {
 }());
 var Level1click = (function () {
     function Level1click() {
+        new Music().changeMusic('music.mp3');
         this.setFurniture();
         this.setBackground();
         new Hint(70.7, 9, 15, 8.6, "The room is quiet and devoid of life, yet there is something that isnt.Its whispering silently, as not to be heard. It seems like its soul is imprisoned. <br> <br> You hear chanting in the distance as the poor soul weeps. Its something you wouldnt want to have seen. Out of the item comes a slight glow and this glows colored green.");
@@ -766,6 +791,7 @@ var Level1click = (function () {
 }());
 var Level2click = (function () {
     function Level2click() {
+        new Music().changeMusic('music.mp3');
         this.setFurniture();
         this.setBackground();
         new Hint(60, 30, 15, 11, "Danger gets heated, but its gone in the night. We depend on its essence, because without it there would be no light. We are blessed by its presence. <br> <br> But this time you feel weird as the object is roaring and in the distance you see and odd-fellow. In the next fight, if you want to win, go after the poor cursed thing that seems yellow.");
@@ -793,6 +819,7 @@ var Level2click = (function () {
 }());
 var Level3click = (function () {
     function Level3click() {
+        new Music().changeMusic('music.mp3');
         this.setFurniture();
         this.setBackground();
         new Hint(9, 12, 12.5, 11, "Were you feel most safe, enemies strike. Your life might soon be ova. You struggle and struggle, but no prevail. The danger hides 'round the sofa. <br><br> The magic sounds like buzzing, as you look for a clue. A weird furniture attacks you, as you try to stand your ground you see its hue is colored blue.");
@@ -821,6 +848,7 @@ var Level3click = (function () {
 }());
 var Level4click = (function () {
     function Level4click() {
+        new Music().changeMusic('music.mp3');
         this.setFurniture();
         this.setBackground();
         new Hint(39, 26, 12.5, 11, "It brings danger and pain, my dearest red flower. Yet this enemy will be outmatched by a shower. <br> <br> Water is its enemy, but anything else it will harm. Its color is red like the roof of a barn.");
@@ -849,6 +877,7 @@ var Level4click = (function () {
 }());
 var Level5click = (function () {
     function Level5click() {
+        new Music().changeMusic('music.mp3');
         this.setFurniture();
         this.setBackground();
         new Hint(55, 17, 14, 11, "The wizard comes closer with power so great. You can hear him read spells from his scroll. As you feel the magic come from a place in which you might find your console.<br><br> The two handles on its front makes it look like a face. 'Wait a minute, did it just frown?' The wizzard made enemies and for some reason his favourite minion is brown.");
@@ -876,6 +905,7 @@ var Level5click = (function () {
 }());
 var Level6click = (function () {
     function Level6click() {
+        new Music().changeMusic('music.mp3');
         this.setFurniture();
         this.setBackground();
         new Hint(39, 26, 9, 11, "As you walk into the room you feel a powerfull surge. Its cold like you are in a blizzard. When you find the item in witch he resides youll find yourself fighting a wizard.");
