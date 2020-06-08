@@ -5,7 +5,7 @@
 
     body{
         overflow:hidden;
-        font-family: myFirstFont;
+        font-family: myFirstFont
     }
 
     html{
@@ -97,59 +97,47 @@
 
     inventoryitem{
         position:relative;
-        width: 8vh; height: 8vh;
+        width: 9vh; height: 9vh;
         background-repeat: no-repeat;
         background-position: center; 
-        background-size: 80%;
+        background-size: 70%;
         z-index:5;
     }
 
-    monster{
-        width: 50%; height: 50%;
+    .monster{
+        width: 100%; height: 100%;
         background-repeat: no-repeat;
         position: absolute;
-        background-size: 100% 100%;
+        background-size: 50% 50%;
+        background-position: center;
     }
 
-    #monster0 {
-        filter: hue-rotate(0deg);
-    }
-    #monster1 {
-        filter: hue-rotate(90deg);
-    }
-    #monster2 {
-        filter: hue-rotate(180deg);
-    }
-    #monster3 {
-        filter: hue-rotate(270deg);
-    }
-    #monster4 {
-        filter: hue-rotate(45deg);
-    }
-    #monster5 {
-        filter: hue-rotate(135deg);
-    }
-    #monster6 {
-        filter: hue-rotate(225deg);
-    }
-    #monster7 {
-        filter: hue-rotate(315deg);
+
+
+    
+
+    obstacle{
+        width: 100%; height: 100%;
+        background-repeat: no-repeat;
+        position: absolute;
+        background-size: 50% 50%;
+        background-position: center;
     }
 
 
     moveSpace{
         width: 9vh; height: 9vh;
         background-repeat: no-repeat;
-        background-size: 100% 100%;
+        background-size: 70% 70%;
+        background-position: center;
         position: absolute;
         top:0;
         left:0;
     }
 
-    movespace *{
-    top: 50% !important;
-    left: 50% !important;
-    transform: translate(-50%, -50%) !important;
+    .canplace{
+        animation: pulse 2s;
+        animation-iteration-count: infinite;
     }
 
     unicornPlayer {
@@ -190,6 +178,7 @@
         pointer-events: none;
         z-index: 149;
         position:absolute;
+        transform:translate(0,0);
     }
 
     inventory{
@@ -247,6 +236,24 @@
         padding-right:2px;
         background-repeat: no-repeat;
         background-size: 100% 100%;
+        background-image: url(../assets/note.png);
+    }
+
+    zoomed{
+        position:absolute;
+        font-size: 5vh;
+        text-align:center;
+        padding-top:15vh;
+        padding-left:5vw;
+        padding-right:5vw;
+        top:0;
+        left:20vw;
+        height: 80vh;
+        width: 50vw;
+        z-index: 101;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 100% 100% ;
         background-image: url(../assets/note.png);
     }
 
@@ -314,6 +321,10 @@
         font-size: 2vw;
     }
 
+    effectoptions{
+        padding-top:50px;
+    }
+
     leave{
         position: absolute;
         top:calc(26vh + 15px);
@@ -361,11 +372,11 @@
 
       rightUnicorn{
           position: absolute;
-          height:40vh;
-          width:40vh;
+          height:20vw;
+          width:20vw;
           top:40vh;
-          left:calc(100vw - 60vh);
-          background-image: url(../assets/wizard.png);
+          right:10vw;
+          background-image: url(../assets/enemy_wizard.png);
           background-size: 100%;
           background-repeat: no-repeat;
           animation-duration: 2s;
@@ -374,10 +385,10 @@
 
       leftUnicorn{
         position: absolute;
-        height:40vh;
-        width:40vh;
+        height:20vw;
+        width:20vw;
         top:40vh;
-        left:20vh;
+        left:10vw;
         background-image: url(../assets/unicorn_player.png);
         background-size: 100%;
         background-repeat: no-repeat;
@@ -427,53 +438,53 @@
         border:inset 5px rgb(255, 33, 33);
         top:5vh;
         left:calc(50vw + 45vh);
-        font-size:1.5em;
-        width:13vw;
-        height:4vh; 
-    }
-
-    battlecover{
-        position: absolute;
-        background-color: red;
-        border:inset 5px rgb(255, 33, 33);
-        top:5vh;
-        left:calc(50vw + 45vh);
-        font-size:1.5em;
-        width:13vw;
-        height:4vh;
+        font-size:4vh;
+        text-align: center;
+        opacity:0;
     }
 
     dialogWindow{
-        width:calc(30vw - 25vh - 20px);
-        height:20vh;
-        left:35vw;
-        top:75vh;
+        width:40vw;
+        height:25vh;
+        left:30vw;
+        top:70vh;
         position:absolute;
         background-color: rgb(243, 129, 192);
         border: inset 15px pink;
-        padding-left:calc(25vh - 20px);
-        
+        font-size: 1.5em;
+    }
+
+    messageBox{
+        position: absolute;
+        right:0;
+        top:0;
+        width:27vw;
     }
 
     playerIcon{
-        height:calc(25vh - 30px);
-        width:calc(25vh - 30px);
-        left:calc(35vw + 20px);
-        top:calc(75vh + 20px);
+        height:11vw;
+        width:11vw ; 
+        padding-left:1vw; 
+        top:0;
+        left:0; 
         background-position: center;
         background-size: 100%;
         background-repeat: no-repeat;
         position: absolute;
     }
 
-    nextMessage{
-        position: absolute;
-        left:calc(65vw - 50px)  ;
-        top:calc(95vh - 20px);
-        font-size: 2rem;
-    }
 
     muteGame {
+        height:30px;
+        width:30px;
+        background-size: 100%;
+        background-position:center ;
+        position: absolute;
+ 
+        background-image: url(../assets/muted.png);
+    }
+
+    muteEffect{
         height:30px;
         width:30px;
         background-size: 100%;
@@ -599,4 +610,19 @@
     @keyframes glitter {
         0%{ opacity: 1;}
         100%{ opacity: 0;}
-  }
+    }
+
+    @keyframes pulse {
+        100% {
+          box-shadow: 0 0 0 0 rgba(255, 9, 9, 0.7)Inset;
+          
+        }
+        30% {
+            box-shadow: 0 0 0 10px rgba(255, 9, 9, 0.7) Inset;
+            
+        }
+        0% {
+            box-shadow: 0 0 0 0 rgba(255, 9, 9, 0.7)Inset;
+            
+        }
+      }

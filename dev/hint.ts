@@ -16,32 +16,24 @@ class Hint{
 
         hint.addEventListener('click',zoomin)
         
+        let zoomed = document.createElement("zoomed")
+        let grayfade = document.createElement('grayout')
 
         function zoomin(){
-            game.style.zoom = "450%"
-            let xzoom = x - h / 2.5
-            let yzoom = y - w / 2.5
+            new Soundeffect().playThis("readHint.mp3")
+            
+            game.appendChild(zoomed)
+            game.appendChild(grayfade)
 
-            if(xzoom < 0){
-                xzoom = 0
-            }
+            zoomed.innerHTML = message;
 
-            if(yzoom < 0){
-                yzoom = 0
-            }
-
-            game.style.transform += `translate(-${xzoom}vw,-${yzoom}vh)`
-
-            hint.removeEventListener('click',zoomin)
-            hint.addEventListener('click',zoomout)
+            zoomed.addEventListener("click",() => zoomout())
         }
 
         function zoomout(){
-            game.style.zoom = "100%"
-            game.style.transform = ``
-
-            hint.removeEventListener('click',zoomout)
-            hint.addEventListener('click',zoomin)
+            new Soundeffect().playThis("readHint.mp3")
+            zoomed.remove()
+            grayfade.remove()
         }
 
 

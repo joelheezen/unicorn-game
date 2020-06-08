@@ -12,29 +12,29 @@ class Dialogbox{
             this.game.appendChild(dialog)
 
             let playerIcon = document.createElement('playerIcon')
-            this.game.appendChild(playerIcon)
-
-            let nextMessage = document.createElement('nextMessage')
-            this.game.appendChild(nextMessage)
-            nextMessage.innerHTML =">"
-
+            dialog.appendChild(playerIcon)
             playerIcon.style.backgroundImage = `url(assets/${player}.png)`
             
+            let messageBox = document.createElement('messageBox')
+            dialog.appendChild(messageBox)
+
             let currentDialog = 0
-            dialog.innerHTML = messages[currentDialog]
-                
-            nextMessage.addEventListener('click',() =>{
+
+            messageBox.innerHTML = messages[currentDialog]
+
+            dialog.addEventListener('click',() =>{
                     currentDialog += 1
 
                     if(currentDialog < messages.length){
-                        dialog.innerHTML = ""
-                        dialog.innerHTML += messages[currentDialog]
+                        messageBox.innerHTML = ""
+                        messageBox.innerHTML += messages[currentDialog]
+                        
                     }else{
                         dialog.remove();
-                        playerIcon.remove();
-                        nextMessage.remove();
                     }
             })
+
+
                 
              
     }
