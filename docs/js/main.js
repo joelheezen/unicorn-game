@@ -12,6 +12,129 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+var Furniture = (function () {
+    function Furniture(furnX, furnY, furnDimX, furnDimY, contains, background) {
+        this.makeFurniture(furnX, furnY, furnDimX, furnDimY, contains, background);
+    }
+    Furniture.prototype.makeFurniture = function (furnX, furnY, furnDimX, furnDimY, contains, background) {
+        var _this = this;
+        this.furniture = document.createElement('furniture');
+        this.shakeBox = document.createElement('shakeBox');
+        var game = document.getElementsByTagName('game')[0];
+        this.furniture.style.backgroundImage = background;
+        this.furniture.style.height = furnDimY + "vh";
+        this.furniture.style.width = furnDimX + "vw";
+        this.shakeBox.style.transform = "translate(" + furnX + "vw," + furnY + "vh)";
+        this.furniture.classList.add('shake');
+        this.furniture.addEventListener('click', function () { return _this.additem(contains, furnX, furnY, furnDimX, furnDimY); });
+        this.furniture.addEventListener('mouseover', function () {
+            new Soundeffect().playThis('rumble.wav');
+        });
+        this.shakeBox.appendChild(this.furniture);
+        game.appendChild(this.shakeBox);
+    };
+    Furniture.prototype.additem = function (contains, furnX, furnY, furnDimX, furnDimY) {
+        this.furniture.classList.remove('shake');
+        var game = document.getElementsByTagName("game")[0];
+        furnDimX = furnDimX / 2;
+        furnDimY = furnDimY / 2;
+        if (contains == "none") {
+            new Soundeffect().playThis("noItem.mp3");
+            var dustcloud_1 = document.createElement("dustcloud");
+            game.appendChild(dustcloud_1);
+            dustcloud_1.style.transform = "translate(calc(" + furnX + "vw + " + furnDimX + "vw - 50px),calc(" + furnY + "vh + " + furnDimY + "vh - 50px))";
+            dustcloud_1.style.transition = "3s";
+            dustcloud_1.style.opacity = "0";
+            setTimeout(function () {
+                furnY = 70;
+                dustcloud_1.style.transform = "translate(calc(" + furnX + "vw + " + furnDimX + "vw - 50px),calc(" + furnY + "vh + " + furnDimY + "vh - 50px))";
+                dustcloud_1.style.opacity = "1";
+                dustcloud_1.style.transform += "rotate(720deg)";
+            }, 1);
+            setTimeout(function () {
+                dustcloud_1.remove();
+            }, 3000);
+        }
+        else {
+            new Soundeffect().playThis("foundItem.wav");
+            var pickup_1 = document.createElement("pickup");
+            var grayout_1 = document.createElement('grayout');
+            var itemMessage_1 = document.createElement('itemMessage');
+            itemMessage_1.innerHTML = "You found '" + contains.replace("_", " ") + "'";
+            game.append(itemMessage_1);
+            game.appendChild(grayout_1);
+            game.appendChild(pickup_1);
+            pickup_1.style.backgroundImage = "url(assets/" + contains + ".png)";
+            pickup_1.style.transform = "translate(calc(" + furnX + "vw + " + furnDimX + "vw - 25px),calc(" + furnY + "vh + " + furnDimY + "vh - 25px))";
+            pickup_1.addEventListener("click", function () {
+                pickup_1.style.marginLeft = "100vw";
+                grayout_1.remove();
+                itemMessage_1.remove();
+                setTimeout(function () {
+                    pickup_1.remove();
+                }, 1000);
+                var inventory = document.getElementsByTagName("inventory")[0];
+                var inventoryItem = document.createElement('inventoryItem');
+                inventoryItem.classList.add('player');
+                inventoryItem.style.backgroundImage = "url(assets/" + contains + ".png)";
+                inventory.appendChild(inventoryItem);
+            });
+        }
+        this.furniture.outerHTML = this.furniture.outerHTML;
+    };
+    return Furniture;
+}());
+var EvilFurniture = (function () {
+    function EvilFurniture(furnX, furnY, furnDimX, furnDimY, background, level) {
+        this.makeEvilFurniture(furnX, furnY, furnDimX, furnDimY, background, level);
+    }
+    EvilFurniture.prototype.makeEvilFurniture = function (furnX, furnY, furnDimX, furnDimY, background, level) {
+        var _this = this;
+        this.furniture = document.createElement("furniture");
+        this.shakeBox = document.createElement("shakeBox");
+        var game = document.getElementsByTagName("game")[0];
+        this.furniture.style.backgroundImage = background;
+        this.furniture.style.height = furnDimY + "vh";
+        this.furniture.style.width = furnDimX + "vw";
+        this.shakeBox.style.transform = "translate(" + furnX + "vw," + furnY + "vh)";
+        this.furniture.classList.add('shake');
+        this.furniture.addEventListener('mouseover', function () {
+            new Soundeffect().playThis("rumble.wav");
+        });
+        this.shakeBox.addEventListener('click', function () { return _this.startbattle(event, level); });
+        this.shakeBox.appendChild(this.furniture);
+        game.appendChild(this.shakeBox);
+    };
+    EvilFurniture.prototype.startbattle = function (event, level) {
+        new Soundeffect().playThis("minionFound.mp3");
+        var game = document.getElementsByTagName("game")[0];
+        this.furniture.classList.remove('shake');
+        var grayout = document.createElement('grayout');
+        var itemMessage = document.createElement('itemMessage');
+        itemMessage.innerHTML = "You have found the wizards minion";
+        event.target.parentElement.style.zIndex = "150";
+        this.shakeBox.style.animation = "enemyappear 3s forwards";
+        this.shakeBox.style.animationIterationCount = "1";
+        game.append(itemMessage);
+        game.appendChild(grayout);
+        this.skulltop = document.createElement('skulltop');
+        this.skullbottom = document.createElement('skullbottom');
+        this.furniture.appendChild(this.skulltop);
+        this.furniture.appendChild(this.skullbottom);
+        this.furniture.style.animation = "6s battletransition 2s forwards";
+        this.furniture.style.animationIterationCount = "1";
+        var fadetonew = document.createElement("fadetonew");
+        game.appendChild(fadetonew);
+        setTimeout(function () {
+            new BattlePhase(level);
+        }, 4000);
+        this.shakeBox.outerHTML = this.shakeBox.outerHTML;
+        setTimeout(function () {
+            game.removeChild(fadetonew);
+        }, 6000);
+    };
+    return EvilFurniture;
+}());
 var Inventory = (function () {
     function Inventory() {
         this.setInventory();
@@ -94,26 +217,31 @@ var BattlePhase = (function () {
             case 1:
                 this.monsterCount = 6;
                 this.obstaclePlaces = [2, 12, 26, 20, 16, 31];
+                monsterTypes = ["cabinet", "couch", "dumbell", "lamp", "jug"];
                 this.monsterKingImg = "plant";
                 break;
             case 2:
                 this.monsterCount = 7;
                 this.obstaclePlaces = [16, 18, 21, 23, 24, 25, 26, 29, 30, 31];
+                monsterTypes = ["cabinet", "dumbell", "lamp", "plant", "jug"];
                 this.monsterKingImg = "couch";
                 break;
             case 3:
                 this.monsterCount = 8;
                 this.obstaclePlaces = [17, 18, 19, 20, 21, 22];
+                monsterTypes = ["cabinet", "couch", "lamp", "plant", "jug"];
                 this.monsterKingImg = "dumbell";
                 break;
             case 4:
                 this.monsterCount = 9;
                 this.obstaclePlaces = [25, 26, 27, 28, 29, 30];
+                monsterTypes = ["cabinet", "couch", "dumbell", "lamp", "plant"];
                 this.monsterKingImg = "jug";
                 break;
             case 5:
                 this.monsterCount = 10;
                 this.obstaclePlaces = [0, 2, 4, 6, 17, 19, 21, 23];
+                monsterTypes = ["couch", "dumbell", "lamp", "plant", "jug"];
                 this.monsterKingImg = "cabinet";
                 break;
             case 6:
@@ -145,7 +273,6 @@ var BattlePhase = (function () {
             }
             else {
                 monster.style.backgroundImage = "url(assets/enemy_" + monsterTypes[Math.floor(Math.random() * monsterTypes.length)] + ".png)";
-                monster.style.filter = "contrast(50%) sepia(100%) hue-rotate(230deg)";
             }
             monster.id = "monster" + i;
             monsters.push(monster);
@@ -417,129 +544,6 @@ var Dialogbox = (function () {
     };
     return Dialogbox;
 }());
-var Furniture = (function () {
-    function Furniture(furnX, furnY, furnDimX, furnDimY, contains, background) {
-        this.makeFurniture(furnX, furnY, furnDimX, furnDimY, contains, background);
-    }
-    Furniture.prototype.makeFurniture = function (furnX, furnY, furnDimX, furnDimY, contains, background) {
-        var _this = this;
-        this.furniture = document.createElement('furniture');
-        this.shakeBox = document.createElement('shakeBox');
-        var game = document.getElementsByTagName('game')[0];
-        this.furniture.style.backgroundImage = background;
-        this.furniture.style.height = furnDimY + "vh";
-        this.furniture.style.width = furnDimX + "vw";
-        this.shakeBox.style.transform = "translate(" + furnX + "vw," + furnY + "vh)";
-        this.furniture.classList.add('shake');
-        this.furniture.addEventListener('click', function () { return _this.additem(contains, furnX, furnY, furnDimX, furnDimY); });
-        this.furniture.addEventListener('mouseover', function () {
-            new Soundeffect().playThis('rumble.wav');
-        });
-        this.shakeBox.appendChild(this.furniture);
-        game.appendChild(this.shakeBox);
-    };
-    Furniture.prototype.additem = function (contains, furnX, furnY, furnDimX, furnDimY) {
-        this.furniture.classList.remove('shake');
-        var game = document.getElementsByTagName("game")[0];
-        furnDimX = furnDimX / 2;
-        furnDimY = furnDimY / 2;
-        if (contains == "none") {
-            new Soundeffect().playThis("noItem.mp3");
-            var dustcloud_1 = document.createElement("dustcloud");
-            game.appendChild(dustcloud_1);
-            dustcloud_1.style.transform = "translate(calc(" + furnX + "vw + " + furnDimX + "vw - 50px),calc(" + furnY + "vh + " + furnDimY + "vh - 50px))";
-            dustcloud_1.style.transition = "3s";
-            dustcloud_1.style.opacity = "0";
-            setTimeout(function () {
-                furnY = 70;
-                dustcloud_1.style.transform = "translate(calc(" + furnX + "vw + " + furnDimX + "vw - 50px),calc(" + furnY + "vh + " + furnDimY + "vh - 50px))";
-                dustcloud_1.style.opacity = "1";
-                dustcloud_1.style.transform += "rotate(720deg)";
-            }, 1);
-            setTimeout(function () {
-                dustcloud_1.remove();
-            }, 3000);
-        }
-        else {
-            new Soundeffect().playThis("foundItem.wav");
-            var pickup_1 = document.createElement("pickup");
-            var grayout_1 = document.createElement('grayout');
-            var itemMessage_1 = document.createElement('itemMessage');
-            itemMessage_1.innerHTML = "You found '" + contains.replace("_", " ") + "'";
-            game.append(itemMessage_1);
-            game.appendChild(grayout_1);
-            game.appendChild(pickup_1);
-            pickup_1.style.backgroundImage = "url(assets/" + contains + ".png)";
-            pickup_1.style.transform = "translate(calc(" + furnX + "vw + " + furnDimX + "vw - 25px),calc(" + furnY + "vh + " + furnDimY + "vh - 25px))";
-            pickup_1.addEventListener("click", function () {
-                pickup_1.style.marginLeft = "100vw";
-                grayout_1.remove();
-                itemMessage_1.remove();
-                setTimeout(function () {
-                    pickup_1.remove();
-                }, 1000);
-                var inventory = document.getElementsByTagName("inventory")[0];
-                var inventoryItem = document.createElement('inventoryItem');
-                inventoryItem.classList.add('player');
-                inventoryItem.style.backgroundImage = "url(assets/" + contains + ".png)";
-                inventory.appendChild(inventoryItem);
-            });
-        }
-        this.furniture.outerHTML = this.furniture.outerHTML;
-    };
-    return Furniture;
-}());
-var EvilFurniture = (function () {
-    function EvilFurniture(furnX, furnY, furnDimX, furnDimY, background, level) {
-        this.makeEvilFurniture(furnX, furnY, furnDimX, furnDimY, background, level);
-    }
-    EvilFurniture.prototype.makeEvilFurniture = function (furnX, furnY, furnDimX, furnDimY, background, level) {
-        var _this = this;
-        this.furniture = document.createElement("furniture");
-        this.shakeBox = document.createElement("shakeBox");
-        var game = document.getElementsByTagName("game")[0];
-        this.furniture.style.backgroundImage = background;
-        this.furniture.style.height = furnDimY + "vh";
-        this.furniture.style.width = furnDimX + "vw";
-        this.shakeBox.style.transform = "translate(" + furnX + "vw," + furnY + "vh)";
-        this.furniture.classList.add('shake');
-        this.furniture.addEventListener('mouseover', function () {
-            new Soundeffect().playThis("rumble.wav");
-        });
-        this.shakeBox.addEventListener('click', function () { return _this.startbattle(event, level); });
-        this.shakeBox.appendChild(this.furniture);
-        game.appendChild(this.shakeBox);
-    };
-    EvilFurniture.prototype.startbattle = function (event, level) {
-        new Soundeffect().playThis("minionFound.mp3");
-        var game = document.getElementsByTagName("game")[0];
-        this.furniture.classList.remove('shake');
-        var grayout = document.createElement('grayout');
-        var itemMessage = document.createElement('itemMessage');
-        itemMessage.innerHTML = "You have found the wizards minion";
-        event.target.parentElement.style.zIndex = "150";
-        this.shakeBox.style.animation = "enemyappear 3s forwards";
-        this.shakeBox.style.animationIterationCount = "1";
-        game.append(itemMessage);
-        game.appendChild(grayout);
-        this.skulltop = document.createElement('skulltop');
-        this.skullbottom = document.createElement('skullbottom');
-        this.furniture.appendChild(this.skulltop);
-        this.furniture.appendChild(this.skullbottom);
-        this.furniture.style.animation = "6s battletransition 2s forwards";
-        this.furniture.style.animationIterationCount = "1";
-        var fadetonew = document.createElement("fadetonew");
-        game.appendChild(fadetonew);
-        setTimeout(function () {
-            new BattlePhase(level);
-        }, 4000);
-        this.shakeBox.outerHTML = this.shakeBox.outerHTML;
-        setTimeout(function () {
-            game.removeChild(fadetonew);
-        }, 6000);
-    };
-    return EvilFurniture;
-}());
 window.addEventListener("load", function () { return new Startscreen(); });
 var Startscreen = (function () {
     function Startscreen() {
@@ -653,7 +657,7 @@ var Startscreen = (function () {
             });
         }
         if (unlocked[2] == false) {
-            this.makeLevelIcon(45.1, 44.4, 19.4, 51.4, 4);
+            this.makeLevelIcon(40.5, 65.3, 9.2, 30.6, 3);
             this.levelIcon.addEventListener("click", function () {
                 _this.game.innerHTML = "";
                 new Soundeffect().playThis("door.wav");
@@ -661,7 +665,8 @@ var Startscreen = (function () {
             });
         }
         if (unlocked[3] == false) {
-            this.makeLevelIcon(40.5, 65.3, 9.2, 30.6, 3);
+            console.log('level 3 is open');
+            this.makeLevelIcon(45.1, 44.4, 19.4, 51.4, 4);
             this.levelIcon.addEventListener("click", function () {
                 _this.game.innerHTML = "";
                 new Soundeffect().playThis("door.wav");

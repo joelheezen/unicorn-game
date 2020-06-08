@@ -93,26 +93,31 @@ class BattlePhase{
             case 1:
                 this.monsterCount = 6
                 this.obstaclePlaces = [2,12,26,20,16,31]
+                monsterTypes = ["cabinet","couch","dumbell","lamp","jug"]
                 this.monsterKingImg = "plant"
                 break;
             case 2:
                 this.monsterCount = 7
                 this.obstaclePlaces = [16,18,21,23,24,25,26,29,30,31]
+                monsterTypes = ["cabinet","dumbell","lamp","plant","jug"]
                 this.monsterKingImg = "couch"
                  break;
             case 3:
                 this.monsterCount = 8
                 this.obstaclePlaces = [17,18,19,20,21,22]
+                monsterTypes = ["cabinet","couch","lamp","plant","jug"]
                 this.monsterKingImg = "dumbell"
                 break;
             case 4:
                 this.monsterCount = 9
                 this.obstaclePlaces = [25,26,27,28,29,30]
+                monsterTypes = ["cabinet","couch","dumbell","lamp","plant"]
                 this.monsterKingImg = "jug"
                 break;
             case 5:
                 this.monsterCount = 10
                 this.obstaclePlaces = [0,2,4,6,17,19,21,23]
+                monsterTypes = ["couch","dumbell","lamp","plant","jug"]
                 this.monsterKingImg = "cabinet"
                 break;
             case 6:
@@ -149,7 +154,6 @@ class BattlePhase{
                     monster.style.backgroundImage = `url(assets/enemy_${this.monsterKingImg}.png)`
                 }else{
                     monster.style.backgroundImage = `url(assets/enemy_${monsterTypes[Math.floor(Math.random() * monsterTypes.length)]}.png)`
-                    monster.style.filter = `contrast(50%) sepia(100%) hue-rotate(230deg)`
                 }
                 monster.id = "monster" + i
                 monsters.push(monster)

@@ -150,6 +150,7 @@ class Startscreen{
         })
         }
         if(unlocked[3]==false){
+            console.log('level 3 is open')
         this.makeLevelIcon(45.1,44.4,19.4,51.4,4)
         this.levelIcon.addEventListener("click",()=>{
             this.game.innerHTML = ""
