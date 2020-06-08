@@ -108,7 +108,7 @@ class Options extends Startscreen{
         })
 
         let delSave = document.createElement('delSave')
-        delSave.innerHTML = 'Delete save file'
+        delSave.innerHTML = 'Delete save data'
         delSave.classList.add('button')
         options.appendChild(delSave)
 

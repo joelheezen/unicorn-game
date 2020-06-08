@@ -1035,7 +1035,7 @@ var Options = (function (_super) {
             new Soundeffect().playThis('menuSelect.mp3');
         });
         var delSave = document.createElement('delSave');
-        delSave.innerHTML = 'Delete save file';
+        delSave.innerHTML = 'Delete save data';
         delSave.classList.add('button');
         options.appendChild(delSave);
         delSave.addEventListener('click', function () {
