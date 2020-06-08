@@ -7,7 +7,8 @@ class Startscreen{
     private leftUnicorn: HTMLElement
     private rightUnicorn: HTMLElement
     private levelIcon: HTMLElement
-    private lock: HTMLElement
+    unlockStorage = window.localStorage;
+    
 
     constructor(){
         this.game.innerHTML = ''
@@ -92,25 +93,27 @@ class Startscreen{
     }
     
 
-    setUnlock(lvlAchieved: number){
+    setUnlock(){
         var unlockeds:boolean[]; 
         unlockeds = []
-        if(lvlAchieved==0){
+        let lvlAchieved = this.unlockStorage.getItem('unlocked');
+
+        if(lvlAchieved=="1"){
             unlockeds = [false,true,true,true,true,true]
         }
-        if(lvlAchieved==1){
+        if(lvlAchieved=="2"){
             unlockeds = [false,false,true,true,true,true]
         }
-        if(lvlAchieved==2){
+        if(lvlAchieved=="3"){
             unlockeds = [false,false,false,true,true,true]
         }
-        if(lvlAchieved==3){
+        if(lvlAchieved=="4"){
             unlockeds = [false,false,false,false,true,true]
         }
-        if(lvlAchieved==4){
+        if(lvlAchieved=="5"){
             unlockeds = [false,false,false,false,false,true]
         }
-        if(lvlAchieved==5){
+        if(lvlAchieved=="6"){
             unlockeds = [false,false,false,false,false,false]
         }
         return unlockeds

@@ -341,32 +341,41 @@ class BattlePhase{
                 
                 }
                 else{
+<<<<<<< HEAD
+                    // otherwise you should have won and the game advances to the next level
+=======
                     // player has won the game moves to next level and unlocks it for future play
+>>>>>>> 4bdbbc2f46408ae5d881734ae4378088a052679c
                     let board = document.getElementsByTagName("gameboard")[0]
 
                     if (this.nextLevel == 2){
                         board.parentNode?.removeChild(board)
                         new Level2click()
+                        localStorage.setItem('unlocked','2')
                        
                     }
                     else if(this.nextLevel == 3){
                         board.parentNode?.removeChild(board)
                         new Level3click()
+                        localStorage.setItem('unlocked','3')
                         
                     }
                     else if(this.nextLevel == 4){
                         board.parentNode?.removeChild(board)
                         new Level4click()
+                        localStorage.setItem('unlocked','4')
                         
                     }
                     else if(this.nextLevel == 5){
                         board.parentNode?.removeChild(board)
                         new Level5click()
+                        localStorage.setItem('unlocked','5')
                         
                     }
                     else if(this.nextLevel == 6){
                         board.parentNode?.removeChild(board)
                         new Level6click()
+                        localStorage.setItem('unlocked','6')
                         
                     }
                     else if(this.nextLevel == 7){
