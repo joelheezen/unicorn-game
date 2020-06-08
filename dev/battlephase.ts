@@ -259,16 +259,9 @@ class BattlePhase{
         
 
         enemyTurn(){
-            // this piece of code is to check the else loop of the next if statement
-            /*let toDelete = document.getElementById("monster0")
-            if (toDelete != null && toDelete.parentNode != null){
-            toDelete.parentNode.removeChild(toDelete)
-            } */ 
             for(let i = -1;i < this.monsterCount;i++){
             // if the boss lives the enemy turn starts
                 if (document.getElementById("monster0")) {
-             
-                    // if this deletes monster number 2 it will fuck up
                     let activeMonster = document.getElementById("monster" + i)
                     if (activeMonster != null) {
                     
@@ -347,7 +340,7 @@ class BattlePhase{
                 
                 }
                 else{
-                    // otherwise you should have won and the game advances to the next level
+                    // player has won the game moves to next level and unlocks it for future play
                     let board = document.getElementsByTagName("gameboard")[0]
 
                     if (this.nextLevel == 2){
