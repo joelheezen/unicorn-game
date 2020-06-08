@@ -140,7 +140,6 @@ var Inventory = (function () {
         this.setInventory();
     }
     Inventory.prototype.setInventory = function () {
-        console.log("Created inventory");
         this.inventory = document.createElement("inventory");
         var game = document.getElementsByTagName("game")[0];
         game.appendChild(this.inventory);
@@ -153,7 +152,6 @@ var BattlePhase = (function () {
         this.game = document.getElementsByTagName("game")[0];
         this.battleStarted = false;
         this.monsterCount = 0;
-        console.log("button pressed, loading in battlephase");
         var pointer = document.getElementsByTagName("newpointer")[0];
         var inv = document.getElementsByTagName("inventory")[0];
         var fadetonew = document.getElementsByTagName('fadetonew')[0];
@@ -276,7 +274,6 @@ var BattlePhase = (function () {
         }
         for (var i = 0; i < this.monsterCount; i++) {
             var randomNumber = Math.floor(Math.random() * 32);
-            console.log(randomNumber);
             if (spaces[randomNumber].firstChild) {
                 i -= 1;
             }
@@ -300,7 +297,6 @@ var BattlePhase = (function () {
         var data = ev.dataTransfer.getData("text");
         var element = document.getElementById(data);
         if (ev.target.id.substring(0, 4) == "item") {
-            console.log("space already has an item in it");
         }
         else if (element != null) {
             if (!element.classList.contains("gamer")) {
@@ -310,11 +306,9 @@ var BattlePhase = (function () {
         }
         var inventory = document.getElementsByTagName('inventory')[0];
         if (inventory.childNodes.length == 0) {
-            console.log('no items in inventory');
             this.startBattle.style.opacity = "1";
         }
         if (inventory.childNodes.length > 0) {
-            console.log('items in inventory');
             this.startBattle.style.opacity = "0";
         }
         if (element != null) {
@@ -330,7 +324,6 @@ var BattlePhase = (function () {
         if (element != null) {
             if (element.classList.contains("gamer") && ev.target.classList.contains("monster") && ev.target.parentElement.classList.contains("canplace")) {
                 ev.preventDefault();
-                console.log("you hit a monster");
                 var monsterChild = ev.target;
                 var monsterParent = monsterChild.parentNode;
                 if (monsterParent) {
@@ -374,29 +367,23 @@ var BattlePhase = (function () {
                         var direction = Math.floor(Math.random() * 100);
                         var spaceToMove = void 0;
                         if (direction <= 25) {
-                            console.log("move back");
                             spaceToMove = moveMonsterTo[parseInt(spaceNowPos) - 8];
                         }
                         else if (direction > 25 && direction <= 50) {
-                            console.log("move left");
                             var moveto = parseInt(spaceNowPos) - 1;
                             if (((moveto + 1) % 8) == 0) {
-                                console.log("cant move here, retry");
                                 continue;
                             }
                             spaceToMove = moveMonsterTo[moveto];
                         }
                         else if (direction > 50 && direction <= 75) {
-                            console.log("move right");
                             var moveto = parseInt(spaceNowPos) + 1;
                             if ((moveto % 8) == 0) {
-                                console.log("cant move here, retry");
                                 continue;
                             }
                             spaceToMove = moveMonsterTo[moveto];
                         }
                         else if (direction > 75 && direction <= 100) {
-                            console.log("move down");
                             spaceToMove = moveMonsterTo[parseInt(spaceNowPos) + 8];
                         }
                         if (spaceToMove) {
@@ -414,7 +401,6 @@ var BattlePhase = (function () {
                                     moved = true;
                                 }
                                 else if (spaceToMove.children[0].classList.contains("obstacle")) {
-                                    console.log('obstacle in the way');
                                     direction = Math.floor(Math.random() * 100);
                                 }
                             }
@@ -424,15 +410,12 @@ var BattlePhase = (function () {
                             }
                         }
                         else {
-                            console.log('space doesnt exist');
                             direction = Math.floor(Math.random() * 100);
                         }
                     }
                 }
             }
             else {
-                console.log("you won");
-                console.log(this.nextLevel);
                 var board = document.getElementsByTagName("gameboard")[0];
                 if (this.nextLevel == 2) {
                     (_a = board.parentNode) === null || _a === void 0 ? void 0 : _a.removeChild(board);

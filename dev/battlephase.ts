@@ -11,7 +11,6 @@ class BattlePhase{
     
     constructor(stage: number){
         //deletes everything and puts a new background in
-        console.log("button pressed, loading in battlephase")
         let pointer = document.getElementsByTagName("newpointer")[0]
         let inv = document.getElementsByTagName("inventory")[0]
         let fadetonew = document.getElementsByTagName('fadetonew')[0]
@@ -157,7 +156,6 @@ class BattlePhase{
 
             for (let i = 0; i < this.monsterCount; i++) {
                 let randomNumber = Math.floor(Math.random() * 32)
-                console.log(randomNumber)
                 if(spaces[randomNumber].firstChild){
                     i -= 1
                 }
@@ -188,7 +186,7 @@ class BattlePhase{
             let element = document.getElementById(data)
             //stops an item from being dropped inside another item
             if(ev.target.id.substring(0,4) == "item"){
-                console.log("space already has an item in it")
+            
             }else if (element != null) {
                 if (!element.classList.contains("gamer")) {
                     ev.preventDefault();
@@ -199,12 +197,10 @@ class BattlePhase{
             let inventory = document.getElementsByTagName('inventory')[0]
             
             if(inventory.childNodes.length == 0){
-                console.log('no items in inventory')
                 this.startBattle.style.opacity = "1"
             }
 
             if(inventory.childNodes.length > 0){
-                console.log('items in inventory')
                 this.startBattle.style.opacity = "0"
             }
             if (element != null){
@@ -222,7 +218,6 @@ class BattlePhase{
             if (element != null){
                 if (element.classList.contains("gamer") && ev.target.classList.contains("monster") && ev.target.parentElement.classList.contains("canplace")) {
                     ev.preventDefault();
-                    console.log("you hit a monster")
                     let monsterChild = ev.target
                     let monsterParent = monsterChild.parentNode
                     if (monsterParent) {
@@ -290,32 +285,32 @@ class BattlePhase{
                             let spaceToMove: any
 
                             if (direction <= 25){
-                                console.log("move back")
+                                
                                 spaceToMove = moveMonsterTo[parseInt(spaceNowPos) - 8]
 
                             }else if (direction > 25 && direction <= 50){
-                                console.log("move left")
+                                
                                 let moveto = parseInt(spaceNowPos) - 1
 
                                 if(((moveto + 1) % 8) == 0){
-                                    console.log("cant move here, retry")
+                                    
                                     continue
                                 }
                                 spaceToMove = moveMonsterTo[moveto]
                             
                             }else if (direction > 50 && direction <= 75){
-                                console.log("move right")
+                                
                                 let moveto = parseInt(spaceNowPos) + 1
 
                                 if((moveto  % 8) == 0){
-                                    console.log("cant move here, retry")
+                                   
                                     continue
                                 }
 
                                 spaceToMove = moveMonsterTo[moveto]
                                                        
                             }else if(direction > 75 && direction <= 100){
-                                console.log("move down")
+                                
 
                                 spaceToMove = moveMonsterTo[parseInt(spaceNowPos) + 8]
 
@@ -334,7 +329,7 @@ class BattlePhase{
                                         spaceToMove.style.backgroundImage = "url(assets/unicorn_dead.png)"
                                         moved = true    
                                     }else if(spaceToMove.children[0].classList.contains("obstacle")){
-                                        console.log('obstacle in the way')
+                                        
                                         direction = Math.floor(Math.random() * 100)
                                     }
                                 }else{
@@ -342,7 +337,7 @@ class BattlePhase{
                                     moved = true
                                 } 
                             }else{
-                                console.log('space doesnt exist')
+                                
                                 direction = Math.floor(Math.random() * 100)
                             }
                         
@@ -353,8 +348,6 @@ class BattlePhase{
                 }
                 else{
                     // otherwise you should have won and the game advances to the next level
-                    console.log("you won")
-                    console.log(this.nextLevel)
                     let board = document.getElementsByTagName("gameboard")[0]
 
                     if (this.nextLevel == 2){
