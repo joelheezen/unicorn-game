@@ -1,0 +1,9 @@
+class CutScene{
+    constructor(){
+        
+    }
+
+    playCutScene(){
+        
+    }
+}

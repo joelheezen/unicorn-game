@@ -77,7 +77,6 @@ class Startscreen{
             window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
         })
         
-        
     }
 
     makeLevelIcon(posX: number,posY: number,width: number,height: number,levelNumber: number){
@@ -130,49 +129,51 @@ class Startscreen{
         this.makeLevelIcon(14.1,59.7,10.8,36.1,1)
         this.levelIcon.addEventListener("click",()=>{
             this.game.innerHTML = ""
-            new Level1click
             new Soundeffect().playThis("door.wav")
+            new Level1click  
+
+            
         })
         }
         if(unlocked[1]==false){
         this.makeLevelIcon(25.7,52.8,14.75,43.05,2)
         this.levelIcon.addEventListener("click",()=>{
             this.game.innerHTML = ""
-            new Level2click
             new Soundeffect().playThis("door.wav")
+            new Level2click
         })
         }
 
-        if(unlocked[3]==false){
+        if(unlocked[2]==false){
         this.makeLevelIcon(45.1,44.4,19.4,51.4,4)
         this.levelIcon.addEventListener("click",()=>{
             this.game.innerHTML = ""
-            new Level4click
             new Soundeffect().playThis("door.wav")
+            new Level3click
         })
         }
-        if(unlocked[2]==false){
+        if(unlocked[3]==false){
         this.makeLevelIcon(40.5,65.3,9.2,30.6,3)
         this.levelIcon.addEventListener("click",()=>{
             this.game.innerHTML = ""
-            new Level3click
             new Soundeffect().playThis("door.wav")
+            new Level4click
         })
         }
         if(unlocked[4]==false){
         this.makeLevelIcon(64.5,57,10.1,38.9,5)
         this.levelIcon.addEventListener("click",()=>{
             this.game.innerHTML = ""
-            new Level5click
             new Soundeffect().playThis("door.wav")
+            new Level5click
         })
         }
         if(unlocked[5]==false){
         this.makeLevelIcon(74.7,45.9,17,49.9,6)
         this.levelIcon.addEventListener("click",()=>{
             this.game.innerHTML = ""
-            new Level6click
             new Soundeffect().playThis("door.wav")
+            new Level6click
         })
         }
 
