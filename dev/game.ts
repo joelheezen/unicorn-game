@@ -94,7 +94,7 @@ class Startscreen{
     
 
     setUnlock(){
-        var unlockeds:boolean[]; 
+        var unlockeds:boolean[];
         unlockeds = []
         let lvlAchieved = this.unlockStorage.getItem('unlocked');
 
@@ -123,6 +123,7 @@ class Startscreen{
         this.menu.innerHTML = ""
         this.leftUnicorn.remove()
         this.rightUnicorn.remove()
+        var unlocked = this.setUnlock()
 
         if(unlocked[0]==false){
         this.makeLevelIcon(14.1,59.7,10.8,36.1,1)
