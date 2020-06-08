@@ -431,28 +431,31 @@ var BattlePhase = (function () {
                 }
             }
             else {
-                console.log("you won");
-                console.log(this.nextLevel);
                 var board = document.getElementsByTagName("gameboard")[0];
                 if (this.nextLevel == 2) {
                     (_a = board.parentNode) === null || _a === void 0 ? void 0 : _a.removeChild(board);
                     new Level2click();
+                    localStorage.setItem('unlocked', '2');
                 }
                 else if (this.nextLevel == 3) {
                     (_b = board.parentNode) === null || _b === void 0 ? void 0 : _b.removeChild(board);
                     new Level3click();
+                    localStorage.setItem('unlocked', '3');
                 }
                 else if (this.nextLevel == 4) {
                     (_c = board.parentNode) === null || _c === void 0 ? void 0 : _c.removeChild(board);
                     new Level4click();
+                    localStorage.setItem('unlocked', '4');
                 }
                 else if (this.nextLevel == 5) {
                     (_d = board.parentNode) === null || _d === void 0 ? void 0 : _d.removeChild(board);
                     new Level5click();
+                    localStorage.setItem('unlocked', '5');
                 }
                 else if (this.nextLevel == 6) {
                     (_e = board.parentNode) === null || _e === void 0 ? void 0 : _e.removeChild(board);
                     new Level6click();
+                    localStorage.setItem('unlocked', '6');
                 }
                 else if (this.nextLevel == 7) {
                 }
@@ -549,6 +552,7 @@ var Startscreen = (function () {
     function Startscreen() {
         this.game = document.getElementsByTagName('game')[0];
         this.menu = document.createElement('menu');
+        this.unlockStorage = window.localStorage;
         this.game.innerHTML = '';
         this.setBackground();
         this.setButtons();
@@ -611,25 +615,26 @@ var Startscreen = (function () {
         this.levelIcon.style.width = width + "vw";
         this.levelIcon.style.height = height + "vh";
     };
-    Startscreen.prototype.setUnlock = function (lvlAchieved) {
+    Startscreen.prototype.setUnlock = function () {
         var unlockeds;
         unlockeds = [];
-        if (lvlAchieved == 0) {
+        var lvlAchieved = this.unlockStorage.getItem('unlocked');
+        if (lvlAchieved == "1") {
             unlockeds = [false, true, true, true, true, true];
         }
-        if (lvlAchieved == 1) {
+        if (lvlAchieved == "2") {
             unlockeds = [false, false, true, true, true, true];
         }
-        if (lvlAchieved == 2) {
+        if (lvlAchieved == "3") {
             unlockeds = [false, false, false, true, true, true];
         }
-        if (lvlAchieved == 3) {
+        if (lvlAchieved == "4") {
             unlockeds = [false, false, false, false, true, true];
         }
-        if (lvlAchieved == 4) {
+        if (lvlAchieved == "5") {
             unlockeds = [false, false, false, false, false, true];
         }
-        if (lvlAchieved == 5) {
+        if (lvlAchieved == "6") {
             unlockeds = [false, false, false, false, false, false];
         }
         return unlockeds;
