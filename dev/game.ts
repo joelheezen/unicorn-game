@@ -125,7 +125,6 @@ class Startscreen{
         this.rightUnicorn.remove()
         var unlocked = this.setUnlock()
 
-        if(unlocked[0]==false){
         this.makeLevelIcon(14.1,59.7,10.8,36.1,1)
         this.levelIcon.addEventListener("click",()=>{
             this.game.innerHTML = ""
@@ -134,7 +133,7 @@ class Startscreen{
 
             
         })
-        }
+        
         if(unlocked[1]==false){
         this.makeLevelIcon(25.7,52.8,14.75,43.05,2)
         this.levelIcon.addEventListener("click",()=>{
