@@ -7,7 +7,7 @@ class BattlePhase{
     monsterCount= 0
     obstaclePlaces: any
     monsterKingImg: string
-    
+    nextLevel:number
     
     constructor(stage: number){
         //deletes everything and puts a new background in
@@ -16,8 +16,8 @@ class BattlePhase{
         let inv = document.getElementsByTagName("inventory")[0]
         let fadetonew = document.getElementsByTagName('fadetonew')[0]
         new Music().changeMusic('battleMusic.mp3')
-        let gameChildren = new Array
-        
+        let gameChildren = new Array 
+        this.nextLevel = stage + 1
         //loops through all children and eliminates every child that is not a pointer or inventory
         let children = this.game.children
         for (let i = 0; i < children.length; i++) {
@@ -350,9 +350,44 @@ class BattlePhase{
                     }
                    
                 
-                }else{
+                }
+                else{
                     // otherwise you should have won and the game advances to the next level
                     console.log("you won")
+                    console.log(this.nextLevel)
+                    let board = document.getElementsByTagName("gameboard")[0]
+
+                    if (this.nextLevel == 2){
+                        board.parentNode?.removeChild(board)
+                        new Level2click()
+                       
+                    }
+                    else if(this.nextLevel == 3){
+                        board.parentNode?.removeChild(board)
+                        new Level3click()
+                        
+                    }
+                    else if(this.nextLevel == 4){
+                        board.parentNode?.removeChild(board)
+                        new Level4click()
+                        
+                    }
+                    else if(this.nextLevel == 5){
+                        board.parentNode?.removeChild(board)
+                        new Level5click()
+                        
+                    }
+                    else if(this.nextLevel == 6){
+                        board.parentNode?.removeChild(board)
+                        new Level6click()
+                        
+                    }
+                    else if(this.nextLevel == 7){
+                        //end the game
+                    }
+                    else{
+                        console.log("something is fucked up")
+                    }
                 }
 
             }
@@ -368,7 +403,7 @@ class BattlePhase{
             }
             
             
-
+            // loops through all unicorns to decide which spaces are available to move to
             unicornPlayers.forEach(element => {
                 element.addEventListener('dragstart', (event: { dataTransfer: { setData: (arg0: string, arg1: any) => void }; target: { id: any } }) => {
                     let spaceNow = element.parentNode.id
@@ -391,8 +426,6 @@ class BattlePhase{
                     if ((numberLeft + 1) % 8){
                         spacesThen.push(document.getElementById("square" + numberLeft))
                     }
-                    //console.log(spaceNow)
-                    //console.log(spacesThen)
                     event.dataTransfer.setData("text", event.target.id);
                     spacesThen.forEach(element => {
                         element.classList.add("canplace")
@@ -413,7 +446,5 @@ class BattlePhase{
                     }
                 })
             });
-            //this.enemyTurn()
         }
-            
 }

@@ -159,6 +159,7 @@ var BattlePhase = (function () {
         var fadetonew = document.getElementsByTagName('fadetonew')[0];
         new Music().changeMusic('battleMusic.mp3');
         var gameChildren = new Array;
+        this.nextLevel = stage + 1;
         var children = this.game.children;
         for (var i = 0; i < children.length; i++) {
             gameChildren.push(children[i]);
@@ -360,6 +361,7 @@ var BattlePhase = (function () {
         this.battleStarted = true;
     };
     BattlePhase.prototype.enemyTurn = function () {
+        var _a, _b, _c, _d, _e;
         for (var i = -1; i < this.monsterCount; i++) {
             if (document.getElementById("monster0")) {
                 var activeMonster = document.getElementById("monster" + i);
@@ -430,6 +432,33 @@ var BattlePhase = (function () {
             }
             else {
                 console.log("you won");
+                console.log(this.nextLevel);
+                var board = document.getElementsByTagName("gameboard")[0];
+                if (this.nextLevel == 2) {
+                    (_a = board.parentNode) === null || _a === void 0 ? void 0 : _a.removeChild(board);
+                    new Level2click();
+                }
+                else if (this.nextLevel == 3) {
+                    (_b = board.parentNode) === null || _b === void 0 ? void 0 : _b.removeChild(board);
+                    new Level3click();
+                }
+                else if (this.nextLevel == 4) {
+                    (_c = board.parentNode) === null || _c === void 0 ? void 0 : _c.removeChild(board);
+                    new Level4click();
+                }
+                else if (this.nextLevel == 5) {
+                    (_d = board.parentNode) === null || _d === void 0 ? void 0 : _d.removeChild(board);
+                    new Level5click();
+                }
+                else if (this.nextLevel == 6) {
+                    (_e = board.parentNode) === null || _e === void 0 ? void 0 : _e.removeChild(board);
+                    new Level6click();
+                }
+                else if (this.nextLevel == 7) {
+                }
+                else {
+                    console.log("something is fucked up");
+                }
             }
         }
         this.playerTurn();
