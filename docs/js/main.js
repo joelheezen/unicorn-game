@@ -637,7 +637,6 @@ var Startscreen = (function () {
         this.menu.innerHTML = "";
         this.leftUnicorn.remove();
         this.rightUnicorn.remove();
-        var unlocked = this.setUnlock(5);
         if (unlocked[0] == false) {
             this.makeLevelIcon(14.1, 59.7, 10.8, 36.1, 1);
             this.levelIcon.addEventListener("click", function () {
