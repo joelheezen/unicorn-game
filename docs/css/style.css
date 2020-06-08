@@ -277,7 +277,18 @@
 
     menu *{
         height:20%;
-        width:100%;
+    }
+
+    delSave{
+        margin-top:20vh;
+        position:absolute;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .button{
+        text-align: center;
+        width:calc(16vw - 20px);
         margin-bottom:5%;
         background-color: rgb(243, 129, 192);
         border: dashed 10px pink;

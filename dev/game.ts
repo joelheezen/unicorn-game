@@ -44,12 +44,16 @@ class Startscreen{
 
         let startButton = document.createElement('startButton')
         startButton.innerHTML = 'Play'
+        startButton.classList.add('button')
         let optionsButton = document.createElement('optionsButton')
-        optionsButton.innerHTML = 'Settings'
+        optionsButton.innerHTML = 'Options'
+        optionsButton.classList.add('button')
         let creditsButton = document.createElement('creditsButton')
         creditsButton.innerHTML = 'Credits'
+        creditsButton.classList.add('button')
         let quitButton = document.createElement('quitButton')
         quitButton.innerHTML = 'Quit'
+        quitButton.classList.add('button')
 
         this.menu.appendChild(startButton)
         this.menu.appendChild(optionsButton)

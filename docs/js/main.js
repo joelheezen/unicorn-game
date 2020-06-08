@@ -577,12 +577,16 @@ var Startscreen = (function () {
         var _this = this;
         var startButton = document.createElement('startButton');
         startButton.innerHTML = 'Play';
+        startButton.classList.add('button');
         var optionsButton = document.createElement('optionsButton');
-        optionsButton.innerHTML = 'Settings';
+        optionsButton.innerHTML = 'Options';
+        optionsButton.classList.add('button');
         var creditsButton = document.createElement('creditsButton');
         creditsButton.innerHTML = 'Credits';
+        creditsButton.classList.add('button');
         var quitButton = document.createElement('quitButton');
         quitButton.innerHTML = 'Quit';
+        quitButton.classList.add('button');
         this.menu.appendChild(startButton);
         this.menu.appendChild(optionsButton);
         this.menu.appendChild(creditsButton);
@@ -1029,6 +1033,17 @@ var Options = (function (_super) {
         });
         effectSlider.addEventListener("change", function () {
             new Soundeffect().playThis('menuSelect.mp3');
+        });
+        var delSave = document.createElement('delSave');
+        delSave.innerHTML = 'Delete save file';
+        delSave.classList.add('button');
+        options.appendChild(delSave);
+        delSave.addEventListener('click', function () {
+            var r = confirm("Are you sure you want to delete your progress?");
+            if (r == true) {
+                localStorage.clear();
+                window.alert('your save data was succesfully deleted.');
+            }
         });
         var leave = document.createElement('leave');
         _this.game.appendChild(leave);

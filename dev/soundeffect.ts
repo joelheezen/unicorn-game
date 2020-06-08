@@ -20,4 +20,3 @@ class Soundeffect{
         document.getElementById('soundeffect')!.src = `assets/${src}`;
         document.getElementById('soundeffect')!.play();
     }
-}

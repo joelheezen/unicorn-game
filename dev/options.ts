@@ -107,6 +107,19 @@ class Options extends Startscreen{
             new Soundeffect().playThis('menuSelect.mp3')
         })
 
+        let delSave = document.createElement('delSave')
+        delSave.innerHTML = 'Delete save file'
+        delSave.classList.add('button')
+        options.appendChild(delSave)
+
+        delSave.addEventListener('click',() =>{
+            var r = confirm("Are you sure you want to delete your progress?");
+            if (r == true) {
+                localStorage.clear();
+                window.alert('your save data was succesfully deleted.')
+            } 
+        })
+
 
         let leave = document.createElement('leave')
         this.game.appendChild(leave)
