@@ -184,11 +184,11 @@
 
     inventory{
         position:absolute;
-        height: calc(66vh - 30px);
+        height: calc(70vh - 30px);
         width: 50px;
         padding-left:10px;
         padding-right:10px;
-        top: 2vh;
+        top: calc(15vh - 15px);
         left: calc(99vw - 100px);
         background-color: rgb(243, 129, 192);
         border: inset 15px pink;

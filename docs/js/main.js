@@ -206,10 +206,21 @@ var BattlePhase = (function () {
         }
         inventory.addEventListener("drop", function () { return _this.drop(event); });
         inventory.addEventListener("dragover", function () { return _this.allowDrop(event); });
+        var mobile = false;
+        setTimeout(function () {
+            if ((screen.width < 480) || (screen.height < 480)) {
+                mobile = true;
+            }
+        }, 100);
         for (var i = 0; i < inventoryItems.length; i++) {
             inventoryItems[i].id = "item" + i;
             inventoryItems[i].draggable = true;
-            inventoryItems[i].addEventListener("dragstart", function () { return _this.drag(event); });
+            if (mobile == false) {
+                inventoryItems[i].addEventListener("dragstart", function () { return _this.drag(event); });
+            }
+            else {
+                inventoryItems[i].addEventListener("touchmove", function () { return _this.drag(event); });
+            }
         }
         var monsterTypes = ["cabinet", "couch", "dumbell", "lamp", "plant", "jug"];
         var obstacleTypes = ['rock', 'water', 'tree', 'roadblock', 'lava', 'manhole'];
@@ -555,6 +566,7 @@ var Startscreen = (function () {
         this.setButtons();
         this.setAssets();
         new Music().playMusic('music.mp3');
+        new Music().changeMusic('music.mp3');
         new Soundeffect().setSound();
     }
     Startscreen.prototype.setBackground = function () {

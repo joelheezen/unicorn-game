@@ -10,6 +10,7 @@ class BattlePhase{
     nextLevel:number
     
     constructor(stage: number){
+        
         //deletes everything and puts a new background in
         let pointer = document.getElementsByTagName("newpointer")[0]
         let inv = document.getElementsByTagName("inventory")[0]
@@ -80,10 +81,23 @@ class BattlePhase{
             inventory.addEventListener("drop",() => this.drop(event))
             inventory.addEventListener("dragover",() => this.allowDrop(event))
 
+            let mobile = false
+
+            setTimeout(function(){
+                if ((screen.width < 480) || (screen.height < 480)) {
+                  mobile = true
+                }
+              }, 100);
+
         for (let i = 0; i < inventoryItems.length; i++){
             inventoryItems[i].id = "item" + i
             inventoryItems[i].draggable = true
-            inventoryItems[i].addEventListener("dragstart",() => this.drag(event))
+            
+            if(mobile == false){
+                inventoryItems[i].addEventListener("dragstart",() => this.drag(event))
+            }else{
+                inventoryItems[i].addEventListener("touchmove",() => this.drag(event))
+            }
         }
         
         let monsterTypes = ["cabinet","couch","dumbell","lamp","plant","jug"]
