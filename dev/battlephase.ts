@@ -340,11 +340,7 @@ class BattlePhase{
                 
                 }
                 else{
-<<<<<<< HEAD
-                    // otherwise you should have won and the game advances to the next level
-=======
                     // player has won the game moves to next level and unlocks it for future play
->>>>>>> 4bdbbc2f46408ae5d881734ae4378088a052679c
                     let board = document.getElementsByTagName("gameboard")[0]
 
                     if (this.nextLevel == 2){
