@@ -24,7 +24,8 @@ spawnGlitter(){
     let body = document.getElementsByTagName('body')[0]
     document.addEventListener('mousemove', function(pos){
         var d = Math.random()
-        if (d > 0.5){
+    
+        if (d > 0.90){
             let glitter = document.createElement("glitter")
             body.appendChild(glitter)
             glitter.style.display = "initial"
@@ -44,10 +45,15 @@ circleOnClick(){
         let circle = document.createElement("circle")
         body.appendChild(circle)
         circle.style.display = "initial" 
-        circle.style.transform = 'translateY('+(pos.clientY - 30)+'px) translateX('+(pos.clientX - 30)+'px) scale(1)';
-        
+        circle.style.transform = `translate(calc(${pos.clientX}px - 3vh),calc(${pos.clientY}px - 3vh)) scale(1)`;
+        circle.style.transition = "all 1s"
 
-        window.setTimeout(function(){body.removeChild(circle)}, 2000);
+        setTimeout(() => {
+            circle.style.transform = `translate(calc(${pos.clientX}px - 3vh),calc(${pos.clientY}px - 3vh)) scale(2)`;
+            circle.style.opacity = '0'
+        }, 1);
+
+        window.setTimeout(function(){body.removeChild(circle)}, 1000);
 
     },true);
 

@@ -2,53 +2,53 @@ window.addEventListener("load", () => new Startscreen())
 
 class Startscreen{
 
-    game = document.getElementsByTagName("game")[0]
-    menu = document.createElement('menu')
-    leftUnicorn: HTMLElement
-    rightUnicorn: HTMLElement
-    levelIcon: HTMLElement
-    lock: HTMLElement
+    protected game = document.getElementsByTagName('game')[0]
+    protected menu = document.createElement('menu')
+    private leftUnicorn: HTMLElement
+    private rightUnicorn: HTMLElement
+    private levelIcon: HTMLElement
+    private lock: HTMLElement
 
     constructor(){
-        this.game.innerHTML = ""
+        this.game.innerHTML = ''
         this.setBackground()
         this.setButtons()
         this.setAssets()
+        new Music().playMusic('music.mp3')
+        new Soundeffect().setSound()
     }
 
     setBackground(){
-        let background = document.createElement("background")
-        background.style.backgroundImage = "url(assets/startscreen.png)"
+        let background = document.createElement('background')
+        background.style.backgroundImage = 'url(assets/startscreen.png)'
         this.game.appendChild(background)
-        this.game.innerHTML += '<audio id="audioplayer"><source src="assets/music.mp3" type="audio/ogg"></audio>'
-        document.getElementsByTagName('audio')[0].volume = 0.5;
     }
 
     setAssets(){
-        let title = document.createElement("title")
-        title.innerHTML = "Tactical unicorn"
+        let title = document.createElement('title')
+        title.innerHTML = 'Tactical unicorn'
         this.game.appendChild(title)
 
-        this.leftUnicorn = document.createElement("leftUnicorn")
-        this.leftUnicorn.classList.add("bounce-left")
+        this.leftUnicorn = document.createElement('leftUnicorn')
+        this.leftUnicorn.classList.add('bounce-left')
         this.game.appendChild(this.leftUnicorn)
 
-        this.rightUnicorn = document.createElement("rightUnicorn")
-        this.rightUnicorn.classList.add("bounce-right")
+        this.rightUnicorn = document.createElement('rightUnicorn')
+        this.rightUnicorn.classList.add('bounce-right')
         this.game.appendChild(this.rightUnicorn)
 
     }
 
     setButtons(){
 
-        let startButton = document.createElement("startButton")
-        startButton.innerHTML = "Play"
-        let optionsButton = document.createElement("optionsButton")
-        optionsButton.innerHTML = 'Options'
-        let creditsButton = document.createElement("creditsButton")
-        creditsButton.innerHTML = "Credits"
-        let quitButton = document.createElement("quitButton")
-        quitButton.innerHTML = "Quit"
+        let startButton = document.createElement('startButton')
+        startButton.innerHTML = 'Play'
+        let optionsButton = document.createElement('optionsButton')
+        optionsButton.innerHTML = 'Settings'
+        let creditsButton = document.createElement('creditsButton')
+        creditsButton.innerHTML = 'Credits'
+        let quitButton = document.createElement('quitButton')
+        quitButton.innerHTML = 'Quit'
 
         this.menu.appendChild(startButton)
         this.menu.appendChild(optionsButton)
@@ -59,18 +59,21 @@ class Startscreen{
 
         startButton.addEventListener('click',()=>{
             this.levelSelect()
+            new Soundeffect().playThis('menuSelect.mp3')
         })
 
         optionsButton.addEventListener('click',()=>{
             this.setOptions()
+            new Soundeffect().playThis("menuSelect.mp3")
         })
 
         creditsButton.addEventListener('click',()=>{
-            this.setCredits()      
+            this.setCredits()    
+            new Soundeffect().playThis("menuSelect.mp3")
         })
 
         quitButton.addEventListener('click',()=>{
-            close();
+            window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
         })
         
         
@@ -125,6 +128,7 @@ class Startscreen{
         this.levelIcon.addEventListener("click",()=>{
             this.game.innerHTML = ""
             new Level1click
+            new Soundeffect().playThis("door.wav")
         })
         }
         if(unlocked[1]==false){
@@ -132,6 +136,7 @@ class Startscreen{
         this.levelIcon.addEventListener("click",()=>{
             this.game.innerHTML = ""
             new Level2click
+            new Soundeffect().playThis("door.wav")
         })
         }
 
@@ -140,6 +145,7 @@ class Startscreen{
         this.levelIcon.addEventListener("click",()=>{
             this.game.innerHTML = ""
             new Level4click
+            new Soundeffect().playThis("door.wav")
         })
         }
         if(unlocked[2]==false){
@@ -147,6 +153,7 @@ class Startscreen{
         this.levelIcon.addEventListener("click",()=>{
             this.game.innerHTML = ""
             new Level3click
+            new Soundeffect().playThis("door.wav")
         })
         }
         if(unlocked[4]==false){
@@ -154,6 +161,7 @@ class Startscreen{
         this.levelIcon.addEventListener("click",()=>{
             this.game.innerHTML = ""
             new Level5click
+            new Soundeffect().playThis("door.wav")
         })
         }
         if(unlocked[5]==false){
@@ -161,6 +169,7 @@ class Startscreen{
         this.levelIcon.addEventListener("click",()=>{
             this.game.innerHTML = ""
             new Level6click
+            new Soundeffect().playThis("door.wav")
         })
         }
 
@@ -172,10 +181,9 @@ class Startscreen{
             while(document.getElementsByTagName('level').length>0){
                 for (let i = 0; i < document.getElementsByTagName('level').length; i++) {
                     document.getElementsByTagName('level')[i].remove()
-                    
                 }}
                 leave.remove();
-
+                new Soundeffect().playThis("menuBack.wav")
                 this.setButtons();
                 this.setAssets();
             })
@@ -201,8 +209,8 @@ class Startscreen{
             credits.innerHTML += "<credit>gamerules</credit"
             credits.innerHTML += "<credit>Concept</credit>"
 
-            credits.innerHTML += "<name>Luuk s&#039;Gravendijk</name>"
-            credits.innerHTML += "<name>Luuk s&#039;Gravendijk</name>"
+            credits.innerHTML += "<name>Luuk 's-Gravendijk</name>"
+            credits.innerHTML += "<name>Luuk 's-Gravendijk</name>"
             credits.innerHTML += "<name>All involved</name>"
 
             let leave = document.createElement('leave')
@@ -211,62 +219,14 @@ class Startscreen{
             leave.addEventListener("click",() =>{
                 credits.remove();
                 leave.remove();
-
+                new Soundeffect().playThis("menuBack.wav")
                 this.setButtons();
             })
 
     }
 
     setOptions(){
-        this.menu.innerHTML = "";
-        let options = document.createElement('options')
-        this.game.appendChild(options)
-
-        let musicOptions = document.createElement('musicOptions')
-        options.appendChild(musicOptions)
-
-        musicOptions.innerHTML += "Music Volume"
-
-        let muteGame = document.createElement('muteGame')
-        musicOptions.appendChild(muteGame)
-
-        let musicVolume = document.createElement('input')
-        musicOptions.appendChild(musicVolume)
-
-
-
-        musicVolume.type = "range"
-        musicVolume.min = "0"
-        musicVolume.max = "100"
-        musicVolume.id = 'myRange'
-        musicVolume.value = '0'
-
-            musicVolume.addEventListener("input",()=> {
-                let volume = parseInt(musicVolume.value)
-                volume = volume /100
-                document.getElementsByTagName('audio')[0].volume = volume
-
-                if(musicVolume.value !== '0'){
-                    document.getElementsByTagName('audio')[0].play()
-                    muteGame.style.backgroundImage = 'url(assets/unmuted.png)'
-                }else{
-                    document.getElementsByTagName('audio')[0].pause() 
-                    muteGame.style.backgroundImage = 'url(assets/muted.png)'
-                }
-            })
-
-
-
-
-        let leave = document.createElement('leave')
-        this.game.appendChild(leave)
-        
-        leave.addEventListener("click",() =>{
-            options.remove();
-            leave.remove();
-
-            this.setButtons();
-        })
+        new Options()
     }
 
 
@@ -345,7 +305,7 @@ class Level3click{
         this.setBackground()
         new Hint(9,12,12.5,11,"Were you feel most safe, enemies strike. Your life might soon be ova. You struggle and struggle, but no prevail. The danger hides 'round the sofa. <br><br> The magic sounds like buzzing, as you look for a clue. A weird furniture attacks you, as you try to stand your ground you see its hue is colored blue.")
         new Inventory()
-        new Dialogbox("unicorn_player","I can smell, his smell, his smelly smell that*SMELLSS!!!*Hahah Spongebob*But in all seriousness he must have gone through this room")
+        new Dialogbox("unicorn_player","I can smell, his smell, his smelly smell that*SMELLS!!!*Hahah Spongebob*But in all seriousness he must have gone through this room")
     }
 
     setBackground(){
@@ -445,7 +405,7 @@ class Level6click{
         new Hint(39,26,9,11,"As you walk into the room you feel a powerfull surge. Its cold like you are in a blizzard. When you find the item in witch he resides youll find yourself fighting a wizard.")
         new Inventory()
         new Dialogbox("unicorn_player","I can feel hes in the room somewhere")
-        new Dialogbox("wizard","...*...*I hope they dont find me in here*But if they do I will surely destroy them")
+        new Dialogbox("enemy_wizard","...*...*I hope they dont find me in here*But if they do I will surely destroy them")
     }
 
 

@@ -1,19 +1,35 @@
 "use strict";
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 var Furniture = (function () {
     function Furniture(furnX, furnY, furnDimX, furnDimY, contains, background) {
         this.makeFurniture(furnX, furnY, furnDimX, furnDimY, contains, background);
     }
     Furniture.prototype.makeFurniture = function (furnX, furnY, furnDimX, furnDimY, contains, background) {
         var _this = this;
-        this.furniture = document.createElement("furniture");
-        this.shakeBox = document.createElement("shakeBox");
-        var game = document.getElementsByTagName("game")[0];
+        this.furniture = document.createElement('furniture');
+        this.shakeBox = document.createElement('shakeBox');
+        var game = document.getElementsByTagName('game')[0];
         this.furniture.style.backgroundImage = background;
         this.furniture.style.height = furnDimY + "vh";
         this.furniture.style.width = furnDimX + "vw";
         this.shakeBox.style.transform = "translate(" + furnX + "vw," + furnY + "vh)";
         this.furniture.classList.add('shake');
         this.furniture.addEventListener('click', function () { return _this.additem(contains, furnX, furnY, furnDimX, furnDimY); });
+        this.furniture.addEventListener('mouseover', function () {
+            new Soundeffect().playThis('rumble.wav');
+        });
         this.shakeBox.appendChild(this.furniture);
         game.appendChild(this.shakeBox);
     };
@@ -23,6 +39,7 @@ var Furniture = (function () {
         furnDimX = furnDimX / 2;
         furnDimY = furnDimY / 2;
         if (contains == "none") {
+            new Soundeffect().playThis("noItem.mp3");
             var dustcloud_1 = document.createElement("dustcloud");
             game.appendChild(dustcloud_1);
             dustcloud_1.style.transform = "translate(calc(" + furnX + "vw + " + furnDimX + "vw - 50px),calc(" + furnY + "vh + " + furnDimY + "vh - 50px))";
@@ -39,6 +56,7 @@ var Furniture = (function () {
             }, 3000);
         }
         else {
+            new Soundeffect().playThis("foundItem.wav");
             var pickup_1 = document.createElement("pickup");
             var grayout_1 = document.createElement('grayout');
             var itemMessage_1 = document.createElement('itemMessage');
@@ -57,6 +75,7 @@ var Furniture = (function () {
                 }, 1000);
                 var inventory = document.getElementsByTagName("inventory")[0];
                 var inventoryItem = document.createElement('inventoryItem');
+                inventoryItem.classList.add('player');
                 inventoryItem.style.backgroundImage = "url(assets/" + contains + ".png)";
                 inventory.appendChild(inventoryItem);
             });
@@ -79,18 +98,22 @@ var EvilFurniture = (function () {
         this.furniture.style.width = furnDimX + "vw";
         this.shakeBox.style.transform = "translate(" + furnX + "vw," + furnY + "vh)";
         this.furniture.classList.add('shake');
+        this.furniture.addEventListener('mouseover', function () {
+            new Soundeffect().playThis("rumble.wav");
+        });
         this.shakeBox.addEventListener('click', function () { return _this.startbattle(event, level); });
         this.shakeBox.appendChild(this.furniture);
         game.appendChild(this.shakeBox);
     };
     EvilFurniture.prototype.startbattle = function (event, level) {
+        new Soundeffect().playThis("minionFound.mp3");
         var game = document.getElementsByTagName("game")[0];
         this.furniture.classList.remove('shake');
         var grayout = document.createElement('grayout');
         var itemMessage = document.createElement('itemMessage');
         itemMessage.innerHTML = "You have found the wizards minion";
         event.target.parentElement.style.zIndex = "150";
-        this.shakeBox.style.animation = "enemyappear 2s forwards";
+        this.shakeBox.style.animation = "enemyappear 3s forwards";
         this.shakeBox.style.animationIterationCount = "1";
         game.append(itemMessage);
         game.appendChild(grayout);
@@ -128,10 +151,13 @@ var BattlePhase = (function () {
     function BattlePhase(stage) {
         var _this = this;
         this.game = document.getElementsByTagName("game")[0];
+        this.battleStarted = false;
+        this.monsterCount = 0;
         console.log("button pressed, loading in battlephase");
         var pointer = document.getElementsByTagName("newpointer")[0];
         var inv = document.getElementsByTagName("inventory")[0];
         var fadetonew = document.getElementsByTagName('fadetonew')[0];
+        new Music().changeMusic('battleMusic.mp3');
         var gameChildren = new Array;
         var children = this.game.children;
         for (var i = 0; i < children.length; i++) {
@@ -150,6 +176,7 @@ var BattlePhase = (function () {
             var inventoryItem = document.createElement('inventoryItem');
             var inventoryadd = document.getElementsByTagName("inventory")[0];
             inventoryItem.style.backgroundImage = "url(assets/unicorn_crash_test.png)";
+            inventoryItem.classList.add('player');
             inventoryadd.appendChild(inventoryItem);
         }
         var squares = 64;
@@ -157,7 +184,7 @@ var BattlePhase = (function () {
         var yPosSquare = 8;
         var spaces = document.getElementsByTagName("moveSpace");
         var monsters = new Array;
-        var monsterCount = 0;
+        var obstacles = new Array;
         var inventory = document.getElementsByTagName('inventory')[0];
         var gameboard = document.createElement("gameBoard");
         this.game.appendChild(gameboard);
@@ -174,6 +201,7 @@ var BattlePhase = (function () {
             if (i > 31) {
                 moveSpace.addEventListener("drop", function () { return _this.drop(event); });
                 moveSpace.addEventListener("dragover", function () { return _this.allowDrop(event); });
+                moveSpace.classList.add("canplace");
             }
         }
         inventory.addEventListener("drop", function () { return _this.drop(event); });
@@ -183,38 +211,70 @@ var BattlePhase = (function () {
             inventoryItems[i].draggable = true;
             inventoryItems[i].addEventListener("dragstart", function () { return _this.drag(event); });
         }
-        var monsterTypes = ["enemy_cabinet", "enemy_couch", "enemy_dumbell", "enemy_lamp", "enemy_plant"];
+        var monsterTypes = ["cabinet", "couch", "dumbell", "lamp", "plant", "jug"];
+        var obstacleTypes = ['rock', 'water', 'tree', 'roadblock', 'lava', 'manhole'];
         switch (stage) {
             case 1:
-                monsterCount = 4;
+                this.monsterCount = 6;
+                this.obstaclePlaces = [2, 12, 26, 20, 16, 31];
+                this.monsterKingImg = "plant";
                 break;
             case 2:
-                monsterCount = 4;
+                this.monsterCount = 7;
+                this.obstaclePlaces = [16, 18, 21, 23, 24, 25, 26, 29, 30, 31];
+                this.monsterKingImg = "couch";
                 break;
             case 3:
-                monsterCount = 4;
+                this.monsterCount = 8;
+                this.obstaclePlaces = [17, 18, 19, 20, 21, 22];
+                this.monsterKingImg = "dumbell";
                 break;
             case 4:
-                monsterCount = 4;
+                this.monsterCount = 9;
+                this.obstaclePlaces = [25, 26, 27, 28, 29, 30];
+                this.monsterKingImg = "jug";
                 break;
             case 5:
-                monsterCount = 4;
+                this.monsterCount = 10;
+                this.obstaclePlaces = [0, 2, 4, 6, 17, 19, 21, 23];
+                this.monsterKingImg = "cabinet";
                 break;
             case 6:
-                monsterCount = 4;
+                this.monsterCount = 11;
+                this.obstaclePlaces = [];
                 monsterTypes = ["wizard"];
+                this.monsterKingImg = "wizard";
                 break;
         }
-        for (var i = 0; i < monsterCount; i++) {
+        for (var i = 0; i < this.obstaclePlaces.length; i++) {
+            var obstacle = document.createElement("obstacle");
+            obstacle.classList.add("obstacle");
+            obstacle.style.backgroundImage = "url(assets/obstacle_" + obstacleTypes[Math.floor(Math.random() * monsterTypes.length)] + ".png)";
+            obstacles.push(obstacle);
+        }
+        for (var i = 0; i < this.obstaclePlaces.length; i++) {
+            if (spaces[this.obstaclePlaces[i]].firstChild) {
+                i -= 1;
+            }
+            else {
+                spaces[this.obstaclePlaces[i]].appendChild(obstacles[i]);
+            }
+        }
+        for (var i = 0; i < this.monsterCount; i++) {
             var monster = document.createElement("monster");
             monster.classList.add("monster");
-            monster.style.backgroundImage = "url(assets/" + monsterTypes[Math.floor(Math.random() * monsterTypes.length)] + ".png)";
-            console.log(monster.style.backgroundImage);
+            if (i == 0) {
+                monster.style.backgroundImage = "url(assets/enemy_" + this.monsterKingImg + ".png)";
+            }
+            else {
+                monster.style.backgroundImage = "url(assets/enemy_" + monsterTypes[Math.floor(Math.random() * monsterTypes.length)] + ".png)";
+                monster.style.filter = "contrast(50%) sepia(100%) hue-rotate(230deg)";
+            }
             monster.id = "monster" + i;
             monsters.push(monster);
         }
-        for (var i = 0; i < monsterCount; i++) {
-            var randomNumber = Math.floor(Math.random() * 31);
+        for (var i = 0; i < this.monsterCount; i++) {
+            var randomNumber = Math.floor(Math.random() * 32);
             console.log(randomNumber);
             if (spaces[randomNumber].firstChild) {
                 i -= 1;
@@ -227,8 +287,6 @@ var BattlePhase = (function () {
         this.game.appendChild(this.startBattle);
         this.startBattle.innerHTML = "Start Battle";
         this.startBattle.addEventListener("click", function () { return _this.prepareBoard(); });
-        this.battleCover = document.createElement('battlecover');
-        this.game.appendChild(this.battleCover);
     }
     BattlePhase.prototype.allowDrop = function (ev) {
         ev.preventDefault();
@@ -237,6 +295,7 @@ var BattlePhase = (function () {
         ev.dataTransfer.setData("text", ev.target.id);
     };
     BattlePhase.prototype.drop = function (ev) {
+        new Soundeffect().playThis("nes-01-00.wav");
         var data = ev.dataTransfer.getData("text");
         var element = document.getElementById(data);
         if (ev.target.id.substring(0, 4) == "item") {
@@ -251,30 +310,37 @@ var BattlePhase = (function () {
         var inventory = document.getElementsByTagName('inventory')[0];
         if (inventory.childNodes.length == 0) {
             console.log('no items in inventory');
-            this.battleCover.remove();
+            this.startBattle.style.opacity = "1";
         }
         if (inventory.childNodes.length > 0) {
             console.log('items in inventory');
-            this.game.appendChild(this.battleCover);
+            this.startBattle.style.opacity = "0";
         }
         if (element != null) {
-            if (element.classList.contains("gamer") && ev.target.classList.contains("dropzone")) {
+            if (element.classList.contains("gamer") && ev.target.classList.contains("canplace")) {
                 ev.preventDefault();
                 ev.target.appendChild(document.getElementById(data));
                 element = document.getElementById(data);
+                if (this.battleStarted == true) {
+                    this.enemyTurn();
+                }
             }
         }
         if (element != null) {
-            if (element.classList.contains("gamer") && ev.target.classList.contains("monster")) {
+            if (element.classList.contains("gamer") && ev.target.classList.contains("monster") && ev.target.parentElement.classList.contains("canplace")) {
                 ev.preventDefault();
                 console.log("you hit a monster");
                 var monsterChild = ev.target;
                 var monsterParent = monsterChild.parentNode;
                 if (monsterParent) {
                     monsterParent.removeChild(monsterChild);
+                    new Soundeffect().playThis("nes-05-07.wav");
                 }
                 monsterParent.appendChild(document.getElementById(data));
                 element = document.getElementById(data);
+                if (this.battleStarted == true) {
+                    this.enemyTurn();
+                }
             }
         }
     };
@@ -285,38 +351,88 @@ var BattlePhase = (function () {
             enemySide[index].addEventListener("drop", function () { return _this.drop(event); });
             enemySide[index].addEventListener("dragover", function () { return _this.allowDrop(event); });
         }
+        for (var index = 31; index <= 63; index++) {
+            document.getElementsByTagName('movespace')[index].classList.remove('canplace');
+        }
         var startbattle = document.getElementsByTagName('startBattle')[0];
-        startbattle.innerHTML = "End your turn";
+        startbattle.remove();
         this.enemyTurn();
+        this.battleStarted = true;
     };
     BattlePhase.prototype.enemyTurn = function () {
-        if (document.getElementById("monster0")) {
-            console.log("the enemies are advancing");
-            var monstersLeft = document.getElementsByTagName("monster");
-            var activeMonster = document.getElementById("monster" + Math.floor(Math.random() * monstersLeft.length));
-            if (activeMonster != null) {
-                var spaceNow = activeMonster.parentNode;
-                console.log(spaceNow.id);
-                var direction = Math.floor(Math.random() * 100);
-                if (direction < 10) {
-                    console.log("move back");
-                }
-                else if (direction < 20 && direction >= 10) {
-                    console.log("move left");
-                }
-                else if (direction < 30 && direction >= 20) {
-                    console.log("move right");
-                }
-                else {
-                    console.log("move forward");
+        for (var i = -1; i < this.monsterCount; i++) {
+            if (document.getElementById("monster0")) {
+                var activeMonster = document.getElementById("monster" + i);
+                if (activeMonster != null) {
+                    var spaceNow = activeMonster.parentNode;
+                    var spaceNowPos = spaceNow.id.substring(6, 8);
+                    var moveMonsterTo = document.getElementsByTagName('movespace');
+                    var moved = false;
+                    while (moved == false) {
+                        var direction = Math.floor(Math.random() * 100);
+                        var spaceToMove = void 0;
+                        if (direction <= 25) {
+                            console.log("move back");
+                            spaceToMove = moveMonsterTo[parseInt(spaceNowPos) - 8];
+                        }
+                        else if (direction > 25 && direction <= 50) {
+                            console.log("move left");
+                            var moveto = parseInt(spaceNowPos) - 1;
+                            if (((moveto + 1) % 8) == 0) {
+                                console.log("cant move here, retry");
+                                continue;
+                            }
+                            spaceToMove = moveMonsterTo[moveto];
+                        }
+                        else if (direction > 50 && direction <= 75) {
+                            console.log("move right");
+                            var moveto = parseInt(spaceNowPos) + 1;
+                            if ((moveto % 8) == 0) {
+                                console.log("cant move here, retry");
+                                continue;
+                            }
+                            spaceToMove = moveMonsterTo[moveto];
+                        }
+                        else if (direction > 75 && direction <= 100) {
+                            console.log("move down");
+                            spaceToMove = moveMonsterTo[parseInt(spaceNowPos) + 8];
+                        }
+                        if (spaceToMove) {
+                            if (spaceToMove.childNodes.length > 0) {
+                                if (spaceToMove.children[0].classList.contains("monster")) {
+                                    spaceToMove.appendChild(activeMonster);
+                                    spaceNow.appendChild(spaceToMove.children[0]);
+                                    moved = true;
+                                }
+                                else if (spaceToMove.children[0].classList.contains("player")) {
+                                    new Soundeffect().playThis("allyDie.wav");
+                                    spaceToMove.removeChild(spaceToMove.childNodes[0]);
+                                    spaceToMove.appendChild(activeMonster);
+                                    spaceToMove.style.backgroundImage = "url(assets/unicorn_dead.png)";
+                                    moved = true;
+                                }
+                                else if (spaceToMove.children[0].classList.contains("obstacle")) {
+                                    console.log('obstacle in the way');
+                                    direction = Math.floor(Math.random() * 100);
+                                }
+                            }
+                            else {
+                                spaceToMove.appendChild(activeMonster);
+                                moved = true;
+                            }
+                        }
+                        else {
+                            console.log('space doesnt exist');
+                            direction = Math.floor(Math.random() * 100);
+                        }
+                    }
                 }
             }
-            console.log(activeMonster);
-            this.playerTurn();
+            else {
+                console.log("you won");
+            }
         }
-        else {
-            console.log("you won");
-        }
+        this.playerTurn();
     };
     BattlePhase.prototype.playerTurn = function () {
         var _this = this;
@@ -335,7 +451,7 @@ var BattlePhase = (function () {
                 var numberBot = number + 8;
                 var numberLeft = number - 1;
                 element.classList.add("gamer");
-                if (numberTop > 0) {
+                if (numberTop >= 0) {
                     spacesThen.push(document.getElementById("square" + numberTop));
                 }
                 if (numberRight % 8) {
@@ -347,30 +463,26 @@ var BattlePhase = (function () {
                 if ((numberLeft + 1) % 8) {
                     spacesThen.push(document.getElementById("square" + numberLeft));
                 }
-                console.log(spaceNow);
-                console.log(spacesThen);
                 event.dataTransfer.setData("text", event.target.id);
                 spacesThen.forEach(function (element) {
-                    element.classList.add("dropzone");
+                    element.classList.add("canplace");
                     element.addEventListener('dragover', function () { return _this.allowDrop(event); });
                 });
             });
             element.addEventListener('dragend', function () {
                 element.classList.remove("gamer");
-                var oldSpaces = document.getElementsByClassName("dropzone");
+                var oldSpaces = document.getElementsByClassName("canplace");
                 for (var i = 0; i < oldSpaces.length; i++) {
-                    oldSpaces[i].classList.remove("dropzone");
+                    oldSpaces[i].classList.remove("canplace");
                 }
                 for (var i = 0; i < oldSpaces.length; i++) {
-                    oldSpaces[i].classList.remove("dropzone");
+                    oldSpaces[i].classList.remove("canplace");
                 }
                 for (var i = 0; i < oldSpaces.length; i++) {
-                    oldSpaces[i].classList.remove("dropzone");
+                    oldSpaces[i].classList.remove("canplace");
                 }
             });
         });
-        console.log(unicornPlayers);
-        console.log(unicornsLeft);
     };
     return BattlePhase;
 }());
@@ -391,7 +503,7 @@ var Dialogbox = (function () {
         playerIcon.style.backgroundImage = "url(assets/" + player + ".png)";
         var currentDialog = 0;
         dialog.innerHTML = messages[currentDialog];
-        nextMessage.addEventListener('click', function () {
+        dialog.addEventListener('click', function () {
             currentDialog += 1;
             if (currentDialog < messages.length) {
                 dialog.innerHTML = "";
@@ -409,41 +521,41 @@ var Dialogbox = (function () {
 window.addEventListener("load", function () { return new Startscreen(); });
 var Startscreen = (function () {
     function Startscreen() {
-        this.game = document.getElementsByTagName("game")[0];
+        this.game = document.getElementsByTagName('game')[0];
         this.menu = document.createElement('menu');
-        this.game.innerHTML = "";
+        this.game.innerHTML = '';
         this.setBackground();
         this.setButtons();
         this.setAssets();
+        new Music().playMusic('music.mp3');
+        new Soundeffect().setSound();
     }
     Startscreen.prototype.setBackground = function () {
-        var background = document.createElement("background");
-        background.style.backgroundImage = "url(assets/startscreen.png)";
+        var background = document.createElement('background');
+        background.style.backgroundImage = 'url(assets/startscreen.png)';
         this.game.appendChild(background);
-        this.game.innerHTML += '<audio id="audioplayer"><source src="assets/music.mp3" type="audio/ogg"></audio>';
-        document.getElementsByTagName('audio')[0].volume = 0.5;
     };
     Startscreen.prototype.setAssets = function () {
-        var title = document.createElement("title");
-        title.innerHTML = "Tactical unicorn";
+        var title = document.createElement('title');
+        title.innerHTML = 'Tactical unicorn';
         this.game.appendChild(title);
-        this.leftUnicorn = document.createElement("leftUnicorn");
-        this.leftUnicorn.classList.add("bounce-left");
+        this.leftUnicorn = document.createElement('leftUnicorn');
+        this.leftUnicorn.classList.add('bounce-left');
         this.game.appendChild(this.leftUnicorn);
-        this.rightUnicorn = document.createElement("rightUnicorn");
-        this.rightUnicorn.classList.add("bounce-right");
+        this.rightUnicorn = document.createElement('rightUnicorn');
+        this.rightUnicorn.classList.add('bounce-right');
         this.game.appendChild(this.rightUnicorn);
     };
     Startscreen.prototype.setButtons = function () {
         var _this = this;
-        var startButton = document.createElement("startButton");
-        startButton.innerHTML = "Play";
-        var optionsButton = document.createElement("optionsButton");
-        optionsButton.innerHTML = 'Options';
-        var creditsButton = document.createElement("creditsButton");
-        creditsButton.innerHTML = "Credits";
-        var quitButton = document.createElement("quitButton");
-        quitButton.innerHTML = "Quit";
+        var startButton = document.createElement('startButton');
+        startButton.innerHTML = 'Play';
+        var optionsButton = document.createElement('optionsButton');
+        optionsButton.innerHTML = 'Settings';
+        var creditsButton = document.createElement('creditsButton');
+        creditsButton.innerHTML = 'Credits';
+        var quitButton = document.createElement('quitButton');
+        quitButton.innerHTML = 'Quit';
         this.menu.appendChild(startButton);
         this.menu.appendChild(optionsButton);
         this.menu.appendChild(creditsButton);
@@ -451,15 +563,18 @@ var Startscreen = (function () {
         this.game.appendChild(this.menu);
         startButton.addEventListener('click', function () {
             _this.levelSelect();
+            new Soundeffect().playThis('menuSelect.mp3');
         });
         optionsButton.addEventListener('click', function () {
             _this.setOptions();
+            new Soundeffect().playThis("menuSelect.mp3");
         });
         creditsButton.addEventListener('click', function () {
             _this.setCredits();
+            new Soundeffect().playThis("menuSelect.mp3");
         });
         quitButton.addEventListener('click', function () {
-            close();
+            window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
         });
     };
     Startscreen.prototype.makeLevelIcon = function (posX, posY, width, height, levelNumber) {
@@ -504,6 +619,7 @@ var Startscreen = (function () {
             this.levelIcon.addEventListener("click", function () {
                 _this.game.innerHTML = "";
                 new Level1click;
+                new Soundeffect().playThis("door.wav");
             });
         }
         if (unlocked[1] == false) {
@@ -511,6 +627,7 @@ var Startscreen = (function () {
             this.levelIcon.addEventListener("click", function () {
                 _this.game.innerHTML = "";
                 new Level2click;
+                new Soundeffect().playThis("door.wav");
             });
         }
         if (unlocked[3] == false) {
@@ -518,6 +635,7 @@ var Startscreen = (function () {
             this.levelIcon.addEventListener("click", function () {
                 _this.game.innerHTML = "";
                 new Level4click;
+                new Soundeffect().playThis("door.wav");
             });
         }
         if (unlocked[2] == false) {
@@ -525,6 +643,7 @@ var Startscreen = (function () {
             this.levelIcon.addEventListener("click", function () {
                 _this.game.innerHTML = "";
                 new Level3click;
+                new Soundeffect().playThis("door.wav");
             });
         }
         if (unlocked[4] == false) {
@@ -532,6 +651,7 @@ var Startscreen = (function () {
             this.levelIcon.addEventListener("click", function () {
                 _this.game.innerHTML = "";
                 new Level5click;
+                new Soundeffect().playThis("door.wav");
             });
         }
         if (unlocked[5] == false) {
@@ -539,6 +659,7 @@ var Startscreen = (function () {
             this.levelIcon.addEventListener("click", function () {
                 _this.game.innerHTML = "";
                 new Level6click;
+                new Soundeffect().playThis("door.wav");
             });
         }
         var leave = document.createElement('leave');
@@ -550,6 +671,7 @@ var Startscreen = (function () {
                 }
             }
             leave.remove();
+            new Soundeffect().playThis("menuBack.wav");
             _this.setButtons();
             _this.setAssets();
         });
@@ -568,54 +690,20 @@ var Startscreen = (function () {
         credits.innerHTML += "<credit>Cursor</credit>";
         credits.innerHTML += "<credit>gamerules</credit";
         credits.innerHTML += "<credit>Concept</credit>";
-        credits.innerHTML += "<name>Luuk s&#039;Gravendijk</name>";
-        credits.innerHTML += "<name>Luuk s&#039;Gravendijk</name>";
+        credits.innerHTML += "<name>Luuk 's-Gravendijk</name>";
+        credits.innerHTML += "<name>Luuk 's-Gravendijk</name>";
         credits.innerHTML += "<name>All involved</name>";
         var leave = document.createElement('leave');
         this.game.appendChild(leave);
         leave.addEventListener("click", function () {
             credits.remove();
             leave.remove();
+            new Soundeffect().playThis("menuBack.wav");
             _this.setButtons();
         });
     };
     Startscreen.prototype.setOptions = function () {
-        var _this = this;
-        this.menu.innerHTML = "";
-        var options = document.createElement('options');
-        this.game.appendChild(options);
-        var musicOptions = document.createElement('musicOptions');
-        options.appendChild(musicOptions);
-        musicOptions.innerHTML += "Music Volume";
-        var muteGame = document.createElement('muteGame');
-        musicOptions.appendChild(muteGame);
-        var musicVolume = document.createElement('input');
-        musicOptions.appendChild(musicVolume);
-        musicVolume.type = "range";
-        musicVolume.min = "0";
-        musicVolume.max = "100";
-        musicVolume.id = 'myRange';
-        musicVolume.value = '0';
-        musicVolume.addEventListener("input", function () {
-            var volume = parseInt(musicVolume.value);
-            volume = volume / 100;
-            document.getElementsByTagName('audio')[0].volume = volume;
-            if (musicVolume.value !== '0') {
-                document.getElementsByTagName('audio')[0].play();
-                muteGame.style.backgroundImage = 'url(assets/unmuted.png)';
-            }
-            else {
-                document.getElementsByTagName('audio')[0].pause();
-                muteGame.style.backgroundImage = 'url(assets/muted.png)';
-            }
-        });
-        var leave = document.createElement('leave');
-        this.game.appendChild(leave);
-        leave.addEventListener("click", function () {
-            options.remove();
-            leave.remove();
-            _this.setButtons();
-        });
+        new Options();
     };
     return Startscreen;
 }());
@@ -678,7 +766,7 @@ var Level3click = (function () {
         this.setBackground();
         new Hint(9, 12, 12.5, 11, "Were you feel most safe, enemies strike. Your life might soon be ova. You struggle and struggle, but no prevail. The danger hides 'round the sofa. <br><br> The magic sounds like buzzing, as you look for a clue. A weird furniture attacks you, as you try to stand your ground you see its hue is colored blue.");
         new Inventory();
-        new Dialogbox("unicorn_player", "I can smell, his smell, his smelly smell that*SMELLSS!!!*Hahah Spongebob*But in all seriousness he must have gone through this room");
+        new Dialogbox("unicorn_player", "I can smell, his smell, his smelly smell that*SMELLS!!!*Hahah Spongebob*But in all seriousness he must have gone through this room");
     }
     Level3click.prototype.setBackground = function () {
         var background = document.createElement("background");
@@ -762,7 +850,7 @@ var Level6click = (function () {
         new Hint(39, 26, 9, 11, "As you walk into the room you feel a powerfull surge. Its cold like you are in a blizzard. When you find the item in witch he resides youll find yourself fighting a wizard.");
         new Inventory();
         new Dialogbox("unicorn_player", "I can feel hes in the room somewhere");
-        new Dialogbox("wizard", "...*...*I hope they dont find me in here*But if they do I will surely destroy them");
+        new Dialogbox("enemy_wizard", "...*...*I hope they dont find me in here*But if they do I will surely destroy them");
     }
     Level6click.prototype.setBackground = function () {
         var background = document.createElement("background");
@@ -798,28 +886,153 @@ var Hint = (function () {
         hint.style.width = w + "vw";
         hint.innerHTML = "<p>" + message + "</p>";
         hint.addEventListener('click', zoomin);
+        var zoomed = document.createElement("zoomed");
+        var grayfade = document.createElement('grayout');
         function zoomin() {
-            game.style.zoom = "450%";
-            var xzoom = x - h / 2.5;
-            var yzoom = y - w / 2.5;
-            if (xzoom < 0) {
-                xzoom = 0;
-            }
-            if (yzoom < 0) {
-                yzoom = 0;
-            }
-            game.style.transform += "translate(-" + xzoom + "vw,-" + yzoom + "vh)";
-            hint.removeEventListener('click', zoomin);
-            hint.addEventListener('click', zoomout);
+            new Soundeffect().playThis("readHint.mp3");
+            game.appendChild(zoomed);
+            game.appendChild(grayfade);
+            zoomed.innerHTML = message;
+            zoomed.addEventListener("click", function () { return zoomout(); });
         }
         function zoomout() {
-            game.style.zoom = "100%";
-            game.style.transform = "";
-            hint.removeEventListener('click', zoomout);
-            hint.addEventListener('click', zoomin);
+            new Soundeffect().playThis("readHint.mp3");
+            zoomed.remove();
+            grayfade.remove();
         }
     };
     return Hint;
+}());
+var Music = (function () {
+    function Music() {
+        this.music = document.createElement("audio");
+    }
+    Music.prototype.playMusic = function (src) {
+        this.music.src = "assets/" + src;
+        this.music.style.display = "none";
+        this.music.id = "music";
+        document.body.appendChild(this.music);
+        this.music.play();
+        this.music.volume = 0;
+    };
+    Music.prototype.changeMusic = function (src) {
+        document.getElementById('music').src = "assets/" + src;
+        document.getElementById('music').play();
+    };
+    return Music;
+}());
+var Options = (function (_super) {
+    __extends(Options, _super);
+    function Options() {
+        var _this = _super.call(this) || this;
+        _this.menu.innerHTML = "";
+        var options = document.createElement('options');
+        _this.game.appendChild(options);
+        var musicOptions = document.createElement('musicOptions');
+        options.appendChild(musicOptions);
+        musicOptions.innerHTML += "Music Volume";
+        var muteGame = document.createElement('muteGame');
+        musicOptions.appendChild(muteGame);
+        var musicSlider = document.createElement('input');
+        musicOptions.appendChild(musicSlider);
+        musicSlider.type = "range";
+        musicSlider.min = "0";
+        musicSlider.max = "100";
+        musicSlider.id = 'myRange';
+        if (document.getElementById('music')) {
+            var newVolume = document.getElementById('music').volume * 100;
+            musicSlider.value = newVolume.toString();
+        }
+        else {
+            musicSlider.value = '0';
+        }
+        if (parseInt(musicSlider.value) > 0) {
+            muteGame.style.backgroundImage = "url(assets/unmuted.png)";
+        }
+        else {
+            muteGame.style.backgroundImage = "url(assets/muted.png)";
+        }
+        musicSlider.addEventListener("input", function () {
+            var volume = parseInt(musicSlider.value);
+            volume = volume / 100;
+            document.getElementById('music').volume = volume;
+            if (musicSlider.value !== '0') {
+                document.getElementById('music').play();
+                muteGame.style.backgroundImage = 'url(assets/unmuted.png)';
+            }
+            else {
+                document.getElementById('music').pause();
+                muteGame.style.backgroundImage = 'url(assets/muted.png)';
+            }
+        });
+        var effectOptions = document.createElement('effectOptions');
+        options.appendChild(effectOptions);
+        effectOptions.innerHTML += "Soundeffect Volume";
+        var muteEffect = document.createElement('muteEffect');
+        effectOptions.appendChild(muteEffect);
+        var effectSlider = document.createElement('input');
+        effectOptions.appendChild(effectSlider);
+        effectSlider.type = "range";
+        effectSlider.min = "0";
+        effectSlider.max = "100";
+        effectSlider.id = 'myRange';
+        if (document.getElementById('soundeffect')) {
+            var newVolume = document.getElementById('soundeffect').volume * 100;
+            effectSlider.value = newVolume.toString();
+        }
+        else {
+            effectSlider.value = '0';
+        }
+        if (parseInt(effectSlider.value) > 0) {
+            muteEffect.style.backgroundImage = "url(assets/unmuted.png)";
+        }
+        else {
+            muteEffect.style.backgroundImage = "url(assets/muted.png)";
+        }
+        effectSlider.addEventListener("input", function () {
+            var volume = parseInt(effectSlider.value);
+            volume = volume / 100;
+            document.getElementById('soundeffect').volume = volume;
+            if (effectSlider.value !== '0') {
+                muteEffect.style.backgroundImage = 'url(assets/unmuted.png)';
+            }
+            else {
+                muteEffect.style.backgroundImage = 'url(assets/muted.png)';
+            }
+        });
+        effectSlider.addEventListener("change", function () {
+            new Soundeffect().playThis('menuSelect.mp3');
+        });
+        var leave = document.createElement('leave');
+        _this.game.appendChild(leave);
+        leave.addEventListener("click", function () {
+            options.remove();
+            leave.remove();
+            new Soundeffect().playThis("menuBack.wav");
+            _this.setButtons();
+        });
+        return _this;
+    }
+    return Options;
+}(Startscreen));
+var Soundeffect = (function () {
+    function Soundeffect() {
+        this.sound = document.createElement("audio");
+    }
+    Soundeffect.prototype.setSound = function () {
+        this.sound.setAttribute("preload", "auto");
+        this.sound.setAttribute("controls", "none");
+        this.sound.id = "soundeffect";
+        this.sound.style.display = "none";
+        this.sound.autoplay = true;
+        this.sound.volume = 0.1;
+        document.body.appendChild(this.sound);
+    };
+    Soundeffect.prototype.playThis = function (src) {
+        document.getElementById('soundeffect').src = "assets/" + src;
+        document.getElementById('soundeffect').play();
+    };
+    return Soundeffect;
 }());
 var unicornPlayer = (function () {
     function unicornPlayer() {
@@ -841,7 +1054,7 @@ var unicornPlayer = (function () {
         var body = document.getElementsByTagName('body')[0];
         document.addEventListener('mousemove', function (pos) {
             var d = Math.random();
-            if (d > 0.5) {
+            if (d > 0.90) {
                 var glitter_1 = document.createElement("glitter");
                 body.appendChild(glitter_1);
                 glitter_1.style.display = "initial";
@@ -858,8 +1071,13 @@ var unicornPlayer = (function () {
             var circle = document.createElement("circle");
             body.appendChild(circle);
             circle.style.display = "initial";
-            circle.style.transform = 'translateY(' + (pos.clientY - 30) + 'px) translateX(' + (pos.clientX - 30) + 'px) scale(1)';
-            window.setTimeout(function () { body.removeChild(circle); }, 2000);
+            circle.style.transform = "translate(calc(" + pos.clientX + "px - 3vh),calc(" + pos.clientY + "px - 3vh)) scale(1)";
+            circle.style.transition = "all 1s";
+            setTimeout(function () {
+                circle.style.transform = "translate(calc(" + pos.clientX + "px - 3vh),calc(" + pos.clientY + "px - 3vh)) scale(2)";
+                circle.style.opacity = '0';
+            }, 1);
+            window.setTimeout(function () { body.removeChild(circle); }, 1000);
         }, true);
     };
     return unicornPlayer;
