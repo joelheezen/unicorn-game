@@ -76,7 +76,6 @@ class Startscreen{
             window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
         })
         
-        
     }
 
     makeLevelIcon(posX: number,posY: number,width: number,height: number,levelNumber: number){
@@ -128,10 +127,8 @@ class Startscreen{
         this.levelIcon.addEventListener("click",()=>{
             this.game.innerHTML = ""
             new Soundeffect().playThis("door.wav")
-            new CutScene()
-            setTimeout(() => {
-              new Level1click  
-            }, 5000);
+            new Level1click  
+
             
         })
         }
