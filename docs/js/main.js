@@ -12,6 +12,17 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+var Inventory = (function () {
+    function Inventory() {
+        this.setInventory();
+    }
+    Inventory.prototype.setInventory = function () {
+        this.inventory = document.createElement("inventory");
+        var game = document.getElementsByTagName("game")[0];
+        game.appendChild(this.inventory);
+    };
+    return Inventory;
+}());
 var BattlePhase = (function () {
     function BattlePhase(stage) {
         var _this = this;
@@ -21,6 +32,7 @@ var BattlePhase = (function () {
         var pointer = document.getElementsByTagName("newpointer")[0];
         var inv = document.getElementsByTagName("inventory")[0];
         var fadetonew = document.getElementsByTagName('fadetonew')[0];
+        var home = document.getElementsByTagName('backhome')[0];
         new Music().changeMusic('battleMusic.mp3');
         var gameChildren = new Array;
         this.nextLevel = stage + 1;
@@ -29,7 +41,7 @@ var BattlePhase = (function () {
             gameChildren.push(children[i]);
         }
         gameChildren.forEach(function (gameChild) {
-            if (gameChild != pointer && gameChild != inv && gameChild != fadetonew) {
+            if (gameChild != pointer && gameChild != inv && gameChild != fadetonew && gameChild != home) {
                 _this.game.removeChild(gameChild);
             }
         });
@@ -624,10 +636,7 @@ var Startscreen = (function () {
             this.levelIcon.addEventListener("click", function () {
                 _this.game.innerHTML = "";
                 new Soundeffect().playThis("door.wav");
-                new CutScene();
-                setTimeout(function () {
-                    new Level1click;
-                }, 5000);
+                new Level1click;
             });
         }
         if (unlocked[1] == false) {
@@ -910,18 +919,6 @@ var Hint = (function () {
         }
     };
     return Hint;
-}());
-var Inventory = (function () {
-    function Inventory() {
-        this.setInventory();
-    }
-    Inventory.prototype.setInventory = function () {
-        console.log("Created inventory");
-        this.inventory = document.createElement("inventory");
-        var game = document.getElementsByTagName("game")[0];
-        game.appendChild(this.inventory);
-    };
-    return Inventory;
 }());
 var Music = (function () {
     function Music() {

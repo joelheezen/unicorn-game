@@ -14,6 +14,7 @@ class BattlePhase{
         let pointer = document.getElementsByTagName("newpointer")[0]
         let inv = document.getElementsByTagName("inventory")[0]
         let fadetonew = document.getElementsByTagName('fadetonew')[0]
+        let home = document.getElementsByTagName('backhome')[0]
         new Music().changeMusic('battleMusic.mp3')
         let gameChildren = new Array 
         this.nextLevel = stage + 1
@@ -23,7 +24,7 @@ class BattlePhase{
             gameChildren.push(children[i])
         }
         gameChildren.forEach(gameChild => {
-            if (gameChild != pointer && gameChild != inv && gameChild != fadetonew){
+            if (gameChild != pointer && gameChild != inv && gameChild != fadetonew && gameChild != home){
                 this.game.removeChild(gameChild)
             }
         });
