@@ -142,7 +142,7 @@ class Startscreen{
         }
 
         if(unlocked[2]==false){
-        this.makeLevelIcon(45.1,44.4,19.4,51.4,4)
+        this.makeLevelIcon(40.5,65.3,9.2,30.6,3)
         this.levelIcon.addEventListener("click",()=>{
             this.game.innerHTML = ""
             new Soundeffect().playThis("door.wav")
@@ -150,7 +150,7 @@ class Startscreen{
         })
         }
         if(unlocked[3]==false){
-        this.makeLevelIcon(40.5,65.3,9.2,30.6,3)
+        this.makeLevelIcon(45.1,44.4,19.4,51.4,4)
         this.levelIcon.addEventListener("click",()=>{
             this.game.innerHTML = ""
             new Soundeffect().playThis("door.wav")
