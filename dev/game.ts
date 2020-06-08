@@ -208,8 +208,16 @@ class Startscreen{
             //bug where level elements where still there after going back to main menu (fixed)
             while(document.getElementsByTagName('level').length>0){
                 for (let i = 0; i < document.getElementsByTagName('level').length; i++) {
-                    document.getElementsByTagName('level')[i].remove()
+                    document.getElementsByTagName('level')[i].remove()     
                 }}
+
+            while(document.getElementsByTagName('levelLock').length>0){
+                for (let i = 0; i < document.getElementsByTagName('levelLock').length; i++) {
+                    document.getElementsByTagName('levelLock')[i].remove()               
+            }}
+
+                
+
                 leave.remove();
                 new Soundeffect().playThis("menuBack.wav")
                 this.setButtons();

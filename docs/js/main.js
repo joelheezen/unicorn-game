@@ -725,6 +725,11 @@ var Startscreen = (function () {
                     document.getElementsByTagName('level')[i].remove();
                 }
             }
+            while (document.getElementsByTagName('levelLock').length > 0) {
+                for (var i = 0; i < document.getElementsByTagName('levelLock').length; i++) {
+                    document.getElementsByTagName('levelLock')[i].remove();
+                }
+            }
             leave.remove();
             new Soundeffect().playThis("menuBack.wav");
             _this.setButtons();
