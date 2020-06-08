@@ -130,8 +130,6 @@ class Startscreen{
             this.game.innerHTML = ""
             new Soundeffect().playThis("door.wav")
             new Level1click  
-
-            
         })
         
         if(unlocked[1]==false){
