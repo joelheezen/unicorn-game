@@ -104,39 +104,12 @@ class Startscreen{
         this.levelIcon.style.height = `${height}vh`
         this.levelIcon.style.backgroundImage = "url(assets/lock.png)"
     }
-    
-
-    setUnlock(){
-        var unlockeds:boolean[];
-        unlockeds = []
-        let lvlAchieved = this.unlockStorage.getItem('unlocked');
-
-        if(lvlAchieved=="1"){
-            unlockeds = [false,true,true,true,true,true]
-        }
-        if(lvlAchieved=="2"){
-            unlockeds = [false,false,true,true,true,true]
-        }
-        if(lvlAchieved=="3"){
-            unlockeds = [false,false,false,true,true,true]
-        }
-        if(lvlAchieved=="4"){
-            unlockeds = [false,false,false,false,true,true]
-        }
-        if(lvlAchieved=="5"){
-            unlockeds = [false,false,false,false,false,true]
-        }
-        if(lvlAchieved=="6"){
-            unlockeds = [false,false,false,false,false,false]
-        }
-        return unlockeds
-    }
 
     levelSelect(){
         this.menu.innerHTML = ""
         this.leftUnicorn.remove()
         this.rightUnicorn.remove()
-        var unlocked = this.setUnlock()
+        var unlocked = this.unlockStorage.unlocked
 
         this.makeLevelIcon(14.1,59.7,10.8,36.1,1)
         this.levelIcon.addEventListener("click",()=>{
@@ -145,7 +118,7 @@ class Startscreen{
             new Level1click  
         })
         
-        if(unlocked[1]==false){
+        if(unlocked >= 2){
         this.makeLevelIcon(25.7,52.8,14.75,43.05,2)
         this.levelIcon.addEventListener("click",()=>{
             this.game.innerHTML = ""
@@ -157,7 +130,7 @@ class Startscreen{
             this.makeLevelLock(25.7,52.8,14.75,43.05)
         }
 
-        if(unlocked[2] == false){
+        if(unlocked >= 3){
         this.makeLevelIcon(40.5,65.3,9.2,30.6,3)
         this.levelIcon.addEventListener("click",()=>{
             this.game.innerHTML = ""
@@ -169,7 +142,7 @@ class Startscreen{
             this.makeLevelLock(40.5,65.3,9.2,30.6)
         }
 
-        if(unlocked[3]==false){
+        if(unlocked >= 4){
         this.makeLevelIcon(45.1,44.4,19.4,51.4,4)
         this.levelIcon.addEventListener("click",()=>{
             this.game.innerHTML = ""
@@ -180,7 +153,7 @@ class Startscreen{
             this.makeLevelLock(45.1,44.4,19.4,51.4)
         }
 
-        if(unlocked[4]==false){
+        if(unlocked >= 5){
         this.makeLevelIcon(64.5,57,10.1,38.9,5)
         this.levelIcon.addEventListener("click",()=>{
             this.game.innerHTML = ""
@@ -191,7 +164,7 @@ class Startscreen{
             this.makeLevelLock(64.5,57,10.1,38.9)
         }
 
-        if(unlocked[5]==false){
+        if(unlocked >= 6){
         this.makeLevelIcon(74.7,45.9,17,49.9,6)
         this.levelIcon.addEventListener("click",()=>{
             this.game.innerHTML = ""
