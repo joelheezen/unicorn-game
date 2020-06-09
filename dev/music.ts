@@ -1,6 +1,6 @@
 class Music{
 
-    music = document.createElement("audio");
+    music:HTMLAudioElement = document.createElement("audio");
 
     constructor(){
         

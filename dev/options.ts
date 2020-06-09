@@ -75,13 +75,15 @@ class Options extends Startscreen{
         effectSlider.max = "100"
         effectSlider.id = 'myRange'
 
-        if(document.getElementById('soundeffect') ){
-
-            let newVolume = (<HTMLAudioElement>document.getElementById('soundeffect')).volume * 100
-            effectSlider.value = newVolume.toString()
+        if(localStorage.getItem('soundEffectVolume') == undefined){
+            effectSlider.value = '10'
         }else{
-            effectSlider.value = '0'
-        }  
+            effectSlider.value = localStorage.getItem('soundEffectVolume')!
+        }
+
+
+         
+        
 
         if(parseInt(effectSlider.value) > 0){
             muteEffect.style.backgroundImage = "url(assets/unmuted.png)"
@@ -91,10 +93,9 @@ class Options extends Startscreen{
 
         effectSlider.addEventListener("input",()=> {
 
-                let volume = parseInt(effectSlider.value)
-                volume = volume /100;
+                let volume = effectSlider.value
                 
-                (<HTMLAudioElement>document.getElementById('soundeffect')).volume = volume
+                localStorage.setItem('soundEffectVolume',volume)
 
                 if(effectSlider.value !== '0'){
                     muteEffect.style.backgroundImage = 'url(assets/unmuted.png)'

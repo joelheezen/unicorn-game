@@ -1,23 +1,40 @@
 class Soundeffect{
-
-    sound = document.createElement("audio");
     
     constructor(){
         
     }
 
-    setSound(){
-            this.sound.setAttribute("preload", "auto");
-            this.sound.setAttribute("controls", "none");
-            this.sound.id = "soundeffect"
-            this.sound.style.display = "none";
-            this.sound.autoplay = true
-            this.sound.volume = 0.1
-            document.body.appendChild(this.sound);      
-    }
-
     playThis(src:string){
-        (<HTMLAudioElement>document.getElementById('soundeffect')).src = `assets/${src}`;
-        (<HTMLAudioElement>document.getElementById('soundeffect')).play();
+
+        let sound:HTMLAudioElement = document.createElement("audio");
+
+            sound.setAttribute("preload", "metadata");
+            sound.setAttribute("controls", "none");
+            sound.classList.add('soundeffect')
+            sound.style.display = "none";
+            sound.autoplay = true
+
+            let volume = localStorage.getItem('soundEffectVolume')
+
+            if(volume == undefined){
+                volume = '10'
+            }
+
+            let newVolume = parseInt(volume)
+
+            sound.volume = newVolume / 100
+            document.body.appendChild(sound);   
+
+            (<HTMLAudioElement>sound).src = `assets/${src}`;
+            (<HTMLAudioElement>sound).play();
+            
+            setTimeout(() => {
+                setTimeout(() => {
+                    (<HTMLAudioElement>sound).remove();
+                }, (<HTMLAudioElement>sound).duration * 10000);
+                
+              }, 100);
     }
+     
+
 }

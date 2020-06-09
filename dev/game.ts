@@ -17,7 +17,6 @@ class Startscreen{
         this.setAssets()
         new Music().playMusic('music.mp3')
         new Music().changeMusic('music.mp3')
-        new Soundeffect().setSound()
         new Score().displayScore()
     }
 

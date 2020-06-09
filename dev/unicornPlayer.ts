@@ -25,7 +25,7 @@ spawnGlitter(){
     document.addEventListener('mousemove', function(pos){
         var d = Math.random()
     
-        if (d > 0.90){
+        if (d > 20){
             let glitter = document.createElement("glitter")
             body.appendChild(glitter)
             glitter.style.display = "initial"

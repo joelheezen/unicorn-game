@@ -568,7 +568,6 @@ var Startscreen = (function () {
         this.setAssets();
         new Music().playMusic('music.mp3');
         new Music().changeMusic('music.mp3');
-        new Soundeffect().setSound();
         new Score().displayScore();
     }
     Startscreen.prototype.setBackground = function () {
@@ -1041,12 +1040,11 @@ var Options = (function (_super) {
         effectSlider.min = "0";
         effectSlider.max = "100";
         effectSlider.id = 'myRange';
-        if (document.getElementById('soundeffect')) {
-            var newVolume = document.getElementById('soundeffect').volume * 100;
-            effectSlider.value = newVolume.toString();
+        if (localStorage.getItem('soundEffectVolume') == undefined) {
+            effectSlider.value = '10';
         }
         else {
-            effectSlider.value = '0';
+            effectSlider.value = localStorage.getItem('soundEffectVolume');
         }
         if (parseInt(effectSlider.value) > 0) {
             muteEffect.style.backgroundImage = "url(assets/unmuted.png)";
@@ -1055,9 +1053,8 @@ var Options = (function (_super) {
             muteEffect.style.backgroundImage = "url(assets/muted.png)";
         }
         effectSlider.addEventListener("input", function () {
-            var volume = parseInt(effectSlider.value);
-            volume = volume / 100;
-            document.getElementById('soundeffect').volume = volume;
+            var volume = effectSlider.value;
+            localStorage.setItem('soundEffectVolume', volume);
             if (effectSlider.value !== '0') {
                 muteEffect.style.backgroundImage = 'url(assets/unmuted.png)';
             }
@@ -1134,20 +1131,28 @@ var Score = (function () {
 }());
 var Soundeffect = (function () {
     function Soundeffect() {
-        this.sound = document.createElement("audio");
     }
-    Soundeffect.prototype.setSound = function () {
-        this.sound.setAttribute("preload", "auto");
-        this.sound.setAttribute("controls", "none");
-        this.sound.id = "soundeffect";
-        this.sound.style.display = "none";
-        this.sound.autoplay = true;
-        this.sound.volume = 0.1;
-        document.body.appendChild(this.sound);
-    };
     Soundeffect.prototype.playThis = function (src) {
-        document.getElementById('soundeffect').src = "assets/" + src;
-        document.getElementById('soundeffect').play();
+        var sound = document.createElement("audio");
+        sound.setAttribute("preload", "metadata");
+        sound.setAttribute("controls", "none");
+        sound.classList.add('soundeffect');
+        sound.style.display = "none";
+        sound.autoplay = true;
+        var volume = localStorage.getItem('soundEffectVolume');
+        if (volume == undefined) {
+            volume = '10';
+        }
+        var newVolume = parseInt(volume);
+        sound.volume = newVolume / 100;
+        document.body.appendChild(sound);
+        sound.src = "assets/" + src;
+        sound.play();
+        setTimeout(function () {
+            setTimeout(function () {
+                sound.remove();
+            }, sound.duration * 10000);
+        }, 100);
     };
     return Soundeffect;
 }());
@@ -1171,7 +1176,7 @@ var unicornPlayer = (function () {
         var body = document.getElementsByTagName('body')[0];
         document.addEventListener('mousemove', function (pos) {
             var d = Math.random();
-            if (d > 0.90) {
+            if (d > 20) {
                 var glitter_1 = document.createElement("glitter");
                 body.appendChild(glitter_1);
                 glitter_1.style.display = "initial";
