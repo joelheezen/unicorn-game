@@ -80,10 +80,7 @@ class Options extends Startscreen{
         }else{
             effectSlider.value = localStorage.getItem('soundEffectVolume')!
         }
-
-
-         
-        
+    
 
         if(parseInt(effectSlider.value) > 0){
             muteEffect.style.backgroundImage = "url(assets/unmuted.png)"

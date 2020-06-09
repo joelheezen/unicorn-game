@@ -1176,7 +1176,7 @@ var unicornPlayer = (function () {
         var body = document.getElementsByTagName('body')[0];
         document.addEventListener('mousemove', function (pos) {
             var d = Math.random();
-            if (d > 20) {
+            if (d > 0.90) {
                 var glitter_1 = document.createElement("glitter");
                 body.appendChild(glitter_1);
                 glitter_1.style.display = "initial";
