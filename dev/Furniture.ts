@@ -88,6 +88,7 @@ class Furniture{
                     pickup.style.marginLeft = "100vw";
                     grayout.remove()
                     itemMessage.remove();
+                    new Score().modifyScore(200)
                     setTimeout(()=>{
                         pickup.remove()
                     },1000)

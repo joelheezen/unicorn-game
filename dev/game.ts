@@ -19,7 +19,6 @@ class Startscreen{
         new Music().changeMusic('music.mp3')
         new Soundeffect().setSound()
         new Score().displayScore()
-        //new Score().modifyScore(200)
     }
 
     setBackground(){

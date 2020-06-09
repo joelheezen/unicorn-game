@@ -34,6 +34,23 @@ class Score {
         localStorage.setItem('score',newscore.toString())
 
         this.displayScore()
+
+        let scoreAdd = document.createElement('scoreAdd')
+        scoreAdd.innerHTML = "+" + modify
+        document.body.appendChild(scoreAdd)
+
+        setTimeout(() => {
+          scoreAdd.style.transform = "translateY(-10vh)"  
+        },1);
+
+        setTimeout(() => {
+            new Soundeffect().playThis('score.wav')
+        }, 500);
+        
+
+        setTimeout(() => {
+            scoreAdd.remove()
+        }, 1000);
     }
 
     

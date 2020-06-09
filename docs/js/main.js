@@ -70,6 +70,7 @@ var Furniture = (function () {
                 pickup_1.style.marginLeft = "100vw";
                 grayout_1.remove();
                 itemMessage_1.remove();
+                new Score().modifyScore(200);
                 setTimeout(function () {
                     pickup_1.remove();
                 }, 1000);
@@ -1111,6 +1112,18 @@ var Score = (function () {
         var newscore = parseInt(currentScore) + modify;
         localStorage.setItem('score', newscore.toString());
         this.displayScore();
+        var scoreAdd = document.createElement('scoreAdd');
+        scoreAdd.innerHTML = "+" + modify;
+        document.body.appendChild(scoreAdd);
+        setTimeout(function () {
+            scoreAdd.style.transform = "translateY(-10vh)";
+        }, 1);
+        setTimeout(function () {
+            new Soundeffect().playThis('score.wav');
+        }, 500);
+        setTimeout(function () {
+            scoreAdd.remove();
+        }, 1000);
     };
     return Score;
 }());
