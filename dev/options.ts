@@ -117,6 +117,7 @@ class Options extends Startscreen{
             if (r == true) {
                 localStorage.clear();
                 window.alert('your save data was succesfully deleted.')
+                location.reload();
             } 
         })
 

@@ -568,6 +568,7 @@ var Startscreen = (function () {
         new Music().playMusic('music.mp3');
         new Music().changeMusic('music.mp3');
         new Soundeffect().setSound();
+        new Score().displayScore();
     }
     Startscreen.prototype.setBackground = function () {
         var background = document.createElement('background');
@@ -962,6 +963,10 @@ var Music = (function () {
         this.music = document.createElement("audio");
     }
     Music.prototype.playMusic = function (src) {
+        var _a;
+        if (document.getElementById('music') !== undefined) {
+            (_a = document.getElementById('music')) === null || _a === void 0 ? void 0 : _a.remove();
+        }
         this.music.src = "assets/" + src;
         this.music.style.display = "none";
         this.music.id = "music";
@@ -1066,6 +1071,7 @@ var Options = (function (_super) {
             if (r == true) {
                 localStorage.clear();
                 window.alert('your save data was succesfully deleted.');
+                location.reload();
             }
         });
         var leave = document.createElement('leave');
@@ -1080,13 +1086,31 @@ var Options = (function (_super) {
     }
     return Options;
 }(Startscreen));
-window.addEventListener('load', function () { return new Score(); });
 var Score = (function () {
     function Score() {
     }
-    Score.prototype.setScore = function () {
+    Score.prototype.displayScore = function () {
+        if (document.getElementsByTagName('score')[0] !== undefined) {
+            document.getElementsByTagName('score')[0].remove();
+        }
+        var scoreBoard = document.createElement('score');
+        document.body.appendChild(scoreBoard);
+        var score = localStorage.getItem('score');
+        if (score == undefined) {
+            score = '0';
+        }
+        scoreBoard.innerHTML = 'Score: ';
+        scoreBoard.innerHTML += score;
     };
-    Score.prototype.modifyScore = function () {
+    Score.prototype.modifyScore = function (modify) {
+        document.getElementsByTagName('score')[0].remove();
+        var currentScore = localStorage.getItem('score');
+        if (currentScore == undefined) {
+            currentScore = '0';
+        }
+        var newscore = parseInt(currentScore) + modify;
+        localStorage.setItem('score', newscore.toString());
+        this.displayScore();
     };
     return Score;
 }());
@@ -1095,6 +1119,10 @@ var Soundeffect = (function () {
         this.sound = document.createElement("audio");
     }
     Soundeffect.prototype.setSound = function () {
+        var _a;
+        if (document.getElementById('soundeffect') !== undefined) {
+            (_a = document.getElementById('soundeffect')) === null || _a === void 0 ? void 0 : _a.remove();
+        }
         this.sound.setAttribute("preload", "auto");
         this.sound.setAttribute("controls", "none");
         this.sound.id = "soundeffect";

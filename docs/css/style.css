@@ -514,6 +514,13 @@
         background-image: url(../assets/muted.png);
     }
 
+    score{
+        font-size:7vh;
+        height:7vh;
+        position: absolute;
+        top:93vh;
+    }
+
     
     
     @keyframes bounce-right {

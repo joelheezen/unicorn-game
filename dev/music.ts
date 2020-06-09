@@ -7,6 +7,11 @@ class Music{
     }
 
     playMusic(src:string){
+
+            if(document.getElementById('music') !== undefined){
+                document.getElementById('music')?.remove()
+            }
+
             this.music.src = `assets/${src}`;
             this.music.style.display = "none";
             this.music.id = "music"
