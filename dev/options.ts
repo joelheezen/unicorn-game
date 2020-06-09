@@ -26,7 +26,7 @@ class Options extends Startscreen{
         musicSlider.id = 'myRange'
 
         if(document.getElementById('music') ){
-            let newVolume = document.getElementById('music')!.volume * 100
+            let newVolume = (<HTMLAudioElement>document.getElementById('music')).volume * 100
             musicSlider.value = newVolume.toString()
         }else{
             musicSlider.value = '0'
@@ -43,15 +43,15 @@ class Options extends Startscreen{
             musicSlider.addEventListener("input",()=> {
 
                 let volume = parseInt(musicSlider.value)
-                volume = volume /100
+                volume = volume / 100;
                 
-                document.getElementById('music')!.volume = volume
+                (<HTMLAudioElement>document.getElementById('music')).volume = volume
 
                 if(musicSlider.value !== '0'){
-                    document.getElementById('music')!.play()
+                    (<HTMLAudioElement>document.getElementById('music')).play()
                     muteGame.style.backgroundImage = 'url(assets/unmuted.png)'
                 }else{
-                    document.getElementById('music')!.pause() 
+                    (<HTMLAudioElement>document.getElementById('music')).pause() 
                     muteGame.style.backgroundImage = 'url(assets/muted.png)'
                 }
             })
@@ -77,7 +77,7 @@ class Options extends Startscreen{
 
         if(document.getElementById('soundeffect') ){
 
-            let newVolume = document.getElementById('soundeffect')!.volume * 100
+            let newVolume = (<HTMLAudioElement>document.getElementById('soundeffect')).volume * 100
             effectSlider.value = newVolume.toString()
         }else{
             effectSlider.value = '0'
@@ -92,9 +92,9 @@ class Options extends Startscreen{
         effectSlider.addEventListener("input",()=> {
 
                 let volume = parseInt(effectSlider.value)
-                volume = volume /100
+                volume = volume /100;
                 
-                document.getElementById('soundeffect')!.volume = volume
+                (<HTMLAudioElement>document.getElementById('soundeffect')).volume = volume
 
                 if(effectSlider.value !== '0'){
                     muteEffect.style.backgroundImage = 'url(assets/unmuted.png)'

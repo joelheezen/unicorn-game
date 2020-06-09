@@ -959,6 +959,11 @@ var Hint = (function () {
     };
     return Hint;
 }());
+var loseScreen = (function () {
+    function loseScreen() {
+    }
+    return loseScreen;
+}());
 var Music = (function () {
     function Music() {
         this.music = document.createElement("audio");
@@ -1132,10 +1137,6 @@ var Soundeffect = (function () {
         this.sound = document.createElement("audio");
     }
     Soundeffect.prototype.setSound = function () {
-        var _a;
-        if (document.getElementById('soundeffect') !== undefined) {
-            (_a = document.getElementById('soundeffect')) === null || _a === void 0 ? void 0 : _a.remove();
-        }
         this.sound.setAttribute("preload", "auto");
         this.sound.setAttribute("controls", "none");
         this.sound.id = "soundeffect";

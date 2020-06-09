@@ -21,8 +21,8 @@ class Music{
     }
 
     changeMusic(src:string){
-        document.getElementById('music')!.src = `assets/${src}`;
-        document.getElementById('music')!.play();
+        (<HTMLAudioElement>document.getElementById('music')).src = `assets/${src}`;
+        (<HTMLAudioElement>document.getElementById('music')).play();
     }
     
 

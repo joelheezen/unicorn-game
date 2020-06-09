@@ -7,11 +7,6 @@ class Soundeffect{
     }
 
     setSound(){
-
-        if(document.getElementById('soundeffect') !== undefined){
-            document.getElementById('soundeffect')?.remove()
-        }
-
             this.sound.setAttribute("preload", "auto");
             this.sound.setAttribute("controls", "none");
             this.sound.id = "soundeffect"
@@ -22,7 +17,7 @@ class Soundeffect{
     }
 
     playThis(src:string){
-        document.getElementById('soundeffect')!.src = `assets/${src}`;
-        document.getElementById('soundeffect')!.play();
+        (<HTMLAudioElement>document.getElementById('soundeffect')).src = `assets/${src}`;
+        (<HTMLAudioElement>document.getElementById('soundeffect')).play();
     }
 }
