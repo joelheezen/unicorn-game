@@ -227,6 +227,14 @@
         animation-iteration-count: infinite;
     }
 
+    bullet {
+        background-image: url(../assets/fireProjectile.gif);
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        position: absolute;
+        width: 7vw; height: 7vh;
+    }
+
     hint{
         position:absolute;
         font-size: 1vh;

@@ -245,6 +245,25 @@ class BattlePhase{
                     }
                     monsterParent.appendChild(document.getElementById(data));
                     element = document.getElementById(data)
+                    new Score().modifyScore(100)
+
+                    if (this.battleStarted == true){
+                        this.enemyTurn()
+                    }
+                }
+            }
+            if (element != null){
+                if (element.classList.contains("gamer") && ev.target.classList.contains("projectile") && ev.target.parentElement.classList.contains("canplace")) {
+                    ev.preventDefault();
+                    let bulletChild = ev.target
+                    let bulletParent = bulletChild.parentNode
+                    if (bulletParent) {
+                        bulletParent.removeChild(bulletChild)
+                        new Soundeffect().playThis("nes-05-07.wav")
+                    }
+                    bulletParent.appendChild(document.getElementById(data));
+                    element = document.getElementById(data)
+                    new Score().modifyScore(50)
 
                     if (this.battleStarted == true){
                         this.enemyTurn()
@@ -354,9 +373,68 @@ class BattlePhase{
                                 direction = Math.floor(Math.random() * 100)
                             }
                         
+                            if (this.nextLevel == 7) {
+                                let shootDecision = Math.floor(Math.random() * 100)
+                                let spaceToShoot : any
+                                let spaceNowNow = activeMonster.parentNode as Element
+                                let spaceNowNowPos = spaceNowNow.id.substring(6,8)
+                                let bullet = document.createElement("bullet")
+
+                                if (shootDecision >= 92 && shootDecision <= 93) {
+                                    //shoot down
+                                    spaceToShoot = moveMonsterTo[parseInt(spaceNowNowPos) + 8]
+                                    if (spaceToShoot.hasChildNodes() == false && (parseInt(spaceNowNowPos)) < 55){
+                                        spaceToShoot.appendChild(bullet)
+                                        bullet.classList.add("projectile")
+                                        bullet.classList.add("down")
+                                        bullet.classList.add("fresh")
+                                    }
+                                }
+                                else if (shootDecision >= 94 && shootDecision <= 95) {
+                                    //shoot left
+                                    spaceToShoot = moveMonsterTo[parseInt(spaceNowNowPos) - 1]
+                                    if((parseInt(spaceNowNowPos) % 8) != 0) {
+                                        if (spaceToShoot.hasChildNodes() == false){
+                                            spaceToShoot.appendChild(bullet)
+                                            bullet.style.transform = "rotate(90deg)"
+                                            bullet.classList.add("projectile")
+                                            bullet.classList.add("left")
+                                            bullet.classList.add("fresh")
+                                        }
+                                    }
+                                }
+                                else if (shootDecision >= 96 && shootDecision <= 97) {
+                                    //shoot up
+                                    spaceToShoot = moveMonsterTo[parseInt(spaceNowNowPos) - 8]
+                                    if(parseInt(spaceNowNowPos) > 8) {
+                                        if (spaceToShoot.hasChildNodes() == false){
+                                            spaceToShoot.appendChild(bullet)
+                                            bullet.style.transform = "rotate(180deg)"
+                                            bullet.classList.add("projectile")
+                                            bullet.classList.add("up")
+                                            bullet.classList.add("fresh")
+                                        }
+                                    }
+                                }
+                                else if (shootDecision >= 98 && shootDecision <= 99) {
+                                    //shoot right
+                                    spaceToShoot = moveMonsterTo[parseInt(spaceNowNowPos) + 1]
+                                    if(((parseInt(spaceNowNowPos)+1) % 8) != 0 ) {
+                                        if (spaceToShoot.hasChildNodes() == false) {
+                                            spaceToShoot.appendChild(bullet)
+                                            bullet.style.transform = "rotate(-90deg)"
+                                            bullet.classList.add("projectile")
+                                            bullet.classList.add("right")
+                                            bullet.classList.add("fresh")
+                                        }
+                                    }
+                                }
+                                else {
+                                    //do nothing
+                                }
+                            }
                         }
                     }
-                   
                 
                 }
                 else{
@@ -414,7 +492,121 @@ class BattlePhase{
                 }
 
             }
-
+            let bulletsInField = new Array
+            let bulletsLeft = document.getElementsByTagName("bullet")
+            for (let i = 0; i <bulletsLeft.length; i++){
+                bulletsInField.push(document.getElementsByTagName("bullet")[i])
+            }
+            bulletsInField.forEach(element => {
+                if (element.classList.contains("fresh")){
+                    element.classList.remove("fresh")
+                }
+                else {
+                    let bulletSpaceNow = element.parentNode.id.substring(6,8)
+                    if (element.classList.contains("up")) {
+                        //move the bullet up
+                        let bulletSpaceThen = parseInt(bulletSpaceNow) - 8
+                        let bulletSpaceThenParent = document.getElementById("square" + String(bulletSpaceThen))
+                        if (bulletSpaceThenParent) {
+                            if (bulletSpaceThenParent.hasChildNodes() == false){
+                                //the bullet actually moves up
+                                bulletSpaceThenParent.appendChild(element)
+                            }
+                            else if(bulletSpaceThenParent.children[0].classList.contains("player")){
+                                new Soundeffect().playThis("allyDie.wav")
+                                        bulletSpaceThenParent.removeChild(bulletSpaceThenParent.childNodes[0])
+                                        bulletSpaceThenParent.style.backgroundImage = "url(assets/unicorn_dead.png)"
+                                        element.remove()
+                            }
+                            else{
+                                element.remove()
+                            }
+                        }
+                        else {
+                            element.remove()
+                        }
+                    }
+                    else if (element.classList.contains("left")) {
+                        //move the bullet left
+                        let bulletSpaceThen = parseInt(bulletSpaceNow) - 1
+                        let bulletSpaceThenParent = document.getElementById("square" + String(bulletSpaceThen))
+                        if (bulletSpaceThenParent){
+                            if (bulletSpaceThenParent.hasChildNodes() == false){
+                                if (((bulletSpaceThen + 1) % 8) != 0) {
+                                    //the bullet actually moves left
+                                    bulletSpaceThenParent.appendChild(element)
+                                }
+                                else {
+                                    element.remove()
+                                }
+                            }
+                            else if(bulletSpaceThenParent.children[0].classList.contains("player")){
+                                new Soundeffect().playThis("allyDie.wav")
+                                        bulletSpaceThenParent.removeChild(bulletSpaceThenParent.childNodes[0])
+                                        bulletSpaceThenParent.style.backgroundImage = "url(assets/unicorn_dead.png)"
+                                        element.remove()
+                            }
+                            else {
+                                element.remove()
+                            }
+                        }
+                        else{
+                            element.remove()
+                        }
+                    }
+                    else if (element.classList.contains("down")) {
+                        //move the bullet down
+                        let bulletSpaceThen = parseInt(bulletSpaceNow) + 8
+                        let bulletSpaceThenParent = document.getElementById("square" + String(bulletSpaceThen))
+                        if (bulletSpaceThenParent!= null){
+                            if (bulletSpaceThenParent.hasChildNodes() == false){
+                                //the bullet actually moves down
+                                bulletSpaceThenParent.appendChild(element)
+                            }
+                            else if(bulletSpaceThenParent.children[0].classList.contains("player")){
+                                new Soundeffect().playThis("allyDie.wav")
+                                        bulletSpaceThenParent.removeChild(bulletSpaceThenParent.childNodes[0])
+                                        bulletSpaceThenParent.style.backgroundImage = "url(assets/unicorn_dead.png)"
+                                        element.remove()
+                            }
+                            else {
+                                element.remove()
+                            }
+                        }
+                        else {
+                            element.remove()
+                        }
+                    }
+                    else if (element.classList.contains("right")) {
+                        //move the bullet right
+                        let bulletSpaceThen = parseInt(bulletSpaceNow) + 1
+                        let bulletSpaceThenParent = document.getElementById("square" + String(bulletSpaceThen))
+                        if (bulletSpaceThenParent!= null){
+                            if (bulletSpaceThenParent.hasChildNodes() == false){
+                                if (((bulletSpaceThen) % 8 ) != 0) {
+                                    //the bullet actually moves right
+                                    bulletSpaceThenParent.appendChild(element)
+                                }
+                                else {
+                                    element.remove()
+                                }
+                            }
+                            else if(bulletSpaceThenParent.children[0].classList.contains("player")){
+                                new Soundeffect().playThis("allyDie.wav")
+                                        bulletSpaceThenParent.removeChild(bulletSpaceThenParent.childNodes[0])
+                                        bulletSpaceThenParent.style.backgroundImage = "url(assets/unicorn_dead.png)"
+                                        element.remove()
+                            }
+                            else {
+                                element.remove()
+                            }
+                        }
+                        else {
+                            element.remove()
+                        }
+                    }
+                }
+            })
             this.playerTurn()
         }
 

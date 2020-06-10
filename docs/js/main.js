@@ -349,6 +349,24 @@ var BattlePhase = (function () {
                 }
                 monsterParent.appendChild(document.getElementById(data));
                 element = document.getElementById(data);
+                new Score().modifyScore(100);
+                if (this.battleStarted == true) {
+                    this.enemyTurn();
+                }
+            }
+        }
+        if (element != null) {
+            if (element.classList.contains("gamer") && ev.target.classList.contains("projectile") && ev.target.parentElement.classList.contains("canplace")) {
+                ev.preventDefault();
+                var bulletChild = ev.target;
+                var bulletParent = bulletChild.parentNode;
+                if (bulletParent) {
+                    bulletParent.removeChild(bulletChild);
+                    new Soundeffect().playThis("nes-05-07.wav");
+                }
+                bulletParent.appendChild(document.getElementById(data));
+                element = document.getElementById(data);
+                new Score().modifyScore(50);
                 if (this.battleStarted == true) {
                     this.enemyTurn();
                 }
@@ -430,6 +448,60 @@ var BattlePhase = (function () {
                         else {
                             direction = Math.floor(Math.random() * 100);
                         }
+                        if (this.nextLevel == 7) {
+                            var shootDecision = Math.floor(Math.random() * 100);
+                            var spaceToShoot = void 0;
+                            var spaceNowNow = activeMonster.parentNode;
+                            var spaceNowNowPos = spaceNowNow.id.substring(6, 8);
+                            var bullet = document.createElement("bullet");
+                            if (shootDecision >= 92 && shootDecision <= 93) {
+                                spaceToShoot = moveMonsterTo[parseInt(spaceNowNowPos) + 8];
+                                if (spaceToShoot.hasChildNodes() == false && (parseInt(spaceNowNowPos)) < 55) {
+                                    spaceToShoot.appendChild(bullet);
+                                    bullet.classList.add("projectile");
+                                    bullet.classList.add("down");
+                                    bullet.classList.add("fresh");
+                                }
+                            }
+                            else if (shootDecision >= 94 && shootDecision <= 95) {
+                                spaceToShoot = moveMonsterTo[parseInt(spaceNowNowPos) - 1];
+                                if ((parseInt(spaceNowNowPos) % 8) != 0) {
+                                    if (spaceToShoot.hasChildNodes() == false) {
+                                        spaceToShoot.appendChild(bullet);
+                                        bullet.style.transform = "rotate(90deg)";
+                                        bullet.classList.add("projectile");
+                                        bullet.classList.add("left");
+                                        bullet.classList.add("fresh");
+                                    }
+                                }
+                            }
+                            else if (shootDecision >= 96 && shootDecision <= 97) {
+                                spaceToShoot = moveMonsterTo[parseInt(spaceNowNowPos) - 8];
+                                if (parseInt(spaceNowNowPos) > 8) {
+                                    if (spaceToShoot.hasChildNodes() == false) {
+                                        spaceToShoot.appendChild(bullet);
+                                        bullet.style.transform = "rotate(180deg)";
+                                        bullet.classList.add("projectile");
+                                        bullet.classList.add("up");
+                                        bullet.classList.add("fresh");
+                                    }
+                                }
+                            }
+                            else if (shootDecision >= 98 && shootDecision <= 99) {
+                                spaceToShoot = moveMonsterTo[parseInt(spaceNowNowPos) + 1];
+                                if (((parseInt(spaceNowNowPos) + 1) % 8) != 0) {
+                                    if (spaceToShoot.hasChildNodes() == false) {
+                                        spaceToShoot.appendChild(bullet);
+                                        bullet.style.transform = "rotate(-90deg)";
+                                        bullet.classList.add("projectile");
+                                        bullet.classList.add("right");
+                                        bullet.classList.add("fresh");
+                                    }
+                                }
+                            }
+                            else {
+                            }
+                        }
                     }
                 }
             }
@@ -479,6 +551,113 @@ var BattlePhase = (function () {
                 }
             }
         }
+        var bulletsInField = new Array;
+        var bulletsLeft = document.getElementsByTagName("bullet");
+        for (var i = 0; i < bulletsLeft.length; i++) {
+            bulletsInField.push(document.getElementsByTagName("bullet")[i]);
+        }
+        bulletsInField.forEach(function (element) {
+            if (element.classList.contains("fresh")) {
+                element.classList.remove("fresh");
+            }
+            else {
+                var bulletSpaceNow = element.parentNode.id.substring(6, 8);
+                if (element.classList.contains("up")) {
+                    var bulletSpaceThen = parseInt(bulletSpaceNow) - 8;
+                    var bulletSpaceThenParent = document.getElementById("square" + String(bulletSpaceThen));
+                    if (bulletSpaceThenParent) {
+                        if (bulletSpaceThenParent.hasChildNodes() == false) {
+                            bulletSpaceThenParent.appendChild(element);
+                        }
+                        else if (bulletSpaceThenParent.children[0].classList.contains("player")) {
+                            new Soundeffect().playThis("allyDie.wav");
+                            bulletSpaceThenParent.removeChild(bulletSpaceThenParent.childNodes[0]);
+                            bulletSpaceThenParent.style.backgroundImage = "url(assets/unicorn_dead.png)";
+                            element.remove();
+                        }
+                        else {
+                            element.remove();
+                        }
+                    }
+                    else {
+                        element.remove();
+                    }
+                }
+                else if (element.classList.contains("left")) {
+                    var bulletSpaceThen = parseInt(bulletSpaceNow) - 1;
+                    var bulletSpaceThenParent = document.getElementById("square" + String(bulletSpaceThen));
+                    if (bulletSpaceThenParent) {
+                        if (bulletSpaceThenParent.hasChildNodes() == false) {
+                            if (((bulletSpaceThen + 1) % 8) != 0) {
+                                bulletSpaceThenParent.appendChild(element);
+                            }
+                            else {
+                                element.remove();
+                            }
+                        }
+                        else if (bulletSpaceThenParent.children[0].classList.contains("player")) {
+                            new Soundeffect().playThis("allyDie.wav");
+                            bulletSpaceThenParent.removeChild(bulletSpaceThenParent.childNodes[0]);
+                            bulletSpaceThenParent.style.backgroundImage = "url(assets/unicorn_dead.png)";
+                            element.remove();
+                        }
+                        else {
+                            element.remove();
+                        }
+                    }
+                    else {
+                        element.remove();
+                    }
+                }
+                else if (element.classList.contains("down")) {
+                    var bulletSpaceThen = parseInt(bulletSpaceNow) + 8;
+                    var bulletSpaceThenParent = document.getElementById("square" + String(bulletSpaceThen));
+                    if (bulletSpaceThenParent != null) {
+                        if (bulletSpaceThenParent.hasChildNodes() == false) {
+                            bulletSpaceThenParent.appendChild(element);
+                        }
+                        else if (bulletSpaceThenParent.children[0].classList.contains("player")) {
+                            new Soundeffect().playThis("allyDie.wav");
+                            bulletSpaceThenParent.removeChild(bulletSpaceThenParent.childNodes[0]);
+                            bulletSpaceThenParent.style.backgroundImage = "url(assets/unicorn_dead.png)";
+                            element.remove();
+                        }
+                        else {
+                            element.remove();
+                        }
+                    }
+                    else {
+                        element.remove();
+                    }
+                }
+                else if (element.classList.contains("right")) {
+                    var bulletSpaceThen = parseInt(bulletSpaceNow) + 1;
+                    var bulletSpaceThenParent = document.getElementById("square" + String(bulletSpaceThen));
+                    if (bulletSpaceThenParent != null) {
+                        if (bulletSpaceThenParent.hasChildNodes() == false) {
+                            if (((bulletSpaceThen) % 8) != 0) {
+                                bulletSpaceThenParent.appendChild(element);
+                            }
+                            else {
+                                element.remove();
+                            }
+                        }
+                        else if (bulletSpaceThenParent.children[0].classList.contains("player")) {
+                            new Soundeffect().playThis("allyDie.wav");
+                            bulletSpaceThenParent.removeChild(bulletSpaceThenParent.childNodes[0]);
+                            bulletSpaceThenParent.style.backgroundImage = "url(assets/unicorn_dead.png)";
+                            element.remove();
+                        }
+                        else {
+                            element.remove();
+                        }
+                    }
+                    else {
+                        element.remove();
+                    }
+                }
+            }
+        });
         this.playerTurn();
     };
     BattlePhase.prototype.playerTurn = function () {
