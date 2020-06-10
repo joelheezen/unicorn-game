@@ -234,7 +234,7 @@ var BattlePhase = (function () {
                 break;
             case 2:
                 this.monsterCount = 7;
-                this.obstaclePlaces = [16, 18, 21, 23, 24, 25, 26, 29, 30, 31];
+                this.obstaclePlaces = [10, 13, 16, 23, 24, 25, 26, 29, 30, 31];
                 monsterTypes = ["cabinet", "dumbell", "lamp", "plant", "jug"];
                 this.monsterKingImg = "couch";
                 break;
@@ -507,12 +507,12 @@ var BattlePhase = (function () {
             }
             else {
                 var board = document.getElementsByTagName("gameboard")[0];
-                console.log(localStorage.getItem('unlocked'));
+                console.log(parseInt(localStorage.getItem('unlocked')));
                 console.log(this.nextLevel);
                 if (this.nextLevel == 2) {
                     (_a = board.parentNode) === null || _a === void 0 ? void 0 : _a.removeChild(board);
                     new Level2click();
-                    if (parseInt(localStorage.getItem('unlocked')) <= this.nextLevel) {
+                    if (parseInt(localStorage.getItem('unlocked')) <= this.nextLevel || localStorage.getItem('unlocked') == undefined) {
                         localStorage.setItem('unlocked', '2');
                     }
                 }
