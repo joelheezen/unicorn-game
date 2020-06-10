@@ -415,6 +415,7 @@ var BattlePhase = (function () {
                                     spaceToMove.removeChild(spaceToMove.childNodes[0]);
                                     spaceToMove.appendChild(activeMonster);
                                     spaceToMove.style.backgroundImage = "url(assets/unicorn_dead.png)";
+                                    new Score().modifyScore(-200);
                                     moved = true;
                                 }
                                 else if (spaceToMove.children[0].classList.contains("obstacle")) {
@@ -434,30 +435,42 @@ var BattlePhase = (function () {
             }
             else {
                 var board = document.getElementsByTagName("gameboard")[0];
+                console.log(localStorage.getItem('unlocked'));
+                console.log(this.nextLevel);
                 if (this.nextLevel == 2) {
                     (_a = board.parentNode) === null || _a === void 0 ? void 0 : _a.removeChild(board);
                     new Level2click();
-                    localStorage.setItem('unlocked', '2');
+                    if (parseInt(localStorage.getItem('unlocked')) <= this.nextLevel) {
+                        localStorage.setItem('unlocked', '2');
+                    }
                 }
                 else if (this.nextLevel == 3) {
                     (_b = board.parentNode) === null || _b === void 0 ? void 0 : _b.removeChild(board);
                     new Level3click();
-                    localStorage.setItem('unlocked', '3');
+                    if (parseInt(localStorage.getItem('unlocked')) <= this.nextLevel) {
+                        localStorage.setItem('unlocked', '3');
+                    }
                 }
                 else if (this.nextLevel == 4) {
                     (_c = board.parentNode) === null || _c === void 0 ? void 0 : _c.removeChild(board);
                     new Level4click();
-                    localStorage.setItem('unlocked', '4');
+                    if (parseInt(localStorage.getItem('unlocked')) <= this.nextLevel) {
+                        localStorage.setItem('unlocked', '4');
+                    }
                 }
                 else if (this.nextLevel == 5) {
                     (_d = board.parentNode) === null || _d === void 0 ? void 0 : _d.removeChild(board);
                     new Level5click();
-                    localStorage.setItem('unlocked', '5');
+                    if (parseInt(localStorage.getItem('unlocked')) <= this.nextLevel) {
+                        localStorage.setItem('unlocked', '5');
+                    }
                 }
                 else if (this.nextLevel == 6) {
                     (_e = board.parentNode) === null || _e === void 0 ? void 0 : _e.removeChild(board);
                     new Level6click();
-                    localStorage.setItem('unlocked', '6');
+                    if (parseInt(localStorage.getItem('unlocked')) <= this.nextLevel) {
+                        localStorage.setItem('unlocked', '6');
+                    }
                 }
                 else if (this.nextLevel == 7) {
                 }
@@ -1177,14 +1190,18 @@ var Score = (function () {
         localStorage.setItem('score', newscore.toString());
         this.displayScore();
         var scoreAdd = document.createElement('scoreAdd');
-        scoreAdd.innerHTML = "+" + modify;
+        if (modify > 0) {
+            scoreAdd.innerHTML = "+" + modify;
+            new Soundeffect().playThis('score.wav');
+        }
+        else {
+            scoreAdd.innerHTML = "" + modify;
+            new Soundeffect().playThis('scoreDown.wav');
+        }
         document.body.appendChild(scoreAdd);
         setTimeout(function () {
             scoreAdd.style.transform = "translateY(-10vh)";
         }, 1);
-        setTimeout(function () {
-            new Soundeffect().playThis('score.wav');
-        }, 500);
         setTimeout(function () {
             scoreAdd.remove();
         }, 1000);

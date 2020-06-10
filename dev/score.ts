@@ -36,17 +36,20 @@ class Score {
         this.displayScore()
 
         let scoreAdd = document.createElement('scoreAdd')
+
+        if(modify > 0){
         scoreAdd.innerHTML = "+" + modify
+        new Soundeffect().playThis('score.wav')
+        }else{
+            scoreAdd.innerHTML = `${modify}`
+            new Soundeffect().playThis('scoreDown.wav')
+        }
+
         document.body.appendChild(scoreAdd)
 
         setTimeout(() => {
           scoreAdd.style.transform = "translateY(-10vh)"  
         },1);
-
-        setTimeout(() => {
-            new Soundeffect().playThis('score.wav')
-        }, 500);
-        
 
         setTimeout(() => {
             scoreAdd.remove()

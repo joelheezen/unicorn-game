@@ -339,6 +339,7 @@ class BattlePhase{
                                         spaceToMove.removeChild(spaceToMove.childNodes[0])
                                         spaceToMove.appendChild(activeMonster)
                                         spaceToMove.style.backgroundImage = "url(assets/unicorn_dead.png)"
+                                        new Score().modifyScore(-200)
                                         moved = true    
                                     }else if(spaceToMove.children[0].classList.contains("obstacle")){
                                         
@@ -362,34 +363,46 @@ class BattlePhase{
                     // player has won the game moves to next level and unlocks it for future play
                     let board = document.getElementsByTagName("gameboard")[0]
 
+                    console.log(localStorage.getItem('unlocked'))
+                    console.log(this.nextLevel)
+
                     if (this.nextLevel == 2){
                         board.parentNode?.removeChild(board)
                         new Level2click()
-                        localStorage.setItem('unlocked','2')
-                       
+
+                        if(parseInt(localStorage.getItem('unlocked')!) <= this.nextLevel){
+                            localStorage.setItem('unlocked','2')
+                        }
                     }
                     else if(this.nextLevel == 3){
                         board.parentNode?.removeChild(board)
                         new Level3click()
-                        localStorage.setItem('unlocked','3')
+                        if(parseInt(localStorage.getItem('unlocked')!) <= this.nextLevel){
+                            localStorage.setItem('unlocked','3')
+                        }
                         
                     }
                     else if(this.nextLevel == 4){
                         board.parentNode?.removeChild(board)
                         new Level4click()
-                        localStorage.setItem('unlocked','4')
-                        
+                        if(parseInt(localStorage.getItem('unlocked')!) <= this.nextLevel){
+                            localStorage.setItem('unlocked','4')
+                        }
                     }
                     else if(this.nextLevel == 5){
                         board.parentNode?.removeChild(board)
                         new Level5click()
-                        localStorage.setItem('unlocked','5')
+                        if(parseInt(localStorage.getItem('unlocked')!) <= this.nextLevel){
+                            localStorage.setItem('unlocked','5')
+                        }
                         
                     }
                     else if(this.nextLevel == 6){
                         board.parentNode?.removeChild(board)
                         new Level6click()
-                        localStorage.setItem('unlocked','6')
+                        if(parseInt(localStorage.getItem('unlocked')!) <= this.nextLevel){
+                            localStorage.setItem('unlocked','6')
+                        }
                         
                     }
                     else if(this.nextLevel == 7){
