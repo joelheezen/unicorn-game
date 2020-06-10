@@ -512,42 +512,11 @@ var BattlePhase = (function () {
                 board.remove();
                 var guide = document.getElementsByTagName('guide')[0];
                 guide.remove();
-                console.log(parseInt(localStorage.getItem('unlocked')));
-                console.log(this.nextLevel);
-                if (this.nextLevel == 2) {
-                    new Level2click();
-                    if (parseInt(localStorage.getItem('unlocked')) <= this.nextLevel || localStorage.getItem('unlocked') == undefined) {
-                        localStorage.setItem('unlocked', '2');
-                    }
-                }
-                else if (this.nextLevel == 3) {
-                    new Level3click();
-                    if (parseInt(localStorage.getItem('unlocked')) <= this.nextLevel) {
-                        localStorage.setItem('unlocked', '3');
-                    }
-                }
-                else if (this.nextLevel == 4) {
-                    new Level4click();
-                    if (parseInt(localStorage.getItem('unlocked')) <= this.nextLevel) {
-                        localStorage.setItem('unlocked', '4');
-                    }
-                }
-                else if (this.nextLevel == 5) {
-                    new Level5click();
-                    if (parseInt(localStorage.getItem('unlocked')) <= this.nextLevel) {
-                        localStorage.setItem('unlocked', '5');
-                    }
-                }
-                else if (this.nextLevel == 6) {
-                    new Level6click();
-                    if (parseInt(localStorage.getItem('unlocked')) <= this.nextLevel) {
-                        localStorage.setItem('unlocked', '6');
-                    }
-                }
-                else if (this.nextLevel == 7) {
+                localStorage.setItem('unlocked', this.nextLevel.toString());
+                if (this.nextLevel == 7) {
                 }
                 else {
-                    console.log("something is fucked up");
+                    new WinScreen(this.nextLevel);
                 }
             }
         }
@@ -1464,8 +1433,58 @@ var unicornPlayer = (function () {
 }());
 window.addEventListener("load", function () { return new unicornPlayer(); });
 var WinScreen = (function () {
-    function WinScreen() {
+    function WinScreen(nextLevel) {
+        this.youWon(nextLevel);
     }
+    WinScreen.prototype.youWon = function (nextLevel) {
+        new Soundeffect().playThis("foundItem.wav");
+        var game = document.getElementsByTagName('game')[0];
+        var grayout = document.createElement('grayout');
+        game.appendChild(grayout);
+        var uniWin1 = document.createElement('uniWin');
+        uniWin1.style.left = '-20vw';
+        game.appendChild(uniWin1);
+        var uniWin2 = document.createElement('uniWin');
+        uniWin2.style.left = '120vw';
+        game.appendChild(uniWin2);
+        var gameWin = document.createElement('gameWin');
+        game.appendChild(gameWin);
+        var goNext = document.createElement('tryAgain');
+        goNext.innerHTML = 'Next level';
+        goNext.classList.add('button');
+        game.appendChild(goNext);
+        setTimeout(function () {
+            uniWin1.style.left = '25vw';
+            uniWin2.style.left = '65vw';
+            gameWin.style.top = '40vh';
+            goNext.style.bottom = '20vh';
+        }, 500);
+        goNext.addEventListener('click', function () {
+            var fadetonew = document.createElement("fadetonew");
+            fadetonew.style.animation = 'fadetonew 4s';
+            game.appendChild(fadetonew);
+            setTimeout(function () {
+                game.innerHTML = "";
+                switch (nextLevel) {
+                    case 2:
+                        new Level2click();
+                        break;
+                    case 3:
+                        new Level3click();
+                        break;
+                    case 4:
+                        new Level4click();
+                        break;
+                    case 5:
+                        new Level5click();
+                        break;
+                    case 6:
+                        new Level6click();
+                        break;
+                }
+            }, 2000);
+        });
+    };
     return WinScreen;
 }());
 //# sourceMappingURL=main.js.map

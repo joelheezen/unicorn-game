@@ -193,13 +193,13 @@
     inventory{
         position:absolute;
         height: calc(70vh - 30px);
-        width: 4vw;
-        padding-left:10px;
-        padding-right:10px;
+        width: 3vw;
+        padding-left:0,5vw;
+        padding-right:1vw;
         top: calc(15vh - 15px);
-        right:2vw;
+        right:1vw;
         background-color: rgb(243, 129, 192);
-        border: inset 15px pink;
+        border: inset 1vw pink;
     }
 
     dustcloud{
@@ -576,6 +576,31 @@
         left:42vw;
         bottom:-20vh;
         transition:2s;
+    }
+
+    gameWin{
+        width:30vw;
+        height:5vw;
+        position:absolute;
+        background-image:url(../assets/victory.png);
+        background-size:100% 100%;
+        z-index:100;
+        left:35vw;
+        top:-15vw;
+        transition:2s;
+    }
+
+    uniWin{
+        position: absolute;
+        width:10vw;
+        top:35vh;  
+        height:10vw;
+        z-index:100;
+        transition:2s;
+        background-image: url(../assets/unicorn_player.png);
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: 80% 80%;
     }
 
     

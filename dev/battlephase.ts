@@ -449,49 +449,16 @@ class BattlePhase{
                     let guide = document.getElementsByTagName('guide')[0]
                     guide.remove();
 
-                    console.log(parseInt(localStorage.getItem('unlocked')!))
-                    console.log(this.nextLevel)
-
-                    if (this.nextLevel == 2){
-                        
-                        new Level2click()
-                        if(parseInt(localStorage.getItem('unlocked')!) <= this.nextLevel || localStorage.getItem('unlocked') == undefined){
-                            localStorage.setItem('unlocked','2')
-                        }
-                    }
-                    else if(this.nextLevel == 3){
-                        new Level3click()
-                        if(parseInt(localStorage.getItem('unlocked')!) <= this.nextLevel){
-                            localStorage.setItem('unlocked','3')
-                        }
-                        
-                    }
-                    else if(this.nextLevel == 4){
-                        new Level4click()
-                        if(parseInt(localStorage.getItem('unlocked')!) <= this.nextLevel){
-                            localStorage.setItem('unlocked','4')
-                        }
-                    }
-                    else if(this.nextLevel == 5){
-                        new Level5click()
-                        if(parseInt(localStorage.getItem('unlocked')!) <= this.nextLevel){
-                            localStorage.setItem('unlocked','5')
-                        }
-                        
-                    }
-                    else if(this.nextLevel == 6){
-                        new Level6click()
-                        if(parseInt(localStorage.getItem('unlocked')!) <= this.nextLevel){
-                            localStorage.setItem('unlocked','6')
-                        }
-                        
-                    }
-                    else if(this.nextLevel == 7){
+                    localStorage.setItem('unlocked',this.nextLevel.toString())
+                    
+                    if(this.nextLevel == 7){
                         //end the game
+                    }else{
+                        new WinScreen(this.nextLevel)
                     }
-                    else{
-                        console.log("something is fucked up")
-                    }
+                        
+                    
+                    
                 }
 
             }
