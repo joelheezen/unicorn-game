@@ -54,7 +54,6 @@
         transition:1.5s;
         animation: pickuppopup 2s forwards, 3s idlepickup 2s forwards;
         animation-iteration-count: 1,infinite;
-
     }
 
     grayout{
@@ -235,6 +234,14 @@
         background-image: url(../assets/skullbottom.png);
         animation: skullbottom 1s;
         animation-iteration-count: infinite;
+    }
+
+    bullet {
+        background-image: url(../assets/fireProjectile.gif);
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        position: absolute;
+        width: 7vw; height: 7vh;
     }
 
     hint{
@@ -539,7 +546,38 @@
         left:125px
     }
 
-    
+    skullPlace{
+        position: absolute;
+        width:10vw;
+        top:35vh;  
+        height:10vw;
+        z-index:100;
+        transition:2s;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: 70% 70%;
+    }
+
+    gameOver{
+        width:30vw;
+        height:15vw;
+        position:absolute;
+        background-image:url(../assets/gameOver.png);
+        background-size:100% 100%;
+        z-index:100;
+        left:35vw;
+        top:-15vw;
+        transition:2s;
+    }
+
+    tryAgain{
+        z-index: 100;
+        position: absolute;
+        left:42vw;
+        bottom:-20vh;
+        transition:2s;
+    }
+
     
     @keyframes bounce-right {
         0%   { transform: scale(1,1)      translateY(0); }

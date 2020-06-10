@@ -126,7 +126,6 @@ class Startscreen{
             new Level2click
         })
         }else{
-            console.log('level 6 locked')
             this.makeLevelLock(25.7,52.8,14.75,43.05)
         }
 
@@ -138,7 +137,6 @@ class Startscreen{
             new Level3click
         })
         }else{
-            console.log('level 6 locked')
             this.makeLevelLock(40.5,65.3,9.2,30.6)
         }
 

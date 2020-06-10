@@ -117,7 +117,7 @@ class BattlePhase{
                 break;
             case 2:
                 this.monsterCount = 7
-                this.obstaclePlaces = [16,18,21,23,24,25,26,29,30,31]
+                this.obstaclePlaces = [10,13,16,23,24,25,26,29,30,31]
                 monsterTypes = ["cabinet","dumbell","lamp","plant","jug"]
                 this.monsterKingImg = "couch"
                  break;
@@ -250,6 +250,25 @@ class BattlePhase{
                     }
                     monsterParent.appendChild(document.getElementById(data));
                     element = document.getElementById(data)
+                    new Score().modifyScore(100)
+
+                    if (this.battleStarted == true){
+                        this.enemyTurn()
+                    }
+                }
+            }
+            if (element != null){
+                if (element.classList.contains("gamer") && ev.target.classList.contains("projectile") && ev.target.parentElement.classList.contains("canplace")) {
+                    ev.preventDefault();
+                    let bulletChild = ev.target
+                    let bulletParent = bulletChild.parentNode
+                    if (bulletParent) {
+                        bulletParent.removeChild(bulletChild)
+                        new Soundeffect().playThis("nes-05-07.wav")
+                    }
+                    bulletParent.appendChild(document.getElementById(data));
+                    element = document.getElementById(data)
+                    new Score().modifyScore(50)
 
                     if (this.battleStarted == true){
                         this.enemyTurn()
@@ -344,6 +363,7 @@ class BattlePhase{
                                         spaceToMove.removeChild(spaceToMove.childNodes[0])
                                         spaceToMove.appendChild(activeMonster)
                                         spaceToMove.style.backgroundImage = "url(assets/unicorn_dead.png)"
+                                        new Score().modifyScore(-200)
                                         moved = true    
                                     }else if(spaceToMove.children[0].classList.contains("obstacle")){
                                         
@@ -358,43 +378,114 @@ class BattlePhase{
                                 direction = Math.floor(Math.random() * 100)
                             }
                         
+                            if (this.nextLevel == 7) {
+                                let shootDecision = Math.floor(Math.random() * 100)
+                                let spaceToShoot : any
+                                let spaceNowNow = activeMonster.parentNode as Element
+                                let spaceNowNowPos = spaceNowNow.id.substring(6,8)
+                                let bullet = document.createElement("bullet")
+
+                                if (shootDecision >= 92 && shootDecision <= 93) {
+                                    //shoot down
+                                    spaceToShoot = moveMonsterTo[parseInt(spaceNowNowPos) + 8]
+                                    if (spaceToShoot.hasChildNodes() == false && (parseInt(spaceNowNowPos)) < 55){
+                                        spaceToShoot.appendChild(bullet)
+                                        bullet.classList.add("projectile")
+                                        bullet.classList.add("down")
+                                        bullet.classList.add("fresh")
+                                    }
+                                }
+                                else if (shootDecision >= 94 && shootDecision <= 95) {
+                                    //shoot left
+                                    spaceToShoot = moveMonsterTo[parseInt(spaceNowNowPos) - 1]
+                                    if((parseInt(spaceNowNowPos) % 8) != 0) {
+                                        if (spaceToShoot.hasChildNodes() == false){
+                                            spaceToShoot.appendChild(bullet)
+                                            bullet.style.transform = "rotate(90deg)"
+                                            bullet.classList.add("projectile")
+                                            bullet.classList.add("left")
+                                            bullet.classList.add("fresh")
+                                        }
+                                    }
+                                }
+                                else if (shootDecision >= 96 && shootDecision <= 97) {
+                                    //shoot up
+                                    spaceToShoot = moveMonsterTo[parseInt(spaceNowNowPos) - 8]
+                                    if(parseInt(spaceNowNowPos) > 8) {
+                                        if (spaceToShoot.hasChildNodes() == false){
+                                            spaceToShoot.appendChild(bullet)
+                                            bullet.style.transform = "rotate(180deg)"
+                                            bullet.classList.add("projectile")
+                                            bullet.classList.add("up")
+                                            bullet.classList.add("fresh")
+                                        }
+                                    }
+                                }
+                                else if (shootDecision >= 98 && shootDecision <= 99) {
+                                    //shoot right
+                                    spaceToShoot = moveMonsterTo[parseInt(spaceNowNowPos) + 1]
+                                    if(((parseInt(spaceNowNowPos)+1) % 8) != 0 ) {
+                                        if (spaceToShoot.hasChildNodes() == false) {
+                                            spaceToShoot.appendChild(bullet)
+                                            bullet.style.transform = "rotate(-90deg)"
+                                            bullet.classList.add("projectile")
+                                            bullet.classList.add("right")
+                                            bullet.classList.add("fresh")
+                                        }
+                                    }
+                                }
+                                else {
+                                    //do nothing
+                                }
+                            }
                         }
                     }
-                   
                 
                 }
                 else{
                     // player has won the game moves to next level and unlocks it for future play
                     let board = document.getElementsByTagName("gameboard")[0]
 
+                    console.log(parseInt(localStorage.getItem('unlocked')!))
+                    console.log(this.nextLevel)
+
                     if (this.nextLevel == 2){
                         board.parentNode?.removeChild(board)
                         new Level2click()
-                        localStorage.setItem('unlocked','2')
-                       
+
+                        if(parseInt(localStorage.getItem('unlocked')!) <= this.nextLevel || localStorage.getItem('unlocked') == undefined){
+                            localStorage.setItem('unlocked','2')
+                        }
                     }
                     else if(this.nextLevel == 3){
                         board.parentNode?.removeChild(board)
                         new Level3click()
-                        localStorage.setItem('unlocked','3')
+                        if(parseInt(localStorage.getItem('unlocked')!) <= this.nextLevel){
+                            localStorage.setItem('unlocked','3')
+                        }
                         
                     }
                     else if(this.nextLevel == 4){
                         board.parentNode?.removeChild(board)
                         new Level4click()
-                        localStorage.setItem('unlocked','4')
-                        
+                        if(parseInt(localStorage.getItem('unlocked')!) <= this.nextLevel){
+                            localStorage.setItem('unlocked','4')
+                        }
                     }
                     else if(this.nextLevel == 5){
                         board.parentNode?.removeChild(board)
                         new Level5click()
-                        localStorage.setItem('unlocked','5')
+                        if(parseInt(localStorage.getItem('unlocked')!) <= this.nextLevel){
+                            localStorage.setItem('unlocked','5')
+                        }
                         
                     }
                     else if(this.nextLevel == 6){
                         board.parentNode?.removeChild(board)
                         new Level6click()
-                        localStorage.setItem('unlocked','6')
+                        if(parseInt(localStorage.getItem('unlocked')!) <= this.nextLevel){
+                            localStorage.setItem('unlocked','6')
+                        }
                         
                     }
                     else if(this.nextLevel == 7){
@@ -406,13 +497,131 @@ class BattlePhase{
                 }
 
             }
-
+            let bulletsInField = new Array
+            let bulletsLeft = document.getElementsByTagName("bullet")
+            for (let i = 0; i <bulletsLeft.length; i++){
+                bulletsInField.push(document.getElementsByTagName("bullet")[i])
+            }
+            bulletsInField.forEach(element => {
+                if (element.classList.contains("fresh")){
+                    element.classList.remove("fresh")
+                }
+                else {
+                    let bulletSpaceNow = element.parentNode.id.substring(6,8)
+                    if (element.classList.contains("up")) {
+                        //move the bullet up
+                        let bulletSpaceThen = parseInt(bulletSpaceNow) - 8
+                        let bulletSpaceThenParent = document.getElementById("square" + String(bulletSpaceThen))
+                        if (bulletSpaceThenParent) {
+                            if (bulletSpaceThenParent.hasChildNodes() == false){
+                                //the bullet actually moves up
+                                bulletSpaceThenParent.appendChild(element)
+                            }
+                            else if(bulletSpaceThenParent.children[0].classList.contains("player")){
+                                new Soundeffect().playThis("allyDie.wav")
+                                        bulletSpaceThenParent.removeChild(bulletSpaceThenParent.childNodes[0])
+                                        bulletSpaceThenParent.style.backgroundImage = "url(assets/unicorn_dead.png)"
+                                        element.remove()
+                            }
+                            else{
+                                element.remove()
+                            }
+                        }
+                        else {
+                            element.remove()
+                        }
+                    }
+                    else if (element.classList.contains("left")) {
+                        //move the bullet left
+                        let bulletSpaceThen = parseInt(bulletSpaceNow) - 1
+                        let bulletSpaceThenParent = document.getElementById("square" + String(bulletSpaceThen))
+                        if (bulletSpaceThenParent){
+                            if (bulletSpaceThenParent.hasChildNodes() == false){
+                                if (((bulletSpaceThen + 1) % 8) != 0) {
+                                    //the bullet actually moves left
+                                    bulletSpaceThenParent.appendChild(element)
+                                }
+                                else {
+                                    element.remove()
+                                }
+                            }
+                            else if(bulletSpaceThenParent.children[0].classList.contains("player")){
+                                new Soundeffect().playThis("allyDie.wav")
+                                        bulletSpaceThenParent.removeChild(bulletSpaceThenParent.childNodes[0])
+                                        bulletSpaceThenParent.style.backgroundImage = "url(assets/unicorn_dead.png)"
+                                        element.remove()
+                            }
+                            else {
+                                element.remove()
+                            }
+                        }
+                        else{
+                            element.remove()
+                        }
+                    }
+                    else if (element.classList.contains("down")) {
+                        //move the bullet down
+                        let bulletSpaceThen = parseInt(bulletSpaceNow) + 8
+                        let bulletSpaceThenParent = document.getElementById("square" + String(bulletSpaceThen))
+                        if (bulletSpaceThenParent!= null){
+                            if (bulletSpaceThenParent.hasChildNodes() == false){
+                                //the bullet actually moves down
+                                bulletSpaceThenParent.appendChild(element)
+                            }
+                            else if(bulletSpaceThenParent.children[0].classList.contains("player")){
+                                new Soundeffect().playThis("allyDie.wav")
+                                        bulletSpaceThenParent.removeChild(bulletSpaceThenParent.childNodes[0])
+                                        bulletSpaceThenParent.style.backgroundImage = "url(assets/unicorn_dead.png)"
+                                        element.remove()
+                            }
+                            else {
+                                element.remove()
+                            }
+                        }
+                        else {
+                            element.remove()
+                        }
+                    }
+                    else if (element.classList.contains("right")) {
+                        //move the bullet right
+                        let bulletSpaceThen = parseInt(bulletSpaceNow) + 1
+                        let bulletSpaceThenParent = document.getElementById("square" + String(bulletSpaceThen))
+                        if (bulletSpaceThenParent!= null){
+                            if (bulletSpaceThenParent.hasChildNodes() == false){
+                                if (((bulletSpaceThen) % 8 ) != 0) {
+                                    //the bullet actually moves right
+                                    bulletSpaceThenParent.appendChild(element)
+                                }
+                                else {
+                                    element.remove()
+                                }
+                            }
+                            else if(bulletSpaceThenParent.children[0].classList.contains("player")){
+                                new Soundeffect().playThis("allyDie.wav")
+                                        bulletSpaceThenParent.removeChild(bulletSpaceThenParent.childNodes[0])
+                                        bulletSpaceThenParent.style.backgroundImage = "url(assets/unicorn_dead.png)"
+                                        element.remove()
+                            }
+                            else {
+                                element.remove()
+                            }
+                        }
+                        else {
+                            element.remove()
+                        }
+                    }
+                }
+            })
             this.playerTurn()
         }
 
         playerTurn() {
             let unicornPlayers = new Array
             let unicornsLeft = document.getElementsByTagName("inventoryitem")
+            if(unicornsLeft.length == 0){
+                new loseScreen(this.nextLevel - 1)
+            }
+
             for (let i = 0; i < unicornsLeft.length; i++) {
                 unicornPlayers.push(document.getElementsByTagName("inventoryitem")[i])
             }

@@ -237,7 +237,7 @@ var BattlePhase = (function () {
                 break;
             case 2:
                 this.monsterCount = 7;
-                this.obstaclePlaces = [16, 18, 21, 23, 24, 25, 26, 29, 30, 31];
+                this.obstaclePlaces = [10, 13, 16, 23, 24, 25, 26, 29, 30, 31];
                 monsterTypes = ["cabinet", "dumbell", "lamp", "plant", "jug"];
                 this.monsterKingImg = "couch";
                 break;
@@ -352,6 +352,24 @@ var BattlePhase = (function () {
                 }
                 monsterParent.appendChild(document.getElementById(data));
                 element = document.getElementById(data);
+                new Score().modifyScore(100);
+                if (this.battleStarted == true) {
+                    this.enemyTurn();
+                }
+            }
+        }
+        if (element != null) {
+            if (element.classList.contains("gamer") && ev.target.classList.contains("projectile") && ev.target.parentElement.classList.contains("canplace")) {
+                ev.preventDefault();
+                var bulletChild = ev.target;
+                var bulletParent = bulletChild.parentNode;
+                if (bulletParent) {
+                    bulletParent.removeChild(bulletChild);
+                    new Soundeffect().playThis("nes-05-07.wav");
+                }
+                bulletParent.appendChild(document.getElementById(data));
+                element = document.getElementById(data);
+                new Score().modifyScore(50);
                 if (this.battleStarted == true) {
                     this.enemyTurn();
                 }
@@ -418,6 +436,7 @@ var BattlePhase = (function () {
                                     spaceToMove.removeChild(spaceToMove.childNodes[0]);
                                     spaceToMove.appendChild(activeMonster);
                                     spaceToMove.style.backgroundImage = "url(assets/unicorn_dead.png)";
+                                    new Score().modifyScore(-200);
                                     moved = true;
                                 }
                                 else if (spaceToMove.children[0].classList.contains("obstacle")) {
@@ -432,35 +451,101 @@ var BattlePhase = (function () {
                         else {
                             direction = Math.floor(Math.random() * 100);
                         }
+                        if (this.nextLevel == 7) {
+                            var shootDecision = Math.floor(Math.random() * 100);
+                            var spaceToShoot = void 0;
+                            var spaceNowNow = activeMonster.parentNode;
+                            var spaceNowNowPos = spaceNowNow.id.substring(6, 8);
+                            var bullet = document.createElement("bullet");
+                            if (shootDecision >= 92 && shootDecision <= 93) {
+                                spaceToShoot = moveMonsterTo[parseInt(spaceNowNowPos) + 8];
+                                if (spaceToShoot.hasChildNodes() == false && (parseInt(spaceNowNowPos)) < 55) {
+                                    spaceToShoot.appendChild(bullet);
+                                    bullet.classList.add("projectile");
+                                    bullet.classList.add("down");
+                                    bullet.classList.add("fresh");
+                                }
+                            }
+                            else if (shootDecision >= 94 && shootDecision <= 95) {
+                                spaceToShoot = moveMonsterTo[parseInt(spaceNowNowPos) - 1];
+                                if ((parseInt(spaceNowNowPos) % 8) != 0) {
+                                    if (spaceToShoot.hasChildNodes() == false) {
+                                        spaceToShoot.appendChild(bullet);
+                                        bullet.style.transform = "rotate(90deg)";
+                                        bullet.classList.add("projectile");
+                                        bullet.classList.add("left");
+                                        bullet.classList.add("fresh");
+                                    }
+                                }
+                            }
+                            else if (shootDecision >= 96 && shootDecision <= 97) {
+                                spaceToShoot = moveMonsterTo[parseInt(spaceNowNowPos) - 8];
+                                if (parseInt(spaceNowNowPos) > 8) {
+                                    if (spaceToShoot.hasChildNodes() == false) {
+                                        spaceToShoot.appendChild(bullet);
+                                        bullet.style.transform = "rotate(180deg)";
+                                        bullet.classList.add("projectile");
+                                        bullet.classList.add("up");
+                                        bullet.classList.add("fresh");
+                                    }
+                                }
+                            }
+                            else if (shootDecision >= 98 && shootDecision <= 99) {
+                                spaceToShoot = moveMonsterTo[parseInt(spaceNowNowPos) + 1];
+                                if (((parseInt(spaceNowNowPos) + 1) % 8) != 0) {
+                                    if (spaceToShoot.hasChildNodes() == false) {
+                                        spaceToShoot.appendChild(bullet);
+                                        bullet.style.transform = "rotate(-90deg)";
+                                        bullet.classList.add("projectile");
+                                        bullet.classList.add("right");
+                                        bullet.classList.add("fresh");
+                                    }
+                                }
+                            }
+                            else {
+                            }
+                        }
                     }
                 }
             }
             else {
                 var board = document.getElementsByTagName("gameboard")[0];
+                console.log(parseInt(localStorage.getItem('unlocked')));
+                console.log(this.nextLevel);
                 if (this.nextLevel == 2) {
                     (_a = board.parentNode) === null || _a === void 0 ? void 0 : _a.removeChild(board);
                     new Level2click();
-                    localStorage.setItem('unlocked', '2');
+                    if (parseInt(localStorage.getItem('unlocked')) <= this.nextLevel || localStorage.getItem('unlocked') == undefined) {
+                        localStorage.setItem('unlocked', '2');
+                    }
                 }
                 else if (this.nextLevel == 3) {
                     (_b = board.parentNode) === null || _b === void 0 ? void 0 : _b.removeChild(board);
                     new Level3click();
-                    localStorage.setItem('unlocked', '3');
+                    if (parseInt(localStorage.getItem('unlocked')) <= this.nextLevel) {
+                        localStorage.setItem('unlocked', '3');
+                    }
                 }
                 else if (this.nextLevel == 4) {
                     (_c = board.parentNode) === null || _c === void 0 ? void 0 : _c.removeChild(board);
                     new Level4click();
-                    localStorage.setItem('unlocked', '4');
+                    if (parseInt(localStorage.getItem('unlocked')) <= this.nextLevel) {
+                        localStorage.setItem('unlocked', '4');
+                    }
                 }
                 else if (this.nextLevel == 5) {
                     (_d = board.parentNode) === null || _d === void 0 ? void 0 : _d.removeChild(board);
                     new Level5click();
-                    localStorage.setItem('unlocked', '5');
+                    if (parseInt(localStorage.getItem('unlocked')) <= this.nextLevel) {
+                        localStorage.setItem('unlocked', '5');
+                    }
                 }
                 else if (this.nextLevel == 6) {
                     (_e = board.parentNode) === null || _e === void 0 ? void 0 : _e.removeChild(board);
                     new Level6click();
-                    localStorage.setItem('unlocked', '6');
+                    if (parseInt(localStorage.getItem('unlocked')) <= this.nextLevel) {
+                        localStorage.setItem('unlocked', '6');
+                    }
                 }
                 else if (this.nextLevel == 7) {
                 }
@@ -469,12 +554,122 @@ var BattlePhase = (function () {
                 }
             }
         }
+        var bulletsInField = new Array;
+        var bulletsLeft = document.getElementsByTagName("bullet");
+        for (var i = 0; i < bulletsLeft.length; i++) {
+            bulletsInField.push(document.getElementsByTagName("bullet")[i]);
+        }
+        bulletsInField.forEach(function (element) {
+            if (element.classList.contains("fresh")) {
+                element.classList.remove("fresh");
+            }
+            else {
+                var bulletSpaceNow = element.parentNode.id.substring(6, 8);
+                if (element.classList.contains("up")) {
+                    var bulletSpaceThen = parseInt(bulletSpaceNow) - 8;
+                    var bulletSpaceThenParent = document.getElementById("square" + String(bulletSpaceThen));
+                    if (bulletSpaceThenParent) {
+                        if (bulletSpaceThenParent.hasChildNodes() == false) {
+                            bulletSpaceThenParent.appendChild(element);
+                        }
+                        else if (bulletSpaceThenParent.children[0].classList.contains("player")) {
+                            new Soundeffect().playThis("allyDie.wav");
+                            bulletSpaceThenParent.removeChild(bulletSpaceThenParent.childNodes[0]);
+                            bulletSpaceThenParent.style.backgroundImage = "url(assets/unicorn_dead.png)";
+                            element.remove();
+                        }
+                        else {
+                            element.remove();
+                        }
+                    }
+                    else {
+                        element.remove();
+                    }
+                }
+                else if (element.classList.contains("left")) {
+                    var bulletSpaceThen = parseInt(bulletSpaceNow) - 1;
+                    var bulletSpaceThenParent = document.getElementById("square" + String(bulletSpaceThen));
+                    if (bulletSpaceThenParent) {
+                        if (bulletSpaceThenParent.hasChildNodes() == false) {
+                            if (((bulletSpaceThen + 1) % 8) != 0) {
+                                bulletSpaceThenParent.appendChild(element);
+                            }
+                            else {
+                                element.remove();
+                            }
+                        }
+                        else if (bulletSpaceThenParent.children[0].classList.contains("player")) {
+                            new Soundeffect().playThis("allyDie.wav");
+                            bulletSpaceThenParent.removeChild(bulletSpaceThenParent.childNodes[0]);
+                            bulletSpaceThenParent.style.backgroundImage = "url(assets/unicorn_dead.png)";
+                            element.remove();
+                        }
+                        else {
+                            element.remove();
+                        }
+                    }
+                    else {
+                        element.remove();
+                    }
+                }
+                else if (element.classList.contains("down")) {
+                    var bulletSpaceThen = parseInt(bulletSpaceNow) + 8;
+                    var bulletSpaceThenParent = document.getElementById("square" + String(bulletSpaceThen));
+                    if (bulletSpaceThenParent != null) {
+                        if (bulletSpaceThenParent.hasChildNodes() == false) {
+                            bulletSpaceThenParent.appendChild(element);
+                        }
+                        else if (bulletSpaceThenParent.children[0].classList.contains("player")) {
+                            new Soundeffect().playThis("allyDie.wav");
+                            bulletSpaceThenParent.removeChild(bulletSpaceThenParent.childNodes[0]);
+                            bulletSpaceThenParent.style.backgroundImage = "url(assets/unicorn_dead.png)";
+                            element.remove();
+                        }
+                        else {
+                            element.remove();
+                        }
+                    }
+                    else {
+                        element.remove();
+                    }
+                }
+                else if (element.classList.contains("right")) {
+                    var bulletSpaceThen = parseInt(bulletSpaceNow) + 1;
+                    var bulletSpaceThenParent = document.getElementById("square" + String(bulletSpaceThen));
+                    if (bulletSpaceThenParent != null) {
+                        if (bulletSpaceThenParent.hasChildNodes() == false) {
+                            if (((bulletSpaceThen) % 8) != 0) {
+                                bulletSpaceThenParent.appendChild(element);
+                            }
+                            else {
+                                element.remove();
+                            }
+                        }
+                        else if (bulletSpaceThenParent.children[0].classList.contains("player")) {
+                            new Soundeffect().playThis("allyDie.wav");
+                            bulletSpaceThenParent.removeChild(bulletSpaceThenParent.childNodes[0]);
+                            bulletSpaceThenParent.style.backgroundImage = "url(assets/unicorn_dead.png)";
+                            element.remove();
+                        }
+                        else {
+                            element.remove();
+                        }
+                    }
+                    else {
+                        element.remove();
+                    }
+                }
+            }
+        });
         this.playerTurn();
     };
     BattlePhase.prototype.playerTurn = function () {
         var _this = this;
         var unicornPlayers = new Array;
         var unicornsLeft = document.getElementsByTagName("inventoryitem");
+        if (unicornsLeft.length == 0) {
+            new loseScreen(this.nextLevel - 1);
+        }
         for (var i = 0; i < unicornsLeft.length; i++) {
             unicornPlayers.push(document.getElementsByTagName("inventoryitem")[i]);
         }
@@ -661,7 +856,6 @@ var Startscreen = (function () {
             });
         }
         else {
-            console.log('level 6 locked');
             this.makeLevelLock(25.7, 52.8, 14.75, 43.05);
         }
         if (unlocked >= 3) {
@@ -673,7 +867,6 @@ var Startscreen = (function () {
             });
         }
         else {
-            console.log('level 6 locked');
             this.makeLevelLock(40.5, 65.3, 9.2, 30.6);
         }
         if (unlocked >= 4) {
@@ -962,8 +1155,69 @@ var Hint = (function () {
     return Hint;
 }());
 var loseScreen = (function () {
-    function loseScreen() {
+    function loseScreen(level) {
+        this.youLost(level);
     }
+    loseScreen.prototype.youLost = function (level) {
+        new Soundeffect().playThis("minionFound.mp3");
+        var game = document.getElementsByTagName('game')[0];
+        var grayout = document.createElement('grayout');
+        game.appendChild(grayout);
+        var skullPlace1 = document.createElement('skullPlace');
+        skullPlace1.style.left = '-20vw';
+        var skullTop1 = document.createElement('skullTop');
+        var skullBottom1 = document.createElement('skullbottom');
+        skullPlace1.appendChild(skullTop1);
+        skullPlace1.appendChild(skullBottom1);
+        game.appendChild(skullPlace1);
+        var skullPlace2 = document.createElement('skullPlace');
+        skullPlace2.style.left = '120vw';
+        var skullTop2 = document.createElement('skullTop');
+        var skullBottom2 = document.createElement('skullbottom');
+        skullPlace2.appendChild(skullTop2);
+        skullPlace2.appendChild(skullBottom2);
+        game.appendChild(skullPlace2);
+        var gameOver = document.createElement('gameOver');
+        game.appendChild(gameOver);
+        var tryAgain = document.createElement('tryAgain');
+        tryAgain.innerHTML = 'Try again';
+        tryAgain.classList.add('button');
+        game.appendChild(tryAgain);
+        setTimeout(function () {
+            skullPlace1.style.left = '25vw';
+            skullPlace2.style.left = '65vw';
+            gameOver.style.top = '30vh';
+            tryAgain.style.bottom = '10vh';
+        }, 500);
+        tryAgain.addEventListener('click', function () {
+            var fadetonew = document.createElement("fadetonew");
+            fadetonew.style.animation = 'fadetonew 4s';
+            game.appendChild(fadetonew);
+            setTimeout(function () {
+                game.innerHTML = "";
+                switch (level) {
+                    case 1:
+                        new Level1click();
+                        break;
+                    case 2:
+                        new Level2click();
+                        break;
+                    case 3:
+                        new Level3click();
+                        break;
+                    case 4:
+                        new Level4click();
+                        break;
+                    case 5:
+                        new Level5click();
+                        break;
+                    case 6:
+                        new Level6click();
+                        break;
+                }
+            }, 2000);
+        });
+    };
     return loseScreen;
 }());
 var Music = (function () {
@@ -1118,14 +1372,18 @@ var Score = (function () {
         localStorage.setItem('score', newscore.toString());
         this.displayScore();
         var scoreAdd = document.createElement('scoreAdd');
-        scoreAdd.innerHTML = "+" + modify;
+        if (modify > 0) {
+            scoreAdd.innerHTML = "+" + modify;
+            new Soundeffect().playThis('score.wav');
+        }
+        else {
+            scoreAdd.innerHTML = "" + modify;
+            new Soundeffect().playThis('scoreDown.wav');
+        }
         document.body.appendChild(scoreAdd);
         setTimeout(function () {
             scoreAdd.style.transform = "translateY(-10vh)";
         }, 1);
-        setTimeout(function () {
-            new Soundeffect().playThis('score.wav');
-        }, 500);
         setTimeout(function () {
             scoreAdd.remove();
         }, 1000);
