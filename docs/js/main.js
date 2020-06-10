@@ -349,6 +349,24 @@ var BattlePhase = (function () {
                 }
                 monsterParent.appendChild(document.getElementById(data));
                 element = document.getElementById(data);
+                new Score().modifyScore(100);
+                if (this.battleStarted == true) {
+                    this.enemyTurn();
+                }
+            }
+        }
+        if (element != null) {
+            if (element.classList.contains("gamer") && ev.target.classList.contains("projectile") && ev.target.parentElement.classList.contains("canplace")) {
+                ev.preventDefault();
+                var bulletChild = ev.target;
+                var bulletParent = bulletChild.parentNode;
+                if (bulletParent) {
+                    bulletParent.removeChild(bulletChild);
+                    new Soundeffect().playThis("nes-05-07.wav");
+                }
+                bulletParent.appendChild(document.getElementById(data));
+                element = document.getElementById(data);
+                new Score().modifyScore(50);
                 if (this.battleStarted == true) {
                     this.enemyTurn();
                 }
@@ -437,22 +455,20 @@ var BattlePhase = (function () {
                             var bullet = document.createElement("bullet");
                             if (shootDecision >= 92 && shootDecision <= 93) {
                                 spaceToShoot = moveMonsterTo[parseInt(spaceNowNowPos) + 8];
-                                console.log(spaceToShoot);
                                 if (spaceToShoot.hasChildNodes() == false && (parseInt(spaceNowNowPos)) < 55) {
-                                    console.log("hij schiet naar beneden");
                                     spaceToShoot.appendChild(bullet);
+                                    bullet.classList.add("projectile");
                                     bullet.classList.add("down");
                                     bullet.classList.add("fresh");
                                 }
                             }
                             else if (shootDecision >= 94 && shootDecision <= 95) {
                                 spaceToShoot = moveMonsterTo[parseInt(spaceNowNowPos) - 1];
-                                console.log(spaceToShoot);
                                 if ((parseInt(spaceNowNowPos) % 8) != 0) {
                                     if (spaceToShoot.hasChildNodes() == false) {
-                                        console.log("hij schiet naar links");
                                         spaceToShoot.appendChild(bullet);
                                         bullet.style.transform = "rotate(90deg)";
+                                        bullet.classList.add("projectile");
                                         bullet.classList.add("left");
                                         bullet.classList.add("fresh");
                                     }
@@ -460,12 +476,11 @@ var BattlePhase = (function () {
                             }
                             else if (shootDecision >= 96 && shootDecision <= 97) {
                                 spaceToShoot = moveMonsterTo[parseInt(spaceNowNowPos) - 8];
-                                console.log(spaceToShoot);
                                 if (parseInt(spaceNowNowPos) > 8) {
                                     if (spaceToShoot.hasChildNodes() == false) {
-                                        console.log("hij schiet naar boven");
                                         spaceToShoot.appendChild(bullet);
                                         bullet.style.transform = "rotate(180deg)";
+                                        bullet.classList.add("projectile");
                                         bullet.classList.add("up");
                                         bullet.classList.add("fresh");
                                     }
@@ -473,12 +488,11 @@ var BattlePhase = (function () {
                             }
                             else if (shootDecision >= 98 && shootDecision <= 99) {
                                 spaceToShoot = moveMonsterTo[parseInt(spaceNowNowPos) + 1];
-                                console.log(spaceToShoot);
                                 if (((parseInt(spaceNowNowPos) + 1) % 8) != 0) {
                                     if (spaceToShoot.hasChildNodes() == false) {
-                                        console.log("hij schiet naar rechts");
                                         spaceToShoot.appendChild(bullet);
                                         bullet.style.transform = "rotate(-90deg)";
+                                        bullet.classList.add("projectile");
                                         bullet.classList.add("right");
                                         bullet.classList.add("fresh");
                                     }
@@ -561,7 +575,12 @@ var BattlePhase = (function () {
                     var bulletSpaceThenParent = document.getElementById("square" + String(bulletSpaceThen));
                     if (bulletSpaceThenParent) {
                         if (bulletSpaceThenParent.hasChildNodes() == false) {
-                            bulletSpaceThenParent.appendChild(element);
+                            if (((bulletSpaceThen + 1) % 8) != 0) {
+                                bulletSpaceThenParent.appendChild(element);
+                            }
+                            else {
+                                element.remove();
+                            }
                         }
                         else if (bulletSpaceThenParent.children[0].classList.contains("player")) {
                             new Soundeffect().playThis("allyDie.wav");
@@ -603,7 +622,12 @@ var BattlePhase = (function () {
                     var bulletSpaceThenParent = document.getElementById("square" + String(bulletSpaceThen));
                     if (bulletSpaceThenParent != null) {
                         if (bulletSpaceThenParent.hasChildNodes() == false) {
-                            bulletSpaceThenParent.appendChild(element);
+                            if (((bulletSpaceThen) % 8) != 0) {
+                                bulletSpaceThenParent.appendChild(element);
+                            }
+                            else {
+                                element.remove();
+                            }
                         }
                         else if (bulletSpaceThenParent.children[0].classList.contains("player")) {
                             new Soundeffect().playThis("allyDie.wav");

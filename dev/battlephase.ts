@@ -245,6 +245,25 @@ class BattlePhase{
                     }
                     monsterParent.appendChild(document.getElementById(data));
                     element = document.getElementById(data)
+                    new Score().modifyScore(100)
+
+                    if (this.battleStarted == true){
+                        this.enemyTurn()
+                    }
+                }
+            }
+            if (element != null){
+                if (element.classList.contains("gamer") && ev.target.classList.contains("projectile") && ev.target.parentElement.classList.contains("canplace")) {
+                    ev.preventDefault();
+                    let bulletChild = ev.target
+                    let bulletParent = bulletChild.parentNode
+                    if (bulletParent) {
+                        bulletParent.removeChild(bulletChild)
+                        new Soundeffect().playThis("nes-05-07.wav")
+                    }
+                    bulletParent.appendChild(document.getElementById(data));
+                    element = document.getElementById(data)
+                    new Score().modifyScore(50)
 
                     if (this.battleStarted == true){
                         this.enemyTurn()
@@ -363,10 +382,9 @@ class BattlePhase{
                                 if (shootDecision >= 92 && shootDecision <= 93) {
                                     //shoot down
                                     spaceToShoot = moveMonsterTo[parseInt(spaceNowNowPos) + 8]
-                                    console.log(spaceToShoot)
                                     if (spaceToShoot.hasChildNodes() == false && (parseInt(spaceNowNowPos)) < 55){
-                                        console.log("hij schiet naar beneden")
                                         spaceToShoot.appendChild(bullet)
+                                        bullet.classList.add("projectile")
                                         bullet.classList.add("down")
                                         bullet.classList.add("fresh")
                                     }
@@ -374,12 +392,11 @@ class BattlePhase{
                                 else if (shootDecision >= 94 && shootDecision <= 95) {
                                     //shoot left
                                     spaceToShoot = moveMonsterTo[parseInt(spaceNowNowPos) - 1]
-                                    console.log(spaceToShoot)
                                     if((parseInt(spaceNowNowPos) % 8) != 0) {
                                         if (spaceToShoot.hasChildNodes() == false){
-                                            console.log("hij schiet naar links")
                                             spaceToShoot.appendChild(bullet)
                                             bullet.style.transform = "rotate(90deg)"
+                                            bullet.classList.add("projectile")
                                             bullet.classList.add("left")
                                             bullet.classList.add("fresh")
                                         }
@@ -388,12 +405,11 @@ class BattlePhase{
                                 else if (shootDecision >= 96 && shootDecision <= 97) {
                                     //shoot up
                                     spaceToShoot = moveMonsterTo[parseInt(spaceNowNowPos) - 8]
-                                    console.log(spaceToShoot)
                                     if(parseInt(spaceNowNowPos) > 8) {
                                         if (spaceToShoot.hasChildNodes() == false){
-                                            console.log("hij schiet naar boven")
                                             spaceToShoot.appendChild(bullet)
                                             bullet.style.transform = "rotate(180deg)"
+                                            bullet.classList.add("projectile")
                                             bullet.classList.add("up")
                                             bullet.classList.add("fresh")
                                         }
@@ -402,12 +418,11 @@ class BattlePhase{
                                 else if (shootDecision >= 98 && shootDecision <= 99) {
                                     //shoot right
                                     spaceToShoot = moveMonsterTo[parseInt(spaceNowNowPos) + 1]
-                                    console.log(spaceToShoot)
                                     if(((parseInt(spaceNowNowPos)+1) % 8) != 0 ) {
                                         if (spaceToShoot.hasChildNodes() == false) {
-                                            console.log("hij schiet naar rechts")
                                             spaceToShoot.appendChild(bullet)
                                             bullet.style.transform = "rotate(-90deg)"
+                                            bullet.classList.add("projectile")
                                             bullet.classList.add("right")
                                             bullet.classList.add("fresh")
                                         }
@@ -504,8 +519,13 @@ class BattlePhase{
                         let bulletSpaceThenParent = document.getElementById("square" + String(bulletSpaceThen))
                         if (bulletSpaceThenParent){
                             if (bulletSpaceThenParent.hasChildNodes() == false){
-                                //the bullet actually moves left
-                                bulletSpaceThenParent.appendChild(element)
+                                if (((bulletSpaceThen + 1) % 8) != 0) {
+                                    //the bullet actually moves left
+                                    bulletSpaceThenParent.appendChild(element)
+                                }
+                                else {
+                                    element.remove()
+                                }
                             }
                             else if(bulletSpaceThenParent.children[0].classList.contains("player")){
                                 new Soundeffect().playThis("allyDie.wav")
@@ -550,8 +570,13 @@ class BattlePhase{
                         let bulletSpaceThenParent = document.getElementById("square" + String(bulletSpaceThen))
                         if (bulletSpaceThenParent!= null){
                             if (bulletSpaceThenParent.hasChildNodes() == false){
-                                //the bullet actually moves right
-                                bulletSpaceThenParent.appendChild(element)
+                                if (((bulletSpaceThen) % 8 ) != 0) {
+                                    //the bullet actually moves right
+                                    bulletSpaceThenParent.appendChild(element)
+                                }
+                                else {
+                                    element.remove()
+                                }
                             }
                             else if(bulletSpaceThenParent.children[0].classList.contains("player")){
                                 new Soundeffect().playThis("allyDie.wav")
