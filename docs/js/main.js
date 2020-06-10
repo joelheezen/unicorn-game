@@ -472,6 +472,9 @@ var BattlePhase = (function () {
         var _this = this;
         var unicornPlayers = new Array;
         var unicornsLeft = document.getElementsByTagName("inventoryitem");
+        if (unicornsLeft.length == 0) {
+            new loseScreen(this.nextLevel - 1);
+        }
         for (var i = 0; i < unicornsLeft.length; i++) {
             unicornPlayers.push(document.getElementsByTagName("inventoryitem")[i]);
         }
@@ -658,7 +661,6 @@ var Startscreen = (function () {
             });
         }
         else {
-            console.log('level 6 locked');
             this.makeLevelLock(25.7, 52.8, 14.75, 43.05);
         }
         if (unlocked >= 3) {
@@ -670,7 +672,6 @@ var Startscreen = (function () {
             });
         }
         else {
-            console.log('level 6 locked');
             this.makeLevelLock(40.5, 65.3, 9.2, 30.6);
         }
         if (unlocked >= 4) {
@@ -959,8 +960,69 @@ var Hint = (function () {
     return Hint;
 }());
 var loseScreen = (function () {
-    function loseScreen() {
+    function loseScreen(level) {
+        this.youLost(level);
     }
+    loseScreen.prototype.youLost = function (level) {
+        new Soundeffect().playThis("minionFound.mp3");
+        var game = document.getElementsByTagName('game')[0];
+        var grayout = document.createElement('grayout');
+        game.appendChild(grayout);
+        var skullPlace1 = document.createElement('skullPlace');
+        skullPlace1.style.left = '-20vw';
+        var skullTop1 = document.createElement('skullTop');
+        var skullBottom1 = document.createElement('skullbottom');
+        skullPlace1.appendChild(skullTop1);
+        skullPlace1.appendChild(skullBottom1);
+        game.appendChild(skullPlace1);
+        var skullPlace2 = document.createElement('skullPlace');
+        skullPlace2.style.left = '120vw';
+        var skullTop2 = document.createElement('skullTop');
+        var skullBottom2 = document.createElement('skullbottom');
+        skullPlace2.appendChild(skullTop2);
+        skullPlace2.appendChild(skullBottom2);
+        game.appendChild(skullPlace2);
+        var gameOver = document.createElement('gameOver');
+        game.appendChild(gameOver);
+        var tryAgain = document.createElement('tryAgain');
+        tryAgain.innerHTML = 'Try again';
+        tryAgain.classList.add('button');
+        game.appendChild(tryAgain);
+        setTimeout(function () {
+            skullPlace1.style.left = '25vw';
+            skullPlace2.style.left = '65vw';
+            gameOver.style.top = '30vh';
+            tryAgain.style.bottom = '10vh';
+        }, 500);
+        tryAgain.addEventListener('click', function () {
+            var fadetonew = document.createElement("fadetonew");
+            fadetonew.style.animation = 'fadetonew 4s';
+            game.appendChild(fadetonew);
+            setTimeout(function () {
+                game.innerHTML = "";
+                switch (level) {
+                    case 1:
+                        new Level1click();
+                        break;
+                    case 2:
+                        new Level2click();
+                        break;
+                    case 3:
+                        new Level3click();
+                        break;
+                    case 4:
+                        new Level4click();
+                        break;
+                    case 5:
+                        new Level5click();
+                        break;
+                    case 6:
+                        new Level6click();
+                        break;
+                }
+            }, 2000);
+        });
+    };
     return loseScreen;
 }());
 var Music = (function () {

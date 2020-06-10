@@ -408,6 +408,10 @@ class BattlePhase{
         playerTurn() {
             let unicornPlayers = new Array
             let unicornsLeft = document.getElementsByTagName("inventoryitem")
+            if(unicornsLeft.length == 0){
+                new loseScreen(this.nextLevel - 1)
+            }
+
             for (let i = 0; i < unicornsLeft.length; i++) {
                 unicornPlayers.push(document.getElementsByTagName("inventoryitem")[i])
             }
