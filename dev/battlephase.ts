@@ -34,6 +34,11 @@ class BattlePhase{
         let background = document.createElement("background")
         background.style.backgroundImage = "url(assets/gameBackground.png)"
         this.game.appendChild(background)
+
+        // sets the guide
+        let guide = document.createElement("guide")
+        guide.style.backgroundImage = "url(assets/guide.jpg)"
+        this.game.appendChild(guide)
         
         // code to take the inventory characters and move them to a space
         let inventoryItems = document.getElementsByTagName('inventory')[0].children as HTMLCollectionOf<HTMLElement>
