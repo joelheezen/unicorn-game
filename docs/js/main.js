@@ -172,6 +172,9 @@ var BattlePhase = (function () {
         var background = document.createElement("background");
         background.style.backgroundImage = "url(assets/gameBackground.png)";
         this.game.appendChild(background);
+        var guide = document.createElement("guide");
+        guide.style.backgroundImage = "url(assets/guide.jpg)";
+        this.game.appendChild(guide);
         var inventoryItems = document.getElementsByTagName('inventory')[0].children;
         if (inventoryItems.length == 0) {
             var inventoryItem = document.createElement('inventoryItem');
