@@ -353,9 +353,58 @@ class BattlePhase{
                                 direction = Math.floor(Math.random() * 100)
                             }
                         
+                            if (this.nextLevel == 7) {
+                                let shootDecision = Math.floor(Math.random() * 100)
+                                let spaceToShoot : any
+                                let spaceNowNow = activeMonster.parentNode as Element
+                                let spaceNowNowPos = spaceNowNow.id.substring(6,8)
+                                let bullet = document.createElement("bullet")
+
+                                if (shootDecision >= 92 && shootDecision <= 93) {
+                                    //shoot down
+                                    spaceToShoot = moveMonsterTo[parseInt(spaceNowNowPos) + 8]
+                                    console.log(spaceToShoot)
+                                    if (spaceToShoot.hasChildNodes() == false && (parseInt(spaceNowNowPos)) < 55){
+                                        console.log("hij schiet naar beneden")
+                                        spaceToShoot.appendChild(bullet)
+                                    }
+                                }
+                                else if (shootDecision >= 94 && shootDecision <= 95) {
+                                    //shoot left
+                                    spaceToShoot = moveMonsterTo[parseInt(spaceNowNowPos) - 1]
+                                    console.log(spaceToShoot)
+                                    if (spaceToShoot.hasChildNodes() == false && ((parseInt(spaceNowNowPos) % 8) != 0)){
+                                        console.log("hij schiet naar links")
+                                        spaceToShoot.appendChild(bullet)
+                                        bullet.style.transform = "rotate(90deg)"
+                                    }
+                                }
+                                else if (shootDecision >= 96 && shootDecision <= 97) {
+                                    //shoot up
+                                    spaceToShoot = moveMonsterTo[parseInt(spaceNowNowPos) - 8]
+                                    console.log(spaceToShoot)
+                                    if (spaceToShoot.hasChildNodes() == false && (parseInt(spaceNowNowPos)) > 8){
+                                        console.log("hij schiet naar boven")
+                                        spaceToShoot.appendChild(bullet)
+                                        bullet.style.transform = "rotate(180deg)"
+                                    }
+                                }
+                                else if (shootDecision >= 98 && shootDecision <= 99) {
+                                    //shoot right
+                                    spaceToShoot = moveMonsterTo[parseInt(spaceNowNowPos) + 1]
+                                    console.log(spaceToShoot)
+                                    if (spaceToShoot.hasChildNodes() == false && (((parseInt(spaceNowNowPos)+1) % 8) != 0 )){
+                                        console.log("hij schiet naar rechts")
+                                        spaceToShoot.appendChild(bullet)
+                                        bullet.style.transform = "rotate(-90deg)"
+                                    }
+                                }
+                                else {
+                                    //do nothing
+                                }
+                            }
                         }
                     }
-                   
                 
                 }
                 else{

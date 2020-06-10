@@ -429,6 +429,50 @@ var BattlePhase = (function () {
                         else {
                             direction = Math.floor(Math.random() * 100);
                         }
+                        if (this.nextLevel == 7) {
+                            var shootDecision = Math.floor(Math.random() * 100);
+                            var spaceToShoot = void 0;
+                            var spaceNowNow = activeMonster.parentNode;
+                            var spaceNowNowPos = spaceNowNow.id.substring(6, 8);
+                            var bullet = document.createElement("bullet");
+                            if (shootDecision >= 92 && shootDecision <= 93) {
+                                spaceToShoot = moveMonsterTo[parseInt(spaceNowNowPos) + 8];
+                                console.log(spaceToShoot);
+                                if (spaceToShoot.hasChildNodes() == false && (parseInt(spaceNowNowPos)) < 55) {
+                                    console.log("hij schiet naar beneden");
+                                    spaceToShoot.appendChild(bullet);
+                                }
+                            }
+                            else if (shootDecision >= 94 && shootDecision <= 95) {
+                                spaceToShoot = moveMonsterTo[parseInt(spaceNowNowPos) - 1];
+                                console.log(spaceToShoot);
+                                if (spaceToShoot.hasChildNodes() == false && ((parseInt(spaceNowNowPos) % 8) != 0)) {
+                                    console.log("hij schiet naar links");
+                                    spaceToShoot.appendChild(bullet);
+                                    bullet.style.transform = "rotate(90deg)";
+                                }
+                            }
+                            else if (shootDecision >= 96 && shootDecision <= 97) {
+                                spaceToShoot = moveMonsterTo[parseInt(spaceNowNowPos) - 8];
+                                console.log(spaceToShoot);
+                                if (spaceToShoot.hasChildNodes() == false && (parseInt(spaceNowNowPos)) > 8) {
+                                    console.log("hij schiet naar boven");
+                                    spaceToShoot.appendChild(bullet);
+                                    bullet.style.transform = "rotate(180deg)";
+                                }
+                            }
+                            else if (shootDecision >= 98 && shootDecision <= 99) {
+                                spaceToShoot = moveMonsterTo[parseInt(spaceNowNowPos) + 1];
+                                console.log(spaceToShoot);
+                                if (spaceToShoot.hasChildNodes() == false && (((parseInt(spaceNowNowPos) + 1) % 8) != 0)) {
+                                    console.log("hij schiet naar rechts");
+                                    spaceToShoot.appendChild(bullet);
+                                    bullet.style.transform = "rotate(-90deg)";
+                                }
+                            }
+                            else {
+                            }
+                        }
                     }
                 }
             }
