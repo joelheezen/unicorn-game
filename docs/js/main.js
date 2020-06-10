@@ -441,33 +441,47 @@ var BattlePhase = (function () {
                                 if (spaceToShoot.hasChildNodes() == false && (parseInt(spaceNowNowPos)) < 55) {
                                     console.log("hij schiet naar beneden");
                                     spaceToShoot.appendChild(bullet);
+                                    bullet.classList.add("down");
+                                    bullet.classList.add("fresh");
                                 }
                             }
                             else if (shootDecision >= 94 && shootDecision <= 95) {
                                 spaceToShoot = moveMonsterTo[parseInt(spaceNowNowPos) - 1];
                                 console.log(spaceToShoot);
-                                if (spaceToShoot.hasChildNodes() == false && ((parseInt(spaceNowNowPos) % 8) != 0)) {
-                                    console.log("hij schiet naar links");
-                                    spaceToShoot.appendChild(bullet);
-                                    bullet.style.transform = "rotate(90deg)";
+                                if ((parseInt(spaceNowNowPos) % 8) != 0) {
+                                    if (spaceToShoot.hasChildNodes() == false) {
+                                        console.log("hij schiet naar links");
+                                        spaceToShoot.appendChild(bullet);
+                                        bullet.style.transform = "rotate(90deg)";
+                                        bullet.classList.add("left");
+                                        bullet.classList.add("fresh");
+                                    }
                                 }
                             }
                             else if (shootDecision >= 96 && shootDecision <= 97) {
                                 spaceToShoot = moveMonsterTo[parseInt(spaceNowNowPos) - 8];
                                 console.log(spaceToShoot);
-                                if (spaceToShoot.hasChildNodes() == false && (parseInt(spaceNowNowPos)) > 8) {
-                                    console.log("hij schiet naar boven");
-                                    spaceToShoot.appendChild(bullet);
-                                    bullet.style.transform = "rotate(180deg)";
+                                if (parseInt(spaceNowNowPos) > 8) {
+                                    if (spaceToShoot.hasChildNodes() == false) {
+                                        console.log("hij schiet naar boven");
+                                        spaceToShoot.appendChild(bullet);
+                                        bullet.style.transform = "rotate(180deg)";
+                                        bullet.classList.add("up");
+                                        bullet.classList.add("fresh");
+                                    }
                                 }
                             }
                             else if (shootDecision >= 98 && shootDecision <= 99) {
                                 spaceToShoot = moveMonsterTo[parseInt(spaceNowNowPos) + 1];
                                 console.log(spaceToShoot);
-                                if (spaceToShoot.hasChildNodes() == false && (((parseInt(spaceNowNowPos) + 1) % 8) != 0)) {
-                                    console.log("hij schiet naar rechts");
-                                    spaceToShoot.appendChild(bullet);
-                                    bullet.style.transform = "rotate(-90deg)";
+                                if (((parseInt(spaceNowNowPos) + 1) % 8) != 0) {
+                                    if (spaceToShoot.hasChildNodes() == false) {
+                                        console.log("hij schiet naar rechts");
+                                        spaceToShoot.appendChild(bullet);
+                                        bullet.style.transform = "rotate(-90deg)";
+                                        bullet.classList.add("right");
+                                        bullet.classList.add("fresh");
+                                    }
                                 }
                             }
                             else {
@@ -510,6 +524,103 @@ var BattlePhase = (function () {
                 }
             }
         }
+        var bulletsInField = new Array;
+        var bulletsLeft = document.getElementsByTagName("bullet");
+        for (var i = 0; i < bulletsLeft.length; i++) {
+            bulletsInField.push(document.getElementsByTagName("bullet")[i]);
+        }
+        bulletsInField.forEach(function (element) {
+            if (element.classList.contains("fresh")) {
+                element.classList.remove("fresh");
+            }
+            else {
+                var bulletSpaceNow = element.parentNode.id.substring(6, 8);
+                if (element.classList.contains("up")) {
+                    var bulletSpaceThen = parseInt(bulletSpaceNow) - 8;
+                    var bulletSpaceThenParent = document.getElementById("square" + String(bulletSpaceThen));
+                    if (bulletSpaceThenParent) {
+                        if (bulletSpaceThenParent.hasChildNodes() == false) {
+                            bulletSpaceThenParent.appendChild(element);
+                        }
+                        else if (bulletSpaceThenParent.children[0].classList.contains("player")) {
+                            new Soundeffect().playThis("allyDie.wav");
+                            bulletSpaceThenParent.removeChild(bulletSpaceThenParent.childNodes[0]);
+                            bulletSpaceThenParent.style.backgroundImage = "url(assets/unicorn_dead.png)";
+                            element.remove();
+                        }
+                        else {
+                            element.remove();
+                        }
+                    }
+                    else {
+                        element.remove();
+                    }
+                }
+                else if (element.classList.contains("left")) {
+                    var bulletSpaceThen = parseInt(bulletSpaceNow) - 1;
+                    var bulletSpaceThenParent = document.getElementById("square" + String(bulletSpaceThen));
+                    if (bulletSpaceThenParent) {
+                        if (bulletSpaceThenParent.hasChildNodes() == false) {
+                            bulletSpaceThenParent.appendChild(element);
+                        }
+                        else if (bulletSpaceThenParent.children[0].classList.contains("player")) {
+                            new Soundeffect().playThis("allyDie.wav");
+                            bulletSpaceThenParent.removeChild(bulletSpaceThenParent.childNodes[0]);
+                            bulletSpaceThenParent.style.backgroundImage = "url(assets/unicorn_dead.png)";
+                            element.remove();
+                        }
+                        else {
+                            element.remove();
+                        }
+                    }
+                    else {
+                        element.remove();
+                    }
+                }
+                else if (element.classList.contains("down")) {
+                    var bulletSpaceThen = parseInt(bulletSpaceNow) + 8;
+                    var bulletSpaceThenParent = document.getElementById("square" + String(bulletSpaceThen));
+                    if (bulletSpaceThenParent != null) {
+                        if (bulletSpaceThenParent.hasChildNodes() == false) {
+                            bulletSpaceThenParent.appendChild(element);
+                        }
+                        else if (bulletSpaceThenParent.children[0].classList.contains("player")) {
+                            new Soundeffect().playThis("allyDie.wav");
+                            bulletSpaceThenParent.removeChild(bulletSpaceThenParent.childNodes[0]);
+                            bulletSpaceThenParent.style.backgroundImage = "url(assets/unicorn_dead.png)";
+                            element.remove();
+                        }
+                        else {
+                            element.remove();
+                        }
+                    }
+                    else {
+                        element.remove();
+                    }
+                }
+                else if (element.classList.contains("right")) {
+                    var bulletSpaceThen = parseInt(bulletSpaceNow) + 1;
+                    var bulletSpaceThenParent = document.getElementById("square" + String(bulletSpaceThen));
+                    if (bulletSpaceThenParent != null) {
+                        if (bulletSpaceThenParent.hasChildNodes() == false) {
+                            bulletSpaceThenParent.appendChild(element);
+                        }
+                        else if (bulletSpaceThenParent.children[0].classList.contains("player")) {
+                            new Soundeffect().playThis("allyDie.wav");
+                            bulletSpaceThenParent.removeChild(bulletSpaceThenParent.childNodes[0]);
+                            bulletSpaceThenParent.style.backgroundImage = "url(assets/unicorn_dead.png)";
+                            element.remove();
+                        }
+                        else {
+                            element.remove();
+                        }
+                    }
+                    else {
+                        element.remove();
+                    }
+                }
+            }
+        });
         this.playerTurn();
     };
     BattlePhase.prototype.playerTurn = function () {
