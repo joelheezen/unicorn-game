@@ -282,7 +282,7 @@ class Level2click{
         this.setBackground()
         new Hint(60,30,15,11,"Danger gets heated, but its gone in the night. We depend on its essence, because without it there would be no light. We are blessed by its presence. <br> <br> But this time you feel weird as the object is roaring and in the distance you see and odd-fellow. In the next fight, if you want to win, go after the poor cursed thing that seems yellow.")
         new Inventory()
-        new Dialogbox("unicorn_player","What!! furniture is fighting us?*If we want to win we are going to need some more friends*I think the wizzard might has gone this way!!!")
+        new Dialogbox("unicorn_player","What!! furniture is fighting us?*If we want to win we are going to need some more friends*I think the wizard might has gone this way!!!")
     }
 
     setBackground(){
