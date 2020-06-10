@@ -445,20 +445,21 @@ class BattlePhase{
                 else{
                     // player has won the game moves to next level and unlocks it for future play
                     let board = document.getElementsByTagName("gameboard")[0]
+                    board.remove()
+                    let guide = document.getElementsByTagName('guide')[0]
+                    guide.remove();
 
                     console.log(parseInt(localStorage.getItem('unlocked')!))
                     console.log(this.nextLevel)
 
                     if (this.nextLevel == 2){
-                        board.parentNode?.removeChild(board)
+                        
                         new Level2click()
-
                         if(parseInt(localStorage.getItem('unlocked')!) <= this.nextLevel || localStorage.getItem('unlocked') == undefined){
                             localStorage.setItem('unlocked','2')
                         }
                     }
                     else if(this.nextLevel == 3){
-                        board.parentNode?.removeChild(board)
                         new Level3click()
                         if(parseInt(localStorage.getItem('unlocked')!) <= this.nextLevel){
                             localStorage.setItem('unlocked','3')
@@ -466,14 +467,12 @@ class BattlePhase{
                         
                     }
                     else if(this.nextLevel == 4){
-                        board.parentNode?.removeChild(board)
                         new Level4click()
                         if(parseInt(localStorage.getItem('unlocked')!) <= this.nextLevel){
                             localStorage.setItem('unlocked','4')
                         }
                     }
                     else if(this.nextLevel == 5){
-                        board.parentNode?.removeChild(board)
                         new Level5click()
                         if(parseInt(localStorage.getItem('unlocked')!) <= this.nextLevel){
                             localStorage.setItem('unlocked','5')
@@ -481,7 +480,6 @@ class BattlePhase{
                         
                     }
                     else if(this.nextLevel == 6){
-                        board.parentNode?.removeChild(board)
                         new Level6click()
                         if(parseInt(localStorage.getItem('unlocked')!) <= this.nextLevel){
                             localStorage.setItem('unlocked','6')

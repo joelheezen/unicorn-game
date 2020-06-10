@@ -392,7 +392,6 @@ var BattlePhase = (function () {
         this.battleStarted = true;
     };
     BattlePhase.prototype.enemyTurn = function () {
-        var _a, _b, _c, _d, _e;
         for (var i = -1; i < this.monsterCount; i++) {
             if (document.getElementById("monster0")) {
                 var activeMonster = document.getElementById("monster" + i);
@@ -510,38 +509,36 @@ var BattlePhase = (function () {
             }
             else {
                 var board = document.getElementsByTagName("gameboard")[0];
+                board.remove();
+                var guide = document.getElementsByTagName('guide')[0];
+                guide.remove();
                 console.log(parseInt(localStorage.getItem('unlocked')));
                 console.log(this.nextLevel);
                 if (this.nextLevel == 2) {
-                    (_a = board.parentNode) === null || _a === void 0 ? void 0 : _a.removeChild(board);
                     new Level2click();
                     if (parseInt(localStorage.getItem('unlocked')) <= this.nextLevel || localStorage.getItem('unlocked') == undefined) {
                         localStorage.setItem('unlocked', '2');
                     }
                 }
                 else if (this.nextLevel == 3) {
-                    (_b = board.parentNode) === null || _b === void 0 ? void 0 : _b.removeChild(board);
                     new Level3click();
                     if (parseInt(localStorage.getItem('unlocked')) <= this.nextLevel) {
                         localStorage.setItem('unlocked', '3');
                     }
                 }
                 else if (this.nextLevel == 4) {
-                    (_c = board.parentNode) === null || _c === void 0 ? void 0 : _c.removeChild(board);
                     new Level4click();
                     if (parseInt(localStorage.getItem('unlocked')) <= this.nextLevel) {
                         localStorage.setItem('unlocked', '4');
                     }
                 }
                 else if (this.nextLevel == 5) {
-                    (_d = board.parentNode) === null || _d === void 0 ? void 0 : _d.removeChild(board);
                     new Level5click();
                     if (parseInt(localStorage.getItem('unlocked')) <= this.nextLevel) {
                         localStorage.setItem('unlocked', '5');
                     }
                 }
                 else if (this.nextLevel == 6) {
-                    (_e = board.parentNode) === null || _e === void 0 ? void 0 : _e.removeChild(board);
                     new Level6click();
                     if (parseInt(localStorage.getItem('unlocked')) <= this.nextLevel) {
                         localStorage.setItem('unlocked', '6');
@@ -1466,4 +1463,9 @@ var unicornPlayer = (function () {
     return unicornPlayer;
 }());
 window.addEventListener("load", function () { return new unicornPlayer(); });
+var WinScreen = (function () {
+    function WinScreen() {
+    }
+    return WinScreen;
+}());
 //# sourceMappingURL=main.js.map
