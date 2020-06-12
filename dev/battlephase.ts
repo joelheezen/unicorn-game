@@ -91,6 +91,7 @@ class BattlePhase{
             setTimeout(function(){
                 if ((screen.width < 480) || (screen.height < 480)) {
                   mobile = true
+                  console.log('you are on a mobile device')
                 }
               }, 100);
 
