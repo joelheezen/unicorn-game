@@ -293,7 +293,7 @@
     }
 
     menu *{
-        height:20%;
+        height:10vh;
     }
 
     delSave{
@@ -486,7 +486,7 @@
         top:70vh;
         position:absolute;
         background-color: rgb(243, 129, 192);
-        border: inset 15px pink;
+        border: inset 2vh pink;
         font-size: 1.5em;
     }
 
