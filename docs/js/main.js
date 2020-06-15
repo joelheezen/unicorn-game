@@ -210,22 +210,10 @@ var BattlePhase = (function () {
         }
         inventory.addEventListener("drop", function () { return _this.drop(event); });
         inventory.addEventListener("dragover", function () { return _this.allowDrop(event); });
-        var mobile = false;
-        setTimeout(function () {
-            if ((screen.width < 480) || (screen.height < 480)) {
-                mobile = true;
-                console.log('you are on a mobile device');
-            }
-        }, 100);
         for (var i = 0; i < inventoryItems.length; i++) {
             inventoryItems[i].id = "item" + i;
             inventoryItems[i].draggable = true;
-            if (mobile == false) {
-                inventoryItems[i].addEventListener("dragstart", function () { return _this.drag(event); });
-            }
-            else {
-                inventoryItems[i].addEventListener("touchmove", function () { return _this.drag(event); });
-            }
+            inventoryItems[i].addEventListener("dragstart", function () { return _this.drag(event); });
         }
         var monsterTypes = ["cabinet", "couch", "dumbell", "lamp", "plant", "jug"];
         var obstacleTypes = ['rock', 'water', 'tree', 'roadblock', 'lava', 'manhole'];
@@ -1375,8 +1363,8 @@ var Soundeffect = (function () {
         sound.volume = newVolume / 100;
         document.body.appendChild(sound);
         sound.src = "assets/" + src;
-        sound.play();
         setTimeout(function () {
+            sound.play();
             setTimeout(function () {
                 sound.remove();
             }, sound.duration * 10000);
