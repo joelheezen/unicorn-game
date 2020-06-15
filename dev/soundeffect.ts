@@ -35,7 +35,7 @@ class Soundeffect{
                     (<HTMLAudioElement>sound).remove();
                 }, (<HTMLAudioElement>sound).duration * 10000);
                 
-              }, 100);
+              }, 200);
     }
      
 
