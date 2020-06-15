@@ -34,6 +34,11 @@ class BattlePhase{
         let background = document.createElement("background")
         background.style.backgroundImage = "url(assets/gameBackground.png)"
         this.game.appendChild(background)
+
+        // sets the guide
+        let guide = document.createElement("guide")
+        guide.style.backgroundImage = "url(assets/guide.jpg)"
+        this.game.appendChild(guide)
         
         // code to take the inventory characters and move them to a space
         let inventoryItems = document.getElementsByTagName('inventory')[0].children as HTMLCollectionOf<HTMLElement>
@@ -86,6 +91,7 @@ class BattlePhase{
             setTimeout(function(){
                 if ((screen.width < 480) || (screen.height < 480)) {
                   mobile = true
+                  window.alert('you are on a mobile device')
                 }
               }, 100);
 
@@ -112,7 +118,7 @@ class BattlePhase{
                 break;
             case 2:
                 this.monsterCount = 7
-                this.obstaclePlaces = [16,18,21,23,24,25,26,29,30,31]
+                this.obstaclePlaces = [10,13,16,23,24,25,26,29,30,31]
                 monsterTypes = ["cabinet","dumbell","lamp","plant","jug"]
                 this.monsterKingImg = "couch"
                  break;
@@ -440,55 +446,20 @@ class BattlePhase{
                 else{
                     // player has won the game moves to next level and unlocks it for future play
                     let board = document.getElementsByTagName("gameboard")[0]
+                    board.remove()
+                    let guide = document.getElementsByTagName('guide')[0]
+                    guide.remove();
 
-                    console.log(localStorage.getItem('unlocked'))
-                    console.log(this.nextLevel)
-
-                    if (this.nextLevel == 2){
-                        board.parentNode?.removeChild(board)
-                        new Level2click()
-
-                        if(parseInt(localStorage.getItem('unlocked')!) <= this.nextLevel){
-                            localStorage.setItem('unlocked','2')
-                        }
-                    }
-                    else if(this.nextLevel == 3){
-                        board.parentNode?.removeChild(board)
-                        new Level3click()
-                        if(parseInt(localStorage.getItem('unlocked')!) <= this.nextLevel){
-                            localStorage.setItem('unlocked','3')
-                        }
-                        
-                    }
-                    else if(this.nextLevel == 4){
-                        board.parentNode?.removeChild(board)
-                        new Level4click()
-                        if(parseInt(localStorage.getItem('unlocked')!) <= this.nextLevel){
-                            localStorage.setItem('unlocked','4')
-                        }
-                    }
-                    else if(this.nextLevel == 5){
-                        board.parentNode?.removeChild(board)
-                        new Level5click()
-                        if(parseInt(localStorage.getItem('unlocked')!) <= this.nextLevel){
-                            localStorage.setItem('unlocked','5')
-                        }
-                        
-                    }
-                    else if(this.nextLevel == 6){
-                        board.parentNode?.removeChild(board)
-                        new Level6click()
-                        if(parseInt(localStorage.getItem('unlocked')!) <= this.nextLevel){
-                            localStorage.setItem('unlocked','6')
-                        }
-                        
-                    }
-                    else if(this.nextLevel == 7){
+                    localStorage.setItem('unlocked',this.nextLevel.toString())
+                    
+                    if(this.nextLevel == 7){
                         //end the game
+                    }else{
+                        new WinScreen(this.nextLevel)
                     }
-                    else{
-                        console.log("something is fucked up")
-                    }
+                        
+                    
+                    
                 }
 
             }

@@ -172,6 +172,9 @@ var BattlePhase = (function () {
         var background = document.createElement("background");
         background.style.backgroundImage = "url(assets/gameBackground.png)";
         this.game.appendChild(background);
+        var guide = document.createElement("guide");
+        guide.style.backgroundImage = "url(assets/guide.jpg)";
+        this.game.appendChild(guide);
         var inventoryItems = document.getElementsByTagName('inventory')[0].children;
         if (inventoryItems.length == 0) {
             var inventoryItem = document.createElement('inventoryItem');
@@ -211,6 +214,7 @@ var BattlePhase = (function () {
         setTimeout(function () {
             if ((screen.width < 480) || (screen.height < 480)) {
                 mobile = true;
+                window.alert('you are on a mobile device');
             }
         }, 100);
         for (var i = 0; i < inventoryItems.length; i++) {
@@ -234,7 +238,7 @@ var BattlePhase = (function () {
                 break;
             case 2:
                 this.monsterCount = 7;
-                this.obstaclePlaces = [16, 18, 21, 23, 24, 25, 26, 29, 30, 31];
+                this.obstaclePlaces = [10, 13, 16, 23, 24, 25, 26, 29, 30, 31];
                 monsterTypes = ["cabinet", "dumbell", "lamp", "plant", "jug"];
                 this.monsterKingImg = "couch";
                 break;
@@ -389,7 +393,6 @@ var BattlePhase = (function () {
         this.battleStarted = true;
     };
     BattlePhase.prototype.enemyTurn = function () {
-        var _a, _b, _c, _d, _e;
         for (var i = -1; i < this.monsterCount; i++) {
             if (document.getElementById("monster0")) {
                 var activeMonster = document.getElementById("monster" + i);
@@ -507,47 +510,14 @@ var BattlePhase = (function () {
             }
             else {
                 var board = document.getElementsByTagName("gameboard")[0];
-                console.log(localStorage.getItem('unlocked'));
-                console.log(this.nextLevel);
-                if (this.nextLevel == 2) {
-                    (_a = board.parentNode) === null || _a === void 0 ? void 0 : _a.removeChild(board);
-                    new Level2click();
-                    if (parseInt(localStorage.getItem('unlocked')) <= this.nextLevel) {
-                        localStorage.setItem('unlocked', '2');
-                    }
-                }
-                else if (this.nextLevel == 3) {
-                    (_b = board.parentNode) === null || _b === void 0 ? void 0 : _b.removeChild(board);
-                    new Level3click();
-                    if (parseInt(localStorage.getItem('unlocked')) <= this.nextLevel) {
-                        localStorage.setItem('unlocked', '3');
-                    }
-                }
-                else if (this.nextLevel == 4) {
-                    (_c = board.parentNode) === null || _c === void 0 ? void 0 : _c.removeChild(board);
-                    new Level4click();
-                    if (parseInt(localStorage.getItem('unlocked')) <= this.nextLevel) {
-                        localStorage.setItem('unlocked', '4');
-                    }
-                }
-                else if (this.nextLevel == 5) {
-                    (_d = board.parentNode) === null || _d === void 0 ? void 0 : _d.removeChild(board);
-                    new Level5click();
-                    if (parseInt(localStorage.getItem('unlocked')) <= this.nextLevel) {
-                        localStorage.setItem('unlocked', '5');
-                    }
-                }
-                else if (this.nextLevel == 6) {
-                    (_e = board.parentNode) === null || _e === void 0 ? void 0 : _e.removeChild(board);
-                    new Level6click();
-                    if (parseInt(localStorage.getItem('unlocked')) <= this.nextLevel) {
-                        localStorage.setItem('unlocked', '6');
-                    }
-                }
-                else if (this.nextLevel == 7) {
+                board.remove();
+                var guide = document.getElementsByTagName('guide')[0];
+                guide.remove();
+                localStorage.setItem('unlocked', this.nextLevel.toString());
+                if (this.nextLevel == 7) {
                 }
                 else {
-                    console.log("something is fucked up");
+                    new WinScreen(this.nextLevel);
                 }
             }
         }
@@ -1463,4 +1433,59 @@ var unicornPlayer = (function () {
     return unicornPlayer;
 }());
 window.addEventListener("load", function () { return new unicornPlayer(); });
+var WinScreen = (function () {
+    function WinScreen(nextLevel) {
+        this.youWon(nextLevel);
+    }
+    WinScreen.prototype.youWon = function (nextLevel) {
+        new Soundeffect().playThis("foundItem.wav");
+        var game = document.getElementsByTagName('game')[0];
+        var grayout = document.createElement('grayout');
+        game.appendChild(grayout);
+        var uniWin1 = document.createElement('uniWin');
+        uniWin1.style.left = '-20vw';
+        game.appendChild(uniWin1);
+        var uniWin2 = document.createElement('uniWin');
+        uniWin2.style.left = '120vw';
+        game.appendChild(uniWin2);
+        var gameWin = document.createElement('gameWin');
+        game.appendChild(gameWin);
+        var goNext = document.createElement('tryAgain');
+        goNext.innerHTML = 'Next level';
+        goNext.classList.add('button');
+        game.appendChild(goNext);
+        setTimeout(function () {
+            uniWin1.style.left = '25vw';
+            uniWin2.style.left = '65vw';
+            gameWin.style.top = '40vh';
+            goNext.style.bottom = '20vh';
+        }, 500);
+        goNext.addEventListener('click', function () {
+            var fadetonew = document.createElement("fadetonew");
+            fadetonew.style.animation = 'fadetonew 4s';
+            game.appendChild(fadetonew);
+            setTimeout(function () {
+                game.innerHTML = "";
+                switch (nextLevel) {
+                    case 2:
+                        new Level2click();
+                        break;
+                    case 3:
+                        new Level3click();
+                        break;
+                    case 4:
+                        new Level4click();
+                        break;
+                    case 5:
+                        new Level5click();
+                        break;
+                    case 6:
+                        new Level6click();
+                        break;
+                }
+            }, 2000);
+        });
+    };
+    return WinScreen;
+}());
 //# sourceMappingURL=main.js.map
