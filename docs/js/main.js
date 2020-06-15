@@ -1010,7 +1010,7 @@ var Level4click = (function () {
         this.setBackground();
         new Hint(39, 26, 12.5, 11, "It brings danger and pain, my dearest red flower. Yet this enemy will be outmatched by a shower. <br> <br> Water is its enemy, but anything else it will harm. Its color is red like the roof of a barn.");
         new Inventory();
-        new Dialogbox("unicorn_player", "The smell is getting stronger and I feel powerfull waves of magic*I hope we find him soon");
+        new Dialogbox("unicorn_player", "The smell is getting stronger and I feel powerful waves of magic*I hope we find him soon");
     }
     Level4click.prototype.setBackground = function () {
         var background = document.createElement("background");
