@@ -382,6 +382,7 @@
         opacity: 0.7;
         -webkit-transition: .2s;
         transition: opacity .2s;
+        cursor: none;
       }
       
       options input:hover {
@@ -394,14 +395,14 @@
         width: 25px;
         height: 25px;
         background:black;
-        cursor: pointer;
+        cursor: none;
       }
       
       options input::-moz-range-thumb {
         width: 25px;
         height: 25px;
         background: black;
-        cursor: pointer;
+        cursor: none;
       }
 
       rightUnicorn{
@@ -509,7 +510,7 @@
         top:0;
         left:0; 
         background-position: center;
-        background-size: 100%;
+        background-size: 80%;
         background-repeat: no-repeat;
         position: absolute;
     }
@@ -606,6 +607,21 @@
         background-position: center;
         background-repeat: no-repeat;
         background-size: 80% 80%;
+    }
+
+    rollCredits{
+        top:100vh;
+        position: absolute;
+        width:40vw;
+        left:30vw;
+        text-align: center;
+        transition:20s;
+        transition-timing-function: linear;
+        font-size: 9vh;
+    }
+
+    rollCredits b{
+        padding-top: 7vh;
     }
 
     

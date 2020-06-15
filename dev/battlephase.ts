@@ -128,7 +128,7 @@ class BattlePhase{
                 this.monsterKingImg = "cabinet"
                 break;
             case 6:
-                this.monsterCount = 11
+                this.monsterCount = 1
                 this.obstaclePlaces = []
                 monsterTypes = ["wizard"]
                 this.monsterKingImg = "wizard"
@@ -440,7 +440,7 @@ class BattlePhase{
                     localStorage.setItem('unlocked',this.nextLevel.toString())
                     
                     if(this.nextLevel == 7){
-                        //end the game
+                        new EndCredits()
                     }else{
                         new WinScreen(this.nextLevel)
                     }
