@@ -1368,7 +1368,7 @@ var Soundeffect = (function () {
             setTimeout(function () {
                 sound.remove();
             }, sound.duration * 10000);
-        }, 100);
+        }, 200);
     };
     return Soundeffect;
 }());
