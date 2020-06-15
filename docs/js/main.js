@@ -912,9 +912,9 @@ var Level1click = (function () {
         new Music().changeMusic('music.mp3');
         this.setFurniture();
         this.setBackground();
-        new Hint(70.7, 9, 15, 8.6, "The room is quiet and devoid of life, yet there is something that isnt.Its whispering silently, as not to be heard. It seems like its soul is imprisoned. <br> <br> You hear chanting in the distance as the poor soul weeps. Its something you wouldnt want to have seen. Out of the item comes a slight glow and this glows colored green.");
+        new Hint(70.7, 9, 15, 8.6, "The room is quiet and devoid of life, yet there is something that isn't.It's whispering silently, as not to be heard. It seems like its soul is imprisoned. <br> <br> You hear chanting in the distance as the poor soul weeps. It's something you wouldnt want to have seen. Out of the item comes a slight glow and this glow's colored green.");
         new Inventory();
-        new Dialogbox("unicorn_player", "Where did that wizard go?*And who does he think he is, chasing my friends into here.*Dont forget that he cursed these innocent funitures*I better find them all before i run into him.*What does that note say?");
+        new Dialogbox("unicorn_player", "Where did that wizard go?*And who does he think he is, chasing my friends into here.*Dont forget that he cursed this innocent funiture*I'd better find them all before i run into him.*What does that note say?");
     }
     Level1click.prototype.setBackground = function () {
         var background = document.createElement("background");
@@ -939,9 +939,9 @@ var Level2click = (function () {
         new Music().changeMusic('music.mp3');
         this.setFurniture();
         this.setBackground();
-        new Hint(60, 30, 15, 11, "Danger gets heated, but its gone in the night. We depend on its essence, because without it there would be no light. We are blessed by its presence. <br> <br> But this time you feel weird as the object is roaring and in the distance you see and odd-fellow. In the next fight, if you want to win, go after the poor cursed thing that seems yellow.");
+        new Hint(60, 30, 15, 11, "Danger gets heated, but it's gone in the night. We depend on its essence, because without it there would be no light. We are blessed by its presence. <br> <br> But this time you feel weird as the object is roaring and in the distance you see and odd-fellow. In the next fight, if you want to win, go after the poor cursed thing that seems yellow.");
         new Inventory();
-        new Dialogbox("unicorn_player", "What!! furniture is fighting us?*If we want to win we are going to need some more friends*I think the wizard might has gone this way!!!");
+        new Dialogbox("unicorn_player", "What!! furniture is fighting us?*If we want to win we are going to need some more friends*I think the wizard might have gone this way!!!");
     }
     Level2click.prototype.setBackground = function () {
         var background = document.createElement("background");
@@ -967,7 +967,7 @@ var Level3click = (function () {
         new Music().changeMusic('music.mp3');
         this.setFurniture();
         this.setBackground();
-        new Hint(9, 12, 12.5, 11, "Were you feel most safe, enemies strike. Your life might soon be ova. You struggle and struggle, but no prevail. The danger hides 'round the sofa. <br><br> The magic sounds like buzzing, as you look for a clue. A weird furniture attacks you, as you try to stand your ground you see its hue is colored blue.");
+        new Hint(9, 12, 12.5, 11, "Where you feel most safe, enemies strike. Your life might soon be ova. You struggle and struggle, but to no prevail. The danger hides 'round the sofa. <br><br> The magic sounds like buzzing, as you look for a clue. A weird furniture attacks you, as you try to stand your ground you see its hue is colored blue.");
         new Inventory();
         new Dialogbox("unicorn_player", "I can smell, his smell, his smelly smell that*SMELLS!!!*Hahah Spongebob*But in all seriousness he must have gone through this room");
     }
@@ -1025,7 +1025,7 @@ var Level5click = (function () {
         new Music().changeMusic('music.mp3');
         this.setFurniture();
         this.setBackground();
-        new Hint(55, 17, 14, 11, "The wizard comes closer with power so great. You can hear him read spells from his scroll. As you feel the magic come from a place in which you might find your console.<br><br> The two handles on its front makes it look like a face. 'Wait a minute, did it just frown?' The wizzard made enemies and for some reason his favourite minion is brown.");
+        new Hint(55, 17, 14, 11, "The wizard comes closer with power so great. You can hear him read spells from his scroll. As you feel the magic come from a place in which you might find your console.<br><br> The two handles on its front makes it look like a face. 'Wait a minute, did it just frown?' The wizard made enemies and for some reason his favourite minion is brown.");
         new Inventory();
         new Dialogbox("unicorn_player", "The magic is starting to hurt now*aaaaAAAAaaaaAH*aaAAaaaAAAAAaaaaaaaAAAAAAAAAA*It hurts pretty bad, I cant imagine the pain my friends are in*WE NEED TO STOP HIM!!!");
     }
@@ -1053,9 +1053,9 @@ var Level6click = (function () {
         new Music().changeMusic('music.mp3');
         this.setFurniture();
         this.setBackground();
-        new Hint(39, 26, 9, 11, "As you walk into the room you feel a powerfull surge. Its cold like you are in a blizzard. When you find the item in witch he resides youll find yourself fighting a wizard.");
+        new Hint(39, 26, 9, 11, "As you walk into the room you feel a powerfull surge. It's cold like you are in a blizzard. When you find the item in witch he resides you'll find yourself fighting a wizard.");
         new Inventory();
-        new Dialogbox("unicorn_player", "I can feel hes in the room somewhere");
+        new Dialogbox("unicorn_player", "I can feel he's in the room somewhere");
         new Dialogbox("enemy_wizard", "...*...*I hope they dont find me in here*But if they do I will surely destroy them");
     }
     Level6click.prototype.setBackground = function () {
