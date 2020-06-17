@@ -713,6 +713,7 @@ var Dialogbox = (function () {
 var EndCredits = (function () {
     function EndCredits() {
         this.credits = document.createElement('rollCredits');
+        this.game = document.getElementsByTagName('game')[0];
         this.makeCredits();
         this.rollCredits();
     }
@@ -733,11 +734,41 @@ var EndCredits = (function () {
         this.credits.innerHTML += "All involved";
         this.credits.innerHTML += "<b>Sounds</b>";
         this.credits.innerHTML += "freesound.org";
-        document.getElementsByTagName('game')[0].appendChild(this.credits);
+        this.game.appendChild(this.credits);
+        var grayout = document.createElement('grayout');
+        this.game.appendChild(grayout);
     };
     EndCredits.prototype.rollCredits = function () {
+        var _this = this;
         var creditsHeight = this.credits.offsetHeight;
-        this.credits.style.top = "-" + creditsHeight + "px";
+        var rollSpeed = creditsHeight / 60;
+        this.credits.style.transition = rollSpeed + "s linear";
+        setTimeout(function () {
+            _this.credits.style.top = "-" + creditsHeight + "px";
+        }, 100);
+        setTimeout(function () {
+            var end = document.createElement("theEnd");
+            _this.game.appendChild(end);
+            setTimeout(function () {
+                end.style.top = "35vh";
+            }, 100);
+            setInterval(function () { return _this.fireworks(); }, 1000);
+            setTimeout(function () {
+                location.reload();
+            }, 10000);
+        }, rollSpeed * 1000);
+    };
+    EndCredits.prototype.fireworks = function () {
+        var firework = document.createElement('firework');
+        firework.style.top = (Math.random() * 100) + 'vh';
+        firework.style.left = (Math.random() * 100) + 'vw';
+        var dim = (Math.random() * 40) + 50;
+        firework.style.width = dim + 'vh';
+        firework.style.height = dim + 'vh';
+        this.game.appendChild(firework);
+        setTimeout(function () {
+            firework.remove();
+        }, 6500);
     };
     return EndCredits;
 }());
