@@ -834,7 +834,7 @@ var Startscreen = (function () {
             new Soundeffect().playThis("menuSelect.mp3");
         });
         quitButton.addEventListener('click', function () {
-            window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+            window.location.href = "https://www.youtube.com/watch?v=tboEOaqhRpQ";
         });
     };
     Startscreen.prototype.makeLevelIcon = function (posX, posY, width, height, levelNumber) {
