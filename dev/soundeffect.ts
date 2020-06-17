@@ -26,14 +26,16 @@ class Soundeffect{
             document.body.appendChild(sound);   
 
             (<HTMLAudioElement>sound).src = `assets/${src}`;
-            (<HTMLAudioElement>sound).play();
+            
             
             setTimeout(() => {
+                (<HTMLAudioElement>sound).play();
+                
                 setTimeout(() => {
                     (<HTMLAudioElement>sound).remove();
                 }, (<HTMLAudioElement>sound).duration * 10000);
                 
-              }, 100);
+              }, 200);
     }
      
 

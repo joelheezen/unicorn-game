@@ -86,24 +86,11 @@ class BattlePhase{
             inventory.addEventListener("drop",() => this.drop(event))
             inventory.addEventListener("dragover",() => this.allowDrop(event))
 
-            let mobile = false
-
-            setTimeout(function(){
-                if ((screen.width < 480) || (screen.height < 480)) {
-                  mobile = true
-                  window.alert('you are on a mobile device')
-                }
-              }, 100);
-
         for (let i = 0; i < inventoryItems.length; i++){
             inventoryItems[i].id = "item" + i
-            inventoryItems[i].draggable = true
+            inventoryItems[i].draggable = true          
+            inventoryItems[i].addEventListener("dragstart",() => this.drag(event))
             
-            if(mobile == false){
-                inventoryItems[i].addEventListener("dragstart",() => this.drag(event))
-            }else{
-                inventoryItems[i].addEventListener("touchmove",() => this.drag(event))
-            }
         }
         
         let monsterTypes = ["cabinet","couch","dumbell","lamp","plant","jug"]
@@ -141,7 +128,7 @@ class BattlePhase{
                 this.monsterKingImg = "cabinet"
                 break;
             case 6:
-                this.monsterCount = 11
+                this.monsterCount = 1
                 this.obstaclePlaces = []
                 monsterTypes = ["wizard"]
                 this.monsterKingImg = "wizard"
@@ -453,7 +440,7 @@ class BattlePhase{
                     localStorage.setItem('unlocked',this.nextLevel.toString())
                     
                     if(this.nextLevel == 7){
-                        //end the game
+                        new EndCredits()
                     }else{
                         new WinScreen(this.nextLevel)
                     }

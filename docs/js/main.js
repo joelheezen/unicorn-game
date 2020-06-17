@@ -210,22 +210,10 @@ var BattlePhase = (function () {
         }
         inventory.addEventListener("drop", function () { return _this.drop(event); });
         inventory.addEventListener("dragover", function () { return _this.allowDrop(event); });
-        var mobile = false;
-        setTimeout(function () {
-            if ((screen.width < 480) || (screen.height < 480)) {
-                mobile = true;
-                window.alert('you are on a mobile device');
-            }
-        }, 100);
         for (var i = 0; i < inventoryItems.length; i++) {
             inventoryItems[i].id = "item" + i;
             inventoryItems[i].draggable = true;
-            if (mobile == false) {
-                inventoryItems[i].addEventListener("dragstart", function () { return _this.drag(event); });
-            }
-            else {
-                inventoryItems[i].addEventListener("touchmove", function () { return _this.drag(event); });
-            }
+            inventoryItems[i].addEventListener("dragstart", function () { return _this.drag(event); });
         }
         var monsterTypes = ["cabinet", "couch", "dumbell", "lamp", "plant", "jug"];
         var obstacleTypes = ['rock', 'water', 'tree', 'roadblock', 'lava', 'manhole'];
@@ -261,7 +249,7 @@ var BattlePhase = (function () {
                 this.monsterKingImg = "cabinet";
                 break;
             case 6:
-                this.monsterCount = 11;
+                this.monsterCount = 1;
                 this.obstaclePlaces = [];
                 monsterTypes = ["wizard"];
                 this.monsterKingImg = "wizard";
@@ -515,6 +503,7 @@ var BattlePhase = (function () {
                 guide.remove();
                 localStorage.setItem('unlocked', this.nextLevel.toString());
                 if (this.nextLevel == 7) {
+                    new EndCredits();
                 }
                 else {
                     new WinScreen(this.nextLevel);
@@ -721,6 +710,37 @@ var Dialogbox = (function () {
     };
     return Dialogbox;
 }());
+var EndCredits = (function () {
+    function EndCredits() {
+        this.credits = document.createElement('rollCredits');
+        this.makeCredits();
+        this.rollCredits();
+    }
+    EndCredits.prototype.makeCredits = function () {
+        this.credits.innerHTML += "<b>Assets</b>";
+        this.credits.innerHTML += "Tom Faust";
+        this.credits.innerHTML += "<b>Stock Images</b>";
+        this.credits.innerHTML += "Adobestock";
+        this.credits.innerHTML += "<b>Point and click mechanics</b>";
+        this.credits.innerHTML += "Tom Faust";
+        this.credits.innerHTML += "<b>Battle mechanics</b>";
+        this.credits.innerHTML += "Joel Heezen";
+        this.credits.innerHTML += "<b>Cursor</b>";
+        this.credits.innerHTML += "Luuk 's-Gravendijk";
+        this.credits.innerHTML += "<b>gamerules</b>";
+        this.credits.innerHTML += "Luuk 's-Gravendijk";
+        this.credits.innerHTML += "<b>Concept</b>";
+        this.credits.innerHTML += "All involved";
+        this.credits.innerHTML += "<b>Sounds</b>";
+        this.credits.innerHTML += "freesound.org";
+        document.getElementsByTagName('game')[0].appendChild(this.credits);
+    };
+    EndCredits.prototype.rollCredits = function () {
+        var creditsHeight = this.credits.offsetHeight;
+        this.credits.style.top = "-" + creditsHeight + "px";
+    };
+    return EndCredits;
+}());
 window.addEventListener("load", function () { return new Startscreen(); });
 var Startscreen = (function () {
     function Startscreen() {
@@ -926,7 +946,7 @@ var Level1click = (function () {
         this.setBackground();
         new Hint(70.7, 9, 15, 8.6, "The room is quiet and devoid of life, yet there is something that isn't.It's whispering silently, as not to be heard. It seems like its soul is imprisoned. <br> <br> You hear chanting in the distance as the poor soul weeps. It's something you wouldnt want to have seen. Out of the item comes a slight glow and this glow's colored green.");
         new Inventory();
-        new Dialogbox("unicorn_player", "Where did that wizard go?*And who does he think he is, chasing my friends into here.*Dont forget that he cursed this innocent funiture*I'd better find them all before i run into him.*What does that note say?");
+        new Dialogbox("unicorn_player", "Where did that wizard go?*And who does he think he is, chasing my friends into here.*Dont forget that he cursed this innocent funiture*I'd better find them all before i run into him.*What does that note say?*I should start out by reading it and looking in furniture for some friends.");
     }
     Level1click.prototype.setBackground = function () {
         var background = document.createElement("background");
@@ -1380,12 +1400,12 @@ var Soundeffect = (function () {
         sound.volume = newVolume / 100;
         document.body.appendChild(sound);
         sound.src = "assets/" + src;
-        sound.play();
         setTimeout(function () {
+            sound.play();
             setTimeout(function () {
                 sound.remove();
             }, sound.duration * 10000);
-        }, 100);
+        }, 200);
     };
     return Soundeffect;
 }());
