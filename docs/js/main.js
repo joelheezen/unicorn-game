@@ -1444,20 +1444,9 @@ var Soundeffect = (function () {
 }());
 var unicornPlayer = (function () {
     function unicornPlayer() {
-        this.changeCursorImage();
         this.spawnGlitter();
         this.circleOnClick();
     }
-    unicornPlayer.prototype.changeCursorImage = function () {
-        var newPointer = document.createElement("newPointer");
-        var game = document.getElementsByTagName("body")[0];
-        game.appendChild(newPointer);
-        document.addEventListener('mousemove', function (pos) {
-            newPointer.style.display = "initial";
-            newPointer.style.transform = "translateY(calc(" + pos.clientY + "px - 1vh))";
-            newPointer.style.transform += "translateX( calc(" + pos.clientX + "px - 0.5vw))";
-        }, false);
-    };
     unicornPlayer.prototype.spawnGlitter = function () {
         var body = document.getElementsByTagName('body')[0];
         document.addEventListener('mousemove', function (pos) {

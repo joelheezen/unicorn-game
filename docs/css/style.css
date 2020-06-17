@@ -9,8 +9,12 @@
     }
 
     html{
-        cursor: none;
+        cursor: url('../assets/pointer.png'), auto;	
         overflow:hidden;
+    }
+
+    input{
+        cursor: url('../assets/pointer.png'), auto;	
     }
 
     game{
@@ -382,7 +386,6 @@
         opacity: 0.7;
         -webkit-transition: .2s;
         transition: opacity .2s;
-        cursor: none;
       }
       
       options input:hover {
@@ -395,14 +398,12 @@
         width: 25px;
         height: 25px;
         background:black;
-        cursor: none;
       }
       
       options input::-moz-range-thumb {
         width: 25px;
         height: 25px;
         background: black;
-        cursor: none;
       }
 
       rightUnicorn{

@@ -1,23 +1,8 @@
 class unicornPlayer{
     constructor() {
-        this.changeCursorImage()
         this.spawnGlitter()
         this.circleOnClick()
     }
-        
-    //Change cursor image
-changeCursorImage(){
-    let newPointer = document.createElement("newPointer")
-    let game = document.getElementsByTagName("body")[0]
-    game.appendChild(newPointer)
-    
-    //Make sure the cursor image is stuck on the hidden cursor
-    document.addEventListener('mousemove', function(pos){
-        newPointer.style.display = "initial"
-        newPointer.style.transform = `translateY(calc(${pos.clientY}px - 1vh))`;
-        newPointer.style.transform += `translateX( calc(${pos.clientX}px - 0.5vw))`;           
-    },false);
-}
 
 spawnGlitter(){
     //Spawn glitter on move
