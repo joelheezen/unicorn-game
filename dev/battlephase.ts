@@ -128,7 +128,7 @@ class BattlePhase{
                 this.monsterKingImg = "cabinet"
                 break;
             case 6:
-                this.monsterCount = 1
+                this.monsterCount = 11
                 this.obstaclePlaces = []
                 monsterTypes = ["wizard"]
                 this.monsterKingImg = "wizard"
