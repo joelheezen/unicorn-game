@@ -933,6 +933,9 @@ var Level1click = (function () {
         var game = document.getElementsByTagName("game")[0];
         background.style.backgroundImage = "url(assets/1.png)";
         game.appendChild(background);
+        var arrows = document.createElement("arrows");
+        game.appendChild(arrows);
+        arrows.style.transform = "translate(70.7vw, -1vh)";
         var home = document.createElement('backHome');
         game.appendChild(home);
         home.addEventListener('click', function () { return new Startscreen; });
@@ -1108,6 +1111,8 @@ var Hint = (function () {
         var grayfade = document.createElement('grayout');
         function zoomin() {
             new Soundeffect().playThis("readHint.mp3");
+            var arrows = document.getElementsByTagName("arrows")[0];
+            game.removeChild(arrows);
             game.appendChild(zoomed);
             game.appendChild(grayfade);
             zoomed.innerHTML = message;

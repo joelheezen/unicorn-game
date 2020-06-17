@@ -257,7 +257,9 @@ class Level1click{
         let game = document.getElementsByTagName("game")[0]
         background.style.backgroundImage = "url(assets/1.png)"
         game.appendChild(background)
-
+        let arrows = document.createElement("arrows")
+        game.appendChild(arrows)
+        arrows.style.transform = "translate(70.7vw, -1vh)"
         let home = document.createElement('backHome')
         game.appendChild(home)
         home.addEventListener('click',() => new Startscreen)
