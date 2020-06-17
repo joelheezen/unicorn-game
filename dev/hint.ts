@@ -21,7 +21,8 @@ class Hint{
 
         function zoomin(){
             new Soundeffect().playThis("readHint.mp3")
-            
+            let arrows = document.getElementsByTagName("arrows")[0]
+            game.removeChild(arrows)
             game.appendChild(zoomed)
             game.appendChild(grayfade)
 
