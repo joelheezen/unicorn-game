@@ -1132,7 +1132,9 @@ var Hint = (function () {
         function zoomin() {
             new Soundeffect().playThis("readHint.mp3");
             var arrows = document.getElementsByTagName("arrows")[0];
-            game.removeChild(arrows);
+            if (arrows != null) {
+                game.removeChild(arrows);
+            }
             game.appendChild(zoomed);
             game.appendChild(grayfade);
             zoomed.innerHTML = message;
