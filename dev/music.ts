@@ -21,7 +21,7 @@ class Music{
             let volume = localStorage.getItem('musicVolume')
 
             if(volume == undefined){
-                volume = '10'
+                volume = '0'
             }
 
             let newVolume = parseInt(volume)

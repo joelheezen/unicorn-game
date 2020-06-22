@@ -1261,7 +1261,7 @@ var Music = (function () {
         this.music.play();
         var volume = localStorage.getItem('musicVolume');
         if (volume == undefined) {
-            volume = '10';
+            volume = '0';
         }
         var newVolume = parseInt(volume);
         this.music.volume = newVolume / 100;
