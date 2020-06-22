@@ -17,7 +17,17 @@ class Music{
             this.music.id = "music"
             document.body.appendChild(this.music);
             this.music.play();
-            this.music.volume = 0
+
+            let volume = localStorage.getItem('musicVolume')
+
+            if(volume == undefined){
+                volume = '10'
+            }
+
+            let newVolume = parseInt(volume)
+
+            this.music.volume = newVolume / 100;
+            (<HTMLAudioElement>document.getElementById('music')).play();
     }
 
     changeMusic(src:string){

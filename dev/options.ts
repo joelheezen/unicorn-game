@@ -25,11 +25,10 @@ class Options extends Startscreen{
         musicSlider.max = "100"
         musicSlider.id = 'myRange'
 
-        if(document.getElementById('music') ){
-            let newVolume = (<HTMLAudioElement>document.getElementById('music')).volume * 100
-            musicSlider.value = newVolume.toString()
-        }else{
+        if(localStorage.getItem('musicVolume') == undefined){
             musicSlider.value = '0'
+        }else{
+            musicSlider.value = localStorage.getItem('musicVolume')!
         }
 
         //sets an image to show that music is turned off when the slider goes to 0
@@ -39,22 +38,21 @@ class Options extends Startscreen{
             muteGame.style.backgroundImage = "url(assets/muted.png)"
         }
 
-            //changes the music volume when adjusting the slider
-            musicSlider.addEventListener("input",()=> {
 
-                let volume = parseInt(musicSlider.value)
-                volume = volume / 100;
-                
-                (<HTMLAudioElement>document.getElementById('music')).volume = volume
+        musicSlider.addEventListener("input",()=> {
 
-                if(musicSlider.value !== '0'){
-                    (<HTMLAudioElement>document.getElementById('music')).play()
-                    muteGame.style.backgroundImage = 'url(assets/unmuted.png)'
-                }else{
-                    (<HTMLAudioElement>document.getElementById('music')).pause() 
-                    muteGame.style.backgroundImage = 'url(assets/muted.png)'
-                }
-            })
+            let volume = musicSlider.value
+            
+            localStorage.setItem('musicVolume',volume);
+            
+            (<HTMLAudioElement>document.getElementById('music')).volume = parseInt(localStorage.getItem('musicVolume')!) / 100
+            
+            if(musicSlider.value !== '0'){
+                muteGame.style.backgroundImage = 'url(assets/unmuted.png)'
+            }else{
+                muteGame.style.backgroundImage = 'url(assets/muted.png)'
+            }
+    })
 
 
         //all part of setting the volume for the soundeffects

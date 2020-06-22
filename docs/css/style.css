@@ -378,8 +378,8 @@
     
     options input {
         -webkit-appearance: none;
-        width: 80%;
-        height: 25px;
+        width: 31vw;
+        height: 5vh;
         left:15%;
         position: absolute;
         background: pink;
@@ -396,8 +396,8 @@
       options input::-webkit-slider-thumb {
         -webkit-appearance: none;
         appearance: none;
-        width: 25px;
-        height: 25px;
+        width: 5vh;
+        height: 5vh;
         background:black;
       }
       

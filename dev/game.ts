@@ -16,7 +16,6 @@ class Startscreen{
         this.setButtons()
         this.setAssets()
         new Music().playMusic('music.mp3')
-        new Music().changeMusic('music.mp3')
         new Score().displayScore()
     }
 
@@ -65,6 +64,7 @@ class Startscreen{
 
         startButton.addEventListener('click',()=>{
             this.levelSelect()
+            new Music().playMusic('music.mp3')
             new Soundeffect().playThis('menuSelect.mp3')
         })
 

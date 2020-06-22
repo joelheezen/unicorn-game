@@ -783,7 +783,6 @@ var Startscreen = (function () {
         this.setButtons();
         this.setAssets();
         new Music().playMusic('music.mp3');
-        new Music().changeMusic('music.mp3');
         new Score().displayScore();
     }
     Startscreen.prototype.setBackground = function () {
@@ -823,6 +822,7 @@ var Startscreen = (function () {
         this.game.appendChild(this.menu);
         startButton.addEventListener('click', function () {
             _this.levelSelect();
+            new Music().playMusic('music.mp3');
             new Soundeffect().playThis('menuSelect.mp3');
         });
         optionsButton.addEventListener('click', function () {
@@ -1259,7 +1259,13 @@ var Music = (function () {
         this.music.id = "music";
         document.body.appendChild(this.music);
         this.music.play();
-        this.music.volume = 0;
+        var volume = localStorage.getItem('musicVolume');
+        if (volume == undefined) {
+            volume = '10';
+        }
+        var newVolume = parseInt(volume);
+        this.music.volume = newVolume / 100;
+        document.getElementById('music').play();
     };
     Music.prototype.changeMusic = function (src) {
         document.getElementById('music').src = "assets/" + src;
@@ -1285,12 +1291,11 @@ var Options = (function (_super) {
         musicSlider.min = "0";
         musicSlider.max = "100";
         musicSlider.id = 'myRange';
-        if (document.getElementById('music')) {
-            var newVolume = document.getElementById('music').volume * 100;
-            musicSlider.value = newVolume.toString();
+        if (localStorage.getItem('musicVolume') == undefined) {
+            musicSlider.value = '0';
         }
         else {
-            musicSlider.value = '0';
+            musicSlider.value = localStorage.getItem('musicVolume');
         }
         if (parseInt(musicSlider.value) > 0) {
             muteGame.style.backgroundImage = "url(assets/unmuted.png)";
@@ -1299,15 +1304,13 @@ var Options = (function (_super) {
             muteGame.style.backgroundImage = "url(assets/muted.png)";
         }
         musicSlider.addEventListener("input", function () {
-            var volume = parseInt(musicSlider.value);
-            volume = volume / 100;
-            document.getElementById('music').volume = volume;
+            var volume = musicSlider.value;
+            localStorage.setItem('musicVolume', volume);
+            document.getElementById('music').volume = parseInt(localStorage.getItem('musicVolume')) / 100;
             if (musicSlider.value !== '0') {
-                document.getElementById('music').play();
                 muteGame.style.backgroundImage = 'url(assets/unmuted.png)';
             }
             else {
-                document.getElementById('music').pause();
                 muteGame.style.backgroundImage = 'url(assets/muted.png)';
             }
         });
