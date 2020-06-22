@@ -27,15 +27,13 @@ class Soundeffect{
 
             (<HTMLAudioElement>sound).src = `assets/${src}`;
             
-            
-            setTimeout(() => {
-                (<HTMLAudioElement>sound).play();
-                
+
+            sound.addEventListener('loadeddata',()=>{
+                (<HTMLAudioElement>sound).play(); 
                 setTimeout(() => {
                     (<HTMLAudioElement>sound).remove();
-                }, (<HTMLAudioElement>sound).duration * 10000);
-                
-              }, 200);
+                }, (<HTMLAudioElement>sound).duration * 10000);       
+            })
     }
      
 

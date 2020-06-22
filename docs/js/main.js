@@ -1436,12 +1436,12 @@ var Soundeffect = (function () {
         sound.volume = newVolume / 100;
         document.body.appendChild(sound);
         sound.src = "assets/" + src;
-        setTimeout(function () {
+        sound.addEventListener('loadeddata', function () {
             sound.play();
             setTimeout(function () {
                 sound.remove();
             }, sound.duration * 10000);
-        }, 200);
+        });
     };
     return Soundeffect;
 }());
