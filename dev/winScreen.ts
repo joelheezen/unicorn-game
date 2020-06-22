@@ -14,6 +14,8 @@ class WinScreen {
 
         let explosion = setInterval(this.explosion, 200)
 
+        this.enemyDeath(nextLevel)
+
         setTimeout(() => {
             clearInterval(explosion)
             gameboard.style.animation = ""
@@ -22,12 +24,41 @@ class WinScreen {
         
     }
 
+    enemyDeath(nextLevel: number){
+        let game = document.getElementsByTagName('game')[0]
+        let enemy = document.createElement('deadEnemy')
+
+        let levelEnemy
+
+        console.log(nextLevel)
+
+        switch (nextLevel) {
+            case 2:
+                levelEnemy = "plant"
+                break;
+            case 3:
+                levelEnemy = "couch"
+                break;
+            case 4:
+                levelEnemy = "dumbell"
+                break;
+            case 5:
+                levelEnemy = "jug"
+                break;
+            case 6:
+                levelEnemy = "cabinet"
+                break;
+        }
+
+        enemy.style.backgroundImage = `url(assets/enemy_${levelEnemy}.png)`
+
+        game.appendChild(enemy)
+    }
+
     youWon(nextLevel: number){
 
         new Soundeffect().playThis("foundItem.wav")
-        let game = document.getElementsByTagName('game')[0]
-
-            
+        let game = document.getElementsByTagName('game')[0]     
     
         let uniWin1 = document.createElement('uniWin')
         uniWin1.style.left = '-20vw'

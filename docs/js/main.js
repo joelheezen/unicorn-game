@@ -1493,12 +1493,38 @@ var WinScreen = (function () {
         gameboard.style.animation = "shake 0.5s";
         gameboard.style.animationIterationCount = "infinite";
         var explosion = setInterval(this.explosion, 200);
+        this.enemyDeath(nextLevel);
         setTimeout(function () {
             clearInterval(explosion);
             gameboard.style.animation = "";
             _this.youWon(nextLevel);
         }, 3000);
     }
+    WinScreen.prototype.enemyDeath = function (nextLevel) {
+        var game = document.getElementsByTagName('game')[0];
+        var enemy = document.createElement('deadEnemy');
+        var levelEnemy;
+        console.log(nextLevel);
+        switch (nextLevel) {
+            case 2:
+                levelEnemy = "plant";
+                break;
+            case 3:
+                levelEnemy = "couch";
+                break;
+            case 4:
+                levelEnemy = "dumbell";
+                break;
+            case 5:
+                levelEnemy = "jug";
+                break;
+            case 6:
+                levelEnemy = "cabinet";
+                break;
+        }
+        enemy.style.backgroundImage = "url(assets/enemy_" + levelEnemy + ".png)";
+        game.appendChild(enemy);
+    };
     WinScreen.prototype.youWon = function (nextLevel) {
         new Soundeffect().playThis("foundItem.wav");
         var game = document.getElementsByTagName('game')[0];

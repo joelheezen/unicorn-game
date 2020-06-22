@@ -731,6 +731,24 @@
         animation-iteration-count: 1;
     }
 
+    deadEnemy{
+        width: 30vw;
+        height: 30vh;
+        top:35vh;
+        left:35vw;
+        position:absolute;
+        background-size: auto 100%;
+        background-position: center;
+        background-repeat: no-repeat;
+        animation: spinfade 3s forwards;
+        z-index:100;
+    }
+
+    @keyframes spinfade{
+        0%{}
+        75%{filter:opacity(1)}
+        100%{filter: opacity(0); transform: rotate(2000deg)}
+    }
 
 
     @keyframes pickuppopup {
