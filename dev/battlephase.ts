@@ -432,21 +432,18 @@ class BattlePhase{
                 }
                 else{
                     // player has won the game moves to next level and unlocks it for future play
-                    let board = document.getElementsByTagName("gameboard")[0]
-                    board.remove()
-                    let guide = document.getElementsByTagName('guide')[0]
-                    guide.remove();
+                    let unlocked = parseInt(localStorage.getItem('unlocked')!)
 
-                    localStorage.setItem('unlocked',this.nextLevel.toString())
-                    
+                    if(unlocked < this.nextLevel){
+                        localStorage.setItem('unlocked',this.nextLevel.toString())
+                    }
+                            
                     if(this.nextLevel == 7){
                         new EndCredits()
                     }else{
                         new WinScreen(this.nextLevel)
                     }
-                        
-                    
-                    
+                    break    
                 }
 
             }

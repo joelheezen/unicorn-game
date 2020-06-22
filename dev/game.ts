@@ -259,7 +259,7 @@ class Level1click{
         game.appendChild(background)
         let arrows = document.createElement("arrows")
         game.appendChild(arrows)
-        arrows.style.transform = "translate(70.7vw, -1vh)"
+        arrows.style.transform = "translate(64vw, 11vh)"
         let home = document.createElement('backHome')
         game.appendChild(home)
         home.addEventListener('click',() => new Startscreen)

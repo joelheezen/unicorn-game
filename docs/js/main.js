@@ -497,17 +497,17 @@ var BattlePhase = (function () {
                 }
             }
             else {
-                var board = document.getElementsByTagName("gameboard")[0];
-                board.remove();
-                var guide = document.getElementsByTagName('guide')[0];
-                guide.remove();
-                localStorage.setItem('unlocked', this.nextLevel.toString());
+                var unlocked = parseInt(localStorage.getItem('unlocked'));
+                if (unlocked < this.nextLevel) {
+                    localStorage.setItem('unlocked', this.nextLevel.toString());
+                }
                 if (this.nextLevel == 7) {
                     new EndCredits();
                 }
                 else {
                     new WinScreen(this.nextLevel);
                 }
+                break;
             }
         }
         var bulletsInField = new Array;
@@ -986,7 +986,7 @@ var Level1click = (function () {
         game.appendChild(background);
         var arrows = document.createElement("arrows");
         game.appendChild(arrows);
-        arrows.style.transform = "translate(70.7vw, -1vh)";
+        arrows.style.transform = "translate(64vw, 11vh)";
         var home = document.createElement('backHome');
         game.appendChild(home);
         home.addEventListener('click', function () { return new Startscreen; });
@@ -1485,13 +1485,23 @@ var unicornPlayer = (function () {
 window.addEventListener("load", function () { return new unicornPlayer(); });
 var WinScreen = (function () {
     function WinScreen(nextLevel) {
-        this.youWon(nextLevel);
+        var _this = this;
+        var game = document.getElementsByTagName('game')[0];
+        var grayout = document.createElement('grayout');
+        game.appendChild(grayout);
+        var gameboard = document.getElementsByTagName('gameboard')[0];
+        gameboard.style.animation = "shake 0.5s";
+        gameboard.style.animationIterationCount = "infinite";
+        var explosion = setInterval(this.explosion, 200);
+        setTimeout(function () {
+            clearInterval(explosion);
+            gameboard.style.animation = "";
+            _this.youWon(nextLevel);
+        }, 3000);
     }
     WinScreen.prototype.youWon = function (nextLevel) {
         new Soundeffect().playThis("foundItem.wav");
         var game = document.getElementsByTagName('game')[0];
-        var grayout = document.createElement('grayout');
-        game.appendChild(grayout);
         var uniWin1 = document.createElement('uniWin');
         uniWin1.style.left = '-20vw';
         game.appendChild(uniWin1);
@@ -1514,6 +1524,10 @@ var WinScreen = (function () {
             var fadetonew = document.createElement("fadetonew");
             fadetonew.style.animation = 'fadetonew 4s';
             game.appendChild(fadetonew);
+            var board = document.getElementsByTagName("gameboard")[0];
+            board.remove();
+            var guide = document.getElementsByTagName('guide')[0];
+            guide.remove();
             setTimeout(function () {
                 game.innerHTML = "";
                 switch (nextLevel) {
@@ -1535,6 +1549,20 @@ var WinScreen = (function () {
                 }
             }, 2000);
         });
+    };
+    WinScreen.prototype.explosion = function () {
+        new Soundeffect().playThis('8-bit-explosion.wav');
+        var game = document.getElementsByTagName('game')[0];
+        var explosion = document.createElement('explosion');
+        explosion.style.top = (Math.random() * 100) + 'vh';
+        explosion.style.left = (Math.random() * 100) + 'vw';
+        var dim = (Math.random() * 40) + 50;
+        explosion.style.width = dim + 'vh';
+        explosion.style.height = dim + 'vh';
+        game.appendChild(explosion);
+        setTimeout(function () {
+            explosion.remove();
+        }, 400);
     };
     return WinScreen;
 }());

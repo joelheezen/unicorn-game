@@ -1,7 +1,25 @@
 class WinScreen {
 
     constructor(nextLevel: number){
-        this.youWon(nextLevel)
+
+        let game = document.getElementsByTagName('game')[0]
+
+        let grayout = document.createElement('grayout')
+        game.appendChild(grayout)
+
+        let gameboard = document.getElementsByTagName('gameboard')[0] as HTMLElement
+
+        gameboard.style.animation = "shake 0.5s"
+        gameboard.style.animationIterationCount = "infinite"
+
+        let explosion = setInterval(this.explosion, 200)
+
+        setTimeout(() => {
+            clearInterval(explosion)
+            gameboard.style.animation = ""
+            this.youWon(nextLevel)
+        }, 3000);
+        
     }
 
     youWon(nextLevel: number){
@@ -9,8 +27,7 @@ class WinScreen {
         new Soundeffect().playThis("foundItem.wav")
         let game = document.getElementsByTagName('game')[0]
 
-        let grayout = document.createElement('grayout')
-        game.appendChild(grayout)      
+            
     
         let uniWin1 = document.createElement('uniWin')
         uniWin1.style.left = '-20vw'
@@ -42,6 +59,10 @@ class WinScreen {
             fadetonew.style.animation = 'fadetonew 4s';
             game.appendChild(fadetonew)
          
+            let board = document.getElementsByTagName("gameboard")[0]
+            board.remove()
+            let guide = document.getElementsByTagName('guide')[0]
+            guide.remove();
 
             setTimeout(() => {
                 game.innerHTML = ""
@@ -64,5 +85,26 @@ class WinScreen {
                 }
             }, 2000);
         })
+    }
+
+    explosion(){
+
+        new Soundeffect().playThis('8-bit-explosion.wav')
+
+        let game = document.getElementsByTagName('game')[0]
+
+        let explosion = document.createElement('explosion')
+        explosion.style.top = (Math.random() * 100) + 'vh'
+        explosion.style.left = (Math.random() * 100) + 'vw'
+
+        let dim = (Math.random() * 40) + 50
+        explosion.style.width = dim + 'vh'
+        explosion.style.height = dim + 'vh'
+
+        game.appendChild(explosion)
+        
+        setTimeout(() => {
+            explosion.remove();
+        }, 400);
     }
 }

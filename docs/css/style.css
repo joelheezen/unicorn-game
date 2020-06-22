@@ -488,10 +488,10 @@
     }
 
     arrows{
-        background-image: url(../assets/arrows.gif);
+        background-image: url(../assets/here.gif);
         background-repeat: no-repeat;
         background-size:100%;
-        width: 9vw; height: 13vh;
+        width: 15vh; height: 15vh;
         position: absolute;
     }
 
@@ -657,6 +657,16 @@
         background-size: 80% ;
         z-index:100;
     }
+
+    explosion{
+        position: absolute;
+        background-image: url(../assets/explosion.gif);
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: 80% ;
+        z-index:100;
+    }
+    
 
     
     @keyframes bounce-right {
