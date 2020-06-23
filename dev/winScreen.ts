@@ -19,7 +19,11 @@ class WinScreen {
         setTimeout(() => {
             clearInterval(explosion)
             gameboard.style.animation = ""
-            this.youWon(nextLevel)
+
+            if(nextLevel < 7){
+                console.log(nextLevel)
+                this.youWon(nextLevel)
+            }
         }, 3000);
         
     }
@@ -47,6 +51,9 @@ class WinScreen {
                 break;
             case 6:
                 levelEnemy = "cabinet"
+                break;
+            case 7:
+                levelEnemy = "wizard"
                 break;
         }
 

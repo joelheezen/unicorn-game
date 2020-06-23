@@ -626,8 +626,9 @@
         left:30vw;
         text-align: center;
         font-size: 9vh;
-        z-index:100;
-        text-shadow: 4px 4px 5px white;
+        z-index:200;
+        color:white;
+
     }
 
     rollCredits b{

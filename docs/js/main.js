@@ -502,7 +502,10 @@ var BattlePhase = (function () {
                     localStorage.setItem('unlocked', this.nextLevel.toString());
                 }
                 if (this.nextLevel == 7) {
-                    new EndCredits();
+                    new WinScreen(this.nextLevel);
+                    setTimeout(function () {
+                        new EndCredits();
+                    }, 3000);
                 }
                 else {
                     new WinScreen(this.nextLevel);
@@ -1497,7 +1500,10 @@ var WinScreen = (function () {
         setTimeout(function () {
             clearInterval(explosion);
             gameboard.style.animation = "";
-            _this.youWon(nextLevel);
+            if (nextLevel < 7) {
+                console.log(nextLevel);
+                _this.youWon(nextLevel);
+            }
         }, 3000);
     }
     WinScreen.prototype.enemyDeath = function (nextLevel) {
@@ -1520,6 +1526,9 @@ var WinScreen = (function () {
                 break;
             case 6:
                 levelEnemy = "cabinet";
+                break;
+            case 7:
+                levelEnemy = "wizard";
                 break;
         }
         enemy.style.backgroundImage = "url(assets/enemy_" + levelEnemy + ".png)";

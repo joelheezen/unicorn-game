@@ -439,7 +439,11 @@ class BattlePhase{
                     }
                             
                     if(this.nextLevel == 7){
-                        new EndCredits()
+                        new WinScreen(this.nextLevel)
+                        setTimeout(() => {
+                            new EndCredits()
+                        }, 3000);
+                        
                     }else{
                         new WinScreen(this.nextLevel)
                     }
