@@ -434,7 +434,7 @@ class BattlePhase{
                     // player has won the game moves to next level and unlocks it for future play
                     let unlocked = parseInt(localStorage.getItem('unlocked')!)
 
-                    if(unlocked < this.nextLevel){
+                    if(unlocked < this.nextLevel || localStorage.getItem("unlocked") === null){
                         localStorage.setItem('unlocked',this.nextLevel.toString())
                     }
                             

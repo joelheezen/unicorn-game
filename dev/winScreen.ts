@@ -21,7 +21,6 @@ class WinScreen {
             gameboard.style.animation = ""
 
             if(nextLevel < 7){
-                console.log(nextLevel)
                 this.youWon(nextLevel)
             }
         }, 3000);
@@ -33,8 +32,6 @@ class WinScreen {
         let enemy = document.createElement('deadEnemy')
 
         let levelEnemy
-
-        console.log(nextLevel)
 
         switch (nextLevel) {
             case 2:

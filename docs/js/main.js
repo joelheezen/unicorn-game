@@ -498,7 +498,7 @@ var BattlePhase = (function () {
             }
             else {
                 var unlocked = parseInt(localStorage.getItem('unlocked'));
-                if (unlocked < this.nextLevel) {
+                if (unlocked < this.nextLevel || localStorage.getItem("unlocked") === null) {
                     localStorage.setItem('unlocked', this.nextLevel.toString());
                 }
                 if (this.nextLevel == 7) {
@@ -1501,7 +1501,6 @@ var WinScreen = (function () {
             clearInterval(explosion);
             gameboard.style.animation = "";
             if (nextLevel < 7) {
-                console.log(nextLevel);
                 _this.youWon(nextLevel);
             }
         }, 3000);
@@ -1510,7 +1509,6 @@ var WinScreen = (function () {
         var game = document.getElementsByTagName('game')[0];
         var enemy = document.createElement('deadEnemy');
         var levelEnemy;
-        console.log(nextLevel);
         switch (nextLevel) {
             case 2:
                 levelEnemy = "plant";
